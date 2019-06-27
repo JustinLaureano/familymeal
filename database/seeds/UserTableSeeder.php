@@ -13,6 +13,7 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->delete();
+        DB::statement("ALTER TABLE users AUTO_INCREMENT = 1");
         User::create(array(
             'name'     => 'Justin Laureano',
             'email'    => 'gravatron87@gmail.com',

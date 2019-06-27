@@ -23,5 +23,5 @@ const renderApp = () => {
 	}
 };
 
-store.dispatch(startSetRecipes());
+// store.dispatch(startSetRecipes());
 renderApp();

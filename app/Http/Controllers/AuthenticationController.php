@@ -14,7 +14,10 @@ class AuthenticationController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-            $response = ['token' => $token];
+            $response = [
+                'token' => $token,
+                'user' => $user
+            ];
             return response($response, 200);
         }
         else {

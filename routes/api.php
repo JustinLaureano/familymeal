@@ -18,5 +18,11 @@ Route::post('/login', 'AuthenticationController@login')->name('login');
 
 // Private Routes
 Route::middleware('auth:api')->group(function() {
+    // Main API Routes
+    Route::get('dashboard/{user}', 'DashboardController@show');
+    Route::apiResources([
+        'recipes' => 'RecipeController',
+    ]);
+
     Route::get('/logout', 'AuthenticationController@logout')->name('logout');
 });

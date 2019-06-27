@@ -25,4 +25,4 @@ export default (state = recipeReducerDefaultState, action) => {
         default:
             return state;
     }
-  };
+};
