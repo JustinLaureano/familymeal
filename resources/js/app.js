@@ -1,15 +1,27 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes React and other helpers. It's a great starting point while
- * building robust, powerful web applications using React + Laravel.
- */
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import AppRouter, { history } from './routers/AppRouter';
+import configureStore from './store/configureStore';
+import { startSetRecipes } from './actions/recipes';
 
-require('./bootstrap');
 
-/**
- * Next, we will create a fresh React component instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const store = configureStore();
+const jsx = (
+	<Provider store={store}>
+		<AppRouter />
+	</Provider>
+);
 
-require('./components/Example');
+let hasRendered = false;
+const renderApp = () => {
+	if (!hasRendered) {
+		if (document.getElementById('app')) {
+			ReactDOM.render(jsx, document.getElementById('app'));
+			hasRendered = true;
+		}
+	}
+};
+
+store.dispatch(startSetRecipes());
+renderApp();
