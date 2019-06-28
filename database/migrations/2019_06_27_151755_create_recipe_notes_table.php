@@ -16,6 +16,7 @@ class CreateRecipeNotesTable extends Migration
         Schema::create('recipe_notes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('recipe_id');
+            $table->integer('order');
             $table->text('note');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));

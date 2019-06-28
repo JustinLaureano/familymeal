@@ -27,6 +27,5 @@ class RecipeDirectionsTableSeeder extends Seeder
                 ]);
             }
         }
-
     }
 }
