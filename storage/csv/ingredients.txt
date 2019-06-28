@@ -53,7 +53,7 @@ pâté, 2, 6
 Peanut Butter, 2, 6
 vegemite, 2, 6
 marmite, 2, 6
-Mirale Whip, 2, 6
+Miracle Whip, 2, 6
 Nutella, 2, 6
 Pesto, 2, 6
 Tahini, 2, 6
@@ -76,7 +76,7 @@ Raspberry Vinaigrette, 2, 7
 
 
 # sauces/gravies 8
-Hoisin, 2, 8
+Hoisin Sauce, 2, 8
 Soy Sauce, 2, 8
 Worcestershire Sauce, 2, 8
 Tartar Sauce, 2, 8
@@ -189,6 +189,7 @@ Ice Milk, 3, 10
 Infant Formula, 3, 10
 Powdered Milk, 3, 10
 Whipped Cream, 3, 10
+Tofu, 3, 10
 
 # yogurt 11
 Yogurt, 3, 11
@@ -199,8 +200,6 @@ Nondairy Yogurt, 3, 11
 
 
 // Fats/Oils 4
-
-
 # butter and margarine 12
 Ghee, 4, 12
 Butter - Salted, 4, 12
@@ -226,6 +225,7 @@ Fish Cracker,s 4, 14
 Graham Crackers, 4, 14
 Ritz Crackers, 4, 14
 Saltine Crackers, 4, 14
+Biscotti, 4, 14
 
 # snacks 15
 Popcorn, 4, 15
@@ -353,38 +353,250 @@ Carrot Juice, 5, 20
 Carrot & Apple Juice, 5, 20
 Cucumber Juice, 5, 20
 Beet Juice, 5, 20
-Beet Juice, 5, 20
 
 // Grains 6
-
 # Bars 21
+Multigrain Bar, 6, 21
+Wholegrain Bar, 6, 21
+Protein Bar, 6, 21
+Cereal Bar, 6, 21
+Granola Bar, 6, 21
 
 #breads 22
+Bagel, 6, 22
+Baguette, 6, 22
+French Bread, 6, 22
+Banana Bread, 6, 22
+Beer Bread, 6, 22
+Biscuit, 6, 22
+Bolani, 6, 22
+Flatbread, 6, 22
+Bread Roll, 6, 22
+Dinner Roll, 6, 22
+Breadstick, 6, 22
+Brioche, 6, 22
+Brioche Bun, 6, 22
+Cornbread, 6, 22
+Rye Bread, 6, 22
+Wheat Bread, 6, 22
+Wholegrain Bread, 6, 22
+Wholewheat Bread, 6, 22
+White Bread, 6, 22
+Texas Toast, 6, 22
+Italian Bread, 6, 22
+Challa, 6, 22
+Naan, 6, 22
+Wafers, 6, 22
+Ciabatta, 6, 22
+Cottage Loaf, 6, 22
+Croutons, 6, 22
+Stuffing, 6, 22
+Crumpet, 6, 22
+Cuban Bread, 6, 22
+English Muffin, 6, 22
+Focaccia, 6, 22
+Hallulla, 6, 22
+Sourdough Bread, 6, 22
+Hawaiian Bread, 6, 22
+Hawaiian Rolls, 6, 22
+Hawaiian Buns, 6, 22
+Tortilla, 6, 22
+Pita Bread, 6, 22
+Potato Bread, 6, 22
+Pumpernickel, 6, 22
+Scone, 6, 22
+Tandoor Bread, 6, 22
 
 
 # breakfast breads 23
+Belgian Waffle, 6, 23
+Crépe, 6, 23
+Pancake, 6, 23
+Muffin, 6, 23
+Cinnamon Roll, 6, 23
+Pastry, 6, 23
+Coffee Cake, 6, 23
+French Toast, 6, 23
 
 
 # cereal 24
-
+Oats, 6, 24
+Steel Cut Oats, 6, 24
+Whole Grain Creal, 6, 24
+Barley, 6, 24
 
 # pasta 25
-
+Bucatini, 6, 25
+Capellini, 6, 25
+Fettuccine, 6, 25
+Linguine, 6, 25
+Lasagna, 6, 25
+Pappardelle, 6, 25
+Rustiche, 6, 25
+Spaghetti, 6, 25
+Tagliatelle, 6, 25
+Vermicelli, 6, 25
+Ziti, 6, 25
+Cappelli, 6, 25
+Boccoli, 6, 25
+Cavatappi, 6, 25
+Cavatelli, 6, 25
+Fagioloni, 6, 25
+Farfalle, 6, 25
+Gnocchi, 6, 25
+Macaroni, 6, 25
+Penne, 6, 25
+Elbows - Large, 6, 25
+Elbows - Medium, 6, 25
+Elbows - Small, 6, 25
+Rigatoni, 6, 25
+Rotelle, 6, 25
+Tortiglioni, 6, 25
+Alphabet Pasta, 6, 25
+Anellini, 6, 25
+Orzo, 6, 25
+Tripolini, 6, 25
+Agnolotti, 6, 25
+Cannelloni, 6, 25
+Cappelletti, 6, 25
+Ravioli, 6, 25
+Tortellini, 6, 25
+Tortelloni, 6, 25
 
 # rice 26
-
+Long Grain Rice, 6, 26
+Medium Grain Rice, 6, 26
+Short Grain Rice, 6, 26
+Arborio, 6, 26
+Basmati, 6, 26
+Black Rice, 6, 26
+Brown Rice, 6, 26
+White Rice, 6, 26
+Parboiled Rice, 6, 26
+Fried Rice, 6, 26
+Day Old Rice, 6, 26
+Sushi Rice, 6, 26
+Valencia Rice, 6, 26
+Wild Rice, 6, 26
+Carolina Gold Rice, 6, 26
+Risotto, 6, 26
+Kalijira Rice, 6, 26
 
 //Protein 7
 
 # deli / cured meats 27
-
+Sliced Turkey Breast, 7, 27
+Sliced Hickory Smoked Turkey Breast, 7, 27
+Sliced Maple Glaze Turkey Breast, 7, 27
+Sliced Oven Roasted Turkey Breast, 7, 27
+Sliced Pastrami, 7, 27
+Uncured Smoked Ham, 7, 27
+Smoked Ham, 7, 27
+Sliced Ham, 7, 27
+Cured Ham, 7, 27
+Maple Glazed Ham, 7, 27
+Black Forest Ham, 7, 27
+Honey Ham, 7, 27
+Corned Beef, 7, 27
+Roast Beef, 7, 27
+Sliced Chicken Breast, 7, 27
+Sliced Hickory Smoked Chicken Breast, 7, 27
+Sliced Maple Glaze Chicken Breast, 7, 27
+Sliced Oven Roasted Chicken Breast, 7, 27
+Rotisserie Chicken, 7, 27
+Bacon, 7, 27
+Canadian Bacon, 7, 27
+Smoked Bacon, 7, 27
+Peppered Bacon, 7, 27
+Sliced Bacon, 7, 27
+Hotdogs, 7, 27
+Hotdogs - Beef, 7, 27
+Hotdogs - Pork, 7, 27
+Hotdogs - Turkey, 7, 27
+Hotdogs - Chicken, 7, 27
+Hotdogs - Tofu, 7, 27
+Hotdogs - Footlong, 7, 27
+Sausage, 7, 27
+Chicken Sausage, 7, 27
+Turkey Sausage, 7, 27
+Andouille Sausage, 7, 27
+Chorizo, 7, 27
+Chorizo - Ground, 7, 27
+Vienna Sausage, 7, 27
+Bratwurst, 7, 27
+Currywurst, 7, 27
+Salami, 7, 27
+Genoa Salami, 7, 27
+Italian Salami, 7, 27
+Sausage Links, 7, 27
+Sausage Patties, 7, 27
+Sausage - Kosher, 7, 27
+Sausage - Low Fat, 7, 27
+Summer Sausage, 7, 27
+Ground Sasuage, 7, 27
+Bologna, 7, 27
+Pepperoni, 7, 27
+Breakfast Sausage, 7, 27
+Beef Franks, 7, 27
+Chicken Loaf, 7, 27
+Ham Loaf, 7, 27
+Kielbasa, 7, 27
+Kielbasa - Smoked, 7, 27
+Kielbasa - Turkey, 7, 27
+Capicola, 7, 27
+Capicola - Hot, 7, 27
+Gyro, 7, 27
+Gyro - Chicken, 7, 27
+Lunch Meat, 7, 27
+Spam, 7, 27
+Proscuiutto, 7, 27
+Sopresatta, 7, 27
+Mortadella, 7, 27
 
 # eggs 28
-custard, 7, 28
+Custard, 7, 28
+Eggs - Hard Boiled, 7, 28
+Eggs - Soft Boiled, 7, 28
+Eggs - Poached, 7, 28
+Eggs - Scrambled, 7, 28
+Eggs - Hard Scrambled, 7, 28
+Eggs - Soft Scrambled, 7, 28
+Eggs - Sunny Side Up, 7, 28
+Eggs - Over Easy, 7, 28
+Eggs - Over Medium, 7, 28
+Eggs - Over Hard, 7, 28
+Eggs - Fried, 7, 28
+Eggs - Baked, 7, 28
+Eggs - Basted, 7, 28
+Omelets, 7, 28
+Frittata, 7, 28
+Brown Eggs, 7, 28
+Caviar, 7, 28
+Quail Eggs, 7, 28
+Duck Eggs, 7, 28
+Turkey Eggs, 7, 28
+Goose Eggs, 7, 28
 
 
 # game 29
-
+Bison, 7, 29
+Bison - Ground, 7, 29
+Elk, 7, 29
+Moose, 7, 29
+Alligator, 7, 29
+Dove, 7, 29
+Rabbit, 7, 29
+Pheasant, 7, 29
+Venison, 7, 29
+Mallard, 7, 29
+Wild Boar, 7, 29
+Wild Turkey, 7, 29
+Lamb, 7, 29
+Lamb - Ground, 7, 29
+Lamb Shank, 7, 29
+Rack of Lamb, 7, 29
+Veal, 7, 29
+Veal Shanks, 7, 29
 
 # nuts 30
 
