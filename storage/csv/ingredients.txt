@@ -446,9 +446,9 @@ Farfalle, 6, 25
 Gnocchi, 6, 25
 Macaroni, 6, 25
 Penne, 6, 25
-Elbows - Large, 6, 25
-Elbows - Medium, 6, 25
-Elbows - Small, 6, 25
+Elbow Noodles - Large, 6, 25
+Elbow Noodles - Medium, 6, 25
+Elbow Noodles - Small, 6, 25
 Rigatoni, 6, 25
 Rotelle, 6, 25
 Tortiglioni, 6, 25
@@ -616,7 +616,6 @@ Veal Shanks, 7, 29
 # seafood 35
 
 //Spices 8
-
 # earthy 36
 
 
@@ -636,8 +635,6 @@ Veal Shanks, 7, 29
 
 
 // Vegetables 9
-
-
 # allium (onion family) 42
 
 
