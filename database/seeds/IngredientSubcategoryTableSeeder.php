@@ -59,12 +59,12 @@ class IngredientSubcategoryTableSeeder extends Seeder
             ['name' => 'Red Meat', 'ingredient_category_id' => 7],
             ['name' => 'Seafood', 'ingredient_category_id' => 7],
             // Spices
-            ['name' => 'Spicy', 'ingredient_category_id' => 8],
             ['name' => 'Earthy', 'ingredient_category_id' => 8],
-            ['name' => 'Sharp/Strong', 'ingredient_category_id' => 8],
-            ['name' => 'Sweet', 'ingredient_category_id' => 8],
-            ['name' => 'Salty', 'ingredient_category_id' => 8],
             ['name' => 'Dried Herbs', 'ingredient_category_id' => 8],
+            ['name' => 'Salty', 'ingredient_category_id' => 8],
+            ['name' => 'Sharp/Strong', 'ingredient_category_id' => 8],
+            ['name' => 'Spicy', 'ingredient_category_id' => 8],
+            ['name' => 'Sweet', 'ingredient_category_id' => 8],
             // Vegetables
             ['name' => 'Allium', 'ingredient_category_id' => 9],
             ['name' => 'Beans/Legumes', 'ingredient_category_id' => 9],

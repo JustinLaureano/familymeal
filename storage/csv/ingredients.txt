@@ -1,0 +1,459 @@
+// name, ingredient_category_id, ingredient_subcategory_id
+
+// Beverages 1
+# alcoholic 1
+Beer, 1, 1
+Wine, 1, 1
+White Wine, 1, 1
+Red Wine, 1, 1
+Wine Cooler, 1, 1
+IPA, 1, 1
+Liquor, 1, 1
+Whiskey, 1, 1
+Vodka, 1, 1
+Rum, 1, 1
+
+# coffee and tea 2
+Coffee, 1, 2
+Tea, 1, 2
+
+# sugary drinks 3
+Pop, 1, 3
+Soda, 1, 3
+
+# water 4
+Water, 1, 4
+Boiling Water, 1, 4
+Ice, 1, 4
+Ice Cubes, 1, 4
+Sparkling Water, 1, 4
+
+// Condiments 2
+# dips 5
+Mustard, 2, 5
+Relish, 2, 5
+Sriracha, 2, 5
+Wasabi, 2, 5
+Honey, 2, 5
+Ketchup, 2, 5
+Hot Sauce, 2, 5
+French Onion Dip, 2, 5
+Crab Dip, 2, 5
+Spinach Dip, 2, 5
+
+
+# spreads 6
+Mayonnaise, 2, 6
+Aioli, 2, 6
+Gochujang, 2, 6
+Hummus, 2, 6
+Jam, 2, 5
+Jelly, 2, 6
+pâté, 2, 6
+Peanut Butter, 2, 6
+vegemite, 2, 6
+marmite, 2, 6
+Mirale Whip, 2, 6
+Nutella, 2, 6
+Pesto, 2, 6
+Tahini, 2, 6
+Tapenade, 2, 6
+
+
+# dressings 7
+Honey Mustard, 2, 7
+Ranch Dressing, 2, 7
+Remoulade, 2, 7
+Balsamic Vinegar, 2, 7
+French Dressing, 2, 7
+Italian Dressing, 2, 7
+Thousand Island, 2, 7
+Caesar Dressing, 2, 7
+Russian Dressing, 2, 7
+Blue Cheese Dressing, 2, 7
+Vinaigrette, 2, 7
+Raspberry Vinaigrette, 2, 7
+
+
+# sauces/gravies 8
+Hoisin, 2, 8
+Soy Sauce, 2, 8
+Worcestershire Sauce, 2, 8
+Tartar Sauce, 2, 8
+Fish Sauce, 2, 8
+Tabasco, 2, 8
+Brown Sauce, 2, 8
+Red-Eye Gravy, 2, 8
+Cream Gravy, 2, 8
+Salsa, 2, 8
+Romesco, 2, 8
+Chimichurri, 2, 8
+Béchamel, 2, 8
+Satay, 2, 8
+Sweet and Sour Sauce, 2, 8
+Barbecue Sauce, 2, 5
+Oyster Sauce, 2, 8
+Marinara Sauce, 2, 8
+Steak Sauce, 2, 8
+Mirin, 2, 8
+Tomato Sauce, 2, 8
+Vodka Sauce, 2, 8
+Cocktail Sauce, 2, 8
+Mignonette, 2, 8
+Normande Sauce, 2, 8
+Pan Sauce, 2, 8
+Peppercorn Sauce, 2, 8
+Sweet Chili Sauce, 2, 8
+Bordelaise, 2, 8
+Demi Glace, 2, 8
+Sauce au Poivre, 2, 8
+Beurre Blanc, 2, 8
+Beurre Manie, 2, 8
+Bearnaise Sauce, 2, 8
+Hollandaise Sauce, 2, 8
+Enchilada Sauce, 2, 8
+Bolognese Sauce, 2, 8
+Carbonara, 2, 8
+Salsa Verde, 2, 8
+Caramel Sauce, 2, 8
+Crème Anglaise, 2, 8
+Cranberry Sauce, 2, 8
+Chocolate Sauce, 2, 8
+Zabaione, 2, 8
+Mornay Sauce, 2, 8
+Teriyaki, 2, 8
+
+
+// Dairy 3
+
+# cheese 9
+Mozzarella, 3, 9
+Feta, 3, 9
+Cheddar, 3, 9
+Provolone, 3, 9
+Brie, 3, 9
+Parmesan, 3, 9
+Parmigiano-Reggiano, 3, 9
+Monterey Jack, 3, 9
+Swiss, 3, 9
+Camembert, 3, 9
+Gruyére, 3, 9
+Gouda, 3, 9
+Gorgonzola, 3, 9
+Muenster, 3, 9
+Cottage Cheese, 3, 9
+Edam, 3, 9
+Blue Cheese, 3, 9
+Ricotta, 3, 9
+Manchego, 3, 9
+Marscapone, 3, 9
+Havarti, 3, 9
+American Cheese, 3, 9
+Pepper Jack, 3, 9
+Colby-Jack, 3, 9
+Emmental Cheese, 3, 9
+Halloumi, 3, 9
+Roquefort, 3, 9
+Cream Cheese, 3, 9
+Pecorino Romano, 3, 9
+Irish Cheddar, 3, 9
+Goat Cheese, 3, 9
+String Cheese, 3, 9
+Cheese Curd, 3, 9
+Morbier, 3, 9
+Pimento Cheese, 3, 9
+Paneer, 3, 9
+
+
+# milk 10
+Buttermilk, 3, 10
+Milk, 3, 10
+Whole Milk, 3, 10
+Skim Milk, 3, 10
+2% Milk, 3, 10
+Almond Milk, 3, 10
+Cream, 3, 10
+Heavy Cream, 3, 10
+Half & Half, 3, 10
+Condensed Milk, 3, 10
+Sour Cream, 3, 10
+Créme Fraîche, 3, 10
+Cuajada, 3, 10
+Dulce de Leche, 3, 10
+Evaporated Milk, 3, 10
+Eggnog, 3, 10
+Ice Cream, 3, 10
+Gelato, 3, 10
+Goat Milk, 3, 10
+Ice Milk, 3, 10
+Infant Formula, 3, 10
+Powdered Milk, 3, 10
+Whipped Cream, 3, 10
+
+# yogurt 11
+Yogurt, 3, 11
+Frozen Yogurt, 3, 11
+Greek Yogurt, 3, 11
+Soy Yogurt, 3, 11
+Nondairy Yogurt, 3, 11
+
+
+// Fats/Oils 4
+
+
+# butter and margarine 12
+Ghee, 4, 12
+Butter - Salted, 4, 12
+Butter - Unsalted, 4, 12
+Whipped Butter, 4, 12
+Honey Butter, 4, 12
+Clarified Butter, 4, 12
+Butter, Room Temperature, 4, 12
+
+
+# chips 13
+Potato Chips, 4, 13
+Tortilla Chips, 4, 13
+Kale Chips, 4, 13
+Corn Chips, 4, 13
+
+# crackers 14
+Plain Crackers, 4, 14
+Wafer Crackers, 4, 14
+Sesame Crackers, 4, 14
+Soda Crackers, 4, 14
+Fish Cracker,s 4, 14
+Graham Crackers, 4, 14
+Ritz Crackers, 4, 14
+Saltine Crackers, 4, 14
+
+# snacks 15
+Popcorn, 4, 15
+Pretzels Sticks, 4, 15
+Pretzels - Soft, 4, 15
+Pretzels - Hard, 4, 15
+Cookies, 4, 15
+Cake, 4, 15
+Brownie, 4, 15
+Trail Mix, 4, 15
+Pork Rinds, 4, 15
+Candy Bar, 4, 15
+Cheese Puffs, 4, 15
+Doughnuts, 4, 15
+Jell-O, 4, 15
+Pound Cake, 4, 15
+Angel Food Cake, 4, 15
+
+
+// Fruit 5
+# berries 16
+Açaí Berries, 5, 16
+Barberries, 5, 16
+Blueberries, 5, 16
+Blackberries, 5, 16
+Cranberries, 5, 16
+Goji Berries, 5, 16
+Goose Berries, 5, 16
+Grapes - Green, 5, 16
+Grapes - Purple, 5, 16
+Grapes, 5, 16
+Huckleberries, 5, 16
+Juniper Berries, 5, 16
+Mulberries, 5, 16
+Pomengranates, 5, 16
+Raspberries, 5, 16
+Strawberries, 5, 16
+
+
+
+# dried Fruit 17
+Dried Prunes, 5, 17
+Dried Apricots, 5, 17
+Fig, 5, 17
+Dried Cranberries, 5, 17
+Dried Bananas, 5, 17
+Banana Chips, 5, 17
+Dried Apples, 5, 17
+Dried Peaches, 5, 17
+Dried Cherries, 5, 17
+Dried Pears, 5, 17
+Dried Mango, 5, 17
+Dried Blueberries, 5, 17
+Raisins, 5, 17
+Dried Kiwi, 5, 17
+
+# exotic 18
+Durian, 5, 18
+Mangosteen, 5, 18
+Persimmon, 5, 18
+Jackfruit, 5, 18
+Dragonfruit, 5, 18
+Starfruit, 5, 18
+Passionfruit, 5, 18
+Pomelo, 5, 18
+Guava, 5, 18
+Kumquat, 5, 18
+Tamarind, 5, 18
+
+# fresh Fruit 19
+Watermelons, 5, 19
+Oranges, 5, 19
+Peaches, 5, 19
+Bananas, 5, 19
+Mangos, 5, 19
+Pineapples, 5, 19
+Apples, 5, 19
+Granny Smith Apples, 5, 19
+Golden Delicious Apples, 5, 19
+Fiji Apples, 5, 19
+Pink Crisp Apples, 5, 19
+Gala Apples, 5, 19
+Red Delicous Apples, 5, 19
+Pears, 5, 19
+Plums, 5, 19
+Melons, 5, 19
+Lemons, 5, 19
+Mandarin Oranges, 5, 19
+Tangerines, 5, 19
+Apricots, 5, 19
+Nectarines, 5, 19
+Avocados, 5, 19
+Cantaloupes, 5, 19
+Coconuts, 5, 19
+Honeydews, 5, 19
+Limes, 5, 19
+Grapefruits, 5, 19
+Blood Oranges, 5, 19
+Kiwis, 5, 19
+Papayas, 5, 19
+Dates, 5, 19
+White Peaches, 5, 19
+Asian Pears, 5, 19
+Meyer Lemons, 5, 19
+
+
+# fruit juice 20
+Lemonade, 5, 20
+Orange Juice, 5, 20
+Pineapple-Orange Juice, 5, 20
+Apple Juice, 5, 20
+Grape Juice, 5, 20
+Cranberry Juice, 5, 20
+Strawberry Juice, 5, 20
+Strawberry Kiwi Juice, 5, 20
+Pomegranate Juice, 5, 20
+Watermelon Juice, 5, 20
+Lemon Juice, 5, 20
+Grapefruit Juice, 5, 20
+Lime Juice, 5, 20
+Coconut Water, 5, 20
+Tomato Juice, 5, 20
+Aloe Vera Juice, 5, 20
+Carrot Juice, 5, 20
+Carrot & Apple Juice, 5, 20
+Cucumber Juice, 5, 20
+Beet Juice, 5, 20
+Beet Juice, 5, 20
+
+// Grains 6
+
+# Bars 21
+
+#breads 22
+
+
+# breakfast breads 23
+
+
+# cereal 24
+
+
+# pasta 25
+
+
+# rice 26
+
+
+//Protein 7
+
+# deli / cured meats 27
+
+
+# eggs 28
+custard, 7, 28
+
+
+# game 29
+
+
+# nuts 30
+
+
+# organs 31
+
+
+# poultry 32
+
+
+# pork 33
+
+
+# red meat 34
+
+
+# seafood 35
+
+//Spices 8
+
+# earthy 36
+
+
+# dried herbs 37
+
+
+# salty 38
+
+
+# sharp / strong 39
+
+
+# spicy 40
+
+
+# sweet 41
+
+
+// Vegetables 9
+
+
+# allium (onion family) 42
+
+
+# beans/legumes 43
+
+
+# canned Vegetables 44
+
+
+# colorful 45
+
+
+# dehydrated 46
+
+
+# flowers 47
+
+
+# green 48
+
+
+# marrow 49
+
+
+# root 50
+
+
+# starchy 51
+
+
+# vegetable juice 52
