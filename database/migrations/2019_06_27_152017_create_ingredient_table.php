@@ -16,8 +16,8 @@ class CreateIngredientTable extends Migration
         Schema::create('ingredient', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 120);
-            $table->unsignedBigInteger('ingredient_category_id');
-            $table->unsignedBigInteger('ingredient_subcategory_id');
+            $table->unsignedBigInteger('ingredient_category_id')->nullable();
+            $table->unsignedBigInteger('ingredient_subcategory_id')->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
