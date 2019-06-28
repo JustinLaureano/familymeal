@@ -599,13 +599,79 @@ Veal, 7, 29
 Veal Shanks, 7, 29
 
 # nuts 30
-
+Almonds, 7, 30
+Almond Flour, 7, 30
+Almonds - Sliced, 7, 30
+Almonds - Slivered, 7, 30
+Walnuts, 7, 30
+Hazelnuts, 7, 30
+Pecans, 7, 30
+Pecans - Candied, 7, 30
+Peanuts, 7, 30
+Peanuts - Roasted, 7, 30
+Peanut Brittle, 7, 30
+Organic Peanut Butter, 7, 30
+Pine Nuts, 7, 30
+Brazil Nuts, 7, 30
+Cashews, 7, 30
+Pistachios, 7, 30
+Chestnuts, 7, 30
+Sunflower Seeds, 7, 30
+Cocoa Beans, 7, 30
+Macadamia Nuts, 7, 30
+Pumpkin Seeds, 7, 30
+Mixed Nuts, 7, 30
+Salted Nuts, 7, 30
+Peanut Flour, 7, 30
+Nut Flour, 7, 30
+Unsalted Nuts, 7, 30
+Black Walnuts, 7, 30
 
 # organs 31
-
+Liver, 7, 31
+Heart, 7, 31
+Kidneys, 7, 31
+Sweetbreads, 7, 31
+Tongue, 7, 31
+Tripe, 7, 31
+Offal, 7, 31
 
 # poultry 32
-
+Chicken, 7, 32
+Chicken Breast, 7, 32
+Chicken Breast - Boneless/Skinless, 7, 32
+Chicken Breast Fillets, 7, 32
+Chicken Breast Tenders, 7, 32
+Chicken Legs, 7, 32
+Chicken Drumbsticks, 7, 32
+Chicken Thighs - Bone-In, 7, 32
+Chicken Thighs - Boneless, 7, 32
+Chicken Thighs - Boneless/Skinless, 7, 32
+Chicken Wings, 7, 32
+Chicken Wingettes, 7, 32
+Chicken Wing Drumettes, 7, 32
+Chicken Wing Tip, 7, 32
+Chicken Necks, 7, 32
+Cornish Hens, 7, 32
+Chicken, 7, 32
+Duck, 7, 32
+Duck - Whole, 7, 32
+Duck Breast, 7, 32
+Duck Breast - Boneless/Skinless, 7, 32
+Goose, 7, 32
+Goose - Whole, 7, 32
+Goose Breast, 7, 32
+Goose Breast - Boneless/Skinless, 7, 32
+Turkey, 7, 32
+Turkey - Whole, 7, 32
+Turkey Breast, 7, 32
+Turkey Breast - Boneless/Skinless, 7, 32
+Turkey Legs, 7, 32
+Turkey Drumbsticks, 7, 32
+Turkey Thighs - Bone-In, 7, 32
+Turkey Thighs - Boneless, 7, 32
+Turkey Thighs - Boneless/Skinless, 7, 32
+Foie Gras, 7, 32
 
 # pork 33
 
