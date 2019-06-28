@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             RecipeTableSeeder::class,
             RecipeDirectionsTableSeeder::class,
             RecipeNotesTableSeeder::class,
+            RecipeRatingsTableSeeder::class,
             RecipeSummaryTableSeeder::class,
         ]);
     }

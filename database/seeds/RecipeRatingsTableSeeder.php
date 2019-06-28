@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Recipe;
-use App\Models\RecipeSummary;
+use App\Models\RecipeRatings;
 use Illuminate\Database\Seeder;
 
-class RecipeSummaryTableSeeder extends Seeder
+class RecipeRatingsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,10 @@ class RecipeSummaryTableSeeder extends Seeder
     {
         $recipe_count = Recipe::count();
 
-        DB::table('recipe_summary')->delete();
-        DB::statement('ALTER TABLE recipe_summary AUTO_INCREMENT = 1');
+        DB::table('recipe_ratings')->delete();
+        DB::statement('ALTER TABLE recipe_ratings AUTO_INCREMENT = 1');
 
         for ($i = 1; $i <= $recipe_count; $i++)
-            factory(RecipeSummary::class)->create(['recipe_id' => $i]);
+            factory(RecipeRatings::class)->create(['recipe_id' => $i]);
     }
 }
