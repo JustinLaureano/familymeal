@@ -31,6 +31,11 @@ Sparkling Water, 1, 4
 // Condiments 2
 # dips 5
 Mustard, 2, 5
+Yellow Mustard, 2, 5
+Creole Mustard, 2, 5
+French Mustard, 2, 5
+Spicy Brown Mustard, 2, 5
+Dijon Mustard, 2, 5
 Relish, 2, 5
 Sriracha, 2, 5
 Wasabi, 2, 5
@@ -406,6 +411,26 @@ Potato Bread, 6, 22
 Pumpernickel, 6, 22
 Scone, 6, 22
 Tandoor Bread, 6, 22
+All Purpose Flour, 6, 22
+Whole Wheat Flour, 6, 22
+Self-Rising Flour, 6, 22
+Cake Flour, 6, 22
+Pastry Flour, 6, 22
+Gluten Flour, 6, 22
+Semolina Flour, 6, 22
+ Almond Meal, 6, 22
+ Barley Flour, 6, 22
+ Buckwheat Flour, 6, 22
+ Corn Flour, 6, 22
+ Flaxseed, 6, 22
+ Flaxseed Flour, 6, 22
+ Flaxseed Meal, 6, 22
+ Oat Flour, 6, 22
+ Peanut Flour, 6, 22
+ Potato Flour, 6, 22
+ Rice Flour, 6, 22
+ Rye Flour, 6, 22
+ Soy Flour, 6, 22
 
 
 # breakfast breads 23
@@ -572,6 +597,10 @@ Omelets, 7, 28
 Frittata, 7, 28
 Brown Eggs, 7, 28
 Caviar, 7, 28
+Roe, 7, 28
+Roe - Sturgeon, 7, 28
+Roe - Salmon, 7, 28
+Roe - Herring, 7, 28
 Quail Eggs, 7, 28
 Duck Eggs, 7, 28
 Turkey Eggs, 7, 28
@@ -626,6 +655,7 @@ Peanut Flour, 7, 30
 Nut Flour, 7, 30
 Unsalted Nuts, 7, 30
 Black Walnuts, 7, 30
+Peanut Flour, 7, 30
 
 # organs 31
 Liver, 7, 31
@@ -653,7 +683,11 @@ Chicken Wing Drumettes, 7, 32
 Chicken Wing Tip, 7, 32
 Chicken Necks, 7, 32
 Cornish Hens, 7, 32
-Chicken, 7, 32
+Chicken Stock, 7, 32
+Chicken Stock - Salted, 7, 32
+Chicken Stock - Unsalted, 7, 32
+Chicken Broth - Salted, 7, 32
+Chicken Broth - Unsalted, 7, 32
 Duck, 7, 32
 Duck - Whole, 7, 32
 Duck Breast, 7, 32
@@ -706,6 +740,9 @@ Ground Pork - 80/20, 7, 33
 Ground Pork - 90/10, 7, 33
 
 # red meat 34
+Beef Chuck Roll, 7, 34
+Beef Chuck Eye, 7, 34
+Delmonico Steak, 7, 34
 Beef Chuck Roast, 7, 34
 Beef Cross Rib Chuck Roast, 7, 34
 Beef Chuck Steak, 7, 34
@@ -768,37 +805,181 @@ Beef Kabobs, 7, 34
 Beef Stew Meat, 7, 34
 Beef Strips, 7, 34
 Beef Cubed Steak, 7, 34
+Ground Chuck, 7, 34
+Ground Round, 7, 34
+Ground Sirloin, 7, 34
 Ground Beef, 7, 34
 Ground Beef - 80/20, 7, 34
 Ground Beef - 90/10, 7, 34
 Ground Beef Patties, 7, 34
 Beef Shank Cross-Cut, 7, 34
+Beef Hanger Steak, 7, 34
 Beef Brisket Flat, 7, 34
 Beef Brisket Point, 7, 34
 Beef Skirt Steak, 7, 34
+Beef Outside Skirt Steak, 7, 34
+Beef Inside Skirt Steak, 7, 34
 Beef Flank Steak, 7, 34
+Beef Bottom Sirloin Butt, 7, 34
+Beef Stock, 7, 34
+Beef Stock - Unsalted, 7, 34
+Beef Stock - Salted, 7, 34
+Beef Broth - Unsalted, 7, 34
+Beef Broth - Salted, 7, 34
 
 # seafood 35
+Anchovies, 7, 35
+Bass, 7, 35
+Striped Bass, 7, 35
+Cod, 7, 35
+Branzino, 7, 35
+Black Cod, 7, 35
+Catfish, 7, 35
+Pacific Cod, 7, 35
+Atlantic Cod, 7, 35
+Flounder, 7, 35
+Grouper, 7, 35
+Haddock, 7, 35
+Halibut, 7, 35
+Herring, 7, 35
+Mackerel, 7, 35
+Mahi Mahi, 7, 35
+Monkfish, 7, 35
+Mullet, 7, 35
+Chilean Sea Bass, 7, 35
+Perch, 7, 35
+Pike, 7, 35
+Pollock, 7, 35
+Salmon, 7, 35
+Salmon - Skin On, 7, 35
+Sardines - Skin On, 7, 35
+Sea Bass - Skin On, 7, 35
+Shark - Skin On, 7, 35
+Skate - Skin On, 7, 35
+Smelt - Skin On, 7, 35
+Snapper - Skin On, 7, 35
+Rockfish - Skin On, 7, 35
+Sole - Skin On, 7, 35
+Sturgeon - Skin On, 7, 35
+Swordfish - Skin On, 7, 35
+Tilapia - Skin On, 7, 35
+Tilefish - Skin On, 7, 35
+Trout - Skin On, 7, 35
+Rainbow Trout - Skin On, 7, 35
+Tuna - Skin On, 7, 35
+Albacore Tuna - Skin On, 7, 35
+Yellowfin Tuna - Skin On, 7, 35
+Vigeye Tuna - Skin On, 7, 35
+Bluefin Tuna - Skin On, 7, 35
+Turbot - Skin On, 7, 35
+Whitefish - Skin On, 7, 35
+Whiting - Skin On, 7, 35
+Whiting - Skin On, 7, 35
+Walleye, 7, 35
+Crab, 7, 35
+Crab - Whole, 7, 35
+Crab - Minced, 7, 35
+Dungeness Crab, 7, 35
+King Crab, 7, 35
+King Crab Legs, 7, 35
+Snow Crab, 7, 35
+Snow Crab Legs, 7, 35
+Crayfish, 7, 35
+Langostino, 7, 35
+Lobster, 7, 35
+Lobster - Whole, 7, 35
+Red Lobster, 7, 35
+American Lobster, 7, 35
+Prawns, 7, 35
+Shrimp, 7, 35
+Shrimp - 31/35, 7, 35
+Shrimp - 36/40, 7, 35
+Shrimp - 41/50, 7, 35
+Shrimp - 51/60, 7, 35
+Shrimp - Precooked, 7, 35
+Squid, 7, 35
+Oysters, 7, 35
+Mussels, 7, 35
+Scallops, 7, 35
+Bay Scallops, 7, 35
+Sea Scallops, 7, 35
+Escargot, 7, 35
+Escargot, 7, 35
+Clams, 7, 35
 
 //Spices 8
-
 # earthy 36
+Clove, 8, 36
+Cumin, 8, 36
+Tumeric, 8, 36
+Ginger, 8, 36
+Nutmeg, 8, 36
+Chervil, 8, 36
+Chia Seeds, 8, 36
+Flax Seeds, 8, 36
+Sesame Seeds, 8, 36
 
-
-# dried herbs 37
-
+# herbs 37
+Rosemary, 8, 37
+Thyme, 8, 37
+Lemon Thyme, 8, 37
+Basil, 8, 37
+Thai Basil, 8, 37
+Parsley, 8, 37
+Currey Leaves, 8, 37
+Chives, 8, 37
+Mint, 8, 37
+Dill, 8, 37
+Marjoram, 8, 37
+Cilantro, 8, 37
+Bay Leaves, 8, 37
+Tarragon, 8, 37
+Oregano, 8, 37
+Lemongrass, 8, 37
+Sage, 8, 37
 
 # salty 38
-
+Sea Salt, 8, 38
+Salt, 8, 38
+Table Salt, 8, 38
+Kosher Salt, 8, 38
+Pink Salt, 8, 38
+Himalayan Salt, 8, 38
+Celtic Sea Salt, 8, 38
+Black Hawaiian Salt, 8, 38
+Red Hawaiian Salt, 8, 38
+Smoked Salt, 8, 38
+Pickling Salt, 8, 38
 
 # sharp / strong 39
-
+Sumac, 8, 39
+Carom Seeds, 8, 39
+Celery Seeds, 8, 39
+Saffron, 8, 39
 
 # spicy 40
-
+Chili Powder, 8, 40
+Chinese Five Spice, 8, 40
+Pepper, 8, 40
+Black Pepper, 8, 40
+Black Peppercorns, 8, 40
+Peppercorns, 8, 40
+Red Pepper, 8, 40
+Chili Pepper, 8, 40
+Mustard Powder, 8, 40
+Ancho Powder, 8, 40
+Cinnamon, 8, 40
+Allspice, 8, 40
 
 # sweet 41
-
+Lavendar, 8, 41
+Safflower, 8, 41
+Garam Masala, 8, 41
+Curry Powder, 8, 41
+Paprika, 8, 41
+Smoked Paprika, 8, 41
+Star Anise, 8, 41
+Nutmeg, 8, 41
 
 // Vegetables 9
 
@@ -834,3 +1015,8 @@ Beef Flank Steak, 7, 34
 
 
 # vegetable juice 52
+Vegetable Stock, 9, 52
+Vegetable Stock - Salted, 9, 52
+Vegetable Stock - Unsalted, 9, 52
+Vegetable Broth - Salted, 9, 52
+Vegetable Broth - Unsalted, 9, 52

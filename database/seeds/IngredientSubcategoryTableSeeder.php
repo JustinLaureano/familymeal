@@ -60,7 +60,7 @@ class IngredientSubcategoryTableSeeder extends Seeder
             ['name' => 'Seafood', 'ingredient_category_id' => 7],
             // Spices
             ['name' => 'Earthy', 'ingredient_category_id' => 8],
-            ['name' => 'Dried Herbs', 'ingredient_category_id' => 8],
+            ['name' => 'Herbs', 'ingredient_category_id' => 8],
             ['name' => 'Salty', 'ingredient_category_id' => 8],
             ['name' => 'Sharp/Strong', 'ingredient_category_id' => 8],
             ['name' => 'Spicy', 'ingredient_category_id' => 8],
