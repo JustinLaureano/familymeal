@@ -909,7 +909,7 @@ Clams, 7, 35
 
 //Spices 8
 # earthy 36
-Clove, 8, 36
+Cloves, 8, 36
 Cumin, 8, 36
 Tumeric, 8, 36
 Ginger, 8, 36
@@ -918,6 +918,7 @@ Chervil, 8, 36
 Chia Seeds, 8, 36
 Flax Seeds, 8, 36
 Sesame Seeds, 8, 36
+Cardamom, 8, 36
 
 # herbs 37
 Rosemary, 8, 37
@@ -926,6 +927,8 @@ Lemon Thyme, 8, 37
 Basil, 8, 37
 Thai Basil, 8, 37
 Parsley, 8, 37
+Parsley - Italian, 8, 37
+Parsley - Flat Leaf, 8, 37
 Currey Leaves, 8, 37
 Chives, 8, 37
 Mint, 8, 37
@@ -935,8 +938,13 @@ Cilantro, 8, 37
 Bay Leaves, 8, 37
 Tarragon, 8, 37
 Oregano, 8, 37
+Oregano - Mexican, 8, 37
 Lemongrass, 8, 37
 Sage, 8, 37
+Coriander, 8, 37
+Dill Weed, 8, 37
+fennel seeds, 8, 37
+Epazote, 8, 37
 
 # salty 38
 Sea Salt, 8, 38
@@ -950,6 +958,7 @@ Black Hawaiian Salt, 8, 38
 Red Hawaiian Salt, 8, 38
 Smoked Salt, 8, 38
 Pickling Salt, 8, 38
+Garlic Salt, 8, 38
 
 # sharp / strong 39
 Sumac, 8, 39
@@ -961,6 +970,7 @@ Saffron, 8, 39
 Chili Powder, 8, 40
 Chinese Five Spice, 8, 40
 Pepper, 8, 40
+White Pepper, 8, 40
 Black Pepper, 8, 40
 Black Peppercorns, 8, 40
 Peppercorns, 8, 40
@@ -970,6 +980,11 @@ Mustard Powder, 8, 40
 Ancho Powder, 8, 40
 Cinnamon, 8, 40
 Allspice, 8, 40
+Chipotle Powder, 8, 40
+Cayenne Powder, 8, 40
+Blackened Seasoning, 8, 40
+Cajun Seasoning, 8, 40
+Adobo Seasoning, 8, 40
 
 # sweet 41
 Lavendar, 8, 41
@@ -980,6 +995,13 @@ Paprika, 8, 41
 Smoked Paprika, 8, 41
 Star Anise, 8, 41
 Nutmeg, 8, 41
+Garlic Powder, 8, 41
+Caraway Seeds, 8, 41
+Juniper Berries, 8, 41
+Vanilla, 8, 41
+Vanilla Extract, 8, 41
+Vanilla Beans, 8, 41
+Lebanese 7 Spice, 8, 41
 
 // Vegetables 9
 
