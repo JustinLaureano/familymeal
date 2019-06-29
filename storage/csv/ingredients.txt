@@ -674,10 +674,109 @@ Turkey Thighs - Boneless/Skinless, 7, 32
 Foie Gras, 7, 32
 
 # pork 33
-
+Picnic Ham, 7, 33
+Country Style Spareribs, 7, 33
+Front Hock, 7, 33
+Pork Loin, 7, 33
+Pork Chops, 7, 33
+Pork Chops - Bone-In, 7, 33
+Pork Chops - Boneless, 7, 33
+Porterhouse Pork Chops, 7, 33
+Ribeye Pork Chops, 7, 33
+Blade Pork Chops, 7, 33
+Baby Back Ribs, 7, 33
+Spareribs, 7, 33
+Pork Belly, 7, 33
+Pork Sirloin, 7, 33
+Pork Ribeye, 7, 33
+Pork Shoulder, 7, 33
+Pork Shoulder - Bone-In, 7, 33
+Pork Shoulder - Boneless, 7, 33
+Pork Tenderloin, 7, 33
+Pork Rib Roast, 7, 33
+Pork Rear Leg, 7, 33
+Rear Hock, 7, 33
+Pork Trotters, 7, 33
+Pig Ears, 7, 33
+Pig Jowls, 7, 33
+Pig Snout, 7, 33
+Pig Tail, 7, 33
+Ground Pork, 7, 33
+Ground Pork - 80/20, 7, 33
+Ground Pork - 90/10, 7, 33
 
 # red meat 34
-
+Beef Chuck Roast, 7, 34
+Beef Cross Rib Chuck Roast, 7, 34
+Beef Chuck Steak, 7, 34
+Beef Shoulder Roast, 7, 34
+Beef Blade Chuck Roast, 7, 34
+Beef Shoulder Steak, 7, 34
+Beef Blade Chuck Steak, 7, 34
+Beef Chuck Roast, 7, 34
+Beef Flat Iron Steak, 7, 34
+Beef Chuck Center Roast, 7, 34
+Beef Top Blade Steak, 7, 34
+Beef Shoulder Petite Tender, 7, 34
+Beef Chuck Eye Roast, 7, 34
+Beef Shoulder Medallions, 7, 34
+Beef Chuck Eye Steak, 7, 34
+Beef Short Ribs, 7, 34
+Beef Short Ribs - Bone-In, 7, 34
+Beef Short Ribs - Boneless, 7, 34
+Beef Country Style Ribs, 7, 34
+Beef Ribeye Roast, 7, 34
+Beef Ribeye Roast -  Bone-In, 7, 34
+Beef Ribeye Roast - Boneless, 7, 34
+Beef Prime Rib, 7, 34
+Beef Ribeye Steak, 7, 34
+Beef Ribeye Steak - Bone-In, 7, 34
+Beef Ribeye Steak - Boneless, 7, 34
+Beef Back Ribs, 7, 34
+Beef Ribeye Cap Steak, 7, 34
+Beef Ribeye Petite Roast, 7, 34
+Beef Ribeye Filets, 7, 34
+Beef PorterHouse Steak, 7, 34
+Beef T-Bone Steak, 7, 34
+Beef Strip Steak, 7, 34
+Beef Strip Steak - Bone-In, 7, 34
+Beef Strip Steak - Boneless, 7, 34
+NY Strip, 7, 34
+Beef Strip Petite Roast, 7, 34
+Beef Strip Filet, 7, 34
+Beef Tenderloin Roast, 7, 34
+Beef Tenderloin Steaks, 7, 34
+Beef Tenderloin Medallions, 7, 34
+Filet Mignon, 7, 34
+Filet Mignon, 7, 34
+Beef Top Sirloin Steak, 7, 34
+Beef Top Sirloin Petite Roast, 7, 34
+Beef Top Sirloin Filet, 7, 34
+Beef Coulette Roast, 7, 34
+Beef Coulette Steak, 7, 34
+Beef Tri-Tip Roast, 7, 34
+Beef Tri-Tip Steak, 7, 34
+Beef Petite Sirloin Steak, 7, 34
+Beef Top Round Roast, 7, 34
+Beef Top Round Steak, 7, 34
+Beef Bottom Round Roast, 7, 34
+Beef Bottom Round Steak, 7, 34
+Beef Bottom Round Rump Roast, 7, 34
+Beef Eye of Round Roast, 7, 34
+Beef Eye of Round Steak, 7, 34
+Beef Kabobs, 7, 34
+Beef Stew Meat, 7, 34
+Beef Strips, 7, 34
+Beef Cubed Steak, 7, 34
+Ground Beef, 7, 34
+Ground Beef - 80/20, 7, 34
+Ground Beef - 90/10, 7, 34
+Ground Beef Patties, 7, 34
+Beef Shank Cross-Cut, 7, 34
+Beef Brisket Flat, 7, 34
+Beef Brisket Point, 7, 34
+Beef Skirt Steak, 7, 34
+Beef Flank Steak, 7, 34
 
 # seafood 35
 
