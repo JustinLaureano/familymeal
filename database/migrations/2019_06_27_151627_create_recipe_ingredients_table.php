@@ -16,6 +16,7 @@ class CreateRecipeIngredientsTable extends Migration
         Schema::create('recipe_ingredients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('recipe_id');
+            $table->integer('order')->default(1);
             $table->unsignedBigInteger('ingredient_id')->nullable();
             $table->unsignedBigInteger('ingredient_recipe_id')->nullable();
             $table->decimal('ingredient_units', 8, 4);

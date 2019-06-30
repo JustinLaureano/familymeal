@@ -4,6 +4,8 @@ php artisan preset react
 
 npm install
 
+npm run watch
+
 php artisan key:generate
 
 composer require laravel/passport

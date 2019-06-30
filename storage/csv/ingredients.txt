@@ -54,10 +54,10 @@ Gochujang, 2, 6
 Hummus, 2, 6
 Jam, 2, 5
 Jelly, 2, 6
-pâté, 2, 6
+Pâté, 2, 6
 Peanut Butter, 2, 6
-vegemite, 2, 6
-marmite, 2, 6
+Vegemite, 2, 6
+Marmite, 2, 6
 Miracle Whip, 2, 6
 Nutella, 2, 6
 Pesto, 2, 6
@@ -212,7 +212,7 @@ Butter - Unsalted, 4, 12
 Whipped Butter, 4, 12
 Honey Butter, 4, 12
 Clarified Butter, 4, 12
-Butter, Room Temperature, 4, 12
+Butter - Room Temperature, 4, 12
 
 
 # chips 13
@@ -226,7 +226,7 @@ Plain Crackers, 4, 14
 Wafer Crackers, 4, 14
 Sesame Crackers, 4, 14
 Soda Crackers, 4, 14
-Fish Cracker,s 4, 14
+Fish Crackers, 4, 14
 Graham Crackers, 4, 14
 Ritz Crackers, 4, 14
 Saltine Crackers, 4, 14
@@ -384,6 +384,10 @@ Cereal Bar, 6, 21
 Granola Bar, 6, 21
 
 #breads 22
+Bread, 6, 22
+Bread - Sliced, 6, 22
+Bread - Wheat, 6, 22
+Bread - Wholewheat, 6, 22
 Bagel, 6, 22
 Baguette, 6, 22
 French Bread, 6, 22
@@ -434,19 +438,29 @@ Cake Flour, 6, 22
 Pastry Flour, 6, 22
 Gluten Flour, 6, 22
 Semolina Flour, 6, 22
- Almond Meal, 6, 22
- Barley Flour, 6, 22
- Buckwheat Flour, 6, 22
- Corn Flour, 6, 22
- Flaxseed, 6, 22
- Flaxseed Flour, 6, 22
- Flaxseed Meal, 6, 22
- Oat Flour, 6, 22
- Peanut Flour, 6, 22
- Potato Flour, 6, 22
- Rice Flour, 6, 22
- Rye Flour, 6, 22
- Soy Flour, 6, 22
+Almond Meal, 6, 22
+Barley Flour, 6, 22
+Buckwheat Flour, 6, 22
+Corn Flour, 6, 22
+Flaxseed, 6, 22
+Flaxseed Flour, 6, 22
+Flaxseed Meal, 6, 22
+Oat Flour, 6, 22
+Peanut Flour, 6, 22
+Potato Flour, 6, 22
+Rice Flour, 6, 22
+Rye Flour, 6, 22
+Soy Flour, 6, 22
+Hamburger Buns, 6, 22
+Hotdog Buns, 6, 22
+Hoagie Buns, 6, 22
+Brioche Buns, 6, 22
+Pretzel Buns, 6, 22
+Ciabatta Buns, 6, 22
+Sesame Seed Buns, 6, 22
+Kaiser Rolls, 6, 22
+Onion Rolls, 6, 22
+Potato Rolls, 6, 22
 
 
 # breakfast breads 23
@@ -644,6 +658,7 @@ Veal, 7, 29
 Veal Shanks, 7, 29
 
 # nuts 30
+
 Almonds, 7, 30
 Almond Flour, 7, 30
 Almonds - Sliced, 7, 30
@@ -959,7 +974,7 @@ Lemongrass, 8, 37
 Sage, 8, 37
 Coriander, 8, 37
 Dill Weed, 8, 37
-fennel seeds, 8, 37
+Fennel Seeds, 8, 37
 Epazote, 8, 37
 
 # salty 38
@@ -1211,4 +1226,3 @@ Carrot Juice, 9, 51
 Kale Juice, 9, 51
 Beet Juice, 9, 51
 Tomato Juice, 9, 51
-Pomegranate Juice, 9, 51
