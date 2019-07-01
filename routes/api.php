@@ -22,6 +22,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('dashboard/{user}', 'DashboardController@show');
     Route::apiResources([
         'recipes' => 'RecipeController',
+        'user' => 'UserController',
     ]);
 
     Route::get('/logout', 'AuthenticationController@logout')->name('logout');

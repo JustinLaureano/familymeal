@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import { startSetRecipes } from './actions/recipes';
+import { startSetUser } from './actions/user';
+import { setToken } from './actions/auth';
 
 
 const store = configureStore();
@@ -23,5 +24,11 @@ const renderApp = () => {
 	}
 };
 
-// store.dispatch(startSetRecipes());
+if (document.querySelector('input[name="token"]').value != '') {
+	const userID = document.querySelector('input[name="user_id"]').value;
+	const token = document.querySelector('input[name="token"]').value;
+	store.dispatch(startSetUser(userID, token));
+	store.dispatch(setToken(token));
+}
+
 renderApp();

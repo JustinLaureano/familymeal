@@ -9,6 +9,8 @@
         <link href="{{mix('css/app.css')}}" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <input type="hidden" name="token" value="{{ $token }}">
+        <input type="hidden" name="user_id" value="{{ $user_id }}">
         <div id="app"></div>
         <script src="{{mix('js/app.js')}}" ></script>
     </body>

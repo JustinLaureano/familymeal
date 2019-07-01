@@ -13,5 +13,6 @@
 
 Route::get('/', 'AppController@index');
 Route::get('/test', 'TestController@index');
+Route::redirect('/dashboard', '/');
 
 Auth::routes();

@@ -32185,12 +32185,13 @@ module.exports = function(originalModule) {
 /*!**************************************!*\
   !*** ./resources/js/actions/auth.js ***!
   \**************************************/
-/*! exports provided: startLogin, login, startLogout, logout */
+/*! exports provided: startLogin, setToken, login, startLogout, logout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLogin", function() { return startLogin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLogout", function() { return startLogout; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
@@ -32211,15 +32212,20 @@ var startLogin = function startLogin(email, password) {
       return resp.json();
     }).then(function (data) {
       if (data.token) {
-        dispatch(login(data.token));
         dispatch({
           type: 'SET_USER',
           user: data.user
         });
+        dispatch(login(data.token));
       }
     })["catch"](function (err) {
       return console.log(err);
     });
+  };
+};
+var setToken = function setToken(token) {
+  return function (dispatch) {
+    dispatch(login(token));
   };
 };
 var login = function login(token) {
@@ -32241,39 +32247,6 @@ var logout = function logout() {
 
 /***/ }),
 
-/***/ "./resources/js/actions/recipes.js":
-/*!*****************************************!*\
-  !*** ./resources/js/actions/recipes.js ***!
-  \*****************************************/
-/*! exports provided: startSetRecipes, setRecipes */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startSetRecipes", function() { return startSetRecipes; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRecipes", function() { return setRecipes; });
-var startSetRecipes = function startSetRecipes() {
-  return function (dispatch) {
-    fetch('/api/recipes', {
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(function (response) {
-      return response.json();
-    }).then(function (recipes) {
-      dispatch(setRecipes(recipes));
-    });
-  };
-};
-var setRecipes = function setRecipes(recipes) {
-  return {
-    type: 'SET_RECIPES',
-    recipes: recipes
-  };
-};
-
-/***/ }),
-
 /***/ "./resources/js/actions/user.js":
 /*!**************************************!*\
   !*** ./resources/js/actions/user.js ***!
@@ -32286,11 +32259,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startSetUser", function() { return startSetUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUserDashboard", function() { return setUserDashboard; });
-var startSetUser = function startSetUser(uid) {
+var startSetUser = function startSetUser(uid, token) {
   return function (dispatch) {
     fetch('/api/user/' + uid, {
       headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token)
       }
     }).then(function (resp) {
       return resp.json();
@@ -32344,7 +32319,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routers/AppRouter */ "./resources/js/routers/AppRouter.js");
 /* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/user */ "./resources/js/actions/user.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions/auth */ "./resources/js/actions/auth.js");
+
 
 
 
@@ -32364,8 +32341,14 @@ var renderApp = function renderApp() {
       hasRendered = true;
     }
   }
-}; // store.dispatch(startSetRecipes());
+};
 
+if (document.querySelector('input[name="token"]').value != '') {
+  var userID = document.querySelector('input[name="user_id"]').value;
+  var token = document.querySelector('input[name="token"]').value;
+  store.dispatch(Object(_actions_user__WEBPACK_IMPORTED_MODULE_5__["startSetUser"])(userID, token));
+  store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_6__["setToken"])(token));
+}
 
 renderApp();
 
@@ -32604,6 +32587,7 @@ var authReducerDefaultState = [];
 
   switch (action.type) {
     case 'LOGIN':
+    case 'SET_TOKEN':
       return _objectSpread({}, state, {
         token: action.token
       });
@@ -33133,8 +33117,8 @@ var NotFoundPage = function NotFoundPage() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\www\html\playground\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\www\html\playground\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

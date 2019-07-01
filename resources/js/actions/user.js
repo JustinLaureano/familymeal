@@ -1,8 +1,10 @@
-export const startSetUser = (uid) => {
+export const startSetUser = (uid, token) => {
     return (dispatch) => {
         fetch('/api/user/' + uid, {
             headers: {
-                'Accept': 'application/json'
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
             }
         })
         .then(resp => resp.json())

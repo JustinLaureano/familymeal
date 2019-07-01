@@ -13,13 +13,19 @@ export const startLogin = (email, password) => {
 			.then(resp => resp.json())
 			.then((data) => {
 				if (data.token) {
-					dispatch(login(data.token));
 					dispatch({type: 'SET_USER', user: data.user});
+					dispatch(login(data.token));
 				}
 			})
 			.catch(err => console.log(err))
 	}
 };
+
+export const setToken = (token) => {
+	return (dispatch) => {
+		dispatch(login(token));
+	}
+}
 
 export const login = (token) => ({
 	type: 'LOGIN',
