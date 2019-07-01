@@ -60,7 +60,7 @@ class IngredientSubcategoryTableSeeder extends Seeder
             ['name' => 'Seafood', 'ingredient_category_id' => 7],
             // Spices
             ['name' => 'Earthy', 'ingredient_category_id' => 8],
-            ['name' => 'Dried Herbs', 'ingredient_category_id' => 8],
+            ['name' => 'Herbs', 'ingredient_category_id' => 8],
             ['name' => 'Salty', 'ingredient_category_id' => 8],
             ['name' => 'Sharp/Strong', 'ingredient_category_id' => 8],
             ['name' => 'Spicy', 'ingredient_category_id' => 8],
@@ -70,12 +70,11 @@ class IngredientSubcategoryTableSeeder extends Seeder
             ['name' => 'Beans/Legumes', 'ingredient_category_id' => 9],
             ['name' => 'Canned', 'ingredient_category_id' => 9],
             ['name' => 'Colorful', 'ingredient_category_id' => 9],
-            ['name' => 'Dehydrated', 'ingredient_category_id' => 9],
+            ['name' => 'Mushrooms', 'ingredient_category_id' => 9],
             ['name' => 'Flowers', 'ingredient_category_id' => 9],
             ['name' => 'Green', 'ingredient_category_id' => 9],
             ['name' => 'Marrow', 'ingredient_category_id' => 9],
             ['name' => 'Root', 'ingredient_category_id' => 9],
-            ['name' => 'Starchy', 'ingredient_category_id' => 9],
             ['name' => 'Vegetable Juice', 'ingredient_category_id' => 9],
         ];
 

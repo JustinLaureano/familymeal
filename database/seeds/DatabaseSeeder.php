@@ -17,10 +17,13 @@ class DatabaseSeeder extends Seeder
             MeasurementUnitsTableSeeder::class,
             IngredientCategoryTableSeeder::class,
             IngredientSubcategoryTableSeeder::class,
+            IngredientTableSeeder::class,
             RecipeCategoryTableSeeder::class,
             RecipeTableSeeder::class,
+            RecipeIngredientsTableSeeder::class,
             RecipeDirectionsTableSeeder::class,
             RecipeNotesTableSeeder::class,
+            RecipeRatingsTableSeeder::class,
             RecipeSummaryTableSeeder::class,
         ]);
     }

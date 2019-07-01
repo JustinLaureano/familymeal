@@ -12,5 +12,6 @@
 */
 
 Route::get('/', 'AppController@index');
+Route::get('/test', 'TestController@index');
 
 Auth::routes();
