@@ -14,5 +14,6 @@
 Route::get('/', 'AppController@index');
 Route::get('/test', 'TestController@index');
 Route::redirect('/dashboard', '/');
+Route::redirect('/logout', '/api/logout');
 
 Auth::routes();

@@ -34,8 +34,25 @@ export const login = (token) => ({
 
 
 export const startLogout = () => {
-    return () => {
-        return '';
+    return (dispatch, getState) => {
+		const token = getState().auth.token;
+		
+		const request = {
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+		};
+
+		fetch('/api/logout', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch(logout());
+			})
+			.catch(err => console.log(err))
+
     };
 };
 

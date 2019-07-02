@@ -32235,8 +32235,23 @@ var login = function login(token) {
   };
 };
 var startLogout = function startLogout() {
-  return function () {
-    return '';
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token)
+      }
+    };
+    fetch('/api/logout', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+      dispatch(logout());
+    })["catch"](function (err) {
+      return console.log(err);
+    });
   };
 };
 var logout = function logout() {
@@ -32884,7 +32899,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _actions_user__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/user */ "./resources/js/actions/user.js");
+/* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/auth */ "./resources/js/actions/auth.js");
+/* harmony import */ var _actions_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/user */ "./resources/js/actions/user.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32907,6 +32923,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var DashboardPage =
 /*#__PURE__*/
 function (_React$Component) {
@@ -32922,11 +32939,15 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.setUserDashboard();
+      console.log(this.state);
     }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Dashboard"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Dashboard"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/",
+        onClick: this.props.startLogout
+      }, "Log Out"));
     }
   }]);
 
@@ -32944,7 +32965,10 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     setUserDashboard: function setUserDashboard() {
-      return dispatch(Object(_actions_user__WEBPACK_IMPORTED_MODULE_3__["setUserDashboard"])());
+      return dispatch(Object(_actions_user__WEBPACK_IMPORTED_MODULE_4__["setUserDashboard"])());
+    },
+    startLogout: function startLogout() {
+      return dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_3__["startLogout"])());
     }
   };
 };
@@ -33117,8 +33141,8 @@ var NotFoundPage = function NotFoundPage() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\html\playground\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\www\html\playground\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
