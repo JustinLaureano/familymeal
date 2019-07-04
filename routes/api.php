@@ -13,17 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-// Public Route
-Route::post('/login', 'AuthenticationController@login')->name('login');
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
 
-// Private Routes
+
 Route::middleware('auth:api')->group(function() {
-    // Main API Routes
-    Route::get('dashboard/{user}', 'DashboardController@show');
     Route::apiResources([
-        'recipes' => 'RecipeController',
+        // 'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
-
-    Route::get('/logout', 'AuthenticationController@logout')->name('logout');
+    Route::get('/data', 'HomeController@data');
+    Route::post('/logout', 'HomeController@logout');
 });

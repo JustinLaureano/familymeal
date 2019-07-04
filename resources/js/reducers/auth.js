@@ -8,6 +8,8 @@ export default (state = authReducerDefaultState, action) => {
 				...state,
 				token: action.token
 			};
+		case 'SET_DATA':
+			return action.data;
 		case 'LOGOUT':
 			return {};
 		default:

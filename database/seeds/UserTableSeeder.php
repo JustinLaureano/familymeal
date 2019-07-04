@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UserTableSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class UserTableSeeder extends Seeder
             'name'     => 'Justin Laureano',
             'email'    => 'gravatron87@gmail.com',
             'password' => Hash::make('pass'),
+            'api_token' => Str::random(60)
         ));
     }
 }

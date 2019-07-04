@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', 'AppController@index');
-Route::get('/test', 'TestController@index');
-Route::redirect('/dashboard', '/');
-Route::redirect('/logout', '/api/logout');
+Route::get('/', 'PublicController@index');
 
 Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

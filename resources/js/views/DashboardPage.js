@@ -1,20 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { startLogout } from '../actions/auth';
-import { setUserDashboard } from '../actions/user';
+import { getData } from '../actions/auth';
+import { Header } from '../components/Header';
 
 export class DashboardPage extends React.Component {
 	componentDidMount() {
-		this.props.setUserDashboard();
-		console.log(this.state);
+		// this.props.getData();
 	};
 
 	render() {
 		return (
 		<div>
+			<Header />
 			<h1>Dashboard</h1>
-			<Link to="/" onClick={this.props.startLogout}>Log Out</Link>
 		</div>
 		)
 	}
@@ -29,8 +28,7 @@ const mapStateToProps = (state) => {
 };
   
 const mapDispatchToProps = (dispatch, props) => ({
-	setUserDashboard: () => dispatch(setUserDashboard()),
-	startLogout: () => dispatch(startLogout())
+	getData: () => dispatch(getData())
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage);

@@ -11,16 +11,9 @@ export const PrivateRoute = ({
 	...rest
 }) => (
     <Route {...rest} component={(props) => (
-		isAuthenticated ? (
-			<div className="site-container">
-				<Header {...props} />
-				<Sidebar {...props} />
-				<Component {...props} />
-				<Footer />
-			</div>
-		) : (
-			<Redirect to="/" />
-			)
+		<div className="site-container">
+			<Component {...props} />
+		</div>
     )} />
 );
 
