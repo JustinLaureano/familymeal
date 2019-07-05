@@ -1,22 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export class Navbar extends React.Component {	
-	render() {
+export class Navbar extends React.Component {
+    render() {
+        const sidebarItems = [
+            {label: 'Categories', icon: 'category',},
+            {label: 'My Favorites', icon: 'favorite',},
+            {label: 'My Recipes', icon: 'library_books',},
+            {label: 'Cuisines', icon: 'explore',},
+            {label: 'Shopping List', icon: 'shopping_basket',},
+            {label: 'Meal Planner', icon: 'bookmarks',},
+            {label: 'Recipe Book', icon: 'book',},
+            {label: 'Import/Export', icon: 'import_export',},
+            {label: 'Settings', icon: 'settings',},
+        ];
 		return (
             <aside className="navbar">
-                <section className="navbar-icons">
-                    <Link to="/" className="navbar-icons__item">
-                        <i className="material-icons navbar-icons__icon">person</i>
-                    </Link>
-                    <Link to="/" className="navbar-icons__item">
-                        <i className="material-icons navbar-icons__icon">person</i>
-                    </Link>
-                </section>
-                <section className="navbar-labels">
-                    <Link to="/" className="navbar-labels__label">Person</Link>
-                    <Link to="/" className="navbar-labels__label">Person</Link>
-                </section>
+                { sidebarItems.map((item) => {
+                    return (
+                        <Link to="/" className="navbar__link">
+                            <i className="material-icons navbar__icon">{item.icon}</i>
+                            <h3 className="navbar__label">{item.label}</h3>
+                        </Link>
+                )}) }
             </aside>
 		);
 	};

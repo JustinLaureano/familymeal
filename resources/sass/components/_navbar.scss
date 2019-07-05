@@ -1,40 +1,48 @@
 .navbar {
-    background-color: rgb(36, 36, 36);
-    color: white;
-    display: flex;
+    background-color: $weathered-gray;
+    color: $white;
     height: 100vh;
     left: 0;
     position: fixed;
     min-width: $navbar-width;
     max-width: $navbar-width;
     overflow-y: hidden;
+    padding-top: calc(#{$header-height} + #{$size-md});
+    top: 0;
     transition: all .125s ease-in-out;
-    top: 60px;
-
     &:hover {
-        max-width: 150px;
+        max-width: $navbar-hover-width;
+        min-width: $navbar-hover-width;
     }
 }
 
-.navbar-icons {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    min-width: $navbar-width;
-    max-width: $navbar-width;
+.navbar__link {
+    display: grid;
+    grid-template-columns: 50px 110px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "icon label";
+    height: 36px;
+    &:hover {
+        color: $white;
+    }
 }
 
-.navbar-icons__item,
-.navbar-labels__label {
-    height: 50px;
+.navbar__icon {
+    align-self: center;
+    font-size: 24px;
+    grid-area: icon;
+    justify-self: center;
+    &:hover + .navbar__label {
+        color: $white;
+    }
 }
 
-.navbar-icons__icon {
-    font-size: 36px;
-}
-
-.navbar-labels__label {
-    color: white;
-    display: block;
-    padding-right: .5em;
+.navbar__label {
+    align-self: center;
+    color: $gray-light;
+    font-size: $size-sm;
+    &:hover {
+        color: $white;
+    }
 }

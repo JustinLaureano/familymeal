@@ -14,7 +14,7 @@ export const PrivateRoute = ({
 		<div className="app">
 			<Header />
 			<Navbar />
-			<main className="main">
+			<main className="main sidebar">
 				<Component {...props} />
 			</main>
 			<Footer />

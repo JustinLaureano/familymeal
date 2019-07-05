@@ -1,33 +1,32 @@
 // Body
+$size-xs: .8em;
 $size-sm: .875em;
 $size-md: 1em;
 $size-lg: 1.125em;
 $size-xl: 1.5em;
-$size-xxl: 2em;
 $size-xxxl: 2.5em;
 
 // Colors
-$white: #fffeff;
 $black:#151515;
-$text-gray: #595555;
-$weathered-blue: #385e83;
-$weathered-gray: #505d6a;
-$turquise: #419791;
-$red: #de2f04;
-$pink-red: #e04f50;
-$pr-2: #dc493a;
-$pr-3:#e43d49;       
+$gray: #535353;
+$gray-dark: #363636;
+$gray-light: #cfcfcf;
+$gray-medium: #424242;
+$gray-text: #dedede;
 $green: #4fa75d;
 $g2: #4caf4f;
-$g3: #56d063;
-$gray-light: #cfcfcf;
-$gray: #535353;
-$gray-medium: #424242;
-$gray-dark: #363636;
+$pink-red: #e04f50;
+$pr-3:#e43d49;       
+$red: #de2f04;
+$turquise: #419791;
+$weathered-blue: #385e83;
+$weathered-gray: #505d6a;
+$white: #fffeff;
 
 // Layout
 $header-height: 54px;
-$navbar-width: 70px;
+$navbar-width: 50px;
+$navbar-hover-width: 160px;
 
 // Misc
 $icon-opacity: .54;

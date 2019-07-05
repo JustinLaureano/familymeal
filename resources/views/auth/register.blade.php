@@ -76,7 +76,7 @@
         </section>
 
         <button type="submit" class="register-form__create btn">
-            {{ __('Create') }}
+            {{ __('Create Account') }}
         </button>
 
     </form>

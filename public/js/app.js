@@ -32559,29 +32559,46 @@ function (_React$Component) {
   _createClass(Navbar, [{
     key: "render",
     value: function render() {
+      var sidebarItems = [{
+        label: 'Categories',
+        icon: 'category'
+      }, {
+        label: 'My Favorites',
+        icon: 'favorite'
+      }, {
+        label: 'My Recipes',
+        icon: 'library_books'
+      }, {
+        label: 'Cuisines',
+        icon: 'explore'
+      }, {
+        label: 'Shopping List',
+        icon: 'shopping_basket'
+      }, {
+        label: 'Meal Planner',
+        icon: 'bookmarks'
+      }, {
+        label: 'Recipe Book',
+        icon: 'book'
+      }, {
+        label: 'Import/Export',
+        icon: 'import_export'
+      }, {
+        label: 'Settings',
+        icon: 'settings'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("aside", {
         className: "navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "navbar-icons"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
-        className: "navbar-icons__item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons navbar-icons__icon"
-      }, "person")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
-        className: "navbar-icons__item"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons navbar-icons__icon"
-      }, "person"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "navbar-labels"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
-        className: "navbar-labels__label"
-      }, "Person"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
-        className: "navbar-labels__label"
-      }, "Person")));
+      }, sidebarItems.map(function (item) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/",
+          className: "navbar__link"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "material-icons navbar__icon"
+        }, item.icon), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+          className: "navbar__label"
+        }, item.label));
+      }));
     }
   }]);
 
@@ -32797,7 +32814,7 @@ var PrivateRoute = function PrivateRoute(_ref) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
-        className: "main"
+        className: "main sidebar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Footer__WEBPACK_IMPORTED_MODULE_5__["default"], null));
     }
   }));
