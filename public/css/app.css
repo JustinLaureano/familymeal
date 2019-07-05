@@ -251,8 +251,36 @@ input, .input {
   font-size: 0.875em;
 }
 
+.input-container {
+  position: relative;
+}
+
 .input {
+  padding-left: 36px;
   width: 100%;
+}
+.input::-webkit-input-placeholder {
+  color: #385e83;
+}
+.input::-moz-placeholder {
+  color: #385e83;
+}
+.input:-ms-input-placeholder {
+  color: #385e83;
+}
+.input::-ms-input-placeholder {
+  color: #385e83;
+}
+.input::placeholder {
+  color: #385e83;
+}
+
+.input-icon {
+  color: #385e83;
+  position: absolute;
+  left: 5px;
+  top: 3px;
+  opacity: 0.54;
 }
 
 .header {
@@ -372,12 +400,13 @@ input, .input {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 1.5fr 1fr 1fr 1fr 1.25fr;
-  grid-template-areas: "sign-in create-account" "email email" "password password" "login-btn login-btn" "remember forgot";
+  grid-template-areas: "title create-account" "email email" "password password" "login-btn login-btn" "remember forgot";
+  min-width: 310px;
 }
 
 .login-form__title {
   align-self: baseline;
-  grid-area: sign-in;
+  grid-area: title;
 }
 
 .login-form__create {
@@ -388,6 +417,7 @@ input, .input {
 
 .login-form__input, .login-form__input--password, .login-form__input--email {
   margin-bottom: calc(0.75 * 1em);
+  position: relative;
 }
 
 .login-form__input--email {
@@ -418,4 +448,73 @@ input, .input {
   align-self: baseline;
   font-size: 0.875em;
   grid-area: forgot;
+}
+
+.register {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  background-image: url("../images/bg-login.jpg");
+  background-size: cover;
+  height: 100%;
+}
+
+.register-form {
+  padding: calc(0.5 * 1em) calc(1.25 * 1em);
+  background-color: white;
+  border-radius: 6px 6px 4px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.95);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+  grid-template-areas: "title login" "name name" "email email" "password password" "confirm confirm" "create-btn create-btn";
+  min-width: 310px;
+}
+
+.register-form__title {
+  align-self: baseline;
+  grid-area: title;
+}
+
+.register-form__login {
+  align-self: baseline;
+  grid-area: login;
+  justify-self: flex-end;
+}
+
+.register-form__input, .register-form__input--password-confirmation, .register-form__input--password, .register-form__input--email, .register-form__input--name {
+  margin-bottom: calc(0.75 * 1em);
+  position: relative;
+}
+
+.register-form__input--name {
+  grid-area: name;
+}
+
+.register-form__input--email {
+  grid-area: email;
+}
+
+.register-form__input--password {
+  grid-area: password;
+}
+
+.register-form__input--password-confirmation {
+  grid-area: confirm;
+}
+
+.register-form__create {
+  grid-area: create-btn;
+}
+.register-form__create:hover {
+  background-color: #385e83;
+  color: #fffeff;
 }

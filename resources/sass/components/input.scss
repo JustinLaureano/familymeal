@@ -5,7 +5,24 @@ input {
     font-size: $size-sm;
 }
 
+.input-container {
+    position: relative;
+}
+
 .input {
     @extend input;
+    padding-left: 36px;
     width: 100%;
+    &::placeholder {
+        color: $weathered-blue;
+    }
+}
+
+
+.input-icon {
+    color: $weathered-blue;
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    opacity: $icon-opacity;
 }

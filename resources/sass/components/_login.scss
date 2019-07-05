@@ -11,16 +11,17 @@
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1.5fr 1fr 1fr 1fr 1.25fr;
     grid-template-areas:
-        "sign-in create-account"
+        "title create-account"
         "email email"
         "password password"
         "login-btn login-btn"
         "remember forgot";
+    min-width: 310px;
 }
 
 .login-form__title {
     align-self: baseline;
-    grid-area: sign-in;
+    grid-area: title;
 }
 
 .login-form__create {
@@ -31,6 +32,7 @@
 
 .login-form__input {
     margin-bottom: $space-sm;
+    position: relative;
 }
 
 .login-form__input--email {

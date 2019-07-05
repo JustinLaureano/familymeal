@@ -1,0 +1,65 @@
+.register {
+    @include flex-center();
+    @include background-img(url("../images/bg-login.jpg"));
+    height: 100%;
+}
+
+.register-form {
+    @include modal-box;
+    background-color: rgba(255, 255, 255, .95);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr .5fr;
+    grid-template-areas:
+        "title login"
+        "name name"
+        "email email"
+        "password password"
+        "confirm confirm"
+        "create-btn create-btn";
+    min-width: 310px;
+}
+
+.register-form__title {
+    align-self: baseline;
+    grid-area: title;
+}
+
+.register-form__login {
+    align-self: baseline;
+    grid-area: login;
+    justify-self: flex-end;
+}
+
+.register-form__input {
+    margin-bottom: $space-sm;
+    position: relative;
+}
+
+.register-form__input--name {
+    @extend .register-form__input;
+    grid-area: name;
+}
+
+.register-form__input--email {
+    @extend .register-form__input;
+    grid-area: email;
+}
+
+.register-form__input--password {
+    @extend .register-form__input;
+    grid-area: password;
+}
+
+.register-form__input--password-confirmation {
+    @extend .register-form__input;
+    grid-area: confirm;
+}
+
+.register-form__create {
+    grid-area: create-btn;
+    &:hover {
+        background-color: $weathered-blue;
+        color: $white;
+    }
+}

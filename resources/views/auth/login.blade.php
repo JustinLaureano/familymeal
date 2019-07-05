@@ -11,7 +11,7 @@
         <h2 class="login-form__title">Sign In</h2>
         <a class="login-form__create" href="{{ route('register') }}">Create Account</a>
 
-        <section class="login-form__input--email">
+        <section class="login-form__input--email input-container">
             <input 
                 id="email" 
                 type="email" 
@@ -21,12 +21,13 @@
                 required autocomplete="email"
                 placeholder="E-mail Address"
                 autofocus>
-                @error('email')
-                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                @enderror
+            <i class="material-icons input-icon">email</i>
+            @error('email')
+                <span class="invalid-feedback" role="alert">{{ $message }}</span>
+            @enderror
         </section>
 
-        <section class="login-form__input--password">
+        <section class="login-form__input--password input-container">
             <input 
                 id="password" 
                 type="password" 
@@ -36,6 +37,7 @@
                 required autocomplete="password"
                 placeholder="Password"
                 autofocus>
+            <i class="material-icons input-icon">lock</i>
                 @error('password')
                     <span class="invalid-feedback" role="alert">{{ $message }}</span>
                 @enderror

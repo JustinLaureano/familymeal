@@ -23,7 +23,7 @@ export class Header extends React.Component {
 					onClick={this.homeLink} />
 					
 				<button
-					className="material-icons btn--text"
+					className="btn--text"
 					onClick={this.logout}>
 					Logout
 				</button>
