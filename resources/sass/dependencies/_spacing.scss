@@ -1,0 +1,17 @@
+/* Spacing */
+
+$space-unit: 1em;
+$space-xxxs: calc(0.25 * #{$space-unit});
+$space-xxs: calc(0.375 * #{$space-unit});
+$space-xs: calc(0.5 * #{$space-unit});
+$space-sm: calc(0.75 * #{$space-unit});
+$space-md: calc(1.25 * #{$space-unit});
+$space-lg: calc(2 * #{$space-unit});
+$space-xl: calc(2 * #{$space-unit});
+$space-xxl: calc(5.25 * #{$space-unit});
+$space-xxxl: calc(8.5 * #{$space-unit});
+
+// optional - edit space unit and padding of all components at a specific breakpoint
+@include for-desktop-up {
+    $space-unit: 1.25em;
+}

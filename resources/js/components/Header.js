@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
 export class Header extends React.Component {
+	homeLink() {
+		this.props.history.push('/');
+	}
+
 	logout() {
 		document.logoutform.submit();
 	}
@@ -12,15 +16,22 @@ export class Header extends React.Component {
 		const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 		return (
 			<header className="header">
-				<a className="navbar-brand" href="/">
-					Laravel
-				</a>
-				<button onClick={this.logout}>
+				<img 
+					src="logos/rp_logo_color_400x100.png" 
+					alt="Recipe Confidential"
+					className="header__logo"
+					onClick={this.homeLink} />
+					
+				<button
+					className="material-icons btn--text"
+					onClick={this.logout}>
 					Logout
 				</button>
-				<form id="logout-form" className="header-form" name="logoutform" action="logout" method="POST">
+
+				<form id="logout-form" className="header__form" name="logoutform" action="logout" method="POST">
 					<input type="hidden" name="_token" value={csrfToken}/>
 				</form>
+
     		</header>
 		);
 	};

@@ -26545,7 +26545,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32459,6 +32459,11 @@ function (_React$Component) {
   }
 
   _createClass(Header, [{
+    key: "homeLink",
+    value: function homeLink() {
+      this.props.history.push('/');
+    }
+  }, {
     key: "logout",
     value: function logout() {
       document.logoutform.submit();
@@ -32469,14 +32474,17 @@ function (_React$Component) {
       var csrfToken = document.querySelector('meta[name="csrf-token"]').content;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "navbar-brand",
-        href: "/"
-      }, "Laravel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "logos/rp_logo_color_400x100.png",
+        alt: "Recipe Confidential",
+        className: "header__logo",
+        onClick: this.homeLink
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "material-icons btn--text",
         onClick: this.logout
       }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         id: "logout-form",
-        className: "header-form",
+        className: "header__form",
         name: "logoutform",
         action: "logout",
         method: "POST"
@@ -32504,20 +32512,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 
 /***/ }),
 
-/***/ "./resources/js/components/Sidebar.js":
-/*!********************************************!*\
-  !*** ./resources/js/components/Sidebar.js ***!
-  \********************************************/
-/*! exports provided: Sidebar, default */
+/***/ "./resources/js/components/navigation/Navbar.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/navigation/Navbar.js ***!
+  \******************************************************/
+/*! exports provided: Navbar, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sidebar", function() { return Sidebar; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Navbar", function() { return Navbar; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32538,40 +32545,50 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
-var Sidebar =
+var Navbar =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Sidebar, _React$Component);
+  _inherits(Navbar, _React$Component);
 
-  function Sidebar() {
-    _classCallCheck(this, Sidebar);
+  function Navbar() {
+    _classCallCheck(this, Navbar);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Sidebar).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Navbar).apply(this, arguments));
   }
 
-  _createClass(Sidebar, [{
+  _createClass(Navbar, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("aside", {
-        className: "sidebar"
-      });
+        className: "navbar"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "navbar-icons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/",
+        className: "navbar-icons__item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons navbar-icons__icon"
+      }, "person")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/",
+        className: "navbar-icons__item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons navbar-icons__icon"
+      }, "person"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "navbar-labels"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/",
+        className: "navbar-labels__label"
+      }, "Person"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/",
+        className: "navbar-labels__label"
+      }, "Person")));
     }
   }]);
 
-  return Sidebar;
+  return Navbar;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 ;
-
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
-};
-
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {};
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(Sidebar));
+/* harmony default export */ __webpack_exports__["default"] = (Navbar);
 
 /***/ }),
 
@@ -32756,7 +32773,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./resources/js/components/Header.js");
-/* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Sidebar */ "./resources/js/components/Sidebar.js");
+/* harmony import */ var _components_navigation_Navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/navigation/Navbar */ "./resources/js/components/navigation/Navbar.js");
 /* harmony import */ var _components_Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Footer */ "./resources/js/components/Footer.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -32778,8 +32795,10 @@ var PrivateRoute = function PrivateRoute(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], _extends({}, rest, {
     component: function component(props) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "site-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props));
+        className: "app"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
+        className: "main"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Footer__WEBPACK_IMPORTED_MODULE_5__["default"], null));
     }
   }));
 };
@@ -32825,7 +32844,7 @@ var PublicRoute = function PublicRoute(_ref) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], _extends({}, rest, {
     component: function component(props) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "site-container"
+        className: "app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props));
     }
   }));
@@ -32929,7 +32948,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_4__["Header"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Dashboard"));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "content-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Dashboard"));
     }
   }]);
 

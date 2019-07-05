@@ -1,10 +1,17 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+/* Fonts */
+@import 'fonts/barlow-semi-condensed';
+@import 'fonts/encode-sans-semi-condensed';
 
-// Variables
-@import 'variables';
+/* Authored Dependencies */
+@import 'dependencies/reset';
+@import 'dependencies/mixins';
+@import 'dependencies/variables';
+@import 'dependencies/typography';
+@import 'dependencies/spacing';
 
+/* Components */
+@import 'components/layout';
+@import 'components/btn';
 @import 'components/header';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'components/navbar';
+@import 'components/footer';

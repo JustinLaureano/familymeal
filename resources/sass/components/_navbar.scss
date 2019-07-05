@@ -1,0 +1,40 @@
+.navbar {
+    background-color: rgb(36, 36, 36);
+    color: white;
+    display: flex;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    min-width: $navbar-width;
+    max-width: $navbar-width;
+    overflow-y: hidden;
+    transition: all .125s ease-in-out;
+    top: 60px;
+
+    &:hover {
+        max-width: 150px;
+    }
+}
+
+.navbar-icons {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-width: $navbar-width;
+    max-width: $navbar-width;
+}
+
+.navbar-icons__item,
+.navbar-labels__label {
+    height: 50px;
+}
+
+.navbar-icons__icon {
+    font-size: 36px;
+}
+
+.navbar-labels__label {
+    color: white;
+    display: block;
+    padding-right: .5em;
+}

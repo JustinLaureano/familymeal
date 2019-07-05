@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Navbar from '../components/navigation/Navbar';
 import Footer from '../components/Footer';
 
 export const PrivateRoute = ({
@@ -11,8 +11,13 @@ export const PrivateRoute = ({
 	...rest
 }) => (
     <Route {...rest} component={(props) => (
-		<div className="site-container">
-			<Component {...props} />
+		<div className="app">
+			<Header />
+			<Navbar />
+			<main className="main">
+				<Component {...props} />
+			</main>
+			<Footer />
 		</div>
     )} />
 );

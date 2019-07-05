@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    position: relative;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+button {
+    cursor: pointer;
+    &:disabled {
+        cursor: default;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+input:focus,
+select:focus {
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+
+fieldset {
+    border: none;
+}
+
+textarea {
+    resize: vertical;
+}

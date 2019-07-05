@@ -1,3 +1,39 @@
-.header-form {
+
+.header{
+    @include pad($space-xxs, $space-sm);
+    background-color:$white;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, .35);
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.header__logo {
+    height: 36px;
+    width: auto;
+}
+
+.header__links {
+    align-self: center;
+}
+
+.header__link {
+    margin-right: $space-xs;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.header__link--outline {
+    @extend .header__link;
+    @include border();
+    @include pad($space-xxs, $space-sm);
+}
+
+.header__form {
     display: none;
 }

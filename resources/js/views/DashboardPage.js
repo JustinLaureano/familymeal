@@ -11,8 +11,7 @@ export class DashboardPage extends React.Component {
 
 	render() {
 		return (
-		<div>
-			<Header />
+		<div className="content-container">
 			<h1>Dashboard</h1>
 		</div>
 		)

@@ -1,0 +1,13 @@
+.btn {
+    @include pad($space-xxs);
+    @include border();
+    background-color: $white;
+}
+
+.btn--text {
+    @extend .btn;
+
+    background: none;
+    border: none;
+    
+}
