@@ -17,12 +17,17 @@ a {
 
 button {
     cursor: pointer;
+    font-size: 1em;
     &:disabled {
         cursor: default;
     }
     &:focus {
         outline: none;
     }
+}
+
+input {
+    font-size: 1em;
 }
 
 input:focus,

@@ -1,7 +1,15 @@
-body {
+body, a {
+    color: $gray-dark;
     font-family: 'Encode Sans Semi Condensed', Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
+    color: $black;
     font-family: 'Barlow Semi Condensed', Helvetica, Arial, sans-serif;
+}
+
+a {
+    &:hover {
+        color: $weathered-blue;
+    }
 }

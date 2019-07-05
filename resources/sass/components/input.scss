@@ -1,0 +1,11 @@
+input {
+    @include border(0px);
+    @include pad($space-xxs, $space-xs);
+    background: $white;
+    font-size: $size-sm;
+}
+
+.input {
+    @extend input;
+    width: 100%;
+}

@@ -23,12 +23,42 @@
 	}
 }
 
-@mixin border($radius: '3px') {
+@mixin margin($x: $space-xs, $y: 'null') {
+	@if $y == 'null' {
+		margin: $x;
+	}
+	@else {
+		margin: $x $y;
+	}
+}
+
+@mixin border($radius: 3px) {
 	border: 1px solid $gray-dark;
-	border-radius: 3px;
+	border-radius: $radius;
+}
+
+@mixin modal-box {
+	@include pad($space-xs, $space-md);
+	background-color: white;
+	border-radius: 6px 6px 4px 4px;
+	border: 1px solid rgba(0, 0, 0, .2);
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, .25);
 }
 
 @mixin flex-column() {
 	display: flex;
     flex-direction: column;
+}
+
+@mixin flex-center() {
+	@include flex-column();
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin background-img($image, $size: cover) {
+	background: {
+		image: $image;
+		size: $size;
+	}
 }

@@ -1,0 +1,66 @@
+.login {
+    @include flex-center();
+    @include background-img(url("../images/bg-login.jpg"));
+    height: 100%;
+}
+
+.login-form {
+    @include modal-box;
+    background-color: rgba(255, 255, 255, .95);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1.5fr 1fr 1fr 1fr 1.25fr;
+    grid-template-areas:
+        "sign-in create-account"
+        "email email"
+        "password password"
+        "login-btn login-btn"
+        "remember forgot";
+}
+
+.login-form__title {
+    align-self: baseline;
+    grid-area: sign-in;
+}
+
+.login-form__create {
+    align-self: baseline;
+    grid-area: create-account;
+    justify-self: flex-end;
+}
+
+.login-form__input {
+    margin-bottom: $space-sm;
+}
+
+.login-form__input--email {
+    @extend .login-form__input;
+    grid-area: email;
+}
+
+.login-form__input--password {
+    @extend .login-form__input;
+    grid-area: password;
+}
+
+.login-form__login {
+    grid-area: login-btn;
+    &:hover {
+        background-color: $weathered-blue;
+        color: $white;
+    }
+}
+
+.login-form__checkbox--remember {
+    @include pad($space-sm, 0);
+    align-self: baseline;
+    font-size: $size-sm;
+    grid-area: remember;
+}
+
+.login-form__forgot {
+    @include pad($space-sm, 0);
+    align-self: baseline;
+    font-size: $size-sm;
+    grid-area: forgot;
+}
