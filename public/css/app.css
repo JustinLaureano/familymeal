@@ -353,6 +353,7 @@ input, .input {
 }
 
 .navbar__link {
+  color: #dedede;
   display: grid;
   grid-template-columns: 50px 110px;
   grid-template-rows: auto;
@@ -375,7 +376,7 @@ input, .input {
 
 .navbar__label {
   align-self: center;
-  color: #cfcfcf;
+  color: #dedede;
   font-size: 0.875em;
 }
 .navbar__label:hover {

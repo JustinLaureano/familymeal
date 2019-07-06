@@ -19,6 +19,11 @@ const renderApp = () => {
 		if (document.getElementById('app')) {
 			ReactDOM.render(jsx, document.getElementById('app'));
 			hasRendered = true;
+
+			const page = document.querySelector('meta[name="page"]').content;
+			if (page && page !== '/home') {
+				history.push('/' + page);
+			}
 		}
 	}
 };

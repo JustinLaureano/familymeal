@@ -22,10 +22,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($page='home')
     {
         $user = Auth::user();
-        return view('private/home', ['api_token' => $user->api_token, 'user_id' => $user->id]);
+        return view('private/home', [
+            'api_token' => $user->api_token, 
+            'user_id' => $user->id,
+            'page' => $page,
+        ]);
     }
 
     public function data()

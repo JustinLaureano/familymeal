@@ -15,4 +15,12 @@ Route::get('/', 'PublicController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/{page?}', 'HomeController@index')->name('home');
+Route::redirect('/categories', '/home/categories');
+Route::redirect('/cuisines', '/home/cuisines');
+Route::redirect('/favorites', '/home/favorites');
+Route::redirect('/import-export', '/home/import-export');
+Route::redirect('/meal-planner', '/home/meal-planner');
+Route::redirect('/recipe-book', '/home/recipe-book');
+Route::redirect('/settings', '/home/settings');
+Route::redirect('/shopping-list', '/home/shopping-list');

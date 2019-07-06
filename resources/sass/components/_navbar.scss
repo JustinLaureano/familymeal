@@ -17,11 +17,12 @@
 }
 
 .navbar__link {
+    color: $gray-text;
     display: grid;
     grid-template-columns: 50px 110px;
     grid-template-rows: auto;
     grid-template-areas:
-        "icon label";
+    "icon label";
     height: 36px;
     &:hover {
         color: $white;
@@ -40,7 +41,7 @@
 
 .navbar__label {
     align-self: center;
-    color: $gray-light;
+    color: $gray-text;
     font-size: $size-sm;
     &:hover {
         color: $white;
