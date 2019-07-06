@@ -229,8 +229,51 @@ a:hover {
   margin-top: 54px;
 }
 
+.content, .table-grid {
+  height: 100%;
+  margin: 20px auto 0 auto;
+  max-width: 1200px;
+  width: 90%;
+}
+
 .sidebar {
   margin-left: 50px;
+}
+
+.page-header {
+  display: -webkit-box;
+  display: flex;
+  grid-area: page-header;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
+  grid-template-areas: "breadcrumbs" "page-header" "table";
+}
+
+.breadcrumbs {
+  grid-area: breadcrumbs;
+}
+
+.breadcrumb__home {
+  font-size: 16px;
+}
+
+.breadcrumb {
+  margin-right: 5px;
+}
+
+.breadcrumb__chain {
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+.breadcrumb__link {
+  font-size: 0.875em;
+  position: relative;
+  bottom: 2px;
 }
 
 .btn, .btn--text {

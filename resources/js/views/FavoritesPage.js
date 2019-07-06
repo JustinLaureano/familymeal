@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/navigation/Breadcrumbs';
 
 export class FavoritesPage extends React.Component {
 	render() {
 		return (
-			<section className="">
+			<section className="table-grid">
+				<Breadcrumbs />
 				<h1>Favorites</h1>
 			</section>
 		)
@@ -13,11 +15,6 @@ export class FavoritesPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        token: state.auth.token,
-		recipe: state.recipes,
-		user: state.user
-    };
 };
   
 const mapDispatchToProps = (dispatch, props) => ({

@@ -1,32 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getData } from '../actions/auth';
+import Breadcrumbs from '../components/navigation/Breadcrumbs';
+import RecipesTable from '../components/navigation/Breadcrumbs';
 
-export class MyRecipesPage extends React.Component {
-	componentDidMount() {
-		// this.props.getData();
-	};
-
+export class MyRecipesPage extends React.Component {	
 	render() {
 		return (
-			<section className="">
-				<h1>My Recipes</h1>
+			<section className="table-grid">
+				<Breadcrumbs />
+				<section className="page-header">
+					<h1 className="page-header__title">My Recipes</h1>
+				</section>
 			</section>
 		)
 	}
 }
 
 const mapStateToProps = (state) => {
-    return {
-        token: state.auth.token,
-		recipe: state.recipes,
-		user: state.user
+	return {
+        recipes: state.recipes
     };
 };
   
 const mapDispatchToProps = (dispatch, props) => ({
-	getData: () => dispatch(getData())
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(MyRecipesPage);

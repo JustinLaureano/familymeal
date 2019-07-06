@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '../components/navigation/Breadcrumbs';
 
 export class CuisinesPage extends React.Component {
 	render() {
 		return (
 			<section className="">
+				<Breadcrumbs />
 				<h1>Cuisines</h1>
 			</section>
 		)
@@ -13,11 +15,6 @@ export class CuisinesPage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        token: state.auth.token,
-		recipe: state.recipes,
-		user: state.user
-    };
 };
   
 const mapDispatchToProps = (dispatch, props) => ({

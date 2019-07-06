@@ -8,7 +8,7 @@ export class Navbar extends React.Component {
             {label: 'My Favorites', icon: 'favorite', route: '/favorites'},
             {label: 'Categories', icon: 'category', route: '/categories'},
             {label: 'Ingredients', icon: 'kitchen', route: '/ingredients'},
-            {label: 'Cuisines', icon: 'explore', route: '/cuisines'},
+            {label: 'Cuisines', icon: 'restaurant', route: '/cuisines'},
             {label: 'Shopping List', icon: 'shopping_basket', route: 'shopping-list'},
             {label: 'Meal Planner', icon: 'bookmarks', route: 'meal-planner'},
             {label: 'Recipe Book', icon: 'book', route: 'recipe-book'},
@@ -17,11 +17,16 @@ export class Navbar extends React.Component {
         ];
 		return (
             <aside className="navbar">
-                { sidebarItems.map((item) => {
+                { sidebarItems.map((item, index) => {
                     return (
-                        <Link to={item.route} className="navbar__link">
+                        <Link 
+                            key={index}
+                            to={item.route} 
+                            className="navbar__link">
+                            
                             <i className="material-icons navbar__icon">{item.icon}</i>
                             <h3 className="navbar__label">{item.label}</h3>
+
                         </Link>
                 )}) }
             </aside>

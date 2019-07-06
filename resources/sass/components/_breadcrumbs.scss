@@ -1,0 +1,22 @@
+.breadcrumbs {
+    grid-area: breadcrumbs;
+}
+
+.breadcrumb__home {
+    font-size: 16px;
+}
+
+.breadcrumb {
+    margin-right: 5px;
+}
+
+.breadcrumb__chain {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.breadcrumb__link {
+    font-size: $size-sm;
+    position: relative;
+    bottom: 2px;
+}

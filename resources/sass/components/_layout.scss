@@ -9,6 +9,29 @@
     margin-top: $header-height;
 }
 
+.content {
+    height: 100%;
+    margin: 20px auto 0 auto;
+    max-width: 1200px;
+    width: 90%;
+}
+
 .sidebar {
     margin-left: $navbar-width;
+}
+
+.page-header {
+    display: flex;
+    grid-area: page-header;
+}
+
+.table-grid {
+    @extend .content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: #{$space-lg} #{$space-xl} auto;
+    grid-template-areas:
+        "breadcrumbs"
+        "page-header"
+        "table";
 }
