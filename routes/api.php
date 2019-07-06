@@ -20,9 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->group(function() {
     Route::apiResources([
-        // 'recipes' => 'RecipeController',
+        'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
-    Route::get('/data', 'HomeController@data');
+    Route::get('/init/{id}', 'UserController@init');
     Route::post('/logout', 'HomeController@logout');
 });

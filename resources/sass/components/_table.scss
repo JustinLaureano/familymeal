@@ -1,0 +1,43 @@
+.table {
+    @include modal-box;
+    padding: 0;
+}
+
+.table__row {
+    @include pad($space-sm, $space-md);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr .25fr;
+}
+
+.table__row--recipe {
+    @extend .table__row;
+    grid-template-areas:
+        "name category cuisine created-at more";
+}
+
+.table__cell {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.table__body {
+    overflow-x: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+.table__more-icon {
+    @include transition;
+    cursor: pointer;
+    font-size: 18px;
+    justify-self: center;
+    opacity: $icon-opacity;
+    &:hover {
+        opacity: 1;
+    }
+}

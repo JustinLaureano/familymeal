@@ -1,5 +1,5 @@
 .login {
-    @include flex-center();
+    @include flex-center;
     @include background-img(url("../images/bg-login.jpg"));
     height: 100%;
 }

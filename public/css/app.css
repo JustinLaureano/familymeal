@@ -426,6 +426,55 @@ input, .input {
   color: #fffeff;
 }
 
+.table {
+  padding: calc(0.5 * 1em) calc(1.25 * 1em);
+  background-color: white;
+  border-radius: 6px 6px 4px 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  padding: 0;
+}
+
+.table__row, .table__row--recipe {
+  padding: calc(0.75 * 1em) calc(1.25 * 1em);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 0.25fr;
+}
+
+.table__row--recipe {
+  grid-template-areas: "name category cuisine created-at more";
+}
+
+.table__cell {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+}
+
+.table__body {
+  overflow-x: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+}
+.table__body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.table__more-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+  font-size: 18px;
+  justify-self: center;
+  opacity: 0.54;
+}
+.table__more-icon:hover {
+  opacity: 1;
+}
+
 .footer {
   background-color: #eeeeee;
   height: 50px;

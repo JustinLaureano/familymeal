@@ -32185,19 +32185,39 @@ module.exports = function(originalModule) {
 /*!**************************************!*\
   !*** ./resources/js/actions/auth.js ***!
   \**************************************/
-/*! exports provided: setToken, startLogout, getData */
+/*! exports provided: init, startLogout */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLogout", function() { return startLogout; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getData", function() { return getData; });
-var setToken = function setToken(token) {
+var init = function init(token, user_id) {
   return function (dispatch) {
-    dispatch({
-      type: 'SET_TOKEN',
-      token: token
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token)
+      }
+    };
+    fetch('/api/init/' + user_id, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'SET_TOKEN',
+        token: token
+      });
+      dispatch({
+        type: 'SET_USER',
+        user: data.user
+      });
+      dispatch({
+        type: 'SET_RECIPES',
+        recipes: data.recipes
+      });
+    })["catch"](function (err) {
+      return console.log(err);
     });
   };
 };
@@ -32224,70 +32244,6 @@ var startLogout = function startLogout() {
     });
   };
 };
-var getData = function getData() {
-  return function (dispatch, getState) {
-    var token = getState().auth.token;
-    var request = {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: "Bearer ".concat(token)
-      }
-    };
-    fetch('/api/data', request).then(function (resp) {
-      return resp.json();
-    }).then(function (data) {
-      console.log(data);
-      dispatch({
-        type: 'SET_DATA',
-        data: data
-      });
-    })["catch"](function (err) {
-      return console.log(err);
-    });
-  };
-};
-
-/***/ }),
-
-/***/ "./resources/js/actions/user.js":
-/*!**************************************!*\
-  !*** ./resources/js/actions/user.js ***!
-  \**************************************/
-/*! exports provided: setUser */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setUser", function() { return setUser; });
-var setUser = function setUser(user_id) {
-  return function (dispatch, getState) {
-    var token = getState().auth.token;
-    var user = getState().user;
-
-    if (typeof user !== 'undefined' && user.id == user_id) {
-      dispatch({
-        type: 'SET_USER',
-        user: user
-      });
-    } else {
-      fetch('/api/user/' + user_id, {
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: "Bearer ".concat(token)
-        }
-      }).then(function (resp) {
-        return resp.json();
-      }).then(function (user) {
-        dispatch({
-          type: 'SET_USER',
-          user: user
-        });
-      });
-    }
-  };
-};
 
 /***/ }),
 
@@ -32308,8 +32264,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routers/AppRouter */ "./resources/js/routers/AppRouter.js");
 /* harmony import */ var _store_configureStore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store/configureStore */ "./resources/js/store/configureStore.js");
 /* harmony import */ var _actions_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./actions/auth */ "./resources/js/actions/auth.js");
-/* harmony import */ var _actions_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./actions/user */ "./resources/js/actions/user.js");
-
 
 
 
@@ -32338,8 +32292,7 @@ var renderApp = function renderApp() {
 
 var api_token = document.querySelector('meta[name="api-token"]').content;
 var user_id = document.querySelector('meta[name="user_id"]').content;
-store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_5__["setToken"])(api_token));
-store.dispatch(Object(_actions_user__WEBPACK_IMPORTED_MODULE_6__["setUser"])(user_id));
+store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_5__["init"])(api_token, user_id));
 renderApp();
 
 /***/ }),
@@ -32721,6 +32674,113 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/table/Table.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/table/Table.js ***!
+  \************************************************/
+/*! exports provided: Table, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Table", function() { return Table; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Table =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Table, _React$Component);
+
+  function Table() {
+    _classCallCheck(this, Table);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Table).apply(this, arguments));
+  }
+
+  _createClass(Table, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      console.log(this.props.options);
+
+      if (this.props.options) {
+        this.props.headers.push({
+          label: 'More',
+          data: 'more_vert'
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: this.props.className
+      }, this.props.headers.map(function (header, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index,
+          className: "table__cell"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, header.label));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__body"
+      }, this.props.data.map(function (item, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: item.id,
+          className: _this.props.className
+        }, _this.props.headers.map(function (header, index) {
+          if (header.label == 'More') {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              key: index,
+              className: "material-icons table__more-icon"
+            }, header.data);
+          } else {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+              key: index
+            }, item[header.data]);
+          }
+        }));
+      })));
+    }
+  }]);
+
+  return Table;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapStateToProps = function mapStateToProps(state) {};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, undefined)(Table));
+
+/***/ }),
+
 /***/ "./resources/js/helpers/Breadcrumbs.js":
 /*!*********************************************!*\
   !*** ./resources/js/helpers/Breadcrumbs.js ***!
@@ -32742,6 +32802,34 @@ function getBreadcrumbs() {
   }
 
   return paths;
+}
+
+/***/ }),
+
+/***/ "./resources/js/helpers/Table.js":
+/*!***************************************!*\
+  !*** ./resources/js/helpers/Table.js ***!
+  \***************************************/
+/*! exports provided: getRecipeTableHeaders */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipeTableHeaders", function() { return getRecipeTableHeaders; });
+function getRecipeTableHeaders() {
+  return [{
+    label: 'Name',
+    data: 'name'
+  }, {
+    label: 'Category',
+    data: 'recipe_category_id'
+  }, {
+    label: 'Cuisine',
+    data: 'cuisine_type_id'
+  }, {
+    label: 'Created At',
+    data: 'created_at'
+  }];
 }
 
 /***/ }),
@@ -33533,7 +33621,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _helpers_Table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../helpers/Table */ "./resources/js/helpers/Table.js");
+/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33557,27 +33647,40 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var MyRecipesPage =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(MyRecipesPage, _React$Component);
 
-  function MyRecipesPage() {
+  function MyRecipesPage(props) {
+    var _this;
+
     _classCallCheck(this, MyRecipesPage);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(MyRecipesPage).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(MyRecipesPage).call(this, props));
+    _this.state = {
+      headers: Object(_helpers_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableHeaders"])()
+    };
+    return _this;
   }
 
   _createClass(MyRecipesPage, [{
     key: "render",
     value: function render() {
+      var props = {
+        headers: this.state.headers,
+        data: this.props.recipes,
+        className: 'table__row--recipe',
+        options: ['update', 'delete']
+      };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
-      }, "My Recipes")));
+      }, "My Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__["default"], props));
     }
   }]);
 

@@ -1,9 +1,32 @@
-export const setToken = (token) => {
+export const init = (token, user_id) => {
 	return (dispatch) => {
-		dispatch({
-			type: 'SET_TOKEN',
-			token
-		});
+		const request = {
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+		};
+
+		fetch('/api/init/' + user_id, request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'SET_TOKEN',
+					token
+				});
+
+				dispatch({
+					type: 'SET_USER',
+					user: data.user
+				});
+
+				dispatch({
+					type: 'SET_RECIPES',
+					recipes: data.recipes
+				});
+			})
+			.catch(err => console.log(err))
 	}
 }
 
@@ -26,32 +49,6 @@ export const startLogout = () => {
 				console.log(data);
 				dispatch({
 					type: 'LOGOUT'
-				});
-			})
-			.catch(err => console.log(err))
-
-    };
-};
-
-export const getData = () => {
-    return (dispatch, getState) => {
-		const token = getState().auth.token;
-		
-		const request = {
-            headers: {
-                'Accept': 'application/json',
-				'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            }
-		};
-
-		fetch('/api/data', request)
-			.then(resp => resp.json())
-			.then((data) => {
-				console.log(data);
-				dispatch({
-					type: 'SET_DATA',
-					data
 				});
 			})
 			.catch(err => console.log(err))

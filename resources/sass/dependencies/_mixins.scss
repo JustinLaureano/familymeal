@@ -14,6 +14,10 @@
 	@media (min-width: 1800px) { @content; }
 }
 
+@mixin transition {
+	transition: all .125s ease-in-out;
+}
+
 @mixin pad($x: $space-xs, $y: 'null') {
 	@if $y == 'null' {
 		padding: $x;
@@ -50,7 +54,7 @@
     flex-direction: column;
 }
 
-@mixin flex-center() {
+@mixin flex-center {
 	@include flex-column();
     justify-content: center;
     align-items: center;
