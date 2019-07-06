@@ -7,6 +7,7 @@ export class Navbar extends React.Component {
             {label: 'My Recipes', icon: 'library_books', route: '/home'},
             {label: 'My Favorites', icon: 'favorite', route: '/favorites'},
             {label: 'Categories', icon: 'category', route: '/categories'},
+            {label: 'Ingredients', icon: 'kitchen', route: '/ingredients'},
             {label: 'Cuisines', icon: 'explore', route: '/cuisines'},
             {label: 'Shopping List', icon: 'shopping_basket', route: 'shopping-list'},
             {label: 'Meal Planner', icon: 'bookmarks', route: 'meal-planner'},

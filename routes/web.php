@@ -20,6 +20,7 @@ Route::redirect('/categories', '/home/categories');
 Route::redirect('/cuisines', '/home/cuisines');
 Route::redirect('/favorites', '/home/favorites');
 Route::redirect('/import-export', '/home/import-export');
+Route::redirect('/ingredients', '/home/ingredients');
 Route::redirect('/meal-planner', '/home/meal-planner');
 Route::redirect('/recipe-book', '/home/recipe-book');
 Route::redirect('/settings', '/home/settings');
