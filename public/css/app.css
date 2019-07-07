@@ -193,7 +193,7 @@ textarea {
   resize: vertical;
 }
 
-body, a {
+body, a, p {
   color: #363636;
   font-family: "Encode Sans Semi Condensed", Helvetica, Arial, sans-serif;
 }
@@ -205,6 +205,10 @@ h1, h2, h3, h4, h5, h6 {
 
 h3 {
   font-weight: 300;
+}
+
+h4 {
+  color: #385e83;
 }
 
 a:hover {
@@ -437,8 +441,24 @@ input, .input {
 
 .table__row, .table__row--recipe {
   padding: calc(0.75 * 1em) calc(1.25 * 1em);
+  background-color: #fffeff;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 0.25fr;
+}
+.table__row:nth-child(even), .table__row--recipe:nth-child(even) {
+  background-color: #4f5d6a07;
+}
+.table__row:hover, .table__row--recipe:hover {
+  background-color: #2780d31c;
+}
+
+.table__header {
+  border-radius: 6px 6px 0 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+}
+.table__header:hover {
+  background-color: #fffeff;
 }
 
 .table__row--recipe {

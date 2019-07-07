@@ -1,4 +1,4 @@
-body, a {
+body, a, p {
     color: $gray-dark;
     font-family: 'Encode Sans Semi Condensed', Helvetica, Arial, sans-serif;
 }
@@ -10,6 +10,10 @@ h1, h2, h3, h4, h5, h6 {
 
 h3 {
     font-weight: 300;
+}
+
+h4 {
+    color: $weathered-blue;
 }
 
 a {

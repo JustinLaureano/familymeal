@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -16,6 +17,10 @@ class UserController extends Controller
     public function init($id)
     {
         $recipes = Recipe::where('user_id', $id)->orderBy('name', 'asc')->get();
+
+        foreach ($recipes as $recipe) {
+            $recipe->created_at = $recipe->created_at->format('Y-m-d');
+        }
 
         $data = [
             'user' => User::where('id', $id)->first(),

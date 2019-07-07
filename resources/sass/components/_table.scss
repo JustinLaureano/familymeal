@@ -5,8 +5,24 @@
 
 .table__row {
     @include pad($space-sm, $space-md);
+    background-color: $white;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr 1fr .25fr;
+    &:nth-child(even) {
+        background-color: $weathered-blue-light;
+    }
+    &:hover { 
+        background-color: $weathered-blue-hover;
+    }
+}
+
+.table__header {
+    @include modal-header;
+    border-bottom: 1px solid rgba(0, 0, 0, .25);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, .25);
+    &:hover {
+        background-color: $white;
+    }
 }
 
 .table__row--recipe {

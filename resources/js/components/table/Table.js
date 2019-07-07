@@ -1,10 +1,10 @@
 import React from 'react';
+import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 export class Table extends React.Component {
 	componentWillMount() {
-		console.log(this.props.options);
 		if (this.props.options) {
 			this.props.headers.push({
 				label: 'More', data: 'more_vert'
@@ -16,7 +16,7 @@ export class Table extends React.Component {
 	render() {
 		return (
 			<section className="table">
-				<section className={this.props.className}>
+				<section className={this.props.className + " table__header"}>
 					{this.props.headers.map((header, index) => {
 						return (
 							<div key={index} className="table__cell">
@@ -36,12 +36,38 @@ export class Table extends React.Component {
 									if (header.label == 'More') {
 										return (
 											<i key={index} className="material-icons table__more-icon">{header.data}</i>
-										);
-									}
+											);
+										}
 									else {
-										return (
-											<p key={index}>{item[header.data]}</p>
-										);
+										console.log(this.props.headers[index]);
+										if (this.props.headers[index].type == 'link') {
+											return (
+												<Link
+													to={this.props.headers[index].route + item.id}
+													key={index}
+													className={this.props.headers[index].class}>
+													{item[header.column]}
+												</Link>
+											);
+										}
+										else if (this.props.headers[index].type == 'date') {
+											return (
+												<p
+													key={index}
+													className={this.props.headers[index].class}>
+													{item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, '')}
+												</p>
+											);
+										}
+										else {
+											return (
+												<p
+													key={index}
+													className={this.props.headers[index].class}>
+													{item[header.column]}
+												</p>
+											);
+										}
 									}
 								})
 							}

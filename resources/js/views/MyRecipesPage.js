@@ -19,6 +19,7 @@ export class MyRecipesPage extends React.Component {
 			headers: this.state.headers,
 			data: this.props.recipes,
 			className: 'table__row--recipe',
+			model: 'recipe',
 			options: ['update', 'delete']
 		};
 		return (
