@@ -16,11 +16,10 @@ export const deleteRecipe = (id) => {
 		fetch('/api/recipes/' + id, request)
 			.then(resp => resp.json())
 			.then((data) => {
-                console.log(data);
-				// dispatch({
-				// 	type: 'DELETE_RECIPE',
-				// 	id
-				// });
+				dispatch({
+					type: 'DELETE_RECIPE',
+					id
+				});
 			})
 			.catch(err => console.log(err))
 	}

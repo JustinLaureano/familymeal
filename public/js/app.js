@@ -32274,10 +32274,10 @@ var deleteRecipe = function deleteRecipe(id) {
     fetch('/api/recipes/' + id, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data); // dispatch({
-      // 	type: 'DELETE_RECIPE',
-      // 	id
-      // });
+      dispatch({
+        type: 'DELETE_RECIPE',
+        id: id
+      });
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -33044,9 +33044,9 @@ var recipeReducerDefaultState = [];
       });
 
     case 'DELETE_RECIPE':
-      return state.filter(function (_ref) {
-        var id = _ref.id;
-        return id !== action.id;
+      console.log(state);
+      return state.filter(function (recipe) {
+        return recipe.id != action.id;
       });
 
     default:
