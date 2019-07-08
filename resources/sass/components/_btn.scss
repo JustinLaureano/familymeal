@@ -46,3 +46,9 @@
         color: $white;
     }
 }
+
+.btn--table-active {
+    @extend .btn--table;
+    background-color: $weathered-blue;
+    color: $white;
+}

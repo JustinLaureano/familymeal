@@ -32255,6 +32255,55 @@ var startLogout = function startLogout() {
 
 /***/ }),
 
+/***/ "./resources/js/actions/filters.js":
+/*!*****************************************!*\
+  !*** ./resources/js/actions/filters.js ***!
+  \*****************************************/
+/*! exports provided: changeTablePage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTablePage", function() { return changeTablePage; });
+var changeTablePage = function changeTablePage(pageNumber, model) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var user_id = getState().user.id;
+    var url = '';
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token)
+      }
+    };
+
+    switch (model) {
+      case 'recipe':
+        url = '/api/recipes/' + user_id + '?page=' + pageNumber;
+    }
+
+    fetch(url, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+
+      switch (model) {
+        case 'recipe':
+          dispatch({
+            type: 'SET_RECIPES',
+            recipes: data.recipes
+          });
+          break;
+      }
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/recipes.js":
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
@@ -32735,7 +32784,236 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _TableHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./TableHeader */ "./resources/js/components/table/TableHeader.js");
+/* harmony import */ var _TableBody__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableBody */ "./resources/js/components/table/TableBody.js");
+/* harmony import */ var _TableFooter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TableFooter */ "./resources/js/components/table/TableFooter.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+
+var Table =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Table, _React$Component);
+
+  function Table() {
+    _classCallCheck(this, Table);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Table).apply(this, arguments));
+  }
+
+  _createClass(Table, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.options) {
+        this.props.headers.push({
+          label: 'More',
+          data: 'more_vert'
+        });
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableHeader__WEBPACK_IMPORTED_MODULE_3__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableBody__WEBPACK_IMPORTED_MODULE_4__["default"], this.props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableFooter__WEBPACK_IMPORTED_MODULE_5__["default"], this.props));
+    }
+  }]);
+
+  return Table;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (Table);
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableBody.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/table/TableBody.js ***!
+  \****************************************************/
+/*! exports provided: TableBody, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableBody", function() { return TableBody; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+var TableBody =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TableBody, _React$Component);
+
+  function TableBody() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, TableBody);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TableBody)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function (e) {
+      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+
+      _this.props.deleteRecipe(id);
+    });
+
+    return _this;
+  }
+
+  _createClass(TableBody, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__body"
+      }, this.props.data.map(function (item, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: item.id,
+          className: _this2.props.className
+        }, _this2.props.headers.map(function (header, index) {
+          if (header.label == 'More') {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              key: index,
+              className: "table__more-options"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              className: "material-icons table__more-icon"
+            }, header.data), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              id: "options_" + item.id,
+              className: "table__options-modal"
+            }, _this2.props.options.map(function (option) {
+              if (typeof option.route != 'undefined') {
+                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+                  key: "option_" + option.label + "_" + item.id,
+                  to: option.route + item.id + option.action,
+                  className: "table__more-option"
+                }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                  className: "material-icons table__more-option-icon"
+                }, option.icon), option.label);
+              } else {
+                switch (option.onClick) {
+                  case 'deleteRecipe':
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+                      key: "option_" + option.label + "_" + item.id,
+                      onClick: _this2.startDeleteRecipe,
+                      className: "table__more-option"
+                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                      className: "material-icons table__more-option-icon"
+                    }, option.icon), option.label);
+                }
+              }
+            })));
+          } else {
+            if (_this2.props.headers[index].type == 'link') {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+                to: _this2.props.headers[index].route + item.id,
+                key: index,
+                className: _this2.props.headers[index]["class"]
+              }, item[header.column]);
+            } else if (_this2.props.headers[index].type == 'date') {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+                key: index,
+                className: _this2.props.headers[index]["class"]
+              }, item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, ''));
+            } else {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+                key: index,
+                className: _this2.props.headers[index]["class"]
+              }, item[header.column]);
+            }
+          }
+        }));
+      }));
+    }
+  }]);
+
+  return TableBody;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    deleteRecipe: function deleteRecipe(id) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["deleteRecipe"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(TableBody));
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableFooter.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/table/TableFooter.js ***!
+  \******************************************************/
+/*! exports provided: TableFooter, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableFooter", function() { return TableFooter; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -32768,30 +33046,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var Table =
+var TableFooter =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Table, _React$Component);
+  _inherits(TableFooter, _React$Component);
 
-  function Table(props) {
+  function TableFooter(props) {
     var _this;
 
-    _classCallCheck(this, Table);
+    _classCallCheck(this, TableFooter);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TableFooter).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "pageFilter", function (e) {
+      var pageNumber = e.currentTarget.id.replace(/\D/g, '');
+
+      _this.props.changeTablePage(pageNumber, _this.props.model);
+
+      _this.setState(function () {
+        return {
+          page: pageNumber
+        };
+      });
+    });
 
     _defineProperty(_assertThisInitialized(_this), "currentResults", function () {
       var filterLimit = _this.props.settings.table_result_limit;
-      var firstResult = _this.state.page == 1 ? _this.state.page : filterLimit * page + 1;
+      var firstResult = _this.state.page == 1 ? _this.state.page : filterLimit * (_this.state.page - 1) + 1;
       var lastResult = filterLimit * _this.state.page;
       if (isNaN(filterLimit) || isNaN(firstResult) || isNaN(lastResult) || isNaN(_this.props.total)) return 'No Results';
-      return 'Showing Results ' + _this.state.page + '-' + lastResult + ' of ' + _this.props.total;
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function (e) {
-      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-
-      _this.props.deleteRecipe(id);
+      return 'Showing Results ' + firstResult + '-' + lastResult + ' of ' + _this.props.total;
     });
 
     _this.state = {
@@ -32801,17 +33085,7 @@ function (_React$Component) {
     return _this;
   }
 
-  _createClass(Table, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      if (this.props.options) {
-        this.props.headers.push({
-          label: 'More',
-          data: 'more_vert'
-        });
-      }
-    }
-  }, {
+  _createClass(TableFooter, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var _this2 = this;
@@ -32832,73 +33106,6 @@ function (_React$Component) {
       var pageCount = _toConsumableArray(Array(this.state.totalPages));
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "table"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: this.props.className + " table__header"
-      }, this.props.headers.map(function (header, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: index,
-          className: "table__cell"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, header.label));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "table__body"
-      }, this.props.data.map(function (item, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: item.id,
-          className: _this3.props.className
-        }, _this3.props.headers.map(function (header, index) {
-          if (header.label == 'More') {
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              key: index,
-              className: "table__more-options"
-            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-              className: "material-icons table__more-icon"
-            }, header.data), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              id: "options_" + item.id,
-              className: "table__options-modal"
-            }, _this3.props.options.map(function (option) {
-              if (typeof option.route != 'undefined') {
-                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-                  key: "option_" + option.label + "_" + item.id,
-                  to: option.route + item.id + option.action,
-                  className: "table__more-option"
-                }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                  className: "material-icons table__more-option-icon"
-                }, option.icon), option.label);
-              } else {
-                switch (option.onClick) {
-                  case 'deleteRecipe':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                      key: "option_" + option.label + "_" + item.id,
-                      onClick: _this3.startDeleteRecipe,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
-                }
-              }
-            })));
-          } else {
-            if (_this3.props.headers[index].type == 'link') {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-                to: _this3.props.headers[index].route + item.id,
-                key: index,
-                className: _this3.props.headers[index]["class"]
-              }, item[header.column]);
-            } else if (_this3.props.headers[index].type == 'date') {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-                key: index,
-                className: _this3.props.headers[index]["class"]
-              }, item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, ''));
-            } else {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-                key: index,
-                className: _this3.props.headers[index]["class"]
-              }, item[header.column]);
-            }
-          }
-        }));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__pagination"
@@ -32907,22 +33114,34 @@ function (_React$Component) {
       }, this.currentResults()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__pagination-nav"
       }, pageCount.map(function (page, index) {
-        if (index <= 5) {
+        if (index < 5) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            key: "page_" + index,
-            className: "btn--table"
+            key: "page_" + (index + 1),
+            id: "page_" + (index + 1),
+            className: "btn--table" + (index + 1 == _this3.state.page ? '-active' : ''),
+            onClick: _this3.pageFilter
           }, index + 1);
-        } else {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            key: "page_" + index,
-            className: "btn--table"
-          }, pageCount.length);
+        } else if (index + 1 == pageCount.length) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+            key: "page-last",
+            className: "table__pagination-last"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "page_" + (_this3.state.page + 1),
+            className: "btn--table",
+            onClick: _this3.pageFilter
+          }, "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "table__pagination-ellipsis"
+          }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "page_" + (index + 1),
+            className: "btn--table",
+            onClick: _this3.pageFilter
+          }, index + 1));
         }
-      })))));
+      }))));
     }
   }]);
 
-  return Table;
+  return TableFooter;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -32933,13 +33152,79 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
-    deleteRecipe: function deleteRecipe(id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["deleteRecipe"])(id));
+    changeTablePage: function changeTablePage(pageNumber, model) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["changeTablePage"])(pageNumber, model));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Table));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TableFooter));
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableHeader.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/table/TableHeader.js ***!
+  \******************************************************/
+/*! exports provided: TableHeader, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableHeader", function() { return TableHeader; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var TableHeader =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TableHeader, _React$Component);
+
+  function TableHeader() {
+    _classCallCheck(this, TableHeader);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TableHeader).apply(this, arguments));
+  }
+
+  _createClass(TableHeader, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: this.props.className + " table__header"
+      }, this.props.headers.map(function (header, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index,
+          className: "table__cell"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, header.label));
+      }));
+    }
+  }]);
+
+  return TableHeader;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (TableHeader);
 
 /***/ }),
 

@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function() {
         'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
+    Route::get('/recipes/{id}/', 'RecipeController@show');
     Route::post('/recipes/store', 'RecipeController@store');
     Route::post('/recipes/{id}/update', 'RecipeController@update');
     Route::post('/recipes/{id}/delete', 'RecipeController@destroy');

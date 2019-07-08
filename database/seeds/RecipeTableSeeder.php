@@ -14,6 +14,6 @@ class RecipeTableSeeder extends Seeder
     {
         DB::table('recipe')->delete();
         DB::statement('ALTER TABLE recipe AUTO_INCREMENT = 1');
-        factory(Recipe::class, 30)->create();
+        factory(Recipe::class, 155)->create();
     }
 }
