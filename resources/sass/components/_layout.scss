@@ -1,5 +1,5 @@
 .app {
-    @include flex-column();
+    @include flex-column;
     height: 100vh;
     width: 100vw;
 }

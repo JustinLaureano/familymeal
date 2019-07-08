@@ -9,13 +9,13 @@ export function getRecipeTableHeaders() {
         },
         {
             label: 'Category',
-            column: 'recipe_category_id',
+            column: 'recipe_category',
             type: 'link',
             route: 'category/',
             class: ''},
         {
             label: 'Cuisine',
-            column: 'cuisine_type_id',
+            column: 'cuisine_type',
             type: 'link',
             route: 'cuisine-types/',
             class: ''
@@ -27,4 +27,8 @@ export function getRecipeTableHeaders() {
             class: 'table__inactive'
         },
     ];
+}
+
+export function getRecipeTableOptions() {
+    return ['update', 'delete'];
 }

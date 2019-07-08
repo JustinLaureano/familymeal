@@ -53,13 +53,13 @@
 	border-radius: 6px 6px 0 0 ;
 }
 
-@mixin flex-column() {
+@mixin flex-column {
 	display: flex;
     flex-direction: column;
 }
 
 @mixin flex-center {
-	@include flex-column();
+	@include flex-column;
     justify-content: center;
     align-items: center;
 }

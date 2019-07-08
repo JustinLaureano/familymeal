@@ -1,5 +1,4 @@
 import React from 'react';
-import TimeAgo from 'react-timeago'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -35,7 +34,16 @@ export class Table extends React.Component {
 								this.props.headers.map((header, index) => {
 									if (header.label == 'More') {
 										return (
-											<i key={index} className="material-icons table__more-icon">{header.data}</i>
+											<div className="table__more-options">
+												<i key={index} className="material-icons table__more-icon">{header.data}</i>
+												<div className="table__options-modal">
+													{this.props.options.map((option) => {
+														return (
+															<div>{option}</div>
+														)
+													})}
+												</div>
+											</div>
 											);
 										}
 									else {

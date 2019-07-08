@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRecipeTableHeaders } from '../helpers/Table';
+import { getRecipeTableHeaders, getRecipeTableOptions } from '../helpers/Table';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import Table from '../components/table/Table.js';
 
@@ -10,7 +10,8 @@ export class MyRecipesPage extends React.Component {
         super(props);
         
         this.state = {
-			headers: getRecipeTableHeaders()
+			headers: getRecipeTableHeaders(),
+			options: getRecipeTableOptions()
         };
 	};
 	
@@ -20,7 +21,7 @@ export class MyRecipesPage extends React.Component {
 			data: this.props.recipes,
 			className: 'table__row--recipe',
 			model: 'recipe',
-			options: ['update', 'delete']
+			options: this.state.options
 		};
 		return (
 			<section className="table-grid">

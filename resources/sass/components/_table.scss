@@ -47,13 +47,40 @@
     }
 }
 
+.table__more-options {
+    position: relative;
+    text-align: center;
+}
+
 .table__more-icon {
     @include transition;
     cursor: pointer;
     font-size: 18px;
     justify-self: center;
     opacity: $icon-opacity;
+    // &:hover {
+    //     opacity: 1;
+    // }
+    &:hover + .table__options-modal {
+        @include flex-column;
+}
+}
+
+.table__options-modal {
+    background: #fffeff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .1);
+    display: none;
+    padding: 0.4em;
+    position: absolute;
+    right: 20px;
+    top: 3px;
+    z-index: 500;
     &:hover {
-        opacity: 1;
+        @include flex-column;
     }
+}
+
+.table__inactive {
+
 }

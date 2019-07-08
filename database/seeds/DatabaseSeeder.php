@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserTableSeeder::class,
+            UserSettingsTableSeeder::class,
             CuisineTypeTableSeeder::class,
             MeasurementUnitsTableSeeder::class,
             IngredientCategoryTableSeeder::class,

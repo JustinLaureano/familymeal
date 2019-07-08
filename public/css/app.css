@@ -483,6 +483,11 @@ input, .input {
   height: 0;
 }
 
+.table__more-options {
+  position: relative;
+  text-align: center;
+}
+
 .table__more-icon {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
@@ -491,8 +496,31 @@ input, .input {
   justify-self: center;
   opacity: 0.54;
 }
-.table__more-icon:hover {
-  opacity: 1;
+.table__more-icon:hover + .table__options-modal {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.table__options-modal {
+  background: #fffeff;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  display: none;
+  padding: 0.4em;
+  position: absolute;
+  right: 20px;
+  top: 3px;
+  z-index: 500;
+}
+.table__options-modal:hover {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
 }
 
 .footer {
