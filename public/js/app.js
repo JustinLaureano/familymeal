@@ -32213,6 +32213,14 @@ var init = function init(token, user_id) {
         user: data.user
       });
       dispatch({
+        type: 'SET_USER_SETTINGS',
+        userSettings: data.userSettings
+      });
+      dispatch({
+        type: 'SET_RECIPE_TOTAL',
+        recipeTotal: data.recipeTotal
+      });
+      dispatch({
         type: 'SET_RECIPES',
         recipes: data.recipes
       });
@@ -32730,6 +32738,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -32757,18 +32773,20 @@ var Table =
 function (_React$Component) {
   _inherits(Table, _React$Component);
 
-  function Table() {
-    var _getPrototypeOf2;
-
+  function Table(props) {
     var _this;
 
     _classCallCheck(this, Table);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Table).call(this, props));
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Table)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _defineProperty(_assertThisInitialized(_this), "currentResults", function () {
+      var filterLimit = _this.props.settings.table_result_limit;
+      var firstResult = _this.state.page == 1 ? _this.state.page : filterLimit * page + 1;
+      var lastResult = filterLimit * _this.state.page;
+      if (isNaN(filterLimit) || isNaN(firstResult) || isNaN(lastResult) || isNaN(_this.props.total)) return 'No Results';
+      return 'Showing Results ' + _this.state.page + '-' + lastResult + ' of ' + _this.props.total;
+    });
 
     _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function (e) {
       var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
@@ -32776,6 +32794,10 @@ function (_React$Component) {
       _this.props.deleteRecipe(id);
     });
 
+    _this.state = {
+      page: 1,
+      totalPages: 0
+    };
     return _this;
   }
 
@@ -32790,9 +32812,24 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      if (this.state.totalPages == 0 && !isNaN(this.props.total)) {
+        this.setState(function () {
+          return {
+            totalPages: Math.ceil(_this2.props.total / _this2.props.settings.table_result_limit)
+          };
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
+
+      var pageCount = _toConsumableArray(Array(this.state.totalPages));
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table"
@@ -32808,8 +32845,8 @@ function (_React$Component) {
       }, this.props.data.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: item.id,
-          className: _this2.props.className
-        }, _this2.props.headers.map(function (header, index) {
+          className: _this3.props.className
+        }, _this3.props.headers.map(function (header, index) {
           if (header.label == 'More') {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               key: index,
@@ -32819,7 +32856,7 @@ function (_React$Component) {
             }, header.data), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
               id: "options_" + item.id,
               className: "table__options-modal"
-            }, _this2.props.options.map(function (option) {
+            }, _this3.props.options.map(function (option) {
               if (typeof option.route != 'undefined') {
                 return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
                   key: "option_" + option.label + "_" + item.id,
@@ -32833,7 +32870,7 @@ function (_React$Component) {
                   case 'deleteRecipe':
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
                       key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.startDeleteRecipe,
+                      onClick: _this3.startDeleteRecipe,
                       className: "table__more-option"
                     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
                       className: "material-icons table__more-option-icon"
@@ -32842,33 +32879,57 @@ function (_React$Component) {
               }
             })));
           } else {
-            if (_this2.props.headers[index].type == 'link') {
+            if (_this3.props.headers[index].type == 'link') {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
-                to: _this2.props.headers[index].route + item.id,
+                to: _this3.props.headers[index].route + item.id,
                 key: index,
-                className: _this2.props.headers[index]["class"]
+                className: _this3.props.headers[index]["class"]
               }, item[header.column]);
-            } else if (_this2.props.headers[index].type == 'date') {
+            } else if (_this3.props.headers[index].type == 'date') {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
                 key: index,
-                className: _this2.props.headers[index]["class"]
+                className: _this3.props.headers[index]["class"]
               }, item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, ''));
             } else {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
                 key: index,
-                className: _this2.props.headers[index]["class"]
+                className: _this3.props.headers[index]["class"]
               }, item[header.column]);
             }
           }
         }));
-      })));
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__footer"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__pagination"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__current-results"
+      }, this.currentResults()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table__pagination-nav"
+      }, pageCount.map(function (page, index) {
+        if (index <= 5) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            key: "page_" + index,
+            className: "btn--table"
+          }, index + 1);
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            key: "page_" + index,
+            className: "btn--table"
+          }, pageCount.length);
+        }
+      })))));
     }
   }]);
 
   return Table;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    settings: state.userSettings
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
@@ -32878,7 +32939,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(Table));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Table));
 
 /***/ }),
 
@@ -32924,7 +32985,7 @@ function getRecipeTableHeaders() {
     column: 'name',
     type: 'link',
     route: 'recipe/',
-    "class": ''
+    "class": 'table__emphasize'
   }, {
     label: 'Category',
     column: 'recipe_category',
@@ -32999,6 +33060,35 @@ var authReducerDefaultState = [];
 
 /***/ }),
 
+/***/ "./resources/js/reducers/filters.js":
+/*!******************************************!*\
+  !*** ./resources/js/reducers/filters.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var filterReducerDefaultState = {};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : filterReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SORT_BY_NAME_ASC':
+      return _objectSpread({}, state);
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/recipes.js":
 /*!******************************************!*\
   !*** ./resources/js/reducers/recipes.js ***!
@@ -33055,6 +33145,37 @@ var recipeReducerDefaultState = [];
 
 /***/ }),
 
+/***/ "./resources/js/reducers/totals.js":
+/*!*****************************************!*\
+  !*** ./resources/js/reducers/totals.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var totalsReducerDefaultState = {};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : totalsReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_RECIPE_TOTAL':
+      return _objectSpread({}, state, {
+        recipe: action.recipeTotal
+      });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/user.js":
 /*!***************************************!*\
   !*** ./resources/js/reducers/user.js ***!
@@ -33072,6 +33193,31 @@ var userReducerDefaultState = [];
   switch (action.type) {
     case 'SET_USER':
       return action.user;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/reducers/userSettings.js":
+/*!***********************************************!*\
+  !*** ./resources/js/reducers/userSettings.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var userSettingsReducerDefaultState = [];
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : userSettingsReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_USER_SETTINGS':
+      return action.userSettings;
 
     default:
       return state;
@@ -33140,6 +33286,10 @@ var AppRouter = function AppRouter() {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PrivateRoute__WEBPACK_IMPORTED_MODULE_3__["default"], {
     path: "/recipes",
     component: _views_MyRecipesPage__WEBPACK_IMPORTED_MODULE_12__["default"],
+    exact: true
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PrivateRoute__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    path: "/recipes/create",
+    component: _views_EditRecipePage__WEBPACK_IMPORTED_MODULE_7__["default"],
     exact: true
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PrivateRoute__WEBPACK_IMPORTED_MODULE_3__["default"], {
     path: "/recipes/:id",
@@ -33308,8 +33458,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var _reducers_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/auth */ "./resources/js/reducers/auth.js");
-/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/filters */ "./resources/js/reducers/filters.js");
+/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
+/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
+
+
 
 
 
@@ -33319,8 +33475,11 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     auth: _reducers_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_3__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_4__["default"]
+    filters: _reducers_filters__WEBPACK_IMPORTED_MODULE_3__["default"],
+    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_4__["default"],
+    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_5__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_6__["default"],
+    userSettings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });
@@ -33884,7 +34043,8 @@ function (_React$Component) {
         data: this.props.recipes,
         className: 'table__row--recipe',
         model: 'recipe',
-        options: this.state.options
+        options: this.state.options,
+        total: this.props.recipeTotal
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid"
@@ -33896,13 +34056,15 @@ function (_React$Component) {
         className: "page-header__title"
       }, "My Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "page-header__record-count"
-      }, this.props.recipes.length, " Recipes Total")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, this.props.recipeTotal, " Recipes Total")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "recipes/create"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        "class": "btn--primary"
+        className: "btn--primary"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons btn__icon"
-      }, "add"), "New Recipe"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__["default"], props));
+      }, "add"), "New Recipe")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__["default"], props));
     }
   }]);
 
@@ -33911,7 +34073,8 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    recipes: state.recipes
+    recipes: state.recipes,
+    recipeTotal: state.totals.recipe
   };
 };
 

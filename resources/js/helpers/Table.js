@@ -5,7 +5,7 @@ export function getRecipeTableHeaders() {
             column: 'name',
             type: 'link',
             route: 'recipe/',
-            class: ''
+            class: 'table__emphasize'
         },
         {
             label: 'Category',

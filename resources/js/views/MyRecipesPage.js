@@ -22,6 +22,7 @@ export class MyRecipesPage extends React.Component {
 			className: 'table__row--recipe',
 			model: 'recipe',
 			options: this.state.options,
+			total: this.props.recipeTotal
 		};
 		return (
 			<section className="table-grid">
@@ -29,13 +30,15 @@ export class MyRecipesPage extends React.Component {
 				<section className="page-header">
 					<section className="page-header__info">					
 						<h1 className="page-header__title">My Recipes</h1>
-						<h5 className="page-header__record-count">{this.props.recipes.length} Recipes Total</h5>
+						<h5 className="page-header__record-count">{this.props.recipeTotal} Recipes Total</h5>
 					</section>
 					<section className="page-header__options">
-						<button class="btn--primary">
-							<i className="material-icons btn__icon">add</i>
-							New Recipe
-						</button>
+						<Link to="recipes/create">
+							<button className="btn--primary">
+								<i className="material-icons btn__icon">add</i>
+								New Recipe
+							</button>
+						</Link>
 					</section>
 				</section>
 				<Table {...props}/>
@@ -46,7 +49,8 @@ export class MyRecipesPage extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-        recipes: state.recipes
+		recipes: state.recipes,
+		recipeTotal: state.totals.recipe
     };
 };
   

@@ -22,9 +22,20 @@ export const init = (token, user_id) => {
 				});
 
 				dispatch({
+					type: 'SET_USER_SETTINGS',
+					userSettings: data.userSettings
+				});
+
+				dispatch({
+					type: 'SET_RECIPE_TOTAL',
+					recipeTotal: data.recipeTotal
+				});
+				
+				dispatch({
 					type: 'SET_RECIPES',
 					recipes: data.recipes
 				});
+
 			})
 			.catch(err => console.log(err))
 	}

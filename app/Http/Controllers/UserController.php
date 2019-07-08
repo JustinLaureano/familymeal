@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserSettings;
 use App\Models\Recipe;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -17,19 +18,29 @@ class UserController extends Controller
 
     public function init($id)
     {
+        $user_settings = UserSettings::where('user_id', $id)->first();
         $recipes = DB::table('recipe')
-                        ->select('recipe.name', 'recipe.id', 'recipe_category_id', 'recipe_category.name AS recipe_category', 'cuisine_type.name AS cuisine_type', 'recipe.created_at', 'recipe.updated_at')
+                        ->select('recipe.name',
+                            'recipe.id',
+                            'recipe_category_id',
+                            'recipe_category.name AS recipe_category',
+                            'cuisine_type.name AS cuisine_type',
+                            'recipe.created_at',
+                            'recipe.updated_at'
+                        )
                         ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
                         ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
                         ->where('user_id', $id)
                         ->where('recipe.deleted_at', Null)
                         ->orderBy('name', 'asc')
-                        ->limit(50)
+                        ->limit($user_settings->table_result_limit)
                         ->get();
 
         $data = [
             'user' => User::where('id', $id)->first(),
+            'userSettings' => $user_settings,
             'recipes' => $recipes,
+            'recipeTotal' => Recipe::where('user_id', $id)->where('deleted_at', Null)->count()
         ];
         return response($data, 200);
     }

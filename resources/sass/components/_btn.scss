@@ -1,9 +1,9 @@
 .btn {
     @include pad($space-xxs);
     @include border();
+    @include transition;
     background-color: $white;
     font-size: $size-md;
-    transition: all .125s ease-in-out;
     &:hover {
         box-shadow: 0px 1px 3px rgba(0, 0, 0, .25);
     }
@@ -21,6 +21,7 @@
 }
 
 .btn--primary {
+    @extend .btn;
     @include pad($space-xxs, $space-sm);
     background-color: $weathered-blue;
     border: none;
@@ -30,6 +31,18 @@
     align-items: center;
     &:hover {
         background-color: $white;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
         color: $weathered-blue;
+    }
+}
+
+.btn--table {
+    @extend .btn;
+    @include pad($space-xxxs);
+    font-size: $size-sm;
+    margin-right: $space-xxs;
+    &:hover {
+        background-color: $weathered-blue;
+        color: $white;
     }
 }
