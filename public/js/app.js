@@ -33103,7 +33103,20 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var pageCount = _toConsumableArray(Array(this.state.totalPages));
+      var pageCount = [];
+
+      if (this.state.page >= 4) {
+        var beginRange = this.state.page - 2;
+        var endRange = this.state.page + 2 < this.state.totalPages ? this.state.page : this.state.totalPages;
+        console.log(beginRange);
+        console.log(endRange);
+
+        for (var i = beginRange; i <= endRange; i++) {
+          pageCount.push(i);
+        }
+      } else {
+        pageCount = _toConsumableArray(Array(this.state.totalPages));
+      }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__footer"

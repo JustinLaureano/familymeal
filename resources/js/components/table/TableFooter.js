@@ -36,7 +36,19 @@ export class TableFooter extends React.Component {
     }
     
 	render() {
-        const pageCount = [...Array(this.state.totalPages)];
+        let pageCount = [];
+        if (this.state.page >= 4) {
+            const beginRange = this.state.page - 2;
+            const endRange = this.state.page + 2 < this.state.totalPages ? this.state.page : this.state.totalPages;
+            console.log(beginRange);
+            console.log(endRange);
+            for (let i = beginRange; i <= endRange; i++) {
+                pageCount.push(i);
+            }
+        }
+        else {
+            pageCount = [...Array(this.state.totalPages)];
+        }
 		return (
             <section className="table__footer">
                 <section className="table__pagination">
