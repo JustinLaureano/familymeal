@@ -21,7 +21,6 @@ export default (state = recipeReducerDefaultState, action) => {
                 };
             });
         case 'DELETE_RECIPE':
-            console.log(state);
             return state.filter((recipe) => recipe.id != action.id);
         default:
             return state;

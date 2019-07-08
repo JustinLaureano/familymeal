@@ -20,11 +20,6 @@
     margin-left: $navbar-width;
 }
 
-.page-header {
-    display: flex;
-    grid-area: page-header;
-}
-
 .table-grid {
     @extend .content;
     display: grid;

@@ -23,7 +23,9 @@ Route::middleware('auth:api')->group(function() {
         'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
-    Route::post('/recipes/{id}', 'RecipeController@destroy');
+    Route::post('/recipes/store', 'RecipeController@store');
+    Route::post('/recipes/{id}/update', 'RecipeController@update');
+    Route::post('/recipes/{id}/delete', 'RecipeController@destroy');
     
     Route::get('/init/{id}', 'UserController@init');
     Route::post('/logout', 'HomeController@logout');

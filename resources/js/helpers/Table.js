@@ -33,7 +33,7 @@ export function getRecipeTableOptions() {
     return [
         {
             label: 'Update',
-            icon: 'update',
+            icon: 'edit',
             route: 'recipes/',
             action: '/edit'
         },

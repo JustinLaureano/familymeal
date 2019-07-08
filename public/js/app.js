@@ -32271,7 +32271,7 @@ var deleteRecipe = function deleteRecipe(id) {
         '_method': 'DELETE'
       }
     };
-    fetch('/api/recipes/' + id, request).then(function (resp) {
+    fetch('/api/recipes/' + id + '/delete', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
       dispatch({
@@ -32947,7 +32947,7 @@ function getRecipeTableHeaders() {
 function getRecipeTableOptions() {
   return [{
     label: 'Update',
-    icon: 'update',
+    icon: 'edit',
     route: 'recipes/',
     action: '/edit'
   }, {
@@ -33044,7 +33044,6 @@ var recipeReducerDefaultState = [];
       });
 
     case 'DELETE_RECIPE':
-      console.log(state);
       return state.filter(function (recipe) {
         return recipe.id != action.id;
       });
@@ -33891,9 +33890,19 @@ function (_React$Component) {
         className: "table-grid"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "page-header__info"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
-      }, "My Recipes")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__["default"], props));
+      }, "My Recipes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "page-header__record-count"
+      }, this.props.recipes.length, " Recipes Total")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "page-header__options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        "class": "btn--primary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons btn__icon"
+      }, "add"), "New Recipe"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_5__["default"], props));
     }
   }]);
 

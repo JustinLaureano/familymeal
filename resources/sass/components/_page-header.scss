@@ -1,0 +1,19 @@
+.page-header {
+    align-items: baseline;
+    display: flex;
+    grid-area: page-header;
+    justify-content: space-between;
+}
+
+.page-header__info {
+    display: flex;
+}
+
+page-header__options {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.page-header__record-count {
+    margin-left: $space-sm;
+}

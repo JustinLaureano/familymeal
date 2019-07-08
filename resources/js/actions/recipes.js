@@ -13,7 +13,7 @@ export const deleteRecipe = (id) => {
             }
 		};
 
-		fetch('/api/recipes/' + id, request)
+		fetch('/api/recipes/' + id + '/delete', request)
 			.then(resp => resp.json())
 			.then((data) => {
 				dispatch({

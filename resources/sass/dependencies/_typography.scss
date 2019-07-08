@@ -16,6 +16,11 @@ h4 {
     color: $weathered-blue;
 }
 
+h5 {
+    font-weight: 300;
+    font-size: $size-md;
+}
+
 a {
     &:hover {
         color: $weathered-blue;

@@ -9,8 +9,27 @@
     }
 }
 
+.btn__icon {
+    font-size: 16px;
+    margin-right: $space-xs;
+}
+
 .btn--text {
     @extend .btn;
     background: none;
     border: none;
+}
+
+.btn--primary {
+    @include pad($space-xxs, $space-sm);
+    background-color: $weathered-blue;
+    border: none;
+    border-radius: 3px;
+    color: $white;
+    display: flex;
+    align-items: center;
+    &:hover {
+        background-color: $white;
+        color: $weathered-blue;
+    }
 }
