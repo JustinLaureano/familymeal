@@ -23,6 +23,8 @@ Route::middleware('auth:api')->group(function() {
         'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
+    Route::post('/recipes/{id}', 'RecipeController@destroy');
+    
     Route::get('/init/{id}', 'UserController@init');
     Route::post('/logout', 'HomeController@logout');
 });

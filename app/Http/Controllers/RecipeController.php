@@ -22,6 +22,7 @@ class RecipeController extends Controller
     public function show($id)
     {
         $recipes = Recipe::where('user_id', $id)
+                    ->where('deleted_at', Null)
                     ->orderBy('name', 'asc')
                     ->take(50)
                     ->get();
@@ -36,6 +37,7 @@ class RecipeController extends Controller
 
     public function destroy($id)
     {
-
+        Recipe::find($id)->delete();
+        return response(['id' => $id], 200);
     }
 }

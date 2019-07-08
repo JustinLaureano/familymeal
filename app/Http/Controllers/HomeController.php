@@ -32,11 +32,6 @@ class HomeController extends Controller
         ]);
     }
 
-    public function data()
-    {
-        return response(['data' => 'itworks!'], 200);
-    }
-
     public function logout()
     {
         return redirect('')->with(Auth::logout());

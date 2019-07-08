@@ -509,10 +509,10 @@ input, .input {
   border-radius: 3px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
   display: none;
-  padding: 0.4em;
   position: absolute;
   right: 20px;
   top: 3px;
+  min-width: 100px;
   z-index: 500;
 }
 .table__options-modal:hover {
@@ -521,6 +521,26 @@ input, .input {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-direction: column;
+}
+
+.table__more-option {
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  padding: 0.4em;
+  width: 100%;
+}
+.table__more-option:hover {
+  background-color: #5b677430;
+  cursor: pointer;
+}
+
+.table__more-option-icon {
+  font-size: 16px;
+  margin-right: calc(0.5 * 1em);
 }
 
 .footer {

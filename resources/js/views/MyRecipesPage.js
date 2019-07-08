@@ -21,7 +21,7 @@ export class MyRecipesPage extends React.Component {
 			data: this.props.recipes,
 			className: 'table__row--recipe',
 			model: 'recipe',
-			options: this.state.options
+			options: this.state.options,
 		};
 		return (
 			<section className="table-grid">

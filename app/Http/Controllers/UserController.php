@@ -22,6 +22,7 @@ class UserController extends Controller
                         ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
                         ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
                         ->where('user_id', $id)
+                        ->where('recipe.deleted_at', Null)
                         ->orderBy('name', 'asc')
                         ->limit(50)
                         ->get();

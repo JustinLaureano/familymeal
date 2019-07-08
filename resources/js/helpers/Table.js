@@ -30,5 +30,17 @@ export function getRecipeTableHeaders() {
 }
 
 export function getRecipeTableOptions() {
-    return ['update', 'delete'];
+    return [
+        {
+            label: 'Update',
+            icon: 'update',
+            route: 'recipes/',
+            action: '/edit'
+        },
+        {
+            label: 'Delete',
+            icon: 'delete',
+            onClick: 'deleteRecipe'
+        },
+    ]
 }

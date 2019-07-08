@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import CategoriesPage from '../views/CategoriesPage';
 import CuisinesPage from '../views/CuisinesPage';
+import EditRecipePage from '../views/EditRecipePage';
 import FavoritesPage from '../views/FavoritesPage';
 import ImportExportPage from '../views/ImportExportPage';
 import IngredientsPage from '../views/IngredientsPage';
@@ -14,6 +15,7 @@ import NotFoundPage from '../views/NotFoundPage';
 import RecipeBookPage from '../views/RecipeBookPage';
 import SettingsPage from '../views/SettingsPage';
 import ShoppingListPage from '../views/ShoppingListPage';
+import ViewRecipePage from '../views/ViewRecipePage';
 
 export const history = createHistory();
 
@@ -22,6 +24,9 @@ const AppRouter = () => (
     <div>
       <Switch>
         <PrivateRoute path="/home" component={MyRecipesPage} exact={true} />
+        <PrivateRoute path="/recipes" component={MyRecipesPage} exact={true} />
+        <PrivateRoute path="/recipes/:id" component={ViewRecipePage} exact={true} />
+        <PrivateRoute path="/recipes/:id/edit" component={EditRecipePage} exact={true} />
         <PrivateRoute path="/categories" component={CategoriesPage} exact={true} />
         <PrivateRoute path="/cuisines" component={CuisinesPage} exact={true} />
         <PrivateRoute path="/favorites" component={FavoritesPage} exact={true} />
