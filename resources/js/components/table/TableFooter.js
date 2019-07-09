@@ -28,26 +28,41 @@ export class TableFooter extends React.Component {
 		const filterLimit = this.props.settings.table_result_limit;
 		let firstResult = this.state.page == 1 ?
 			this.state.page : 
-			(filterLimit * (this.state.page - 1)) + 1;
-		let lastResult = filterLimit * this.state.page;
+            (filterLimit * (this.state.page - 1)) + 1;
+        let lastResult = filterLimit * this.state.page;
+
+        // Special results for last page
+        if (lastResult / filterLimit == this.state.totalPages) {
+            firstResult = parseInt(this.props.total) - (this.props.total % filterLimit);
+            lastResult = this.props.total;
+        }
+
+        // If no results loaded yet
 		if (isNaN(filterLimit) || isNaN(firstResult) || isNaN(lastResult) || isNaN(this.props.total)) return 'No Results';
 
 		return 'Showing Results ' + firstResult + '-' + lastResult  + ' of ' + this.props.total;
     }
     
 	render() {
+        let currentPage = parseInt(this.state.page);
         let pageCount = [];
-        if (this.state.page >= 4) {
-            const beginRange = this.state.page - 2;
-            const endRange = this.state.page + 2 < this.state.totalPages ? this.state.page : this.state.totalPages;
-            console.log(beginRange);
-            console.log(endRange);
-            for (let i = beginRange; i <= endRange; i++) {
-                pageCount.push(i);
+        let paginationPos = 'start';
+        if (currentPage <= 5) {
+            let index = 1;
+            while (pageCount.length < 5) {
+                pageCount.push(index);
+                index++;
             }
         }
+        else if (currentPage >= this.state.totalPages - 5) {
+            const p = this.state.totalPages;
+            pageCount = [p - 4, p - 3, p - 2, p - 1, p];
+            paginationPos = 'end';
+        }
         else {
-            pageCount = [...Array(this.state.totalPages)];
+            const p = this.state.totalPages;
+            pageCount = [p - 2, p - 1, p, p + 1, p + 2];
+            paginationPos = 'middle';
         }
 		return (
             <section className="table__footer">
@@ -57,38 +72,59 @@ export class TableFooter extends React.Component {
                     </section>
                     <section className="table__pagination-nav">
                         {
-                            pageCount.map((page, index) => {
-                                if (index < 5) {
-                                    return (
-                                        <button
-                                            key={"page_" + (index + 1)}
-                                            id={"page_" + (index + 1)}
-                                            className={"btn--table" + ((index + 1) == this.state.page ? '-active' : '')}
-                                            onClick={this.pageFilter}>
-                                            {index + 1}
-                                        </button>
-                                    )
-                                }
-                                else if (index + 1 == pageCount.length) {
-                                    return (
-                                        <section key={"page-last"} className="table__pagination-last">
-                                            <button
-                                                id={"page_" + (this.state.page + 1)}
-                                                className="btn--table"
-                                                onClick={this.pageFilter}>
-                                                Next	
-                                            </button>
-                                            <span className="table__pagination-ellipsis">...</span>
-                                            <button
-                                                id={"page_" + (index + 1)}
-                                                className="btn--table"
-                                                onClick={this.pageFilter}>
-                                                {index + 1}
-                                            </button>
-                                        </section>
-                                    )
-                                }
+                            paginationPos == 'end' || paginationPos == 'middle' ?
+                            (
+                                <div>
+                                    <button
+                                        id={"page_1" }
+                                        className={"btn--table" + (1 == currentPage ? '-active' : '')}
+                                        onClick={this.pageFilter}>
+                                        1
+                                    </button>
+                                    <span className="table__pagination-ellipsis">...</span>
+                                    <button
+                                        id={"page_" + (currentPage - 1)}
+                                        className="btn--table"
+                                        onClick={this.pageFilter}>
+                                        Prev	
+                                    </button>
+                                </div>
+                            ) : ''
+                        }
+
+                        {
+                            pageCount.map((page) => {
+                                return (
+                                    <button
+                                        key={"page_" + page}
+                                        id={"page_" + page}
+                                        className={"btn--table" + (page == currentPage ? '-active' : '')}
+                                        onClick={this.pageFilter}>
+                                        {page}
+                                    </button>
+                                )
                             })
+                        }
+
+                        {
+                            paginationPos == 'start' || paginationPos == 'middle' ?
+                            (
+                                <div>
+                                    <button
+                                        id={"page_" + (currentPage + 1)}
+                                        className="btn--table"
+                                        onClick={this.pageFilter}>
+                                        Next	
+                                    </button>
+                                    <span className="table__pagination-ellipsis">...</span>
+                                    <button
+                                        id={"page_" + this.state.totalPages}
+                                        className={"btn--table" + (this.state.totalPages == currentPage ? '-active' : '')}
+                                        onClick={this.pageFilter}>
+                                        {this.state.totalPages}
+                                    </button>
+                                </div>
+                            ) : ''
                         }
                     </section>
                 </section>
@@ -100,7 +136,7 @@ export class TableFooter extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		settings: state.userSettings
+        settings: state.userSettings
 	}
 };
   

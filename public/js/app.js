@@ -33016,14 +33016,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -33073,7 +33065,14 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "currentResults", function () {
       var filterLimit = _this.props.settings.table_result_limit;
       var firstResult = _this.state.page == 1 ? _this.state.page : filterLimit * (_this.state.page - 1) + 1;
-      var lastResult = filterLimit * _this.state.page;
+      var lastResult = filterLimit * _this.state.page; // Special results for last page
+
+      if (lastResult / filterLimit == _this.state.totalPages) {
+        firstResult = parseInt(_this.props.total) - _this.props.total % filterLimit;
+        lastResult = _this.props.total;
+      } // If no results loaded yet
+
+
       if (isNaN(filterLimit) || isNaN(firstResult) || isNaN(lastResult) || isNaN(_this.props.total)) return 'No Results';
       return 'Showing Results ' + firstResult + '-' + lastResult + ' of ' + _this.props.total;
     });
@@ -33103,19 +33102,25 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var currentPage = parseInt(this.state.page);
       var pageCount = [];
+      var paginationPos = 'start';
 
-      if (this.state.page >= 4) {
-        var beginRange = this.state.page - 2;
-        var endRange = this.state.page + 2 < this.state.totalPages ? this.state.page : this.state.totalPages;
-        console.log(beginRange);
-        console.log(endRange);
+      if (currentPage <= 5) {
+        var index = 1;
 
-        for (var i = beginRange; i <= endRange; i++) {
-          pageCount.push(i);
+        while (pageCount.length < 5) {
+          pageCount.push(index);
+          index++;
         }
+      } else if (currentPage >= this.state.totalPages - 5) {
+        var p = this.state.totalPages;
+        pageCount = [p - 4, p - 3, p - 2, p - 1, p];
+        paginationPos = 'end';
       } else {
-        pageCount = _toConsumableArray(Array(this.state.totalPages));
+        var _p = this.state.totalPages;
+        pageCount = [_p - 2, _p - 1, _p, _p + 1, _p + 2];
+        paginationPos = 'middle';
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -33126,31 +33131,34 @@ function (_React$Component) {
         className: "table__current-results"
       }, this.currentResults()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__pagination-nav"
-      }, pageCount.map(function (page, index) {
-        if (index < 5) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            key: "page_" + (index + 1),
-            id: "page_" + (index + 1),
-            className: "btn--table" + (index + 1 == _this3.state.page ? '-active' : ''),
-            onClick: _this3.pageFilter
-          }, index + 1);
-        } else if (index + 1 == pageCount.length) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-            key: "page-last",
-            className: "table__pagination-last"
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            id: "page_" + (_this3.state.page + 1),
-            className: "btn--table",
-            onClick: _this3.pageFilter
-          }, "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-            className: "table__pagination-ellipsis"
-          }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            id: "page_" + (index + 1),
-            className: "btn--table",
-            onClick: _this3.pageFilter
-          }, index + 1));
-        }
-      }))));
+      }, paginationPos == 'end' || paginationPos == 'middle' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "page_1",
+        className: "btn--table" + (1 == currentPage ? '-active' : ''),
+        onClick: this.pageFilter
+      }, "1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "table__pagination-ellipsis"
+      }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "page_" + (currentPage - 1),
+        className: "btn--table",
+        onClick: this.pageFilter
+      }, "Prev")) : '', pageCount.map(function (page) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          key: "page_" + page,
+          id: "page_" + page,
+          className: "btn--table" + (page == currentPage ? '-active' : ''),
+          onClick: _this3.pageFilter
+        }, page);
+      }), paginationPos == 'start' || paginationPos == 'middle' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "page_" + (currentPage + 1),
+        className: "btn--table",
+        onClick: this.pageFilter
+      }, "Next"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "table__pagination-ellipsis"
+      }, "..."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "page_" + this.state.totalPages,
+        className: "btn--table" + (this.state.totalPages == currentPage ? '-active' : ''),
+        onClick: this.pageFilter
+      }, this.state.totalPages)) : '')));
     }
   }]);
 
@@ -34711,8 +34719,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
