@@ -12,16 +12,23 @@ export const getRecipe = (recipe_id) => {
 		fetch('/api/recipe/' + recipe_id, request)
 			.then(resp => resp.json())
 			.then((data) => {
+				console.log(data);
 				dispatch({
 					type: 'SET_CURRENT_RECIPE',
-					recipeId: data.recipe.info.id
+					recipe: data.recipe
 				});
 			})
 			.catch(err => console.log(err))
 	}
 }
 
-
+export const clearCurrentRecipe = () => {
+	return (dispatch) => {
+		dispatch({
+			type: 'CLEAR_CURRENT_RECIPE'
+		});
+	}
+}
 
 export const deleteRecipe = (id) => {
 	return (dispatch, getState) => {

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../helpers/Table';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
+import PageHeader from '../components/PageHeader';
 import Table from '../components/table/Table.js';
 
 export class MyRecipesPage extends React.Component {
@@ -11,12 +12,12 @@ export class MyRecipesPage extends React.Component {
         
         this.state = {
 			headers: getRecipeTableHeaders(),
-			options: getRecipeTableOptions()
+			options: getRecipeTableOptions(),
         };
 	};
 	
 	render() {
-		const props = {
+		const tableProps = {
 			headers: this.state.headers,
 			data: this.props.recipes,
 			className: 'table__row--recipe',
@@ -24,24 +25,28 @@ export class MyRecipesPage extends React.Component {
 			options: this.state.options,
 			total: this.props.recipeTotal
 		};
+		const pageHeaderProps = {
+			title: 'My Recipes',
+			subtitle: {
+				className: 'page-header__record-count',
+				text: this.props.recipeTotal + ' Recipes Total'
+			},
+			options: {
+				buttons: [
+					{
+						link: 'recipes/create',
+						className: 'btn--primary',
+						icon: 'add',
+						label: 'New Recipe'
+					}
+				]
+			}
+		}
 		return (
 			<section className="table-grid">
 				<Breadcrumbs />
-				<section className="page-header">
-					<section className="page-header__info">					
-						<h1 className="page-header__title">My Recipes</h1>
-						<h5 className="page-header__record-count">{this.props.recipeTotal} Recipes Total</h5>
-					</section>
-					<section className="page-header__options">
-						<Link to="recipes/create">
-							<button className="btn--primary">
-								<i className="material-icons btn__icon">add</i>
-								New Recipe
-							</button>
-						</Link>
-					</section>
-				</section>
-				<Table {...props}/>
+				<PageHeader {...pageHeaderProps} />
+				<Table {...tableProps}/>
 			</section>
 		)
 	}

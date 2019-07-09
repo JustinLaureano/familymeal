@@ -9,11 +9,11 @@ export class Navbar extends React.Component {
             {label: 'Categories', icon: 'category', route: '/categories'},
             {label: 'Ingredients', icon: 'kitchen', route: '/ingredients'},
             {label: 'Cuisines', icon: 'restaurant', route: '/cuisines'},
-            {label: 'Shopping List', icon: 'shopping_basket', route: 'shopping-list'},
-            {label: 'Meal Planner', icon: 'bookmarks', route: 'meal-planner'},
-            {label: 'Recipe Book', icon: 'book', route: 'recipe-book'},
-            {label: 'Import/Export', icon: 'import_export', route: 'import-export'},
-            {label: 'Settings', icon: 'settings', route: 'settings'},
+            {label: 'Shopping List', icon: 'shopping_basket', route: '/shopping-list'},
+            {label: 'Meal Planner', icon: 'bookmarks', route: '/meal-planner'},
+            {label: 'Recipe Book', icon: 'book', route: '/recipe-book'},
+            {label: 'Import/Export', icon: 'import_export', route: '/import-export'},
+            {label: 'Settings', icon: 'settings', route: '/settings'},
         ];
 		return (
             <aside className="navbar">

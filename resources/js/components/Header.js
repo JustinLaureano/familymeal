@@ -28,7 +28,7 @@ export class Header extends React.Component {
 					Logout
 				</button>
 
-				<form id="logout-form" className="header__form" name="logoutform" action="logout" method="POST">
+				<form id="logout-form" className="header__form" name="logoutform" action="/logout" method="POST">
 					<input type="hidden" name="_token" value={csrfToken}/>
 				</form>
 

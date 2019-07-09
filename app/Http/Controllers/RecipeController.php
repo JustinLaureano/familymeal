@@ -53,11 +53,11 @@ class RecipeController extends Controller
     public function show(Request $request, $recipe_id)
     {
         $recipe = Recipe::find($recipe_id);
-        $recipe_ingredients = RecipeIngredients::where('recipe_id', $recipe_id);
-        $recipe_ingredients = RecipeDirections::where('recipe_id', $recipe_id);
-        $recipe_notes = RecipeNotes::where('recipe_id', $recipe_id);
-        $recipe_ratings = RecipeRatings::where('recipe_id', $recipe_id);
-        $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id);
+        $recipe_ingredients = RecipeIngredients::where('recipe_id', $recipe_id)->get();
+        $recipe_directions = RecipeDirections::where('recipe_id', $recipe_id)->get();
+        $recipe_notes = RecipeNotes::where('recipe_id', $recipe_id)->get();
+        $recipe_ratings = RecipeRatings::where('recipe_id', $recipe_id)->get();
+        $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id)->first();
         $data = [
             'recipe' => [
                 'info' => $recipe,

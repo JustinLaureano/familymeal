@@ -47,6 +47,13 @@
     }
 }
 
+.btn--minimal {
+    @extend .btn;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
 .btn--table-active {
     @extend .btn--table;
     background-color: $weathered-blue;
