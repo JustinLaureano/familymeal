@@ -20,9 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->group(function() {
     Route::apiResources([
-        'recipes' => 'RecipeController',
+        // 'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
+    
     Route::get('/recipes/{id}/', 'RecipeController@index');
     Route::get('/recipe/{id}', 'RecipeController@show');
     Route::post('/recipes/store', 'RecipeController@store');

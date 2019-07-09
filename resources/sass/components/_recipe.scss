@@ -43,10 +43,54 @@
 
 .recipe-grid__ingredients {
     grid-area: ingredients;
+    display: flex;
+    flex-direction: column;
+}
+.recipe-grid__section-title {
+    margin-bottom: $space-md;
+}
+
+.recipe-grid__ingredient-row {
+    @include pad($space-xxs, 0);
+    display: grid;
+    grid-template-columns: 25px 1.5fr 25px 3fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "order amount . ingredient";
+}
+
+.recipe-grid__ingredient-order {
+    grid-area: order;
+}
+
+.recipe-grid__ingredient-amount {
+    grid-area: amount;
+}
+
+.recipe-grid__ingredient-item {
+    grid-area: ingredient;
+    font-weight: 500;
 }
 
 .recipe-grid__directions {
     grid-area: directions;
+}
+
+.recipe-grid__direction-row {
+    @include pad($space-xxs, 0);
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "order direction";
+}
+
+.recipe-grid__direction-order {
+    grid-area: order;
+}
+
+.recipe-grid__direction {
+    grid-area: direction;
 }
 
 .star-icon {

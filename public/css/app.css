@@ -253,27 +253,6 @@ a:hover {
   margin-left: 50px;
 }
 
-.table-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: calc(2 * 1em) calc(2 * 1em) auto;
-  grid-template-areas: "breadcrumbs" "page-header" "table";
-}
-
-.recipe-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
-  grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header" "photo about about about" "info info info info" "ingredients ingredients directions directions";
-}
-@media (min-width: 1200px) {
-  .recipe-grid {
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
-    grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header page-header page-header" "photo about about about about about" "info info info info info info" "ingredients ingredients ingredients directions directions directions";
-  }
-}
-
 .loading {
   display: -webkit-box;
   display: flex;
@@ -916,10 +895,56 @@ page-header__options {
 
 .recipe-grid__ingredients {
   grid-area: ingredients;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.recipe-grid__section-title {
+  margin-bottom: calc(1.25 * 1em);
+}
+
+.recipe-grid__ingredient-row {
+  padding: calc(0.375 * 1em) 0;
+  display: grid;
+  grid-template-columns: 25px 1.5fr 25px 3fr;
+  grid-template-rows: auto;
+  grid-template-areas: "order amount . ingredient";
+}
+
+.recipe-grid__ingredient-order {
+  grid-area: order;
+}
+
+.recipe-grid__ingredient-amount {
+  grid-area: amount;
+}
+
+.recipe-grid__ingredient-item {
+  grid-area: ingredient;
+  font-weight: 500;
 }
 
 .recipe-grid__directions {
   grid-area: directions;
+}
+
+.recipe-grid__direction-row {
+  padding: calc(0.375 * 1em) 0;
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: "order direction";
+}
+
+.recipe-grid__direction-order {
+  grid-area: order;
+}
+
+.recipe-grid__direction {
+  grid-area: direction;
 }
 
 .star-icon {

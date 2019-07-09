@@ -19,38 +19,3 @@
 .sidebar {
     margin-left: $navbar-width;
 }
-
-.table-grid {
-    @extend .content;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: #{$space-lg} #{$space-lg} auto;
-    grid-template-areas:
-        "breadcrumbs"
-        "page-header"
-        "table";
-}
-
-.recipe-grid {
-    @extend .content;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: #{$space-lg} #{$space-xl} auto;
-    grid-template-areas:
-        "breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
-        "photo page-header page-header page-header"
-        "photo about about about"
-        "info info info info"
-        "ingredients ingredients directions directions";
-
-    @include for-desktop-up {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: #{$space-lg} #{$space-xl} auto;
-        grid-template-areas:
-            "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
-            "photo page-header page-header page-header page-header page-header"
-            "photo about about about about about"
-            "info info info info info info"
-            "ingredients ingredients ingredients directions directions directions";
-    }
-}

@@ -11,17 +11,30 @@ import RecipeDirections from '../components/recipe/RecipeDirections';
 import { getRecipe, clearCurrentRecipe } from '../actions/recipes';
 
 export class ViewRecipePage extends React.Component {
+	constructor(props) {
+        super(props);
+        
+        this.state = {
+			loading: true
+        };
+	};
 	componentWillMount() {
-		this.props.clearCurrentRecipe();
+		this.setState(() => ({ loading: true }));
 	}
 
 	componentDidMount() {
 		const recipe_id = this.props.location.state.id;
 		this.props.getRecipe(recipe_id);
 	}
+
+	componentDidUpdate() {
+		if (this.state.loading && this.props.recipe.info.id) {
+			this.setState(() => ({ loading: false }));
+		}
+	}
 	
 	render() {
-		if (this.props.recipe == null || this.props.recipe == 'undefined') {
+		if (this.state.loading) {
 			return (
 				<PageLoad />
 			)
@@ -42,7 +55,7 @@ export class ViewRecipePage extends React.Component {
 			}
 			const photoProps = {
 				className: 'photo--circle photo--recipe',
-				src: 'https://fillmurray.com/100/100'
+				src: 'https://fillmurray.com/120/120'
 			}
 			return (
 				<section className="recipe-grid">

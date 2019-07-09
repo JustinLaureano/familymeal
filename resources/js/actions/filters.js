@@ -14,7 +14,7 @@ export const changeTablePage = (pageNumber, model) => {
 
         switch (model) {
             case 'recipe':
-                url = '/api/recipes/'+ user_id +'?page=' + pageNumber;
+                url = '/api/recipes/'+ user_id +'/?page=' + pageNumber;
         }
 
 		fetch(url, request)

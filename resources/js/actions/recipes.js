@@ -12,7 +12,6 @@ export const getRecipe = (recipe_id) => {
 		fetch('/api/recipe/' + recipe_id, request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'SET_CURRENT_RECIPE',
 					recipe: data.recipe

@@ -22,7 +22,7 @@ export class RecipeRatings extends React.Component {
 
 	render() {
         const stars = this.getStarIcons();
-		return (
+        return (
             <section className="recipe-grid__ratings">
                 <section
                     className="recipe-grid__stars">
@@ -36,7 +36,7 @@ export class RecipeRatings extends React.Component {
                     { this.props.ratings.total + (this.props.ratings.total == 1 ? " Rating" : " Ratings") }
                 </h5>
             </section>
-		);
+        );
 	};
 };
 

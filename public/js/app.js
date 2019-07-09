@@ -32280,7 +32280,7 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
 
     switch (model) {
       case 'recipe':
-        url = '/api/recipes/' + user_id + '?page=' + pageNumber;
+        url = '/api/recipes/' + user_id + '/?page=' + pageNumber;
     }
 
     fetch(url, request).then(function (resp) {
@@ -32329,7 +32329,6 @@ var getRecipe = function getRecipe(recipe_id) {
     fetch('/api/recipe/' + recipe_id, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'SET_CURRENT_RECIPE',
         recipe: data.recipe
@@ -33115,8 +33114,17 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__directions"
-      }, this.props.directions.map(function (direction) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, direction.order);
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "recipe-grid__section-title"
+      }, "Directions"), this.props.directions.map(function (direction, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "direction_" + direction.id,
+          className: "recipe-grid__direction-row"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "recipe-grid__direction-order"
+        }, direction.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "recipe-grid__direction"
+        }, direction.direction));
       }));
     }
   }]);
@@ -33218,7 +33226,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeIngredients", function() { return RecipeIngredients; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _PageLoad__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../PageLoad */ "./resources/js/components/PageLoad.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33239,6 +33249,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var RecipeIngredients =
 /*#__PURE__*/
 function (_React$Component) {
@@ -33255,8 +33267,23 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__ingredients"
-      }, this.props.ingredients.map(function (ingredient) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, ingredient.order);
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+        className: "recipe-grid__section-title"
+      }, "Ingredients"), this.props.ingredients.map(function (ingredient, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "ingredient_" + ingredient.id,
+          className: "recipe-grid__ingredient-row"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "recipe-grid__ingredient-order"
+        }, ingredient.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "recipe-grid__ingredient-amount"
+        }, parseFloat(ingredient.ingredient_units), "\xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "ingredients/" + ingredient.ingredient_id + "/edit",
+          className: "recipe-grid__ingredient-item"
+        }, ingredient.ingredient_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "recipes/" + ingredient.ingredient_recipe_id,
+          className: "recipe-grid__ingredient-item"
+        }, ingredient.ingredient_recipe_name));
       }));
     }
   }]);
@@ -33272,7 +33299,7 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipeIngredients));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(RecipeIngredients));
 
 /***/ }),
 
@@ -35413,16 +35440,26 @@ var ViewRecipePage =
 function (_React$Component) {
   _inherits(ViewRecipePage, _React$Component);
 
-  function ViewRecipePage() {
+  function ViewRecipePage(props) {
+    var _this;
+
     _classCallCheck(this, ViewRecipePage);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ViewRecipePage).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ViewRecipePage).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(ViewRecipePage, [{
     key: "componentWillMount",
     value: function componentWillMount() {
-      this.props.clearCurrentRecipe();
+      this.setState(function () {
+        return {
+          loading: true
+        };
+      });
     }
   }, {
     key: "componentDidMount",
@@ -35431,9 +35468,20 @@ function (_React$Component) {
       this.props.getRecipe(recipe_id);
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.state.loading && this.props.recipe.info.id) {
+        this.setState(function () {
+          return {
+            loading: false
+          };
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      if (this.props.recipe == null || this.props.recipe == 'undefined') {
+      if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       } else {
         var pageHeaderProps = {
@@ -35449,7 +35497,7 @@ function (_React$Component) {
         };
         var photoProps = {
           className: 'photo--circle photo--recipe',
-          src: 'https://fillmurray.com/100/100'
+          src: 'https://fillmurray.com/120/120'
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid"
