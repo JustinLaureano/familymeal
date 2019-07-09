@@ -54,13 +54,13 @@ export class TableFooter extends React.Component {
                 index++;
             }
         }
-        else if (currentPage >= this.state.totalPages - 5) {
+        else if (currentPage > this.state.totalPages - 5) {
             const p = this.state.totalPages;
             pageCount = [p - 4, p - 3, p - 2, p - 1, p];
             paginationPos = 'end';
         }
         else {
-            const p = this.state.totalPages;
+            const p = parseInt(this.state.page);
             pageCount = [p - 2, p - 1, p, p + 1, p + 2];
             paginationPos = 'middle';
         }

@@ -33113,12 +33113,13 @@ function (_React$Component) {
           pageCount.push(index);
           index++;
         }
-      } else if (currentPage >= this.state.totalPages - 5) {
+      } else if (currentPage > this.state.totalPages - 5) {
         var p = this.state.totalPages;
         pageCount = [p - 4, p - 3, p - 2, p - 1, p];
         paginationPos = 'end';
       } else {
-        var _p = this.state.totalPages;
+        var _p = parseInt(this.state.page);
+
         pageCount = [_p - 2, _p - 1, _p, _p + 1, _p + 2];
         paginationPos = 'middle';
       }
@@ -34719,8 +34720,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
