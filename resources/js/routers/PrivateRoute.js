@@ -16,8 +16,8 @@ export const PrivateRoute = ({
 			<Navbar />
 			<main className="main sidebar">
 				<Component {...props} />
+				<Footer />
 			</main>
-			<Footer />
 		</div>
     )} />
 );

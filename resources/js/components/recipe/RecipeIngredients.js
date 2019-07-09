@@ -23,15 +23,25 @@ export class RecipeIngredients extends React.Component {
                             {
                                 ingredient.ingredient_id ?
                                 (
-                                    <Link 
-                                        to={ "ingredients/" + ingredient.ingredient_id + "/edit" }
+                                    <Link
+                                        to={{
+                                            pathname: "/ingredients/" + ingredient.ingredient_id + "/edit",
+                                            state: {
+                                            id: ingredient.ingredient_id
+                                            }
+                                        }}
                                         className="recipe-grid__ingredient-item">
                                         { ingredient.ingredient_name }
                                     </Link>
                                 ) :
                                 (
-                                    <Link 
-                                        to={ "recipes/" + ingredient.ingredient_recipe_id }
+                                    <Link
+                                        to={{
+                                            pathname: "/recipes/" + ingredient.ingredient_recipe_id,
+                                            state: {
+                                            id: ingredient.ingredient_recipe_id
+                                            }
+                                        }}
                                         className="recipe-grid__ingredient-item">
                                         { ingredient.ingredient_recipe_name }
                                     </Link>

@@ -208,7 +208,7 @@ h1 {
 }
 
 h3 {
-  font-weight: 300;
+  font-weight: 500;
 }
 
 h4 {
@@ -713,7 +713,7 @@ page-header__options {
 
 .footer {
   background-color: #eeeeee;
-  height: 50px;
+  height: 44px;
 }
 
 .login {
@@ -863,12 +863,12 @@ page-header__options {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: calc(2 * 1em) calc(2 * 1em) auto;
-  grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header" "photo about about about" "info info info info" "ingredients ingredients directions directions";
+  grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header" "photo about about about" "info info info info" "ingredients ingredients directions directions" "notes notes notes notes";
 }
 @media (min-width: 1200px) {
   .recipe-grid {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header page-header page-header" "photo about about about about about" "info info info info info info" "ingredients ingredients ingredients directions directions directions";
+    grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header page-header page-header" "photo about about about about about" "info info info info info info" "ingredients ingredients ingredients directions directions directions" "notes notes notes notes notes notes";
   }
 }
 
@@ -890,7 +890,27 @@ page-header__options {
 }
 
 .recipe-grid__info {
+  padding: calc(0.5 * 1em) 0;
+  margin: calc(2 * 1em) 0;
   grid-area: info;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+  border-top: 1px solid #505d6a;
+  border-bottom: 1px solid #505d6a;
+}
+
+.recipe-grid__info-block {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
 }
 
 .recipe-grid__ingredients {
@@ -945,6 +965,30 @@ page-header__options {
 
 .recipe-grid__direction {
   grid-area: direction;
+}
+
+.recipe-grid__notes {
+  margin: calc(1.25 * 1em) 0;
+  grid-area: notes;
+}
+
+.recipe-grid__note-row {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  grid-template-areas: "order note";
+}
+
+.recipe-grid__note-order {
+  grid-area: order;
+}
+
+.recipe-grid__note, .recipe-grid__note--inactive {
+  grid-area: note;
+}
+
+.recipe-grid__note--inactive {
+  color: #505d6a;
+  font-style: oblique;
 }
 
 .star-icon {

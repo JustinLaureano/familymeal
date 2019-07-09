@@ -8,6 +8,7 @@ import RecipeAbout from '../components/recipe/RecipeAbout';
 import RecipeInfo from '../components/recipe/RecipeInfo';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeDirections from '../components/recipe/RecipeDirections';
+import RecipeNotes from '../components/recipe/RecipeNotes';
 import { getRecipe, clearCurrentRecipe } from '../actions/recipes';
 
 export class ViewRecipePage extends React.Component {
@@ -66,6 +67,7 @@ export class ViewRecipePage extends React.Component {
 					<RecipeInfo />
 					<RecipeIngredients />
 					<RecipeDirections />
+					<RecipeNotes />
 				</section>
 			)
 		}

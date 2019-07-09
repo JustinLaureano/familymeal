@@ -8,7 +8,8 @@
         "photo page-header page-header page-header"
         "photo about about about"
         "info info info info"
-        "ingredients ingredients directions directions";
+        "ingredients ingredients directions directions"
+        "notes notes notes notes";
 
     @include for-desktop-up {
         grid-template-columns: repeat(6, 1fr);
@@ -17,7 +18,8 @@
             "photo page-header page-header page-header page-header page-header"
             "photo about about about about about"
             "info info info info info info"
-            "ingredients ingredients ingredients directions directions directions";
+            "ingredients ingredients ingredients directions directions directions"
+            "notes notes notes notes notes notes";
     }
 }
 
@@ -38,7 +40,17 @@
 }
 
 .recipe-grid__info {
+    @include pad($space-xs, 0);
+    @include margin($space-lg, 0);
     grid-area: info;
+    display: flex;
+    justify-content: space-evenly;
+    border-top: 1px solid $weathered-gray;
+    border-bottom: 1px solid $weathered-gray;
+}
+
+.recipe-grid__info-block {
+    @include flex-center;
 }
 
 .recipe-grid__ingredients {
@@ -91,6 +103,32 @@
 
 .recipe-grid__direction {
     grid-area: direction;
+}
+
+.recipe-grid__notes {
+    @include margin($space-md, 0);
+    grid-area: notes;
+}
+
+.recipe-grid__note-row {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-areas:
+        "order note";
+}
+
+.recipe-grid__note-order {
+    grid-area: order;
+}
+
+.recipe-grid__note {
+    grid-area: note;
+}
+
+.recipe-grid__note--inactive {
+    @extend .recipe-grid__note;
+    color: $weathered-gray;
+    font-style: oblique;
 }
 
 .star-icon {

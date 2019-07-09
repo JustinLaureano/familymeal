@@ -29,7 +29,7 @@ export class Breadcrumbs extends React.Component {
                         </Link>
                     ) :
                     (
-                        <Link to={breadcrumb} key={index} className="breadcrumb">
+                        <Link to={"/" + breadcrumb} key={index} className="breadcrumb">
                             <i className="material-icons breadcrumb__chain">more_horiz</i>
                             <span className="breadcrumb__link">{breadcrumb.replace('-', ' ')}</span>
                         </Link>
