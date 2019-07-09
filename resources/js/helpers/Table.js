@@ -4,21 +4,22 @@ export function getRecipeTableHeaders() {
             label: 'Name',
             column: 'name',
             type: 'link',
-            route: 'recipe/',
+            route: 'recipes/',
             class: 'table__emphasize'
         },
         {
             label: 'Category',
             column: 'recipe_category',
-            type: 'link',
-            route: 'category/',
-            class: ''},
+            type: 'text',
+            // route: 'category/',
+            class: 'table__inactive',
+        },
         {
             label: 'Cuisine',
             column: 'cuisine_type',
-            type: 'link',
-            route: 'cuisine-types/',
-            class: ''
+            type: 'text',
+            // route: 'cuisine-types/',
+            class: 'table__inactive'
         },
         {
             label: 'Created At',

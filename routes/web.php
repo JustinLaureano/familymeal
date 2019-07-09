@@ -25,3 +25,7 @@ Route::redirect('/meal-planner', '/home/meal-planner');
 Route::redirect('/recipe-book', '/home/recipe-book');
 Route::redirect('/settings', '/home/settings');
 Route::redirect('/shopping-list', '/home/shopping-list');
+
+Route::fallback(function () {
+    return redirect()->route('home');
+});

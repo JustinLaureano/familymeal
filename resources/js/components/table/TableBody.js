@@ -62,7 +62,12 @@ export class TableBody extends React.Component {
                                     if (this.props.headers[index].type == 'link') {
                                         return (
                                             <Link
-                                                to={this.props.headers[index].route + item.id}
+                                                to={{
+                                                    pathname: this.props.headers[index].route + item.id,
+                                                    state: {
+                                                      id: item.id
+                                                    }
+                                                }}
                                                 key={index}
                                                 className={this.props.headers[index].class}>
                                                 {item[header.column]}
