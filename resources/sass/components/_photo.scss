@@ -11,4 +11,8 @@
     grid-area: photo;
     height: 120px;
     width: 120px;
+
+    @include for-desktop-up {
+        justify-self: center;
+    }
 }

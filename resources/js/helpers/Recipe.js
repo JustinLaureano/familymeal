@@ -1,4 +1,4 @@
 export function getAverageRating(ratings) {
-    const total = ratings.reduce((acc, cur) => parseInt(acc) + parseInt(cur.rating), 0);
+    const total = ratings.reduce((acc, cur) => parseFloat(acc) + parseFloat(cur.rating), 0);
     return total / ratings.length;
 }

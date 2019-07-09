@@ -1,3 +1,14 @@
+.table-grid {
+    @extend .content;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: #{$space-lg} #{$space-xl} auto;
+    grid-template-areas:
+        "breadcrumbs"
+        "page-header"
+        "table";
+}
+
 .table {
     @include modal-box;
     padding: 0;

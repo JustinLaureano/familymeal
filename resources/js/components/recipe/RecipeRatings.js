@@ -3,11 +3,38 @@ import { connect } from 'react-redux';
 import { getAverageRating } from '../../helpers/Recipe';
 
 export class RecipeRatings extends React.Component {
+    getStarIcons = () => {
+        const average = this.props.ratings.average;
+        const stars = [];
+        for (let i = 1; i <= 5; i++) {
+            if (i <= average) {
+                stars.push('star');
+            }
+            else if (i > average && Math.floor(average) == (i - 1)) {
+                stars.push('star_half');
+            }
+            else {
+                stars.push('star_border');
+            }
+        }
+        return stars;
+    }
+
 	render() {
+        const stars = this.getStarIcons();
 		return (
             <section className="recipe-grid__ratings">
-                <section>{this.props.ratings.average}</section>
-                <section>{this.props.ratings.total}</section>
+                <section
+                    className="recipe-grid__stars">
+                    { stars.map((star, index) => {
+                        return (
+                            <i key={"star_" + index} className="material-icons star-icon">{ star }</i>
+                        )
+                    }) }
+                </section>
+                <h5 className="recipe-grid__rating-count">
+                    { this.props.ratings.total + (this.props.ratings.total == 1 ? " Rating" : " Ratings") }
+                </h5>
             </section>
 		);
 	};
