@@ -242,7 +242,7 @@ a:hover {
   margin-top: 54px;
 }
 
-.content, .table-grid {
+.content, .recipe-grid, .table-grid {
   height: 100%;
   margin: 20px auto 0 auto;
   max-width: 1200px;
@@ -258,6 +258,20 @@ a:hover {
   grid-template-columns: 1fr;
   grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
   grid-template-areas: "breadcrumbs" "page-header" "table";
+}
+
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
+  grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header" "photo about about about" "info info info info" "ingredients ingredients directions directions";
+}
+@media (min-width: 1200px) {
+  .recipe-grid {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
+    grid-template-areas: "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs" "photo page-header page-header page-header page-header page-header" "photo about about about about about" "info info info info info info" "ingredients ingredients ingredients directions directions directions";
+  }
 }
 
 .loading {
@@ -289,6 +303,20 @@ a:hover {
     -webkit-transform: rotate(360deg);
   }
 }
+.photo, .photo--circle {
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.photo--circle {
+  border-radius: 50%;
+}
+
+.photo--recipe {
+  grid-area: photo;
+  height: 120px;
+  width: 120px;
+}
+
 .breadcrumbs {
   grid-area: breadcrumbs;
 }
@@ -838,4 +866,20 @@ page-header__options {
 .register-form__create:hover {
   background-color: #385e83;
   color: #fffeff;
+}
+
+.recipe-grid__about {
+  grid-area: about;
+}
+
+.recipe-grid__info {
+  grid-area: info;
+}
+
+.recipe-grid__ingredients {
+  grid-area: ingredients;
+}
+
+.recipe-grid__directions {
+  grid-area: directions;
 }

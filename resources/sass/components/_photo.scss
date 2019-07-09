@@ -1,0 +1,14 @@
+.photo {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .15);
+}
+
+.photo--circle {
+    @extend .photo;
+    border-radius: 50%;
+}
+
+.photo--recipe {
+    grid-area: photo;
+    height: 120px;
+    width: 120px;
+}

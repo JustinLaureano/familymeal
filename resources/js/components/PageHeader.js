@@ -24,9 +24,9 @@ export class PageHeader extends React.Component {
                             {
                                 this.props.options.buttons ?
                                 (
-                                    this.props.options.buttons.map(button => {
+                                    this.props.options.buttons.map((button, index) => {
                                         return (
-                                            <Link to={ button.link }>
+                                            <Link key={"button_" + index} to={ button.link }>
                                                 <button className={ button.className }>
                                                     <i className="material-icons btn__icon">{ button.icon }</i>
                                                     { button.label }

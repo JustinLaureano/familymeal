@@ -17,7 +17,7 @@ export class Header extends React.Component {
 		return (
 			<header className="header">
 				<img 
-					src="logos/rp_logo_color_400x100.png" 
+					src="/logos/rp_logo_color_400x100.png" 
 					alt="Recipe Confidential"
 					className="header__logo"
 					onClick={this.homeLink} />
