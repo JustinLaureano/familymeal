@@ -5,9 +5,18 @@
     justify-content: space-between;
 }
 
+.page-header__title--input {
+    @extend .input--edit;
+    @include h1-font;
+    bottom: $space-xxxs;
+    position: relative;
+    width: 100%;
+}
+
 .page-header__info {
     align-items: baseline;
     display: flex;
+    width: 50%;
 }
 
 page-header__options {

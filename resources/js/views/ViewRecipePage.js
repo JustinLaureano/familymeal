@@ -46,10 +46,13 @@ export class ViewRecipePage extends React.Component {
 				options: {
 					buttons: [
 						{
-							link: 'recipes/'+ this.props.recipe.info.id +'/edit',
+							onClick: 'edit',
 							className: 'btn--minimal',
 							icon: 'edit',
-							label: 'Edit Recipe'
+							label: {
+								view: 'Edit Recipe',
+								edit: 'Save Recipe'
+							}
 						}
 					]
 				}

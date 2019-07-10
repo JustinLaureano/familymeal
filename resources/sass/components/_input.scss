@@ -27,3 +27,10 @@ input {
     top: 5px;
     opacity: $icon-opacity;
 }
+
+.input--edit {
+    @include pad(0);
+    @extend input;
+    border: none;
+    border-bottom: 1px solid $gray-light;
+}

@@ -33,3 +33,13 @@ export const changeTablePage = (pageNumber, model) => {
 			.catch(err => console.log(err))
 	}
 };
+
+export const setEditMode = (editMode) => {
+	// editMode boolean value
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_EDIT_MODE',
+			editMode
+		});
+	}
+}

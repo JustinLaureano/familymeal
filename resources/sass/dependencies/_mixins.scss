@@ -41,6 +41,13 @@
 	border-radius: $radius;
 }
 
+@mixin h1-font {
+	color: $black;
+    font-family: 'Barlow Semi Condensed', Helvetica, Arial, sans-serif;
+	font-size: $size-xl;
+	font-weight: 700;
+}
+
 @mixin modal-box {
 	@include pad($space-xs, $space-md);
 	background-color: white;

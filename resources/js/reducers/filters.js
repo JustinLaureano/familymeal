@@ -1,5 +1,6 @@
 const filterReducerDefaultState = {
-    currentRecipe: null
+    currentRecipe: null,
+    editMode: false
 };
 
 export default (state = filterReducerDefaultState, action) => {
@@ -8,6 +9,11 @@ export default (state = filterReducerDefaultState, action) => {
             return {
                 ...state,
                 currentRecipe: action.recipe
+            };
+        case 'SET_EDIT_MODE':
+            return {
+                ...state,
+                editMode: action.editMode
             };
         case 'CLEAR_CURRENT_RECIPE':
             return {
