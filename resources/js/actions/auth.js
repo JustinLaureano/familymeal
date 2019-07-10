@@ -46,6 +46,11 @@ export const init = (token, csrf_token, user_id) => {
 					cuisine_types: data.cuisine_types
 				});
 
+				dispatch({
+					type: 'SET_RECIPE_CATEGORIES',
+					recipe_categories: data.recipe_categories
+				});
+
 			})
 			.catch(err => console.log(err))
 	}

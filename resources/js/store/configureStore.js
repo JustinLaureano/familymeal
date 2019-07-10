@@ -4,6 +4,7 @@ import authReducer from '../reducers/auth';
 import cuisineTypesReducer from '../reducers/cuisine_types';
 import filterReducer from '../reducers/filters';
 import recipesReducer from '../reducers/recipes';
+import recipeCategoriesReducer from '../reducers/recipe_categories';
 import totalsReducer from '../reducers/totals';
 import userReducer from '../reducers/user';
 import userSettingsReducer from '../reducers/userSettings';
@@ -17,6 +18,7 @@ export default () => {
 			cuisine_types: cuisineTypesReducer,
 			filters: filterReducer,
 			recipes: recipesReducer,
+			recipe_categories: recipeCategoriesReducer,
 			totals: totalsReducer,
 			user: userReducer,
 			userSettings: userSettingsReducer,

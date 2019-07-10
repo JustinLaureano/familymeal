@@ -20,6 +20,7 @@ class UserController extends Controller
     public function init($id)
     {
         $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
+        $recipe_categories = RecipeCategory::orderBy('name')->get();
         $user_settings = UserSettings::where('user_id', $id)->first();
         $recipes = DB::table('recipe')
                         ->select('recipe.name',
@@ -40,6 +41,7 @@ class UserController extends Controller
 
         $data = [
             'cuisine_types' => $cuisine_types,
+            'recipe_categories' => $recipe_categories,
             'user' => User::where('id', $id)->first(),
             'userSettings' => $user_settings,
             'recipes' => $recipes,
