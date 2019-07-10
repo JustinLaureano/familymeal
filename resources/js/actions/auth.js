@@ -41,6 +41,11 @@ export const init = (token, csrf_token, user_id) => {
 					recipes: data.recipes
 				});
 
+				dispatch({
+					type: 'SET_CUISINE_TYPES',
+					cuisine_types: data.cuisine_types
+				});
+
 			})
 			.catch(err => console.log(err))
 	}

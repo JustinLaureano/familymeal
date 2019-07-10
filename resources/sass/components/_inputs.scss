@@ -55,3 +55,25 @@ input {
     height: 75px;
     width: 100%;
 }
+
+.select__wrapper {
+    @include border(4px);
+    @include flex-align-center;
+    @include margin($space-xs, 0);
+    background-color: $white;
+    border-color: $gray-light;
+    position: relative;
+}
+
+.select {
+    @include pad($space-xs);
+    appearance: none;
+    background-color: none;
+    border: none;
+    border-radius: 4px;
+    color: $gray-dark;
+    cursor: pointer;
+    font-size: $size-md;
+    position: relative;
+    width: 100%;
+}

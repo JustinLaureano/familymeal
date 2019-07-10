@@ -1,15 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import RecipeCuisine from '../../components/recipe/RecipeCuisine';
 
 export class RecipeInfo extends React.Component {
 	render() {
 		return (
             <section className="recipe-grid__info">
-				<section className="recipe-grid__info-block">
-					<h3>Cuisine</h3>
-                	{this.props.info.cuisine_type}
-				</section>
-
+				<RecipeCuisine />
 				<section className="recipe-grid__info-block">
 					<h3>Category</h3>
                 	{this.props.info.recipe_category_name}

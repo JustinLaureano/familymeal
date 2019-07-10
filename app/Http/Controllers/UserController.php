@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CuisineType;
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\Recipe;
@@ -18,6 +19,7 @@ class UserController extends Controller
 
     public function init($id)
     {
+        $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
         $user_settings = UserSettings::where('user_id', $id)->first();
         $recipes = DB::table('recipe')
                         ->select('recipe.name',
@@ -37,6 +39,7 @@ class UserController extends Controller
                         ->get();
 
         $data = [
+            'cuisine_types' => $cuisine_types,
             'user' => User::where('id', $id)->first(),
             'userSettings' => $user_settings,
             'recipes' => $recipes,

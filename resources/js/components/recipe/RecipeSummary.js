@@ -13,7 +13,7 @@ export class RecipeSummary extends React.Component {
 
 	componentDidUpdate() {
 		if (!this.props.editMode) {
-			this.saveSummary();
+			this.saveRecipeSummary();
 		}
 	}
 	
@@ -22,7 +22,7 @@ export class RecipeSummary extends React.Component {
         this.setState(() => ({ summary }));
     }
 
-    saveSummary = () => {
+    saveRecipeSummary = () => {
 		const summary = this.state.summary;
 		if (summary != this.props.summary) {
 			document.querySelector("section[class='recipe-grid__summary']").innerHTML = summary;

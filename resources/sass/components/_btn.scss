@@ -23,12 +23,11 @@
 .btn--primary {
     @extend .btn;
     @include pad($space-xxs, $space-sm);
+    @include flex-align-center;
     background-color: $weathered-blue;
     border: none;
     border-radius: 3px;
     color: $white;
-    display: flex;
-    align-items: center;
     &:hover {
         background-color: $white;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);

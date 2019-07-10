@@ -93,8 +93,7 @@
 }
 
 .table__more-option {
-    align-items: center;
-    display: flex;
+    @include flex-align-center;
     justify-content: flex-start;
     padding: .4em;
     width: 100%;
@@ -118,9 +117,8 @@
 }
 
 .table__footer {
+    @include flex-align-center;
     @include modal-footer;
-    display: flex;
-    align-items: center;
     border-top: 1px solid rgba(0, 0, 0, .25);
     width: 100%;
     &:hover {
@@ -129,17 +127,15 @@
 }
 
 .table__pagination {
+    @include flex-align-center;
     @include pad(0, $space-md);
-    align-items: center;
-    display: flex;
     justify-content: space-between;
     padding-top: $space-sm;
     width: 100%;
 }
 
 .table__pagination-nav {
-    display: flex;
-    align-items: center;
+    @include flex-align-center;
     justify-content: flex-end;
 }
 
