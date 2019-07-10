@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateRecipeSummary } from '../../actions/recipes';
+import { updateRecipeCuisine } from '../../actions/recipes';
 
 export class RecipeCuisine extends React.Component {
 	constructor(props) {
@@ -18,15 +18,17 @@ export class RecipeCuisine extends React.Component {
     }
 
     setRecipeCuisine = (e) => {
-        console.log(e.target.value);
+        const cuisine = {
+            id: e.target.value,
+            name: document.querySelector("option[value='"+ e.target.value +"']").innerHTML
+        };
+        this.setState(() => ({ cuisine }));
     }
     
     saveRecipeCuisine = () => {
-		const cuisine = this.state.cuisine;
-		if (cuisine != this.props.cuisine) {
-			document.querySelector("section[class='recipe-grid__summary']").innerHTML = summary;
-			console.log(summary);
-			this.props.updateRecipeSummary(summary);
+        const cuisine = this.state.cuisine;
+		if (cuisine.id != this.props.cuisine.id) {
+			this.props.updateRecipeCuisine(cuisine);
 		}
 	}
 

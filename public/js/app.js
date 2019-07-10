@@ -32326,7 +32326,7 @@ var setEditMode = function setEditMode(editMode) {
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, deleteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32336,6 +32336,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeName", function() { return updateRecipeName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeRating", function() { return updateRecipeRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeSummary", function() { return updateRecipeSummary; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeCuisine", function() { return updateRecipeCuisine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -32474,6 +32475,36 @@ var updateRecipeSummary = function updateRecipeSummary(summary) {
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_SUMMARY',
         summary: summary
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var updateRecipeCuisine = function updateRecipeCuisine(cuisine) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        cuisine: cuisine.id
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_CUISINE',
+        cuisine: cuisine
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -33266,17 +33297,23 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeCuisine).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "setRecipeCuisine", function (e) {
-      console.log(e.target.value);
+      var cuisine = {
+        id: e.target.value,
+        name: document.querySelector("option[value='" + e.target.value + "']").innerHTML
+      };
+
+      _this.setState(function () {
+        return {
+          cuisine: cuisine
+        };
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipeCuisine", function () {
       var cuisine = _this.state.cuisine;
 
-      if (cuisine != _this.props.cuisine) {
-        document.querySelector("section[class='recipe-grid__summary']").innerHTML = summary;
-        console.log(summary);
-
-        _this.props.updateRecipeSummary(summary);
+      if (cuisine.id != _this.props.cuisine.id) {
+        _this.props.updateRecipeCuisine(cuisine);
       }
     });
 
@@ -33339,19 +33376,9 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
-    updateRecipeCuisine: function (_updateRecipeCuisine) {
-      function updateRecipeCuisine(_x) {
-        return _updateRecipeCuisine.apply(this, arguments);
-      }
-
-      updateRecipeCuisine.toString = function () {
-        return _updateRecipeCuisine.toString();
-      };
-
-      return updateRecipeCuisine;
-    }(function (cuisine) {
-      return dispatch(updateRecipeCuisine(cuisine));
-    })
+    updateRecipeCuisine: function updateRecipeCuisine(cuisine) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeCuisine"])(cuisine));
+    }
   };
 };
 
@@ -33911,8 +33938,6 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "saveRatings", function () {
       var rating = _this.state.rating.rating;
-      console.log(rating);
-      console.log(_this.props.ratings);
 
       if (rating != _this.props.ratings.user.rating) {
         _this.props.updateRecipeRating(rating);
@@ -34864,6 +34889,16 @@ var filterReducerDefaultState = {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           summary: _objectSpread({}, state.currentRecipe.summary, {
             summary: action.summary
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_CUISINE':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            cuisine_type_id: action.cuisine.id,
+            cuisine_type: action.cuisine.name
           })
         })
       });

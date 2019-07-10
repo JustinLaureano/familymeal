@@ -144,6 +144,36 @@ export const updateRecipeSummary = (summary) => {
 	}
 }
 
+export const updateRecipeCuisine = (cuisine) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ cuisine: cuisine.id })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_CUISINE',
+					cuisine
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
 export const deleteRecipe = (id) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;

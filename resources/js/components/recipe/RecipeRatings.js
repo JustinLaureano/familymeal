@@ -20,8 +20,6 @@ export class RecipeRatings extends React.Component {
     
     saveRatings = () => {
         const rating = this.state.rating.rating;
-        console.log(rating);
-        console.log(this.props.ratings);
 		if (rating != this.props.ratings.user.rating) {
 			this.props.updateRecipeRating(rating);
 		}

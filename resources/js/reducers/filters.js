@@ -39,6 +39,18 @@ export default (state = filterReducerDefaultState, action) => {
                     }
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_CUISINE':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        cuisine_type_id: action.cuisine.id,
+                        cuisine_type: action.cuisine.name
+                    }
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_NAME':
             return {
                 ...state,

@@ -136,6 +136,13 @@ class RecipeController extends Controller
             $updates[] = 'summary';
         }
 
+        if ($request->post('cuisine')) {
+            $cuisine = $request->post('cuisine');
+            $recipe->cuisine_type_id = $request->post('cuisine');
+            $recipe->save();
+            $updates[] = 'cuisine';
+        }
+
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates];
         return response($data, 200);
     }
