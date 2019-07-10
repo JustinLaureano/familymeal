@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
-import PageHeader from '../components/PageHeader';
+import RecipePageHeader from '../components/recipe/RecipePageHeader';
 import PageLoad from '../components/PageLoad';
 import Photo from '../components/Photo';
 import RecipeAbout from '../components/recipe/RecipeAbout';
@@ -65,7 +65,7 @@ export class ViewRecipePage extends React.Component {
 				<section className="recipe-grid">
 					<Breadcrumbs />
 					<Photo {...photoProps}/>
-					<PageHeader {...pageHeaderProps}/>
+					<RecipePageHeader {...pageHeaderProps}/>
 					<RecipeAbout />
 					<RecipeInfo />
 					<RecipeIngredients />

@@ -34,3 +34,24 @@ input {
     border: none;
     border-bottom: 1px solid $gray-light;
 }
+
+.textarea {
+    @include border(4px);
+    @include pad($space-xxs);
+    @include text-font;
+    border-color: $gray-light;
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+    &::placeholder {
+        color: $weathered-blue;
+        font-style: oblique;
+    }
+}
+
+.textarea--edit {
+    @extend .textarea;
+    height: 75px;
+    width: 100%;
+}

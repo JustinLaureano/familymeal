@@ -216,6 +216,9 @@ fieldset {
 textarea {
   resize: vertical;
 }
+textarea:focus {
+  outline: none;
+}
 
 body, a, p {
   color: #363636;
@@ -454,6 +457,44 @@ input, .input--edit, .page-header__title--input, .input {
   padding: 0;
   border: none;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.textarea, .textarea--edit {
+  border: 1px solid #363636;
+  border-radius: 4px;
+  padding: calc(0.375 * 1em);
+  font-size: 1em;
+  font-family: "Encode Sans Semi Condensed", Helvetica, Arial, sans-serif;
+  border-color: #cfcfcf;
+}
+.textarea::-webkit-scrollbar, .textarea--edit::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+.textarea::-webkit-input-placeholder, .textarea--edit::-webkit-input-placeholder {
+  color: #385e83;
+  font-style: oblique;
+}
+.textarea::-moz-placeholder, .textarea--edit::-moz-placeholder {
+  color: #385e83;
+  font-style: oblique;
+}
+.textarea:-ms-input-placeholder, .textarea--edit:-ms-input-placeholder {
+  color: #385e83;
+  font-style: oblique;
+}
+.textarea::-ms-input-placeholder, .textarea--edit::-ms-input-placeholder {
+  color: #385e83;
+  font-style: oblique;
+}
+.textarea::placeholder, .textarea--edit::placeholder {
+  color: #385e83;
+  font-style: oblique;
+}
+
+.textarea--edit {
+  height: 75px;
+  width: 100%;
 }
 
 .header {

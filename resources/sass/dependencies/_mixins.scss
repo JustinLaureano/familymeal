@@ -81,3 +81,8 @@
 		size: $size;
 	}
 }
+
+@mixin text-font {
+	font-size: 1em;
+	font-family: "Encode Sans Semi Condensed", Helvetica, Arial, sans-serif;
+}

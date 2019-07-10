@@ -4,18 +4,30 @@ import { getAverageRating } from '../../helpers/Recipe';
 
 export class RecipeSummary extends React.Component {
 	render() {
-		return (
-            <section className="recipe-grid__summary">
-                {this.props.summary}
-            </section>
-		);
+		if (this.props.editMode) {
+			return (
+				<textarea
+					className="recipe-grid__summary textarea--edit"
+					placeholder="Summary">
+					{this.props.summary}
+				</textarea>
+			);
+		}
+		else {
+			return (
+				<section className="recipe-grid__summary">
+					{this.props.summary}
+				</section>
+			);
+		}
 	};
 };
 
 const mapStateToProps = (state) => {
 	return {
         recipeId: state.filters.currentRecipe.info.id,
-        summary: state.filters.currentRecipe.summary.summary
+		summary: state.filters.currentRecipe.summary.summary,
+		editMode: state.filters.editMode
 	}
 };
   
