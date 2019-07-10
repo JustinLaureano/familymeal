@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Models\Recipe;
 use App\Models\RecipeDirections;
 use App\Models\RecipeNotes;
@@ -107,9 +108,19 @@ class RecipeController extends Controller
         return response($data, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $recipe_id)
     {
+        $updates = [];
+        
+        if ($request->post('summary')) {
+            $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id)->first();
+            $recipe_summary->summary = $request->post('summary');
+            $recipe_summary->save();
+            $updates[] = 'summary';
+        }
 
+        $data = ['recipe_id' => $recipe_id, 'updates' => $updates];
+        return response($data, 200);
     }
 
 

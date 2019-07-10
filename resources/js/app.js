@@ -28,8 +28,9 @@ const renderApp = () => {
 };
 
 const api_token = document.querySelector('meta[name="api-token"]').content;
+const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 const user_id = document.querySelector('meta[name="user_id"]').content;
 
-store.dispatch(init(api_token, user_id));
+store.dispatch(init(api_token, csrf_token, user_id));
   
 renderApp();

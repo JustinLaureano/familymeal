@@ -20,16 +20,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->group(function() {
     Route::apiResources([
-        // 'recipes' => 'RecipeController',
         'user' => 'UserController',
     ]);
     
+    Route::get('/init/{id}', 'UserController@init');
+    
     Route::get('/recipes/{id}/', 'RecipeController@index');
     Route::get('/recipe/{id}', 'RecipeController@show');
+
     Route::post('/recipes/store', 'RecipeController@store');
     Route::post('/recipes/{id}/update', 'RecipeController@update');
     Route::post('/recipes/{id}/delete', 'RecipeController@destroy');
     
-    Route::get('/init/{id}', 'UserController@init');
     Route::post('/logout', 'HomeController@logout');
 });

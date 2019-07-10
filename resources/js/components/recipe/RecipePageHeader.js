@@ -12,16 +12,6 @@ export class RecipePageHeader extends React.Component {
         };
     };
 
-    setTitle = (e) => {
-        const title = e.target.value;
-        this.setState(() => ({ title }));
-    }
-
-    saveTitle = () => {
-        const title = this.state.title;
-        console.log(title);
-    }
-
     toggleEditMode = () => {
         const editMode = this.props.filters.editMode ? false : true;
         this.props.setEditMode(editMode);
@@ -29,6 +19,12 @@ export class RecipePageHeader extends React.Component {
             this.startSave();
         }
     }
+    
+    setTitle = (e) => {
+        const title = e.target.value;
+        this.setState(() => ({ title }));
+    }
+
 
     startSave = () => {
         console.log(this.state);
@@ -45,9 +41,8 @@ export class RecipePageHeader extends React.Component {
                                 type="text"
                                 name="title"
                                 className="page-header__title--input"
-                                onChange={this.setTitle}
-                                onBlur={this.saveTitle}
-                                value={this.state.title} />
+                                onChange={ this.setTitle }
+                                value={ this.state.title } />
                         ) :
                         (
                             <h1 className="page-header__title">{ this.props.title }</h1>
@@ -69,7 +64,7 @@ export class RecipePageHeader extends React.Component {
                                                         <button
                                                                 key={"button_" + index}
                                                                 className={ button.className }
-                                                                onClick={this.toggleEditMode}>
+                                                                onClick={ this.toggleEditMode }>
                                                             <i className="material-icons btn__icon">{ button.icon }</i>
                                                             { this.props.filters.editMode ? button.label.edit : button.label.view }
                                                         </button>

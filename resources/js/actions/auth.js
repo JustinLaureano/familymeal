@@ -1,4 +1,4 @@
-export const init = (token, user_id) => {
+export const init = (token, csrf_token, user_id) => {
 	return (dispatch) => {
 		const request = {
             headers: {
@@ -14,6 +14,11 @@ export const init = (token, user_id) => {
 				dispatch({
 					type: 'SET_TOKEN',
 					token
+				});
+
+				dispatch({
+					type: 'SET_CSRF_TOKEN',
+					csrf_token
 				});
 
 				dispatch({

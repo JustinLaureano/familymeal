@@ -32192,7 +32192,7 @@ module.exports = function(originalModule) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "init", function() { return init; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLogout", function() { return startLogout; });
-var init = function init(token, user_id) {
+var init = function init(token, csrf_token, user_id) {
   return function (dispatch) {
     var request = {
       headers: {
@@ -32207,6 +32207,10 @@ var init = function init(token, user_id) {
       dispatch({
         type: 'SET_TOKEN',
         token: token
+      });
+      dispatch({
+        type: 'SET_CSRF_TOKEN',
+        csrf_token: csrf_token
       });
       dispatch({
         type: 'SET_USER',
@@ -32318,13 +32322,14 @@ var setEditMode = function setEditMode(editMode) {
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeSummary, deleteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipe", function() { return getRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCurrentRecipe", function() { return clearCurrentRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeSummary", function() { return updateRecipeSummary; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -32352,6 +32357,36 @@ var clearCurrentRecipe = function clearCurrentRecipe() {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_CURRENT_RECIPE'
+    });
+  };
+};
+var updateRecipeSummary = function updateRecipeSummary(summary) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        summary: summary
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_SUMMARY',
+        summary: summary
+      });
+    })["catch"](function (err) {
+      return console.log(err);
     });
   };
 };
@@ -32428,8 +32463,9 @@ var renderApp = function renderApp() {
 };
 
 var api_token = document.querySelector('meta[name="api-token"]').content;
+var csrf_token = document.querySelector('meta[name="csrf-token"]').content;
 var user_id = document.querySelector('meta[name="user_id"]').content;
-store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_5__["init"])(api_token, user_id));
+store.dispatch(Object(_actions_auth__WEBPACK_IMPORTED_MODULE_5__["init"])(api_token, csrf_token, user_id));
 renderApp();
 
 /***/ }),
@@ -33477,21 +33513,6 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipePageHeader).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "setTitle", function (e) {
-      var title = e.target.value;
-
-      _this.setState(function () {
-        return {
-          title: title
-        };
-      });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "saveTitle", function () {
-      var title = _this.state.title;
-      console.log(title);
-    });
-
     _defineProperty(_assertThisInitialized(_this), "toggleEditMode", function () {
       var editMode = _this.props.filters.editMode ? false : true;
 
@@ -33500,6 +33521,16 @@ function (_React$Component) {
       if (editMode) {
         _this.startSave();
       }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setTitle", function (e) {
+      var title = e.target.value;
+
+      _this.setState(function () {
+        return {
+          title: title
+        };
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "startSave", function () {
@@ -33526,7 +33557,6 @@ function (_React$Component) {
         name: "title",
         className: "page-header__title--input",
         onChange: this.setTitle,
-        onBlur: this.saveTitle,
         value: this.state.title
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
@@ -33705,7 +33735,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33716,13 +33746,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -33732,20 +33764,57 @@ var RecipeSummary =
 function (_React$Component) {
   _inherits(RecipeSummary, _React$Component);
 
-  function RecipeSummary() {
+  function RecipeSummary(props) {
+    var _this;
+
     _classCallCheck(this, RecipeSummary);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(RecipeSummary).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeSummary).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "setSummary", function (e) {
+      var summary = e.target.value;
+
+      _this.setState(function () {
+        return {
+          summary: summary
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "saveSummary", function () {
+      var summary = _this.state.summary;
+
+      if (summary != _this.props.summary) {
+        document.querySelector("section[class='recipe-grid__summary']").innerHTML = summary;
+        console.log(summary);
+
+        _this.props.updateRecipeSummary(summary);
+      }
+    });
+
+    _this.state = {
+      summary: _this.props.summary
+    };
+    return _this;
   }
 
   _createClass(RecipeSummary, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (!this.props.editMode) {
+        this.saveSummary();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
           className: "recipe-grid__summary textarea--edit",
-          placeholder: "Summary"
-        }, this.props.summary);
+          placeholder: "Summary",
+          onChange: this.setSummary,
+          value: this.state.summary
+        });
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__summary"
@@ -33766,7 +33835,15 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipeSummary));
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    updateRecipeSummary: function updateRecipeSummary(summary) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeSummary"])(summary));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeSummary));
 
 /***/ }),
 
@@ -34376,6 +34453,11 @@ var authReducerDefaultState = [];
         token: action.token
       });
 
+    case 'SET_CSRF_TOKEN':
+      return _objectSpread({}, state, {
+        csrf_token: action.csrf_token
+      });
+
     case 'SET_DATA':
       return action.data;
 
@@ -34426,6 +34508,15 @@ var filterReducerDefaultState = {
     case 'CLEAR_CURRENT_RECIPE':
       return _objectSpread({}, state, {
         currentRecipe: null
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_SUMMARY':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          summary: _objectSpread({}, state.currentRecipe.summary, {
+            summary: action.summary
+          })
+        })
       });
 
     case 'SORT_BY_NAME_ASC':

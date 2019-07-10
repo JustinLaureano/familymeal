@@ -20,6 +20,17 @@ export default (state = filterReducerDefaultState, action) => {
                 ...state,
                 currentRecipe: null
             };
+        case 'UPDATE_CURRENT_RECIPE_SUMMARY':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    summary: {
+                        ...state.currentRecipe.summary,
+                        summary: action.summary
+                    }
+                }
+            };
         case 'SORT_BY_NAME_ASC':
             return {
                 ...state,
