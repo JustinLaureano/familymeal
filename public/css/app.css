@@ -412,6 +412,15 @@ a:hover {
   color: #fffeff;
 }
 
+.star-icon, .star-icon--edit {
+  font-size: 18px;
+  color: #fdc22d;
+}
+
+.star-icon--edit:hover {
+  cursor: pointer;
+}
+
 input, .input--edit, .page-header__title--input, .input {
   border: 1px solid #363636;
   border-radius: 0px;
@@ -1071,9 +1080,4 @@ page-header__options {
 .recipe-grid__note--inactive {
   color: #505d6a;
   font-style: oblique;
-}
-
-.star-icon {
-  font-size: 18px;
-  color: #fdc22d;
 }

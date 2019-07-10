@@ -111,6 +111,23 @@ class RecipeController extends Controller
     public function update(Request $request, $recipe_id)
     {
         $updates = [];
+        $recipe = Recipe::find($recipe_id);
+
+        if ($request->post('name')) {
+            $recipe->name = $request->post('name');
+            $recipe->save();
+            $updates[] = 'name';
+        }
+
+        if ($request->post('rating')) {
+            $user_id = $request->post('user_id');
+            $recipe_rating = RecipeRatings::where('user_id', $user_id)
+                ->where('recipe_id', $recipe_id)
+                ->first();
+            $recipe_rating->rating = $request->post('rating');
+            $recipe_rating->save();
+            $updates[] = 'rating';
+        }
         
         if ($request->post('summary')) {
             $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id)->first();

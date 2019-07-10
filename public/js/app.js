@@ -32322,13 +32322,15 @@ var setEditMode = function setEditMode(editMode) {
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeSummary, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, deleteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipe", function() { return getRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCurrentRecipe", function() { return clearCurrentRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeName", function() { return updateRecipeName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeRating", function() { return updateRecipeRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeSummary", function() { return updateRecipeSummary; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
@@ -32357,6 +32359,90 @@ var clearCurrentRecipe = function clearCurrentRecipe() {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_CURRENT_RECIPE'
+    });
+  };
+};
+var updateRecipeName = function updateRecipeName(name) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        name: name
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_NAME',
+        name: name
+      }); // Update Recipe List with name change
+
+      var changed = false;
+      var recipes = getState().recipes.map(function (recipe) {
+        if (recipe.id == recipe_id) {
+          recipe.name = name;
+          changed = true;
+        }
+
+        return recipe;
+      });
+
+      if (changed) {
+        dispatch({
+          type: 'SET_RECIPES',
+          recipes: recipes
+        });
+      }
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var updateRecipeRating = function updateRecipeRating(rating) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var user_id = getState().user.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        rating: rating,
+        user_id: user_id
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      var ratings = getState().filters.currentRecipe.ratings.map(function (r) {
+        if (r.user_id == user_id) {
+          r.rating = rating;
+        }
+
+        return r;
+      });
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_RATINGS',
+        ratings: ratings
+      });
+    })["catch"](function (err) {
+      return console.log(err);
     });
   };
 };
@@ -33477,6 +33563,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33501,6 +33588,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var RecipePageHeader =
 /*#__PURE__*/
 function (_React$Component) {
@@ -33517,33 +33605,42 @@ function (_React$Component) {
       var editMode = _this.props.filters.editMode ? false : true;
 
       _this.props.setEditMode(editMode);
-
-      if (editMode) {
-        _this.startSave();
-      }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setTitle", function (e) {
-      var title = e.target.value;
+    _defineProperty(_assertThisInitialized(_this), "setName", function (e) {
+      var name = e.target.value;
 
       _this.setState(function () {
         return {
-          title: title
+          name: name
         };
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "startSave", function () {
-      console.log(_this.state);
+      var name = _this.state.name;
+
+      if (name != _this.props.name) {
+        document.querySelector(".page-header__title").innerHTML = name;
+
+        _this.props.updateRecipeName(name);
+      }
     });
 
     _this.state = {
-      title: _this.props.title
+      name: _this.props.name
     };
     return _this;
   }
 
   _createClass(RecipePageHeader, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (!this.props.filters.editMode) {
+        this.startSave();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -33554,13 +33651,13 @@ function (_React$Component) {
         className: "page-header__info"
       }, this.props.filters.editMode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        name: "title",
+        name: "name",
         className: "page-header__title--input",
-        onChange: this.setTitle,
-        value: this.state.title
+        onChange: this.setName,
+        value: this.state.name
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
-      }, this.props.title)), this.props.options ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, this.props.name)), this.props.options ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
       }, this.props.options.buttons ? this.props.options.buttons.map(function (button, index) {
         if (button.onClick) {
@@ -33594,6 +33691,7 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    name: state.filters.currentRecipe.info.name,
     filters: state.filters
   };
 };
@@ -33602,6 +33700,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setEditMode: function setEditMode(editMode) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setEditMode"])(editMode));
+    },
+    updateRecipeName: function updateRecipeName(name) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["updateRecipeName"])(name));
     }
   };
 };
@@ -33624,6 +33725,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33647,32 +33749,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var RecipeRatings =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(RecipeRatings, _React$Component);
 
-  function RecipeRatings() {
-    var _getPrototypeOf2;
-
+  function RecipeRatings(props) {
     var _this;
 
     _classCallCheck(this, RecipeRatings);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeRatings).call(this, props));
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(RecipeRatings)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _defineProperty(_assertThisInitialized(_this), "saveRatings", function () {
+      var rating = _this.state.rating.rating;
+      console.log(rating);
+      console.log(_this.props.ratings);
+
+      if (rating != _this.props.ratings.user.rating) {
+        _this.props.updateRecipeRating(rating);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "isHalfStar", function (i, average) {
+      return i > average && Math.floor(average) != average && Math.floor(average) == i - 1;
+    });
 
     _defineProperty(_assertThisInitialized(_this), "getStarIcons", function () {
-      var average = _this.props.ratings.average;
+      var average = _this.props.editMode ? _this.state.rating.rating : _this.props.ratings.average;
       var stars = [];
 
       for (var i = 1; i <= 5; i++) {
         if (i <= average) {
           stars.push('star');
-        } else if (i > average && Math.floor(average) == i - 1) {
+        } else if (_this.isHalfStar(i, average)) {
           stars.push('star_half');
         } else {
           stars.push('star_border');
@@ -33682,25 +33793,67 @@ function (_React$Component) {
       return stars;
     });
 
+    _defineProperty(_assertThisInitialized(_this), "setUserRating", function (e) {
+      var star = e.target.id.replace(/\D/g, '');
+
+      _this.setState(function () {
+        return {
+          rating: {
+            rating: star
+          }
+        };
+      });
+    });
+
+    _this.state = {
+      rating: _this.props.ratings.user
+    };
     return _this;
   }
 
   _createClass(RecipeRatings, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (!this.props.editMode) {
+        this.saveRatings();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var stars = this.getStarIcons();
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "recipe-grid__ratings"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "recipe-grid__stars"
-      }, stars.map(function (star, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          key: "star_" + index,
-          className: "material-icons star-icon"
-        }, star);
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        className: "recipe-grid__rating-count"
-      }, this.props.ratings.total + (this.props.ratings.total == 1 ? " Rating" : " Ratings")));
+
+      if (this.props.editMode) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__ratings"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__stars"
+        }, stars.map(function (star, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            key: "star_" + (index + 1),
+            id: "star_" + (index + 1),
+            className: "material-icons star-icon--edit",
+            onClick: _this2.setUserRating
+          }, star);
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "recipe-grid__rating-count"
+        }, "My Rating"));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__ratings"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__stars"
+        }, stars.map(function (star, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            key: "star_" + (index + 1),
+            className: "material-icons star-icon"
+          }, star);
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+          className: "recipe-grid__rating-count"
+        }, this.props.ratings.total + (this.props.ratings.total == 1 ? " Rating" : " Ratings")));
+      }
     }
   }]);
 
@@ -33711,14 +33864,24 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     recipeId: state.filters.currentRecipe.info.id,
+    editMode: state.filters.editMode,
     ratings: {
       average: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_2__["getAverageRating"])(state.filters.currentRecipe.ratings),
-      total: state.filters.currentRecipe.ratings.length
+      total: state.filters.currentRecipe.ratings.length,
+      user: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_2__["getUserRating"])(state.filters.currentRecipe.ratings, state.user.id)
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipeRatings));
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    updateRecipeRating: function updateRecipeRating(rating) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["updateRecipeRating"])(rating));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeRatings));
 
 /***/ }),
 
@@ -34361,17 +34524,24 @@ function getBreadcrumbs() {
 /*!****************************************!*\
   !*** ./resources/js/helpers/Recipe.js ***!
   \****************************************/
-/*! exports provided: getAverageRating */
+/*! exports provided: getAverageRating, getUserRating */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAverageRating", function() { return getAverageRating; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserRating", function() { return getUserRating; });
 function getAverageRating(ratings) {
   var total = ratings.reduce(function (acc, cur) {
     return parseFloat(acc) + parseFloat(cur.rating);
   }, 0);
   return total / ratings.length;
+}
+function getUserRating(ratings, user_id) {
+  var rating = ratings.filter(function (rating) {
+    return rating.user_id == user_id;
+  });
+  return rating[0];
 }
 
 /***/ }),
@@ -34510,11 +34680,27 @@ var filterReducerDefaultState = {
         currentRecipe: null
       });
 
+    case 'UPDATE_CURRENT_RECIPE_RATINGS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ratings: action.ratings
+        })
+      });
+
     case 'UPDATE_CURRENT_RECIPE_SUMMARY':
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           summary: _objectSpread({}, state.currentRecipe.summary, {
             summary: action.summary
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_NAME':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            name: action.name
           })
         })
       });
@@ -35869,7 +36055,6 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       } else {
         var pageHeaderProps = {
-          title: this.props.recipe.info.name,
           options: {
             buttons: [{
               onClick: 'edit',

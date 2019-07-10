@@ -2,32 +2,41 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setEditMode } from '../../actions/filters';
+import { updateRecipeName } from '../../actions/recipes';
 
 export class RecipePageHeader extends React.Component {
     constructor(props) {
         super(props);
         
         this.state = {
-            title: this.props.title
+            name: this.props.name
         };
     };
+
+    componentDidUpdate() {
+		if (!this.props.filters.editMode) {
+			this.startSave();
+		}
+	}
 
     toggleEditMode = () => {
         const editMode = this.props.filters.editMode ? false : true;
         this.props.setEditMode(editMode);
-        if (editMode) {
-            this.startSave();
-        }
     }
     
-    setTitle = (e) => {
-        const title = e.target.value;
-        this.setState(() => ({ title }));
+    setName = (e) => {
+        const name = e.target.value;
+        this.setState(() => ({ name }));
     }
 
 
     startSave = () => {
-        console.log(this.state);
+        const name = this.state.name;
+
+		if (name != this.props.name) {
+			document.querySelector(".page-header__title").innerHTML = name;
+			this.props.updateRecipeName(name);
+		}
     }
 
 	render() {
@@ -39,13 +48,13 @@ export class RecipePageHeader extends React.Component {
                         (
                             <input
                                 type="text"
-                                name="title"
+                                name="name"
                                 className="page-header__title--input"
-                                onChange={ this.setTitle }
-                                value={ this.state.title } />
+                                onChange={ this.setName }
+                                value={ this.state.name } />
                         ) :
                         (
-                            <h1 className="page-header__title">{ this.props.title }</h1>
+                            <h1 className="page-header__title">{ this.props.name }</h1>
                         )
                     }				
                 </section>
@@ -93,11 +102,13 @@ export class RecipePageHeader extends React.Component {
 };
   
 const mapStateToProps = (state) => ({
+    name: state.filters.currentRecipe.info.name,
     filters: state.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setEditMode: (editMode) => dispatch(setEditMode(editMode))
+    setEditMode: (editMode) => dispatch(setEditMode(editMode)),
+    updateRecipeName: (name) => dispatch(updateRecipeName(name))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePageHeader);

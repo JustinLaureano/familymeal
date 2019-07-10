@@ -29,6 +29,91 @@ export const clearCurrentRecipe = () => {
 	}
 }
 
+export const updateRecipeName = (name) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ name })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_NAME',
+					name
+				});
+
+				// Update Recipe List with name change
+				let changed = false;
+				const recipes = getState().recipes.map((recipe) => {
+					if (recipe.id == recipe_id) {
+						recipe.name = name;
+						changed = true;
+					}
+					return recipe;
+				});
+
+				if (changed) {
+					dispatch({
+						type: 'SET_RECIPES',
+						recipes
+					});
+				}
+
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const updateRecipeRating = (rating) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+		const user_id = getState().user.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ rating, user_id })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				const ratings = getState().filters.currentRecipe.ratings.map((r) => {
+					if (r.user_id == user_id) {
+						r.rating = rating;
+					}
+					return r;
+				});
+
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_RATINGS',
+					ratings
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
 export const updateRecipeSummary = (summary) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -43,7 +128,7 @@ export const updateRecipeSummary = (summary) => {
 				Authorization: `Bearer ${token}`,
 				'X-CSRF-TOKEN': csrf_token
 			},
-			body: JSON.stringify({summary})
+			body: JSON.stringify({ summary })
 		};
 
 		fetch('/api/recipes/' + recipe_id + '/update', request)

@@ -1,0 +1,11 @@
+.star-icon {
+    font-size: 18px;
+    color: $gold;
+}
+
+.star-icon--edit {
+    @extend .star-icon;
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -42,7 +42,6 @@ export class ViewRecipePage extends React.Component {
 		}
 		else {
 			const pageHeaderProps = {
-				title: this.props.recipe.info.name,
 				options: {
 					buttons: [
 						{
