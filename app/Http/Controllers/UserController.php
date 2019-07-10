@@ -6,6 +6,7 @@ use App\Models\CuisineType;
 use App\Models\User;
 use App\Models\UserSettings;
 use App\Models\Recipe;
+use App\Models\RecipeCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;

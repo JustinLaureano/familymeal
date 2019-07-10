@@ -33282,6 +33282,145 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/recipe/RecipeCategory.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/recipe/RecipeCategory.js ***!
+  \**********************************************************/
+/*! exports provided: RecipeCategory, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeCategory", function() { return RecipeCategory; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var RecipeCategory =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(RecipeCategory, _React$Component);
+
+  function RecipeCategory(props) {
+    var _this;
+
+    _classCallCheck(this, RecipeCategory);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeCategory).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "setRecipeCategory", function (e) {
+      var category = {
+        id: e.target.value,
+        name: document.querySelector("option[class='select__option--category'][value='" + e.target.value + "']").innerHTML
+      };
+
+      _this.setState(function () {
+        return {
+          category: category
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "saveRecipeCategory", function () {
+      var category = _this.state.category;
+
+      if (category.id != _this.props.category.id) {
+        _this.props.updateRecipeCategory(category);
+      }
+    });
+
+    _this.state = {
+      category: _this.props.category
+    };
+    return _this;
+  }
+
+  _createClass(RecipeCategory, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (!this.props.editMode) {
+        this.saveRecipeCategory();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.editMode) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__info-block"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Category"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "select__wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          className: "select",
+          value: this.state.category.id,
+          onChange: this.setRecipeCategory
+        }, this.props.recipe_categories.map(function (category) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            key: "category_" + category.id,
+            className: "select__option--category",
+            value: category.id
+          }, category.name);
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "material-icons select-icon"
+        }, "unfold_more")));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__info-block"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Category"), this.props.category.name);
+      }
+    }
+  }]);
+
+  return RecipeCategory;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    editMode: state.filters.editMode,
+    category: {
+      id: state.filters.currentRecipe.info.recipe_category_id,
+      name: state.filters.currentRecipe.info.recipe_category_name
+    },
+    recipe_categories: state.recipe_categories
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    updateRecipeCategory: function updateRecipeCategory(category) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeCategory"])(category));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeCategory));
+
+/***/ }),
+
 /***/ "./resources/js/components/recipe/RecipeCuisine.js":
 /*!*********************************************************!*\
   !*** ./resources/js/components/recipe/RecipeCuisine.js ***!
@@ -33514,6 +33653,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_recipe_RecipeCuisine__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/recipe/RecipeCuisine */ "./resources/js/components/recipe/RecipeCuisine.js");
+/* harmony import */ var _components_recipe_RecipeCategory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/recipe/RecipeCategory */ "./resources/js/components/recipe/RecipeCategory.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33535,6 +33675,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var RecipeInfo =
 /*#__PURE__*/
 function (_React$Component) {
@@ -33551,9 +33692,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeCuisine__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "recipe-grid__info-block"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Category"), this.props.info.recipe_category_name));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeCuisine__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeCategory__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -36393,8 +36532,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
