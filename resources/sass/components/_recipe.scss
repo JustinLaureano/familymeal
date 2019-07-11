@@ -77,14 +77,14 @@
 
 .recipe-grid__ingredient-row--edit {
     @include margin(.1em, 0);
-    @include pad($space-xxs);
+    @include pad($space-xs, $space-xxs);
     @include transition;
     background-color: $weathered-blue-light;
     display: grid;
-    grid-template-columns: 24px 1.5fr 25px 3fr;
+    grid-template-columns: 24px 1.5fr 25px 3fr 24px;
     grid-template-rows: auto;
     grid-template-areas:
-        "drag amount . ingredient";
+        "drag amount . ingredient remove";
     width: 90%;
     &:hover {
         background-color: $weathered-blue-hover;

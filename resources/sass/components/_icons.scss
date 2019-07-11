@@ -17,9 +17,16 @@
     right: 3px;
 }
 
-.add-icon {
+.add-icon,
+.remove-icon {
+    cursor: pointer;
     justify-self: center;
     align-self: center;
+}
+
+.remove-icon {
+    font-size: 16px;
+    grid-area: remove;
 }
 
 .drag-icon {

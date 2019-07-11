@@ -35490,7 +35490,7 @@ function (_React$Component) {
         inputProps: inputProps
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons add-icon"
-      }, "add"));
+      }, "add_circle"));
     }
   }]);
 
@@ -36073,12 +36073,11 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
-      console.log('dragstart: ' + id);
       e.dataTransfer.setData('id', id);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onDrag", function (e) {
-      // console.log(e.clientY);
+    _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
+      document.body.style.cursor = 'move';
       var dropPos = e.clientY;
       var ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
       var newIndex = null; // determine where to drop
@@ -36104,32 +36103,48 @@ function (_React$Component) {
 
       if (newIndex != null) {
         _toConsumableArray(ingredientList).map(function (ingredient, index) {
-          if (index == newIndex + 1) {
-            ingredient.style.marginTop = ingredient.getBoundingClientRect().height + 'px';
+          if (index == 0 && index == newIndex) {
+            // ingredientList[index].style.paddingTop = (ingredientList[index].getBoundingClientRect().height) + 'px';
+            ingredientList[index].style.paddingTop = '16px';
+          } else if (newIndex != 0 && index == newIndex + 1) {
+            // ingredient.style.paddingTop = (ingredient.getBoundingClientRect().height) + 'px';
+            ingredient.style.paddingTop = '16px';
           } else {
-            ingredient.style.marginTop = 0;
+            ingredient.style.paddingTop = 'inherit';
           }
         });
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onDragEnd", function (e) {
+      document.body.style.cursor = 'auto';
+      var ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
+
+      _toConsumableArray(ingredientList).map(function (ingredient) {
+        return ingredient.style.paddingTop = 'inherit';
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onDragOver", function (e) {
-      e.preventDefault(); // console.log(e.clientY);
+      e.preventDefault();
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {
       var dropPos = e.clientY;
       var id = e.dataTransfer.getData('id');
       var ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
-      var newIndex = null; // determine where to drop
+      var newIndex = null;
+
+      _toConsumableArray(ingredientList).map(function (ingredient) {
+        return ingredient.style.paddingTop = 'inherit';
+      }); // determine where to drop
+
 
       for (var i = 0; i < ingredientList.length; i++) {
-        ingredientList[i].style.marginTop = 0;
         var top = ingredientList[i].getBoundingClientRect().top;
         var height = ingredientList[i].getBoundingClientRect().height;
         var bottom = top + height;
         var nextBottom = typeof ingredientList[i + 1] == 'undefined' ? bottom : ingredientList[i + 1].getBoundingClientRect().bottom;
-        console.log(dropPos, top, bottom, nextBottom);
 
         if (i === 0 && dropPos < top + height / 2) {
           // first element
@@ -36214,7 +36229,10 @@ function (_React$Component) {
             onDragStart: function onDragStart(e) {
               return _this2.onDragStart(e, ingredient.id);
             },
-            onDrag: _this2.onDrag,
+            onDrag: function onDrag(e) {
+              return _this2.onDrag(e, ingredient.id);
+            },
+            onDragEnd: _this2.onDragEnd,
             onDrop: _this2.onDrop
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "material-icons drag-icon",
@@ -36238,7 +36256,9 @@ function (_React$Component) {
               }
             },
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_recipe_name));
+          }, ingredient.ingredient_recipe_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons remove-icon"
+          }, "remove_circle"));
         })));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {

@@ -88,7 +88,7 @@ export class IngredientSelect extends React.Component {
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps} />
-                <i className="material-icons add-icon">add</i>
+                <i className="material-icons add-icon">add_circle</i>
             </section>
 		);
 	};

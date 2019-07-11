@@ -30,12 +30,11 @@ export class RecipeIngredients extends React.Component {
     }
 
     onDragStart = (e, id) => {
-        console.log('dragstart: ' + id);
         e.dataTransfer.setData('id', id);
     }
 
-    onDrag = (e) => {
-        // console.log(e.clientY);
+    onDrag = (e, id) => {
+        document.body.style.cursor = 'move';
 
         const dropPos = e.clientY;
         const ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
@@ -66,20 +65,31 @@ export class RecipeIngredients extends React.Component {
         }
 
         if (newIndex != null) {
+
             [...ingredientList].map((ingredient, index) => {
-                if (index == newIndex + 1) {
-                    ingredient.style.marginTop = ingredient.getBoundingClientRect().height + 'px';
+                if (index == 0 && index == newIndex) {
+                    // ingredientList[index].style.paddingTop = (ingredientList[index].getBoundingClientRect().height) + 'px';
+                    ingredientList[index].style.paddingTop = '16px';
+                }
+                else if (newIndex != 0 && index == newIndex + 1) {
+                    // ingredient.style.paddingTop = (ingredient.getBoundingClientRect().height) + 'px';
+                    ingredient.style.paddingTop = '16px';
                 }
                 else {
-                    ingredient.style.marginTop = 0;
+                    ingredient.style.paddingTop = 'inherit';
                 }
             });
         }
     }
 
+    onDragEnd = (e) => {
+        document.body.style.cursor = 'auto';
+        const ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
+        [...ingredientList].map(ingredient => ingredient.style.paddingTop = 'inherit');
+    }
+
     onDragOver = (e) => {
         e.preventDefault();
-        // console.log(e.clientY);
     }
 
     onDrop = (e) => {
@@ -88,9 +98,10 @@ export class RecipeIngredients extends React.Component {
         const ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
         let newIndex = null;
 
+        [...ingredientList].map(ingredient => ingredient.style.paddingTop = 'inherit');
+
         // determine where to drop
         for (let i = 0; i < ingredientList.length; i++) {
-            ingredientList[i].style.marginTop = 0;
 
             const top = ingredientList[i].getBoundingClientRect().top;
             const height = ingredientList[i].getBoundingClientRect().height;
@@ -99,7 +110,6 @@ export class RecipeIngredients extends React.Component {
             let nextBottom = typeof ingredientList[i + 1] == 'undefined' ?
                 bottom : ingredientList[i + 1].getBoundingClientRect().bottom;
 
-            console.log(dropPos, top, bottom, nextBottom);
             if (i === 0 && dropPos < (top + (height / 2))) {
                 // first element
                 newIndex = i;
@@ -159,7 +169,8 @@ export class RecipeIngredients extends React.Component {
                                     className="recipe-grid__ingredient-row--edit"
                                     draggable
                                     onDragStart={(e) => this.onDragStart(e, ingredient.id) }
-                                    onDrag={ this.onDrag }
+                                    onDrag={ (e) => this.onDrag(e, ingredient.id) }
+                                    onDragEnd={ this.onDragEnd }
                                     onDrop={ this.onDrop }>
 
                                     <i 
@@ -199,6 +210,7 @@ export class RecipeIngredients extends React.Component {
                                             </Link>
                                         )
                                     }
+                                    <i className="material-icons remove-icon">remove_circle</i>
                                 </div>
                             )
                         })}

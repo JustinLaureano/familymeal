@@ -473,9 +473,16 @@ a:hover {
   right: 3px;
 }
 
-.add-icon {
+.add-icon,
+.remove-icon {
+  cursor: pointer;
   justify-self: center;
   align-self: center;
+}
+
+.remove-icon {
+  font-size: 16px;
+  grid-area: remove;
 }
 
 .drag-icon {
@@ -1144,14 +1151,14 @@ page-header__options {
 
 .recipe-grid__ingredient-row--edit {
   margin: 0.1em 0;
-  padding: calc(0.375 * 1em);
+  padding: calc(0.5 * 1em) calc(0.375 * 1em);
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
   background-color: #4f5d6a07;
   display: grid;
-  grid-template-columns: 24px 1.5fr 25px 3fr;
+  grid-template-columns: 24px 1.5fr 25px 3fr 24px;
   grid-template-rows: auto;
-  grid-template-areas: "drag amount . ingredient";
+  grid-template-areas: "drag amount . ingredient remove";
   width: 90%;
 }
 .recipe-grid__ingredient-row--edit:hover {
