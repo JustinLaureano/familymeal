@@ -38,6 +38,7 @@ input {
     border-bottom: 1px solid $gray-light;
 }
 
+
 .textarea {
     @include border(4px);
     @include pad($space-xxs);

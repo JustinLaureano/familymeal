@@ -7,9 +7,21 @@ export class IngredientSelect extends React.Component {
         super(props);
 
         this.state = {
-          value: '',
-          suggestions: []
+            value: '',
+            suggestions: [],
+            amount: '',
+            measurement_unit: ''
         };
+    }
+
+    setNewIngredientAmount = (e) => {
+        const amount = e.target.value;
+        this.setState(() => ({ amount }));
+    }
+
+    setNewMeasurementUnit = (e) => {
+        const measurement_unit = e.target.value;
+        this.setState(() => ({ measurement_unit }));
     }
 
     getSuggestions = (value) => {
@@ -24,7 +36,7 @@ export class IngredientSelect extends React.Component {
     getSuggestionValue = suggestion => suggestion.name;
 
     renderSuggestion = (suggestion) => (
-        <div className="input--suggestion">
+        <div className="react-autosuggest__suggestion-option">
           {suggestion.name}
         </div>
       );
@@ -47,21 +59,36 @@ export class IngredientSelect extends React.Component {
         const { value, suggestions } = this.state;
 
         const inputProps = {
-            placeholder: 'Search for an Ingredient',
+            placeholder: 'Ingredient',
             value,
             onChange: this.onChange
         };
 
 		return (
-            <section className="select__wrapper--auto">
-            <Autosuggest
-                suggestions={this.state.suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSuggestionSelected}
-                getSuggestionValue={this.getSuggestionValue}
-                renderSuggestion={this.renderSuggestion}
-                inputProps={inputProps} />
+            <section className="recipe-grid__ingredient-add select__wrapper--auto">
+                <input
+                    type="number"
+                    className="recipe-grid__ingredient-input--amount"
+                    name="amount"
+                    value={ this.state.amount }
+                    placeholder="Amount"
+                    onChange={ this.setNewIngredientAmount } />
+                <input
+                    type="text"
+                    className="recipe-grid__ingredient-input--measurement-unit"
+                    name="measurement_unit"
+                    value={ this.state.measurement_unit }
+                    placeholder="Unit"
+                    onChange={ this.setNewMeasurementUnit } />
+                <Autosuggest
+                    suggestions={this.state.suggestions}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    onSuggestionSelected={this.onSuggestionSelected}
+                    getSuggestionValue={this.getSuggestionValue}
+                    renderSuggestion={this.renderSuggestion}
+                    inputProps={inputProps} />
+                <i className="material-icons add-icon">add</i>
             </section>
 		);
 	};

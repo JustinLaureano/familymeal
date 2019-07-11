@@ -9,4 +9,32 @@
 .react-autosuggest__suggestions-container {
     position: absolute;
     background-color: $white;
+    width: 100%;
+}
+
+.react-autosuggest__suggestions-container--open {
+    @extend .react-autosuggest__suggestions-container;
+    @include border();
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .15);
+    max-height: 200px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+.react-autosuggest__suggestion {
+    @include pad($space-xxs);
+    cursor: pointer;
+    width: 100%;
+    
+    &:nth-child(odd) {
+        background-color: $weathered-blue-light;
+    }
+    &:hover {
+        background-color: $weathered-blue-hover;
+    }
 }

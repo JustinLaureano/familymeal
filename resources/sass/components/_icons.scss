@@ -16,3 +16,30 @@
     position: absolute;
     right: 3px;
 }
+
+.add-icon {
+    justify-self: center;
+    align-self: center;
+}
+
+.drag-icon {
+    @include transition;
+    $color: $gray-light;
+    cursor: grab;
+    font-size: 18px;
+    grid-area: drag;
+    opacity: $icon-opacity;
+    
+    &:hover {
+        color: $gray-dark;
+        opacity: 1;
+    }
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.icon--grabbing {
+    cursor: grabbing;
+}

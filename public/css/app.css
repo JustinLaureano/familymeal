@@ -288,9 +288,35 @@ a:hover {
   width: 100%;
 }
 
-.react-autosuggest__suggestions-container {
+.react-autosuggest__suggestions-container, .react-autosuggest__suggestions-container--open {
   position: absolute;
   background-color: #fffeff;
+  width: 100%;
+}
+
+.react-autosuggest__suggestions-container--open {
+  border: 1px solid #363636;
+  border-radius: 3px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  max-height: 200px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+.react-autosuggest__suggestions-container--open::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.react-autosuggest__suggestion {
+  padding: calc(0.375 * 1em);
+  cursor: pointer;
+  width: 100%;
+}
+.react-autosuggest__suggestion:nth-child(odd) {
+  background-color: #4f5d6a07;
+}
+.react-autosuggest__suggestion:hover {
+  background-color: #2780d31c;
 }
 
 .loading {
@@ -445,6 +471,34 @@ a:hover {
   pointer-events: none;
   position: absolute;
   right: 3px;
+}
+
+.add-icon {
+  justify-self: center;
+  align-self: center;
+}
+
+.drag-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  cursor: -webkit-grab;
+  cursor: grab;
+  font-size: 18px;
+  grid-area: drag;
+  opacity: 0.54;
+}
+.drag-icon:hover {
+  color: #363636;
+  opacity: 1;
+}
+.drag-icon:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+.icon--grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 input, .input--edit, .page-header__title--input, .input {
@@ -1076,16 +1130,63 @@ page-header__options {
   margin-bottom: calc(1.25 * 1em);
 }
 
+.recipe-grid__ingredient-list {
+  padding: calc(0.5 * 1em) 0;
+}
+
 .recipe-grid__ingredient-row {
   padding: calc(0.375 * 1em) 0;
   display: grid;
-  grid-template-columns: 25px 1.5fr 25px 3fr;
+  grid-template-columns: 1.5fr 25px 3fr;
   grid-template-rows: auto;
-  grid-template-areas: "order amount . ingredient";
+  grid-template-areas: "amount . ingredient";
 }
 
-.recipe-grid__ingredient-order {
-  grid-area: order;
+.recipe-grid__ingredient-row--edit {
+  margin: 0.1em 0;
+  padding: calc(0.375 * 1em);
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  background-color: #4f5d6a07;
+  display: grid;
+  grid-template-columns: 24px 1.5fr 25px 3fr;
+  grid-template-rows: auto;
+  grid-template-areas: "drag amount . ingredient";
+  width: 90%;
+}
+.recipe-grid__ingredient-row--edit:hover {
+  background-color: #2780d31c;
+}
+
+.recipe-grid__ingredient-add {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: auto;
+  grid-template-areas: "amount amount m-u m-u  ingredient ingredient ingredient ingredient add-btn";
+  margin-bottom: calc(1.25 * 1em);
+}
+.recipe-grid__ingredient-add .react-autosuggest__container {
+  border: none;
+  border-bottom: 1px solid #363636;
+  grid-area: ingredient;
+  position: relative;
+}
+.recipe-grid__ingredient-add .react-autosuggest__input {
+  border: none;
+}
+
+.recipe-grid__ingredient-input, .recipe-grid__ingredient-input--measurement-unit, .recipe-grid__ingredient-input--amount {
+  border: none;
+  border-bottom: 1px solid #363636;
+  width: 100%;
+}
+
+.recipe-grid__ingredient-input--amount {
+  grid-area: amount;
+}
+
+.recipe-grid__ingredient-input--measurement-unit {
+  grid-area: m-u;
 }
 
 .recipe-grid__ingredient-amount {
