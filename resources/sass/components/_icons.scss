@@ -24,11 +24,6 @@
     align-self: center;
 }
 
-.remove-icon {
-    font-size: 16px;
-    grid-area: remove;
-}
-
 .drag-icon {
     @include transition;
     $color: $gray-light;
@@ -41,10 +36,17 @@
         color: $gray-dark;
         opacity: 1;
     }
-
+    
     &:active {
         cursor: grabbing;
     }
+}
+
+.remove-icon {
+    @extend .drag-icon;
+    cursor: pointer;
+    font-size: 16px;
+    grid-area: remove;
 }
 
 .icon--grabbing {

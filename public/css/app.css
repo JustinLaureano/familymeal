@@ -480,12 +480,7 @@ a:hover {
   align-self: center;
 }
 
-.remove-icon {
-  font-size: 16px;
-  grid-area: remove;
-}
-
-.drag-icon {
+.drag-icon, .remove-icon {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
   cursor: -webkit-grab;
@@ -494,13 +489,19 @@ a:hover {
   grid-area: drag;
   opacity: 0.54;
 }
-.drag-icon:hover {
+.drag-icon:hover, .remove-icon:hover {
   color: #363636;
   opacity: 1;
 }
-.drag-icon:active {
+.drag-icon:active, .remove-icon:active {
   cursor: -webkit-grabbing;
   cursor: grabbing;
+}
+
+.remove-icon {
+  cursor: pointer;
+  font-size: 16px;
+  grid-area: remove;
 }
 
 .icon--grabbing {

@@ -36102,15 +36102,16 @@ function (_React$Component) {
       }
 
       if (newIndex != null) {
+        console.log(newIndex, dropPos);
+
         _toConsumableArray(ingredientList).map(function (ingredient, index) {
-          if (index == 0 && index == newIndex) {
-            // ingredientList[index].style.paddingTop = (ingredientList[index].getBoundingClientRect().height) + 'px';
-            ingredientList[index].style.paddingTop = '16px';
-          } else if (newIndex != 0 && index == newIndex + 1) {
-            // ingredient.style.paddingTop = (ingredient.getBoundingClientRect().height) + 'px';
-            ingredient.style.paddingTop = '16px';
+          if (index == newIndex) {
+            ingredient.style.marginTop = ingredientList[newIndex].getBoundingClientRect().height * .15 + 'px';
+            ingredient.style.borderTop = '2px solid #505d6a';
           } else {
-            ingredient.style.paddingTop = 'inherit';
+            ingredient.style.marginTop = 0;
+            ingredient.style.borderTop = 'none';
+            ingredient.style.borderBottom = 'none';
           }
         });
       }
@@ -36121,7 +36122,9 @@ function (_React$Component) {
       var ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
 
       _toConsumableArray(ingredientList).map(function (ingredient) {
-        return ingredient.style.paddingTop = 'inherit';
+        ingredient.style.marginTop = 0;
+        ingredient.style.borderTop = 'none';
+        ingredient.style.borderBottom = 'none';
       });
     });
 
@@ -39078,8 +39081,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

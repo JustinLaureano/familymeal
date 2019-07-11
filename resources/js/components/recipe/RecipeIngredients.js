@@ -65,19 +65,19 @@ export class RecipeIngredients extends React.Component {
         }
 
         if (newIndex != null) {
-
+            console.log(newIndex, dropPos);
             [...ingredientList].map((ingredient, index) => {
-                if (index == 0 && index == newIndex) {
-                    // ingredientList[index].style.paddingTop = (ingredientList[index].getBoundingClientRect().height) + 'px';
-                    ingredientList[index].style.paddingTop = '16px';
-                }
-                else if (newIndex != 0 && index == newIndex + 1) {
-                    // ingredient.style.paddingTop = (ingredient.getBoundingClientRect().height) + 'px';
-                    ingredient.style.paddingTop = '16px';
+                if (index == newIndex) {
+                    ingredient.style.marginTop = (ingredientList[newIndex].getBoundingClientRect().height * .15) + 'px';
+                    ingredient.style.borderTop = '2px solid #505d6a';
+
                 }
                 else {
-                    ingredient.style.paddingTop = 'inherit';
+                    ingredient.style.marginTop = 0;
+                    ingredient.style.borderTop = 'none';
+                    ingredient.style.borderBottom = 'none';
                 }
+
             });
         }
     }
@@ -85,7 +85,11 @@ export class RecipeIngredients extends React.Component {
     onDragEnd = (e) => {
         document.body.style.cursor = 'auto';
         const ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
-        [...ingredientList].map(ingredient => ingredient.style.paddingTop = 'inherit');
+        [...ingredientList].map(ingredient => {
+            ingredient.style.marginTop = 0;
+            ingredient.style.borderTop = 'none';
+            ingredient.style.borderBottom = 'none';
+        });
     }
 
     onDragOver = (e) => {
@@ -158,10 +162,11 @@ export class RecipeIngredients extends React.Component {
                     <h2 className="recipe-grid__section-title">Ingredients</h2>
 
                     <IngredientSelect />
+
                     <section
                         className="recipe-grid__ingredient-list"
                         onDragOver={ this.onDragOver }>
-                        {this.state.ingredients.map((ingredient, index) => {
+                        { this.state.ingredients.map((ingredient, index) => {
                             return (
                                 <div 
                                     key={"ingredient_" + ingredient.id}
@@ -177,6 +182,7 @@ export class RecipeIngredients extends React.Component {
                                         className="material-icons drag-icon"
                                         onMouseDown={ this.toggleGrabbingClass }
                                         onMouseUp={ this.toggleGrabbingClass }>drag_indicator</i>
+
                                     <p className="recipe-grid__ingredient-amount">
                                         { parseFloat(ingredient.ingredient_units) }
                                         &nbsp; &nbsp;
