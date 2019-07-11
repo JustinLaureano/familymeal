@@ -2,7 +2,7 @@
     @extend .content;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: #{$space-lg} #{$space-lg} auto;
+    grid-template-rows: #{$space-lg} auto auto;
     grid-template-areas:
         "breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
         "photo page-header page-header page-header"

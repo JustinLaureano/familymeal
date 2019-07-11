@@ -47,6 +47,11 @@ export const init = (token, csrf_token, user_id) => {
 				});
 
 				dispatch({
+					type: 'SET_INGREDIENTS',
+					ingredients: data.ingredients
+				});
+
+				dispatch({
 					type: 'SET_RECIPE_CATEGORIES',
 					recipe_categories: data.recipe_categories
 				});

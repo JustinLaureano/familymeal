@@ -16,3 +16,10 @@
         justify-self: center;
     }
 }
+
+.photo--recipe-edit {
+    @extend .photo--recipe;
+    align-self: center;
+    border-radius: 4px;
+    justify-self: center;
+}

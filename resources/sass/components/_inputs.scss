@@ -18,7 +18,6 @@ input {
     }
 }
 
-
 .input-icon {
     color: $weathered-blue;
     font-size: 20px;
@@ -26,6 +25,10 @@ input {
     left: 5px;
     top: 5px;
     opacity: $icon-opacity;
+}
+
+.input--suggestion {
+    
 }
 
 .input--edit {
@@ -63,6 +66,10 @@ input {
     background-color: $white;
     border-color: $gray-light;
     position: relative;
+}
+
+.select__wrapper--auto {
+    width: 90%;
 }
 
 .select {
