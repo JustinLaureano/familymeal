@@ -1155,6 +1155,7 @@ page-header__options {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
   background-color: #4f5d6a07;
+  border-radius: 3px;
   display: grid;
   grid-template-columns: 24px 1.5fr 25px 3fr 24px;
   grid-template-rows: auto;

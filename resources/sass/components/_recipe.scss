@@ -80,6 +80,7 @@
     @include pad($space-xs, $space-xxs);
     @include transition;
     background-color: $weathered-blue-light;
+    border-radius: 3px;
     display: grid;
     grid-template-columns: 24px 1.5fr 25px 3fr 24px;
     grid-template-rows: auto;
