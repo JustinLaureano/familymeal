@@ -22,6 +22,19 @@ class UserController extends Controller
     {
         $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
         $recipe_categories = RecipeCategory::orderBy('name')->get();
+        $ingredients = DB::table('ingredient')
+            ->select(
+                'ingredient.id',
+                'ingredient.name',
+                'ingredient_category_id',
+                'ingredient_category.name AS ingredient_category_name'
+            )
+            ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
+            ->where('created_user_id', Null)
+            ->orWhere('created_user_id', $id)
+            ->orderBy('name', 'asc')
+            ->get();
+
         $user_settings = UserSettings::where('user_id', $id)->first();
         $recipes = DB::table('recipe')
                         ->select('recipe.name',
@@ -42,6 +55,7 @@ class UserController extends Controller
 
         $data = [
             'cuisine_types' => $cuisine_types,
+            'ingredients' => $ingredients,
             'recipe_categories' => $recipe_categories,
             'user' => User::where('id', $id)->first(),
             'userSettings' => $user_settings,

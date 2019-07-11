@@ -71,16 +71,14 @@ export class RecipeCuisine extends React.Component {
 	};
 };
 
-const mapStateToProps = (state) => {
-	return {
-        editMode: state.filters.editMode,
-        cuisine: {
-            id: state.filters.currentRecipe.info.cuisine_type_id,
-            name: state.filters.currentRecipe.info.cuisine_type
-        },
-        cuisine_types: state.cuisine_types
-	}
-};
+const mapStateToProps = (state) => ({
+    editMode: state.filters.editMode,
+    cuisine: {
+        id: state.filters.currentRecipe.info.cuisine_type_id,
+        name: state.filters.currentRecipe.info.cuisine_type
+    },
+    cuisine_types: state.cuisine_types
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
 	updateRecipeCuisine: (cuisine) => dispatch(updateRecipeCuisine(cuisine))

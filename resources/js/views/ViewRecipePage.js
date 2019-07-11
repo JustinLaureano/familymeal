@@ -42,6 +42,7 @@ export class ViewRecipePage extends React.Component {
 		}
 		else {
 			const pageHeaderProps = {
+				title: this.props.recipe.info.name,
 				options: {
 					buttons: [
 						{
@@ -57,7 +58,7 @@ export class ViewRecipePage extends React.Component {
 				}
 			}
 			const photoProps = {
-				className: 'photo--circle photo--recipe',
+				className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
 				src: 'https://fillmurray.com/120/120'
 			}
 			return (
@@ -76,11 +77,10 @@ export class ViewRecipePage extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
+const mapStateToProps = (state) => ({
+		editMode: state.filters.editMode,
 		recipe: state.filters.currentRecipe
-	}
-};
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
 	clearCurrentRecipe: () => dispatch(clearCurrentRecipe()),
