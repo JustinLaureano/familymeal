@@ -34357,13 +34357,14 @@ var startLogout = function startLogout() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTablePage", function() { return changeTablePage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEditMode", function() { return setEditMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeIngredient", function() { return addCurrentRecipeIngredient; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34406,6 +34407,14 @@ var setEditMode = function setEditMode(editMode) {
     dispatch({
       type: 'SET_EDIT_MODE',
       editMode: editMode
+    });
+  };
+};
+var addCurrentRecipeIngredient = function addCurrentRecipeIngredient(ingredient) {
+  return function (dispatch) {
+    dispatch({
+      type: 'ADD_CURRENT_RECIPE_INGREDIENT',
+      ingredient: ingredient
     });
   };
 };
@@ -35418,15 +35427,18 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "option_" + suggestion.id,
         className: "react-autosuggest__suggestion-option"
       }, suggestion.name);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onChange", function (event, _ref) {
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (e, _ref) {
       var newValue = _ref.newValue;
+      var ingredient_id = e.target.id.replace(/\D/g, '');
 
       _this.setState({
-        value: newValue
+        value: newValue,
+        ingredient_id: ingredient_id
       });
     });
 
@@ -35444,12 +35456,30 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startAddIngredient", function () {
+      if (_this.isValidIngredientEntry()) {
+        _this.props.addIngredient(_this.state);
+
+        _this.setState(function () {
+          return _this.baseState;
+        });
+      } else {
+        console.log('not valid');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "isValidIngredientEntry", function () {
+      return _this.state.amount.trim() != '' && _this.state.measurement_unit.trim() != '' && _this.state.value.trim() != '';
+    });
+
     _this.state = {
       value: '',
+      'ingredient_id': 0,
       suggestions: [],
       amount: '',
       measurement_unit: ''
     };
+    _this.baseState = _this.state;
     return _this;
   }
 
@@ -35467,7 +35497,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__ingredient-add select__wrapper--auto"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "number",
+        type: "text",
         className: "recipe-grid__ingredient-input--amount",
         name: "amount",
         value: this.state.amount,
@@ -35489,7 +35519,8 @@ function (_React$Component) {
         renderSuggestion: this.renderSuggestion,
         inputProps: inputProps
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons add-icon"
+        className: "material-icons add-icon",
+        onClick: this.startAddIngredient
       }, "add_circle"));
     }
   }]);
@@ -36016,8 +36047,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
-/* harmony import */ var _recipe_IngredientSelect__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../recipe/IngredientSelect */ "./resources/js/components/recipe/IngredientSelect.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _recipe_IngredientSelect__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../recipe/IngredientSelect */ "./resources/js/components/recipe/IngredientSelect.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -36052,6 +36084,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var RecipeIngredients =
 /*#__PURE__*/
 function (_React$Component) {
@@ -36063,14 +36096,6 @@ function (_React$Component) {
     _classCallCheck(this, RecipeIngredients);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeIngredients).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_this), "toggleGrabbingClass", function (e) {
-      if (e.target.classList.contains('icon--grabbing')) {
-        e.target.classList.remove('icon--grabbing');
-      } else {
-        e.target.classList.add('icon--grabbing');
-      }
-    });
 
     _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
       e.dataTransfer.setData('id', id);
@@ -36102,8 +36127,6 @@ function (_React$Component) {
       }
 
       if (newIndex != null) {
-        console.log(newIndex, dropPos);
-
         _toConsumableArray(ingredientList).map(function (ingredient, index) {
           if (index == newIndex) {
             ingredient.style.marginTop = ingredientList[newIndex].getBoundingClientRect().height * .15 + 'px';
@@ -36136,12 +36159,7 @@ function (_React$Component) {
       var dropPos = e.clientY;
       var id = e.dataTransfer.getData('id');
       var ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
-      var newIndex = null;
-
-      _toConsumableArray(ingredientList).map(function (ingredient) {
-        return ingredient.style.paddingTop = 'inherit';
-      }); // determine where to drop
-
+      var newIndex = null; // determine where to drop
 
       for (var i = 0; i < ingredientList.length; i++) {
         var top = ingredientList[i].getBoundingClientRect().top;
@@ -36172,7 +36190,7 @@ function (_React$Component) {
 
         _this.setState(function () {
           return {
-            ingredients: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__["arrayMove"])(_this.state.ingredients, currentIndex, newIndex)
+            ingredients: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_5__["arrayMove"])(_this.state.ingredients, currentIndex, newIndex)
           };
         });
       }
@@ -36197,6 +36215,19 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "addIngredient", function (ingredient) {
+      _this.props.addCurrentRecipeIngredient({
+        id: Math.floor(Math.random() * (999999 - 900000) + 900000),
+        order: _this.state.ingredients.length + 1,
+        ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
+        ingredient_name: ingredient.value,
+        ingredient_recipe_id: null,
+        ingredient_recipe_name: null,
+        ingredient_units: ingredient.amount,
+        measurement_unit: ingredient.measurement_unit
+      });
+    });
+
     _this.state = {
       ingredients: _this.props.ingredients
     };
@@ -36206,21 +36237,33 @@ function (_React$Component) {
   _createClass(RecipeIngredients, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      var _this2 = this;
+
       if (!this.props.editMode) {
         this.saveRecipeIngredients();
+      }
+
+      if (this.state.ingredients.length !== this.props.ingredients.length) {
+        this.setState(function () {
+          return {
+            ingredients: _this2.props.ingredients
+          };
+        });
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__ingredients"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
           className: "recipe-grid__section-title"
-        }, "Ingredients"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipe_IngredientSelect__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        }, "Ingredients"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipe_IngredientSelect__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          addIngredient: this.addIngredient
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__ingredient-list",
           onDragOver: this.onDragOver
         }, this.state.ingredients.map(function (ingredient, index) {
@@ -36230,17 +36273,15 @@ function (_React$Component) {
             className: "recipe-grid__ingredient-row--edit",
             draggable: true,
             onDragStart: function onDragStart(e) {
-              return _this2.onDragStart(e, ingredient.id);
+              return _this3.onDragStart(e, ingredient.id);
             },
             onDrag: function onDrag(e) {
-              return _this2.onDrag(e, ingredient.id);
+              return _this3.onDrag(e, ingredient.id);
             },
-            onDragEnd: _this2.onDragEnd,
-            onDrop: _this2.onDrop
+            onDragEnd: _this3.onDragEnd,
+            onDrop: _this3.onDrop
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "material-icons drag-icon",
-            onMouseDown: _this2.toggleGrabbingClass,
-            onMouseUp: _this2.toggleGrabbingClass
+            className: "material-icons drag-icon"
           }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: "recipe-grid__ingredient-amount"
           }, parseFloat(ingredient.ingredient_units), "\xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -36251,7 +36292,7 @@ function (_React$Component) {
               }
             },
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          }, ingredient.ingredient_name) : ingredient.ingredient_recipe_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
             to: {
               pathname: "/recipes/" + ingredient.ingredient_recipe_id,
               state: {
@@ -36259,7 +36300,9 @@ function (_React$Component) {
               }
             },
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_recipe_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          }, ingredient.ingredient_recipe_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__ingredient-item"
+          }, ingredient.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "material-icons remove-icon"
           }, "remove_circle"));
         })));
@@ -36311,6 +36354,9 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
+    addCurrentRecipeIngredient: function addCurrentRecipeIngredient(ingredient) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["addCurrentRecipeIngredient"])(ingredient));
+    },
     updateRecipeIngredients: function updateRecipeIngredients(ingredients) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["updateRecipeIngredients"])(ingredients));
     }
@@ -37542,6 +37588,14 @@ var cuisineTypesReducerDefaultState = [];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -37568,6 +37622,13 @@ var filterReducerDefaultState = {
     case 'CLEAR_CURRENT_RECIPE':
       return _objectSpread({}, state, {
         currentRecipe: null
+      });
+
+    case 'ADD_CURRENT_RECIPE_INGREDIENT':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ingredients: [].concat(_toConsumableArray(state.currentRecipe.ingredients), [action.ingredient])
+        })
       });
 
     case 'UPDATE_CURRENT_RECIPE_RATINGS':

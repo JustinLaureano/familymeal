@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateRecipeIngredients } from '../../actions/recipes';
+import {  updateRecipeIngredients } from '../../actions/recipes';
+import { addCurrentRecipeIngredient } from '../../actions/filters';
 import { arrayMove } from '../../helpers/Recipe';
 import IngredientSelect from '../recipe/IngredientSelect';
 
@@ -17,15 +18,9 @@ export class RecipeIngredients extends React.Component {
     componentDidUpdate() {
 		if (!this.props.editMode) {
 			this.saveRecipeIngredients();
-		}
-    }
-
-    toggleGrabbingClass = (e) => {
-        if (e.target.classList.contains('icon--grabbing')) {
-            e.target.classList.remove('icon--grabbing');
         }
-        else {
-            e.target.classList.add('icon--grabbing');
+        if (this.state.ingredients.length !== this.props.ingredients.length) {
+            this.setState(() => ({ ingredients: this.props.ingredients }));
         }
     }
 
@@ -65,7 +60,6 @@ export class RecipeIngredients extends React.Component {
         }
 
         if (newIndex != null) {
-            console.log(newIndex, dropPos);
             [...ingredientList].map((ingredient, index) => {
                 if (index == newIndex) {
                     ingredient.style.marginTop = (ingredientList[newIndex].getBoundingClientRect().height * .15) + 'px';
@@ -101,8 +95,6 @@ export class RecipeIngredients extends React.Component {
         const id = e.dataTransfer.getData('id');
         const ingredientList = document.querySelectorAll('.recipe-grid__ingredient-row--edit');
         let newIndex = null;
-
-        [...ingredientList].map(ingredient => ingredient.style.paddingTop = 'inherit');
 
         // determine where to drop
         for (let i = 0; i < ingredientList.length; i++) {
@@ -153,7 +145,20 @@ export class RecipeIngredients extends React.Component {
 		if (ingredients[0].id != this.state.ingredients[0].id) {
 			this.props.updateRecipeIngredients(ingredients);
 		}
-	}
+    }
+    
+    addIngredient = (ingredient) => {
+        this.props.addCurrentRecipeIngredient({
+            id: Math.floor(Math.random() * (999999 - 900000) + 900000),
+            order: this.state.ingredients.length + 1,
+            ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
+            ingredient_name: ingredient.value,
+            ingredient_recipe_id: null,
+            ingredient_recipe_name: null,
+            ingredient_units: ingredient.amount,
+            measurement_unit: ingredient.measurement_unit
+        });
+    }
 
 	render() {
         if (this.props.editMode) {
@@ -161,7 +166,7 @@ export class RecipeIngredients extends React.Component {
                 <section className="recipe-grid__ingredients">
                     <h2 className="recipe-grid__section-title">Ingredients</h2>
 
-                    <IngredientSelect />
+                    <IngredientSelect addIngredient={ this.addIngredient } />
 
                     <section
                         className="recipe-grid__ingredient-list"
@@ -179,16 +184,13 @@ export class RecipeIngredients extends React.Component {
                                     onDrop={ this.onDrop }>
 
                                     <i 
-                                        className="material-icons drag-icon"
-                                        onMouseDown={ this.toggleGrabbingClass }
-                                        onMouseUp={ this.toggleGrabbingClass }>drag_indicator</i>
+                                        className="material-icons drag-icon">drag_indicator</i>
 
                                     <p className="recipe-grid__ingredient-amount">
                                         { parseFloat(ingredient.ingredient_units) }
                                         &nbsp; &nbsp;
                                         { ingredient.measurement_unit }
                                     </p>
-
                                     {
                                         ingredient.ingredient_id ?
                                         (
@@ -202,7 +204,7 @@ export class RecipeIngredients extends React.Component {
                                                 className="recipe-grid__ingredient-item">
                                                 { ingredient.ingredient_name }
                                             </Link>
-                                        ) :
+                                        ) : ingredient.ingredient_recipe_id ? 
                                         (
                                             <Link
                                                 to={{
@@ -214,6 +216,10 @@ export class RecipeIngredients extends React.Component {
                                                 className="recipe-grid__ingredient-item">
                                                 { ingredient.ingredient_recipe_name }
                                             </Link>
+                                        ) : (
+                                            <p className="recipe-grid__ingredient-item">
+                                                { ingredient.ingredient_name }
+                                            </p>
                                         )
                                     }
                                     <i className="material-icons remove-icon">remove_circle</i>
@@ -285,7 +291,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-	updateRecipeIngredients: (ingredients) => dispatch(updateRecipeIngredients(ingredients))
+	addCurrentRecipeIngredient: (ingredient) => dispatch(addCurrentRecipeIngredient(ingredient)),
+	updateRecipeIngredients: (ingredients) => dispatch(updateRecipeIngredients(ingredients)),
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeIngredients);

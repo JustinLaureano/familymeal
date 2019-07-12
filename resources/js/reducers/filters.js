@@ -20,6 +20,17 @@ export default (state = filterReducerDefaultState, action) => {
                 ...state,
                 currentRecipe: null
             };
+        case 'ADD_CURRENT_RECIPE_INGREDIENT':
+                return {
+                    ...state,
+                    currentRecipe: {
+                        ...state.currentRecipe,
+                        ingredients: [
+                            ...state.currentRecipe.ingredients,
+                            action.ingredient
+                        ]
+                    }
+                };
         case 'UPDATE_CURRENT_RECIPE_RATINGS':
             return {
                 ...state,

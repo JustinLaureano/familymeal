@@ -8,10 +8,12 @@ export class IngredientSelect extends React.Component {
 
         this.state = {
             value: '',
+            'ingredient_id': 0,
             suggestions: [],
             amount: '',
             measurement_unit: ''
         };
+        this.baseState = this.state;
     }
 
     setNewIngredientAmount = (e) => {
@@ -36,13 +38,14 @@ export class IngredientSelect extends React.Component {
     getSuggestionValue = suggestion => suggestion.name;
 
     renderSuggestion = (suggestion) => (
-        <div className="react-autosuggest__suggestion-option">
+        <div id={ "option_" + suggestion.id } className="react-autosuggest__suggestion-option">
           {suggestion.name}
         </div>
       );
 
-    onChange = (event, { newValue }) => {
-        this.setState({ value: newValue });
+    onChange = (e, { newValue }) => {
+        const ingredient_id = e.target.id.replace(/\D/g, '');
+        this.setState({ value: newValue, ingredient_id });
     };
 
     onSuggestionsFetchRequested = ({ value }) => {
@@ -54,6 +57,22 @@ export class IngredientSelect extends React.Component {
     onSuggestionsClearRequested = () => {
         this.setState({ suggestions: [] });
     };
+
+    startAddIngredient = () => {
+        if (this.isValidIngredientEntry()) {
+            this.props.addIngredient(this.state);
+            this.setState(() => (this.baseState));
+        }
+        else {
+            console.log('not valid');
+        }
+    }
+    
+    isValidIngredientEntry = () => {
+        return this.state.amount.trim() != '' &&
+            this.state.measurement_unit.trim() != '' &&
+            this.state.value.trim() != '';
+    }
 
 	render() {
         const { value, suggestions } = this.state;
@@ -67,7 +86,7 @@ export class IngredientSelect extends React.Component {
 		return (
             <section className="recipe-grid__ingredient-add select__wrapper--auto">
                 <input
-                    type="number"
+                    type="text"
                     className="recipe-grid__ingredient-input--amount"
                     name="amount"
                     value={ this.state.amount }
@@ -88,7 +107,9 @@ export class IngredientSelect extends React.Component {
                     getSuggestionValue={this.getSuggestionValue}
                     renderSuggestion={this.renderSuggestion}
                     inputProps={inputProps} />
-                <i className="material-icons add-icon">add_circle</i>
+                <i
+                    className="material-icons add-icon"
+                    onClick={ this.startAddIngredient }>add_circle</i>
             </section>
 		);
 	};

@@ -43,3 +43,12 @@ export const setEditMode = (editMode) => {
 		});
 	}
 }
+
+export const addCurrentRecipeIngredient = (ingredient) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_CURRENT_RECIPE_INGREDIENT',
+			ingredient
+		});
+	}
+}

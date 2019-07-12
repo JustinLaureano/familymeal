@@ -27,7 +27,7 @@
 .drag-icon {
     @include transition;
     $color: $gray-light;
-    cursor: grab;
+    cursor: move;
     font-size: 18px;
     grid-area: drag;
     opacity: $icon-opacity;
@@ -36,10 +36,6 @@
         color: $gray-dark;
         opacity: 1;
     }
-    
-    &:active {
-        cursor: grabbing;
-    }
 }
 
 .remove-icon {
@@ -47,8 +43,4 @@
     cursor: pointer;
     font-size: 16px;
     grid-area: remove;
-}
-
-.icon--grabbing {
-    cursor: grabbing;
 }
