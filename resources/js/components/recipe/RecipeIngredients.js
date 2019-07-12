@@ -187,8 +187,8 @@ export class RecipeIngredients extends React.Component {
                                         className="material-icons drag-icon">drag_indicator</i>
 
                                     <p className="recipe-grid__ingredient-amount">
-                                        { parseFloat(ingredient.ingredient_units) }
-                                        &nbsp; &nbsp;
+                                        { ingredient.ingredient_units.toString().replace(/(?:(\.\d*?[1-9]+)|\.)0*$/g, '$1') }
+                                        &nbsp; &nbsp; &nbsp;
                                         { ingredient.measurement_unit }
                                     </p>
                                     {
@@ -243,7 +243,7 @@ export class RecipeIngredients extends React.Component {
                                 id={ "ingredient_" + ingredient.id }
                                 className="recipe-grid__ingredient-row">
                                 <p className="recipe-grid__ingredient-amount">
-                                    { parseFloat(ingredient.ingredient_units) }
+                                    { ingredient.ingredient_units.toString().replace(/(?:(\.\d*?[1-9]+)|\.)0*$/g, '$1') }
                                     &nbsp; &nbsp;
                                     { ingredient.measurement_unit }
                                 </p>

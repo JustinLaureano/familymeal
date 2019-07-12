@@ -36284,7 +36284,7 @@ function (_React$Component) {
             className: "material-icons drag-icon"
           }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: "recipe-grid__ingredient-amount"
-          }, parseFloat(ingredient.ingredient_units), "\xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          }, ingredient.ingredient_units.toString().replace(/(?:(\.\d*?[1-9]+)|\.)0*$/g, '$1'), "\xA0 \xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
             to: {
               pathname: "/ingredients/" + ingredient.ingredient_id,
               state: {
@@ -36318,7 +36318,7 @@ function (_React$Component) {
             className: "recipe-grid__ingredient-row"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: "recipe-grid__ingredient-amount"
-          }, parseFloat(ingredient.ingredient_units), "\xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          }, ingredient.ingredient_units.toString().replace(/(?:(\.\d*?[1-9]+)|\.)0*$/g, '$1'), "\xA0 \xA0", ingredient.measurement_unit), ingredient.ingredient_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
             to: {
               pathname: "/ingredients/" + ingredient.ingredient_id + "/edit",
               state: {
