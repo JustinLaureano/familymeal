@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\CuisineType;
-use App\Models\User;
-use App\Models\UserSettings;
+use App\Models\MeasurementUnits;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
-use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use App\Models\UserSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -21,7 +22,14 @@ class UserController extends Controller
     public function init($id)
     {
         $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
+
+        $measurement_units = MeasurementUnits::orderBy('measurement_system', 'desc')
+            ->orderBy('measurement_type', 'asc')
+            ->orderBy('name', 'asc')
+            ->get();
+
         $recipe_categories = RecipeCategory::orderBy('name')->get();
+
         $ingredients = DB::table('ingredient')
             ->select(
                 'ingredient.id',
@@ -36,32 +44,35 @@ class UserController extends Controller
             ->get();
 
         $user_settings = UserSettings::where('user_id', $id)->first();
+
         $recipes = DB::table('recipe')
-                        ->select('recipe.name',
-                            'recipe.id',
-                            'recipe_category_id',
-                            'recipe_category.name AS recipe_category',
-                            'cuisine_type.name AS cuisine_type',
-                            'recipe.created_at',
-                            'recipe.updated_at'
-                        )
-                        ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
-                        ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
-                        ->where('user_id', $id)
-                        ->where('recipe.deleted_at', Null)
-                        ->orderBy('name', 'asc')
-                        ->limit($user_settings->table_result_limit)
-                        ->get();
+            ->select('recipe.name',
+                'recipe.id',
+                'recipe_category_id',
+                'recipe_category.name AS recipe_category',
+                'cuisine_type.name AS cuisine_type',
+                'recipe.created_at',
+                'recipe.updated_at'
+            )
+            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
+            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
+            ->where('user_id', $id)
+            ->where('recipe.deleted_at', Null)
+            ->orderBy('name', 'asc')
+            ->limit($user_settings->table_result_limit)
+            ->get();
 
         $data = [
             'cuisine_types' => $cuisine_types,
             'ingredients' => $ingredients,
-            'recipe_categories' => $recipe_categories,
-            'user' => User::where('id', $id)->first(),
-            'userSettings' => $user_settings,
+            'measurement_units' => $measurement_units,
             'recipes' => $recipes,
-            'recipeTotal' => Recipe::where('user_id', $id)->where('deleted_at', Null)->count()
+            'recipe_categories' => $recipe_categories,
+            'recipe_total' => Recipe::where('user_id', $id)->where('deleted_at', Null)->count(),
+            'user' => User::where('id', $id)->first(),
+            'user_settings' => $user_settings,
         ];
+
         return response($data, 200);
     }
 

@@ -136,7 +136,7 @@ export class TableFooter extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-        settings: state.userSettings
+        settings: state.user_settings
 	}
 };
   

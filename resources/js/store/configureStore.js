@@ -4,6 +4,7 @@ import authReducer from '../reducers/auth';
 import cuisineTypesReducer from '../reducers/cuisine_types';
 import filterReducer from '../reducers/filters';
 import ingredientsReducer from '../reducers/ingredients';
+import measurementUnitsReducer from '../reducers/measurement_units';
 import recipesReducer from '../reducers/recipes';
 import recipeCategoriesReducer from '../reducers/recipe_categories';
 import totalsReducer from '../reducers/totals';
@@ -19,11 +20,12 @@ export default () => {
 			cuisine_types: cuisineTypesReducer,
 			filters: filterReducer,
 			ingredients: ingredientsReducer,
+			measurement_units: measurementUnitsReducer,
 			recipes: recipesReducer,
 			recipe_categories: recipeCategoriesReducer,
 			totals: totalsReducer,
 			user: userReducer,
-			userSettings: userSettingsReducer,
+			user_settings: userSettingsReducer,
 		}),
 		composeEnhancers(applyMiddleware(thunk))
 	);

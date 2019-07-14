@@ -15,6 +15,7 @@ class MeasurementUnitsTableSeeder extends Seeder
         DB::table('measurement_units')->delete();
         DB::statement('ALTER TABLE measurement_units AUTO_INCREMENT = 1');
         $measurement_units = [
+            ['name' => 'as needed', 'measurement_system' => 'Universal', 'measurement_type' => 'Volume', 'aliases' => 'a/n, to taste'],
             ['name' => 'each', 'measurement_system' => 'Universal', 'measurement_type' => 'Volume', 'aliases' => 'ea, ea., Ea., x'],
             ['name' => 'teaspoon', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'tsp, tps.,'],
             ['name' => 'tablespoon', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'tbl, tbl., tbs, tbs., tbsp., tbsp.'],

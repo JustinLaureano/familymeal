@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeDirections;
+use App\Models\RecipeIngredients;
 use App\Models\RecipeNotes;
 use App\Models\RecipeRatings;
 use App\Models\RecipeSummary;
@@ -15,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
+
+    private $new_id_floor = 900000;
 
     public function index(Request $request, $user_id)
     {
@@ -77,6 +81,7 @@ class RecipeController extends Controller
                 'ingredient_recipe_id',
                 'recipe.name AS ingredient_recipe_name',
                 'ingredient_units',
+                'measurement_units.id AS measurement_unit_id',
                 'measurement_units.name AS measurement_unit'
             )
             ->leftJoin('ingredient', 'recipe_ingredients.ingredient_id', 'ingredient.id')
@@ -141,6 +146,70 @@ class RecipeController extends Controller
             $recipe->cuisine_type_id = $request->post('cuisine');
             $recipe->save();
             $updates[] = 'cuisine';
+        }
+
+        if ($request->post('ingredients')) {
+            $ingredients = $request->post('ingredients');
+
+            $order = 1;
+            foreach ($ingredients as $rec_ingredient) {
+                if ($rec_ingredient['id'] >= $this->new_id_floor) {
+                    // New Recipe Ingredient
+                    $recipe_ingredient = new RecipeIngredients;
+
+                    // determine ingredient used
+                    if ($rec_ingredient['ingredient_id']) {
+                        // use a current ingredient
+                        $ingredient = $ingredient::find($rec_ingredient['ingredient_id']);
+
+                        $recipe_ingredient->ingredient_id = $ingredient->id;
+                        $recipe_ingredient->ingredient_name = $ingredient->name;
+                    }
+                    else if ($rec_ingredient['ingredient_recipe_id']) {
+                        // Using recipe as ingredient item
+                        $recipe = Recipe::find($rec_ingredient['ingredient_recipe_id']);
+
+                        $recipe_ingredient->ingredient_recipe_id = $recipe->id;
+                        $recipe_ingredient->ingredient_recipe_name = $recipe->name;
+                    }
+                    else {
+                        // Try to find ingredient by name match
+                        $ingredient_match = Ingredient::where('name', $rec_ingredient['ingredient_name'])->first();
+
+                        if ($ingredient_match) {
+                            // Use found ingredient
+                            $recipe_ingredient->ingredient_id = $ingredient_match->id;
+                            $recipe_ingredient->ingredient_name = $ingredient_match->name;
+                        }
+                        else {
+                            // New Ingredient
+                            $new_ingredient = new Ingredient;
+                            $new_ingredient->name = $rec_ingredient['ingredient_name'];
+                            // TODO: include way to save ingredient_category_id and ingredient_subcategory_id
+                            $new_ingredient->created_user_id = $request->post('user_id');
+                            $new_ingredient->save();
+                        }
+
+                    }
+
+
+                    // determine measurement units used
+
+
+                    $recipe_ingredient->order = $order;
+                    $recipe_ingredient->save();
+                }
+                else {
+                    // Update Ingredient
+                    $recipe_ingredient = RecipeIngredient::find($rec_ingredient['id']);
+                    $recipe_ingredient->order = $order;
+                    $recipe_ingredient->save();
+                }
+                $order++;
+            }
+
+            $updates = $ingredients;
+            // $updates[] = 'ingredients';
         }
 
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates];

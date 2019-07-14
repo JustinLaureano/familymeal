@@ -204,11 +204,12 @@ export const updateRecipeCategory = (category) => {
 	}
 }
 
-export const updateRecipeIngredients = (ingredienst) => {
+export const updateRecipeIngredients = (ingredients) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
 		const recipe_id = getState().filters.currentRecipe.info.id;
+		const user_id = getState().user.id;
 
 		const request = {
 			method: 'POST',
@@ -218,7 +219,7 @@ export const updateRecipeIngredients = (ingredienst) => {
 				Authorization: `Bearer ${token}`,
 				'X-CSRF-TOKEN': csrf_token
 			},
-			body: JSON.stringify({ ingredients })
+			body: JSON.stringify({ ingredients, user_id })
 		};
 
 		fetch('/api/recipes/' + recipe_id + '/update', request)

@@ -34300,11 +34300,11 @@ var init = function init(token, csrf_token, user_id) {
       });
       dispatch({
         type: 'SET_USER_SETTINGS',
-        userSettings: data.userSettings
+        userSettings: data.user_settings
       });
       dispatch({
         type: 'SET_RECIPE_TOTAL',
-        recipeTotal: data.recipeTotal
+        recipeTotal: data.recipe_total
       });
       dispatch({
         type: 'SET_RECIPES',
@@ -34313,6 +34313,10 @@ var init = function init(token, csrf_token, user_id) {
       dispatch({
         type: 'SET_CUISINE_TYPES',
         cuisine_types: data.cuisine_types
+      });
+      dispatch({
+        type: 'SET_MEASUREMENT_UNITS',
+        measurement_units: data.measurement_units
       });
       dispatch({
         type: 'SET_INGREDIENTS',
@@ -34642,11 +34646,12 @@ var updateRecipeCategory = function updateRecipeCategory(category) {
     });
   };
 };
-var updateRecipeIngredients = function updateRecipeIngredients(ingredienst) {
+var updateRecipeIngredients = function updateRecipeIngredients(ingredients) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
     var recipe_id = getState().filters.currentRecipe.info.id;
+    var user_id = getState().user.id;
     var request = {
       method: 'POST',
       headers: {
@@ -34656,7 +34661,8 @@ var updateRecipeIngredients = function updateRecipeIngredients(ingredienst) {
         'X-CSRF-TOKEN': csrf_token
       },
       body: JSON.stringify({
-        ingredients: ingredients
+        ingredients: ingredients,
+        user_id: user_id
       })
     };
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
@@ -36208,10 +36214,19 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipeIngredients", function () {
-      var ingredients = _this.state.ingredients; // TODO: match state ingredients to props ingredients to detect change
+      var change = false;
 
-      if (ingredients[0].id != _this.state.ingredients[0].id) {
-        _this.props.updateRecipeIngredients(ingredients);
+      _this.state.ingredients.map(function (ingredient, index) {
+        if (ingredient.id >= _this.newIdFloor || ingredient.order != index + 1) {
+          console.log('here');
+          change = true;
+        }
+      });
+
+      if (change) {
+        console.log(_this.state.ingredients);
+
+        _this.props.updateRecipeIngredients(_this.state.ingredients);
       }
     });
 
@@ -36231,6 +36246,7 @@ function (_React$Component) {
     _this.state = {
       ingredients: _this.props.ingredients
     };
+    _this.newIdFloor = 900000;
     return _this;
   }
 
@@ -37316,7 +37332,7 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    settings: state.userSettings
+    settings: state.user_settings
   };
 };
 
@@ -37693,6 +37709,31 @@ var ingredientsReducerDefaultState = [];
   switch (action.type) {
     case 'SET_INGREDIENTS':
       return action.ingredients;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/reducers/measurement_units.js":
+/*!****************************************************!*\
+  !*** ./resources/js/reducers/measurement_units.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var measurementUnitsReducerDefaultState = [];
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : measurementUnitsReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_MEASUREMENT_UNITS':
+      return action.measurement_units;
 
     default:
       return state;
@@ -38098,11 +38139,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_cuisine_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/cuisine_types */ "./resources/js/reducers/cuisine_types.js");
 /* harmony import */ var _reducers_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/filters */ "./resources/js/reducers/filters.js");
 /* harmony import */ var _reducers_ingredients__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/ingredients */ "./resources/js/reducers/ingredients.js");
-/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
-/* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
-/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
-/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+/* harmony import */ var _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/measurement_units */ "./resources/js/reducers/measurement_units.js");
+/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
+/* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
+/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
 
 
 
@@ -38121,11 +38164,12 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
     cuisine_types: _reducers_cuisine_types__WEBPACK_IMPORTED_MODULE_3__["default"],
     filters: _reducers_filters__WEBPACK_IMPORTED_MODULE_4__["default"],
     ingredients: _reducers_ingredients__WEBPACK_IMPORTED_MODULE_5__["default"],
-    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_6__["default"],
-    recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_7__["default"],
-    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_8__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_9__["default"],
-    userSettings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_10__["default"]
+    measurement_units: _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_6__["default"],
+    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_7__["default"],
+    recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_8__["default"],
+    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_9__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_10__["default"],
+    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_11__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });

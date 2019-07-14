@@ -13,6 +13,8 @@ export class RecipeIngredients extends React.Component {
         this.state = {
             ingredients: this.props.ingredients,
         };
+
+        this.newIdFloor = 900000;
     };
 
     componentDidUpdate() {
@@ -140,10 +142,17 @@ export class RecipeIngredients extends React.Component {
     }
     
     saveRecipeIngredients = () => {
-        const ingredients = this.state.ingredients;
-        // TODO: match state ingredients to props ingredients to detect change
-		if (ingredients[0].id != this.state.ingredients[0].id) {
-			this.props.updateRecipeIngredients(ingredients);
+        let change = false;
+        this.state.ingredients.map((ingredient, index) => {
+            if ( ingredient.id >= this.newIdFloor || ingredient.order != index + 1 ) {
+                console.log('here');
+                change = true;
+            }
+        })
+
+		if (change) {
+            console.log(this.state.ingredients);
+			this.props.updateRecipeIngredients(this.state.ingredients);
 		}
     }
     
