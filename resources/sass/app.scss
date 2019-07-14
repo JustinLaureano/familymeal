@@ -12,6 +12,7 @@
 /* Components */
 @import 'components/layout';
 @import 'components/autoselect';
+@import 'components/confirmation';
 @import 'components/pageload';
 @import 'components/photo';
 @import 'components/breadcrumbs';
@@ -26,3 +27,5 @@
 @import 'components/login';
 @import 'components/register';
 @import 'components/recipe';
+
+@import 'dependencies/general';

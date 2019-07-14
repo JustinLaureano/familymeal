@@ -19,3 +19,4 @@ export function arrayMove(arr, curIndex, toIndex) {
     clone.splice(toIndex, 0, element);
     return clone;
 }
+

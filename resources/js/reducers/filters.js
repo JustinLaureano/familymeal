@@ -31,6 +31,14 @@ export default (state = filterReducerDefaultState, action) => {
                         ]
                     }
                 };
+        case 'UPDATE_CURRENT_RECIPE_INGREDIENTS':
+                return {
+                    ...state,
+                    currentRecipe: {
+                        ...state.currentRecipe,
+                        ingredients: action.ingredients
+                    }
+                };
         case 'UPDATE_CURRENT_RECIPE_RATINGS':
             return {
                 ...state,

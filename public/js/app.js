@@ -34361,7 +34361,7 @@ var startLogout = function startLogout() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34369,6 +34369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeTablePage", function() { return changeTablePage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEditMode", function() { return setEditMode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeIngredient", function() { return addCurrentRecipeIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeIngredient", function() { return removeCurrentRecipeIngredient; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34419,6 +34420,14 @@ var addCurrentRecipeIngredient = function addCurrentRecipeIngredient(ingredient)
     dispatch({
       type: 'ADD_CURRENT_RECIPE_INGREDIENT',
       ingredient: ingredient
+    });
+  };
+};
+var removeCurrentRecipeIngredient = function removeCurrentRecipeIngredient(ingredients) {
+  return function (dispatch) {
+    dispatch({
+      type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
+      ingredients: ingredients
     });
   };
 };
@@ -34670,7 +34679,7 @@ var updateRecipeIngredients = function updateRecipeIngredients(ingredients) {
     }).then(function (data) {
       console.log(data); // dispatch({
       // 	type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
-      // 	name
+      // 	ingredients: data.response
       // });
     })["catch"](function (err) {
       return console.log(err);
@@ -36243,6 +36252,27 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleIngredientRemoveConfirm", function (e) {
+      var removeContainer = document.getElementById('ingredient-remove_' + e.target.id.replace(/\D/g, ''));
+
+      if (removeContainer.classList.contains('display--none')) {
+        removeContainer.classList.remove('display--none');
+      } else {
+        removeContainer.classList.add('display--none');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "removeIngredient", function (e) {
+      console.log('remove');
+      var id = e.target.id.replace(/\D/g, '');
+
+      var filteredIngredients = _this.state.ingredients.filter(function (ingredient) {
+        return ingredient.id != id;
+      });
+
+      _this.props.removeCurrentRecipeIngredient(filteredIngredients);
+    });
+
     _this.state = {
       ingredients: _this.props.ingredients
     };
@@ -36318,9 +36348,25 @@ function (_React$Component) {
             className: "recipe-grid__ingredient-item"
           }, ingredient.ingredient_recipe_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "material-icons remove-icon"
-          }, "remove_circle"));
+          }, ingredient.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "recipe-grid__remove"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            id: "remove_" + ingredient.id,
+            className: "material-icons remove-icon",
+            onClick: _this3.toggleIngredientRemoveConfirm
+          }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+            id: "ingredient-remove_" + ingredient.id,
+            className: "recipe-grid__confirmation confirmation display--none"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "confirmation__label"
+          }, "Remove Ingredient?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "remove-btn_" + ingredient.id,
+            className: "btn--confirmation-confirm",
+            onClick: _this3.removeIngredient
+          }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            className: "btn--confirmation",
+            onClick: _this3.toggleIngredientRemoveConfirm
+          }, "Cancel"))));
         })));
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -36372,6 +36418,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     addCurrentRecipeIngredient: function addCurrentRecipeIngredient(ingredient) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["addCurrentRecipeIngredient"])(ingredient));
+    },
+    removeCurrentRecipeIngredient: function removeCurrentRecipeIngredient(ingredient) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["removeCurrentRecipeIngredient"])(ingredient));
     },
     updateRecipeIngredients: function updateRecipeIngredients(ingredients) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["updateRecipeIngredients"])(ingredients));
@@ -37644,6 +37693,13 @@ var filterReducerDefaultState = {
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           ingredients: [].concat(_toConsumableArray(state.currentRecipe.ingredients), [action.ingredient])
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_INGREDIENTS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ingredients: action.ingredients
         })
       });
 

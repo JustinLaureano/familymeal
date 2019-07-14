@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  updateRecipeIngredients } from '../../actions/recipes';
-import { addCurrentRecipeIngredient } from '../../actions/filters';
+import { addCurrentRecipeIngredient, removeCurrentRecipeIngredient } from '../../actions/filters';
 import { arrayMove } from '../../helpers/Recipe';
 import IngredientSelect from '../recipe/IngredientSelect';
 
@@ -169,6 +169,23 @@ export class RecipeIngredients extends React.Component {
         });
     }
 
+    toggleIngredientRemoveConfirm = (e) => {
+        const removeContainer = document.getElementById('ingredient-remove_' + e.target.id.replace(/\D/g, ''));
+        if (removeContainer.classList.contains('display--none')) {
+            removeContainer.classList.remove('display--none');
+        }
+        else {
+            removeContainer.classList.add('display--none');
+        }
+    }
+
+    removeIngredient = (e) => {
+        console.log('remove');
+        const id = e.target.id.replace(/\D/g, '');
+        const filteredIngredients = this.state.ingredients.filter(ingredient => ingredient.id != id);
+        this.props.removeCurrentRecipeIngredient(filteredIngredients);
+    }
+
 	render() {
         if (this.props.editMode) {
             return (
@@ -231,7 +248,29 @@ export class RecipeIngredients extends React.Component {
                                             </p>
                                         )
                                     }
-                                    <i className="material-icons remove-icon">remove_circle</i>
+                                    <div className="recipe-grid__remove">
+                                        <i
+                                            id={ "remove_" + ingredient.id }
+                                            className="material-icons remove-icon"
+                                            onClick={ this.toggleIngredientRemoveConfirm }>remove_circle
+                                        </i>
+                                        <section
+                                            id={ "ingredient-remove_" + ingredient.id }
+                                            className="recipe-grid__confirmation confirmation display--none">
+                                            <p className="confirmation__label">Remove Ingredient?</p>
+                                            <button
+                                                id={ "remove-btn_" + ingredient.id }
+                                                className="btn--confirmation-confirm"
+                                                onClick={ this.removeIngredient }>
+                                                Remove
+                                            </button>
+                                            <button
+                                                className="btn--confirmation"
+                                                onClick={ this.toggleIngredientRemoveConfirm }>
+                                                Cancel
+                                            </button>
+                                        </section>
+                                    </div>
                                 </div>
                             )
                         })}
@@ -301,6 +340,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
 	addCurrentRecipeIngredient: (ingredient) => dispatch(addCurrentRecipeIngredient(ingredient)),
+	removeCurrentRecipeIngredient: (ingredient) => dispatch(removeCurrentRecipeIngredient(ingredient)),
 	updateRecipeIngredients: (ingredients) => dispatch(updateRecipeIngredients(ingredients)),
 });
   

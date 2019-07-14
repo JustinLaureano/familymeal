@@ -228,7 +228,7 @@ export const updateRecipeIngredients = (ingredients) => {
 				console.log(data);
 				// dispatch({
 				// 	type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
-				// 	name
+				// 	ingredients: data.response
 				// });
 			})
 			.catch(err => console.log(err))

@@ -183,3 +183,14 @@
     color: $weathered-gray;
     font-style: oblique;
 }
+
+.recipe-grid__remove {
+    grid-area: remove;
+    position: relative;
+}
+
+.recipe-grid__confirmation {
+    position: absolute;
+    right: 30px;
+    top: 10px;
+}

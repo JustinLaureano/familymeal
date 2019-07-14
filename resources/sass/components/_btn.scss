@@ -58,3 +58,25 @@
     background-color: $weathered-blue;
     color: $white;
 }
+
+
+.btn--confirmation {
+    @include transition;
+    background: none;
+    border: none;
+    color: $white;
+    box-shadow: none;
+    font-size: $size-sm;
+    font-weight: 300;
+    &:hover {
+        font-weight: 400;
+    }
+}
+
+.btn--confirmation-confirm {
+    @extend .btn--confirmation;
+    margin-right: $space-xs;
+    &:hover {
+        color: $red;
+    }
+}

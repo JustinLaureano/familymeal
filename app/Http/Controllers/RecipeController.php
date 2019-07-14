@@ -151,11 +151,26 @@ class RecipeController extends Controller
         if ($request->post('ingredients')) {
             $ingredients = $request->post('ingredients');
 
+            // Check ingredient deletions
+            $old_recipe_ingredient_ids = RecipeIngredients::select('id')
+                ->where('recipe_id', $recipe_id)
+                ->get();
+
+            $new_ingredient_ids = [];
+            foreach ($ingredients as $ingredient)
+                $new_ingredient_ids[] = $ingredient['id'];
+
+            foreach ($old_recipe_ingredient_ids as $old_ingredient)
+                if (!in_array($old_ingredient['id'], $new_ingredient_ids))
+                    RecipeIngredients::destroy($old_ingredient['id']);
+
             $order = 1;
             foreach ($ingredients as $rec_ingredient) {
                 if ($rec_ingredient['id'] >= $this->new_id_floor) {
                     // New Recipe Ingredient
                     $recipe_ingredient = new RecipeIngredients;
+                    $recipe_ingredient->recipe_id = $recipe_id;
+                    $recipe_ingredient->order = $order;
 
                     // determine ingredient used
                     if ($rec_ingredient['ingredient_id']) {
@@ -192,27 +207,34 @@ class RecipeController extends Controller
 
                     }
 
+                    $recipe_ingredient->ingredient_units = $rec_ingredient['ingredient_units'];
+                    
+                    // TODO: determine measurement units used
+                    $recipe_ingredient->measurement_unit_id = 1;
+                    
 
-                    // determine measurement units used
-
-
-                    $recipe_ingredient->order = $order;
                     $recipe_ingredient->save();
                 }
                 else {
                     // Update Ingredient
-                    $recipe_ingredient = RecipeIngredient::find($rec_ingredient['id']);
+                    $recipe_ingredient = RecipeIngredients::find($rec_ingredient['id']);
                     $recipe_ingredient->order = $order;
                     $recipe_ingredient->save();
                 }
                 $order++;
             }
 
-            $updates = $ingredients;
-            // $updates[] = 'ingredients';
+            $updates[] = 'ingredients';
+            $response = RecipeIngredients::where('recipe_id', $recipe_id)
+                ->orderBy('order', 'asc')
+                ->get();
         }
 
-        $data = ['recipe_id' => $recipe_id, 'updates' => $updates];
+        $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];
+
+        if ($response) 
+            $data['response'] = $response;
+
         return response($data, 200);
     }
 

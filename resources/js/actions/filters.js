@@ -52,3 +52,12 @@ export const addCurrentRecipeIngredient = (ingredient) => {
 		});
 	}
 }
+
+export const removeCurrentRecipeIngredient = (ingredients) => {
+	return (dispatch) => {
+        dispatch({
+            type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
+            ingredients
+        });
+	}
+}
