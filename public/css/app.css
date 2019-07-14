@@ -322,8 +322,8 @@ a:hover {
 .confirmation {
   display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
-          align-items: center;
+  -webkit-box-align: baseline;
+          align-items: baseline;
   padding: calc(0.375 * 1em) calc(0.5 * 1em);
   border-radius: 3px;
   background-color: #424242;

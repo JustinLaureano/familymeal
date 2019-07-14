@@ -1,5 +1,5 @@
 .confirmation {
-    @include flex-align-center;
+    @include flex-align-baseline;
     @include pad($space-xxs, $space-xs);
     border-radius: 3px;
     background-color: $gray-medium;

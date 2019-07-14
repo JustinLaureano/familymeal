@@ -69,6 +69,11 @@
     flex-direction: column;
 }
 
+@mixin flex-align-baseline {
+	display: flex;
+    align-items: baseline;
+}
+
 @mixin flex-align-center {
 	display: flex;
     align-items: center;

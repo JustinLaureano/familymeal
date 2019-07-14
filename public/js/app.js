@@ -36263,7 +36263,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "removeIngredient", function (e) {
-      console.log('remove');
       var id = e.target.id.replace(/\D/g, '');
 
       var filteredIngredients = _this.state.ingredients.filter(function (ingredient) {

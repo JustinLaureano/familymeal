@@ -180,7 +180,6 @@ export class RecipeIngredients extends React.Component {
     }
 
     removeIngredient = (e) => {
-        console.log('remove');
         const id = e.target.id.replace(/\D/g, '');
         const filteredIngredients = this.state.ingredients.filter(ingredient => ingredient.id != id);
         this.props.removeCurrentRecipeIngredient(filteredIngredients);
