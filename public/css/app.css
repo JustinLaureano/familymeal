@@ -483,12 +483,10 @@ a:hover {
   background: none;
   border: none;
   color: #fffeff;
+  cursor: pointer;
   box-shadow: none;
   font-size: 0.875em;
   font-weight: 300;
-}
-.btn--confirmation:hover, .btn--confirmation-confirm:hover {
-  font-weight: 400;
 }
 
 .btn--confirmation-confirm {
@@ -1215,7 +1213,7 @@ page-header__options {
   border: none;
 }
 
-.recipe-grid__ingredient-input, .recipe-grid__ingredient-input--measurement-unit, .recipe-grid__ingredient-input--amount {
+.recipe-grid__ingredient-input, .recipe-grid__ingredient-input--amount {
   border: none;
   border-bottom: 1px solid #363636;
   width: 100%;
@@ -1299,4 +1297,8 @@ page-header__options {
 
 .display--none {
   display: none;
+}
+
+.input-error {
+  color: #de2f04;
 }

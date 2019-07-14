@@ -12,18 +12,21 @@ export class RecipeIngredients extends React.Component {
         
         this.state = {
             ingredients: this.props.ingredients,
+            edited: false
         };
 
         this.newIdFloor = 900000;
     };
 
     componentDidUpdate() {
-		if (!this.props.editMode) {
-			this.saveRecipeIngredients();
+        if (!this.props.editMode) {
+            this.saveRecipeIngredients();
         }
+
         if (this.state.ingredients.length !== this.props.ingredients.length) {
             this.setState(() => ({ ingredients: this.props.ingredients }));
         }
+
     }
 
     onDragStart = (e, id) => {
@@ -131,6 +134,7 @@ export class RecipeIngredients extends React.Component {
             });
 
             this.setState(() => ({ ingredients: arrayMove(this.state.ingredients, currentIndex, newIndex) }));
+            this.setState(() => ({ edited: true }));
         }
 
     }
@@ -142,18 +146,10 @@ export class RecipeIngredients extends React.Component {
     }
     
     saveRecipeIngredients = () => {
-        let change = false;
-        this.state.ingredients.map((ingredient, index) => {
-            if ( ingredient.id >= this.newIdFloor || ingredient.order != index + 1 ) {
-                console.log('here');
-                change = true;
-            }
-        })
-
-		if (change) {
-            console.log(this.state.ingredients);
-			this.props.updateRecipeIngredients(this.state.ingredients);
-		}
+        if (this.state.edited) {
+            this.setState(() => ({ edited: false }));
+            this.props.updateRecipeIngredients(this.state.ingredients);
+        }
     }
     
     addIngredient = (ingredient) => {
@@ -165,8 +161,9 @@ export class RecipeIngredients extends React.Component {
             ingredient_recipe_id: null,
             ingredient_recipe_name: null,
             ingredient_units: ingredient.amount,
-            measurement_unit: ingredient.measurement_unit
+            measurement_unit_id: ingredient.measurement_unit_id
         });
+        this.setState(() => ({ edited: true }));
     }
 
     toggleIngredientRemoveConfirm = (e) => {
@@ -183,6 +180,7 @@ export class RecipeIngredients extends React.Component {
         const id = e.target.id.replace(/\D/g, '');
         const filteredIngredients = this.state.ingredients.filter(ingredient => ingredient.id != id);
         this.props.removeCurrentRecipeIngredient(filteredIngredients);
+        this.setState(() => ({ edited: true }));
     }
 
 	render() {
@@ -264,6 +262,7 @@ export class RecipeIngredients extends React.Component {
                                                 Remove
                                             </button>
                                             <button
+                                                id={ "confirmation-cancel-btn_" + ingredient.id }
                                                 className="btn--confirmation"
                                                 onClick={ this.toggleIngredientRemoveConfirm }>
                                                 Cancel

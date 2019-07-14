@@ -59,7 +59,7 @@ export class ViewRecipePage extends React.Component {
 			}
 			const photoProps = {
 				className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
-				src: 'https://fillmurray.com/120/120'
+				src: 'https://www.fillmurray.com/120/120'
 			}
 			return (
 				<section className="recipe-grid">

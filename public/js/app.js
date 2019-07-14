@@ -34677,10 +34677,11 @@ var updateRecipeIngredients = function updateRecipeIngredients(ingredients) {
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data); // dispatch({
-      // 	type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
-      // 	ingredients: data.response
-      // });
+      console.log(data.response);
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
+        ingredients: data.response
+      });
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -35418,26 +35419,12 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setNewMeasurementUnit", function (e) {
-      var measurement_unit = e.target.value;
-
-      _this.setState(function () {
-        return {
-          measurement_unit: measurement_unit
-        };
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "getSuggestions", function (value) {
       var inputValue = value.trim().toLowerCase();
       var inputLength = inputValue.length;
       return inputLength === 0 ? [] : _this.props.ingredients.filter(function (ingredient) {
         return ingredient.name.toLowerCase().slice(0, inputLength) === inputValue;
       });
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (suggestion) {
-      return suggestion.name;
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
@@ -35471,7 +35458,120 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (suggestion) {
+      return suggestion.name;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getMUnitSuggestions", function (value) {
+      var inputValue = value.trim().toLowerCase();
+      var inputLength = inputValue.length;
+      return inputLength === 0 ? [] : _this.props.measurement_units.filter(function (mUnit) {
+        if (mUnit.name.toLowerCase().slice(0, inputLength) == inputValue) {
+          return true;
+        } // check measurement aliases for match
+
+
+        var aliases = mUnit.aliases.split(',');
+
+        for (var i = 0; i < aliases.length; i++) {
+          if (aliases[i].toLowerCase().trim().slice(0, inputLength) == inputValue) {
+            return true;
+          }
+        }
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderMUnitSuggestion", function (suggestion) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "option_" + suggestion.id,
+        className: "react-autosuggest__suggestion-option"
+      }, suggestion.name);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "mUnitOnChange", function (e, _ref3) {
+      var newValue = _ref3.newValue;
+      var measurement_unit_id = e.target.id.replace(/\D/g, '');
+
+      _this.setState({
+        measurement_unit: newValue,
+        measurement_unit_id: measurement_unit_id
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "mUnitOnFocus", function (e) {
+      if (document.getElementById('measurement_unit_autosuggest').style.color == _this.errorRed) {
+        document.getElementById('measurement_unit_autosuggest').style.color = _this.inputColor;
+        document.getElementById('measurement_unit_autosuggest').style.fontStyle = 'initial';
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "mUnitOnBlur", function (e) {
+      var inputValue = e.target.value.toLowerCase().trim();
+
+      if (_this.state.measurement_unit_id && document.getElementById('measurement_unit_autosuggest').classList.contains('input-error')) {
+        document.getElementById('measurement_unit_autosuggest').classList.remove('input-error');
+      }
+
+      var valid = false; // Try to find alias match for user input
+
+      _this.props.measurement_units.map(function (mUnit, index) {
+        if (inputValue === mUnit.name.toLowerCase()) {
+          valid = true;
+
+          _this.setState({
+            measurement_unit: mUnit.name,
+            measurement_unit_id: mUnit.id
+          });
+        } else {
+          var aliases = mUnit.aliases.split(",");
+          aliases.map(function (alias) {
+            if (inputValue == alias.toLowerCase()) {
+              valid = true;
+
+              _this.setState({
+                measurement_unit: mUnit.name,
+                measurement_unit_id: mUnit.id
+              });
+            }
+          });
+        }
+      });
+
+      if (!valid) {
+        // User input is incorrect, alert to error
+        document.getElementById('measurement_unit_autosuggest').style.color = _this.errorRed;
+        document.getElementById('measurement_unit_autosuggest').style.fontStyle = 'oblique';
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionsFetchRequested", function (_ref4) {
+      var value = _ref4.value;
+
+      _this.setState({
+        mUnitSuggestions: _this.getMUnitSuggestions(value)
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionsClearRequested", function () {
+      _this.setState({
+        mUnitSuggestions: []
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionSelected", function (event, _ref5) {
+      var suggestion = _ref5.suggestion,
+          suggestionValue = _ref5.suggestionValue;
+      var measurement_unit_id = event.target.id.replace(/\D/g, '');
+
+      _this.setState({
+        measurement_unit: suggestionValue,
+        measurement_unit_id: measurement_unit_id
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "startAddIngredient", function () {
+      console.log(_this.isValidIngredientEntry());
+
       if (_this.isValidIngredientEntry()) {
         _this.props.addIngredient(_this.state);
 
@@ -35479,22 +35579,28 @@ function (_React$Component) {
           return _this.baseState;
         });
       } else {
-        console.log('not valid');
+        console.log('not valid'); // TODO: message notifying of invalid entry
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "isValidIngredientEntry", function () {
-      return _this.state.amount.trim() != '' && _this.state.measurement_unit.trim() != '' && _this.state.value.trim() != '';
+      console.log(parseInt(_this.state.measurement_unit_id));
+      console.log(_typeof(_this.state.measurement_unit_id));
+      return _this.state.amount.trim() != '' && _this.state.measurement_unit_id != '' && _this.state.value.trim() != '';
     });
 
     _this.state = {
       value: '',
       'ingredient_id': 0,
       suggestions: [],
+      mUnitSuggestions: [],
       amount: '',
-      measurement_unit: ''
+      measurement_unit: '',
+      measurement_unit_id: 0
     };
     _this.baseState = _this.state;
+    _this.errorRed = 'rgb(222, 47, 4)';
+    _this.inputColor = '#151515';
     return _this;
   }
 
@@ -35503,11 +35609,20 @@ function (_React$Component) {
     value: function render() {
       var _this$state = this.state,
           value = _this$state.value,
-          suggestions = _this$state.suggestions;
+          suggestions = _this$state.suggestions,
+          measurement_unit = _this$state.measurement_unit;
       var inputProps = {
         placeholder: 'Ingredient',
         value: value,
         onChange: this.onChange
+      };
+      var mUnitInputProps = {
+        id: 'measurement_unit_autosuggest',
+        placeholder: 'Unit',
+        value: measurement_unit,
+        onChange: this.mUnitOnChange,
+        onBlur: this.mUnitOnBlur,
+        onFocus: this.mUnitOnFocus
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__ingredient-add select__wrapper--auto"
@@ -35518,15 +35633,20 @@ function (_React$Component) {
         value: this.state.amount,
         placeholder: "Amount",
         onChange: this.setNewIngredientAmount
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "recipe-grid__ingredient-input--measurement-unit",
-        name: "measurement_unit",
-        value: this.state.measurement_unit,
-        placeholder: "Unit",
-        onChange: this.setNewMeasurementUnit
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_2___default.a, {
-        suggestions: this.state.suggestions,
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "recipe-grid__ingredient-input--measurement-unit"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        id: "measurement_unit_autosuggest",
+        suggestions: this.state.mUnitSuggestions,
+        onSuggestionsFetchRequested: this.onMUnitSuggestionsFetchRequested,
+        onSuggestionsClearRequested: this.onMUnitSuggestionsClearRequested,
+        onSuggestionSelected: this.onMUnitSuggestionSelected,
+        getSuggestionValue: this.getSuggestionValue,
+        renderSuggestion: this.renderMUnitSuggestion,
+        inputProps: mUnitInputProps
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_2___default.a, {
+        id: "ingredient_autosuggest",
+        suggestions: suggestions,
         onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
         onSuggestionsClearRequested: this.onSuggestionsClearRequested,
         onSuggestionSelected: this.onSuggestionSelected,
@@ -35546,7 +35666,8 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients
+    ingredients: state.ingredients,
+    measurement_units: state.measurement_units
   };
 };
 
@@ -36208,6 +36329,12 @@ function (_React$Component) {
             ingredients: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_5__["arrayMove"])(_this.state.ingredients, currentIndex, newIndex)
           };
         });
+
+        _this.setState(function () {
+          return {
+            edited: true
+          };
+        });
       }
     });
 
@@ -36223,17 +36350,12 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipeIngredients", function () {
-      var change = false;
-
-      _this.state.ingredients.map(function (ingredient, index) {
-        if (ingredient.id >= _this.newIdFloor || ingredient.order != index + 1) {
-          console.log('here');
-          change = true;
-        }
-      });
-
-      if (change) {
-        console.log(_this.state.ingredients);
+      if (_this.state.edited) {
+        _this.setState(function () {
+          return {
+            edited: false
+          };
+        });
 
         _this.props.updateRecipeIngredients(_this.state.ingredients);
       }
@@ -36248,7 +36370,13 @@ function (_React$Component) {
         ingredient_recipe_id: null,
         ingredient_recipe_name: null,
         ingredient_units: ingredient.amount,
-        measurement_unit: ingredient.measurement_unit
+        measurement_unit_id: ingredient.measurement_unit_id
+      });
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
       });
     });
 
@@ -36270,10 +36398,17 @@ function (_React$Component) {
       });
 
       _this.props.removeCurrentRecipeIngredient(filteredIngredients);
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
     });
 
     _this.state = {
-      ingredients: _this.props.ingredients
+      ingredients: _this.props.ingredients,
+      edited: false
     };
     _this.newIdFloor = 900000;
     return _this;
@@ -36363,6 +36498,7 @@ function (_React$Component) {
             className: "btn--confirmation-confirm",
             onClick: _this3.removeIngredient
           }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "confirmation-cancel-btn_" + ingredient.id,
             className: "btn--confirmation",
             onClick: _this3.toggleIngredientRemoveConfirm
           }, "Cancel"))));
@@ -39189,7 +39325,7 @@ function (_React$Component) {
         };
         var photoProps = {
           className: 'photo--circle photo--recipe' + (this.props.editMode ? '-edit' : ''),
-          src: 'https://fillmurray.com/120/120'
+          src: 'https://www.fillmurray.com/120/120'
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid"

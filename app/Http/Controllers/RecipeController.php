@@ -72,24 +72,7 @@ class RecipeController extends Controller
             ->where('recipe.id', $recipe_id)
             ->first();
 
-        $recipe_ingredients = DB::table('recipe_ingredients')
-            ->select(
-                'recipe_ingredients.id',
-                'recipe_ingredients.order',
-                'recipe_ingredients.ingredient_id',
-                'ingredient.name AS ingredient_name',
-                'ingredient_recipe_id',
-                'recipe.name AS ingredient_recipe_name',
-                'ingredient_units',
-                'measurement_units.id AS measurement_unit_id',
-                'measurement_units.name AS measurement_unit'
-            )
-            ->leftJoin('ingredient', 'recipe_ingredients.ingredient_id', 'ingredient.id')
-            ->leftJoin('recipe', 'recipe_ingredients.ingredient_recipe_id', 'recipe.id')
-            ->leftJoin('measurement_units', 'recipe_ingredients.measurement_unit_id', 'measurement_units.id')
-            ->where('recipe_id', $recipe_id)
-            ->orderBy('recipe_ingredients.order', 'asc')
-            ->get();
+        $recipe_ingredients = RecipeIngredients::getByRecipeId($recipe_id);
 
         $recipe_directions = RecipeDirections::where('recipe_id', $recipe_id)
             ->orderBy('order', 'asc')
@@ -173,19 +156,17 @@ class RecipeController extends Controller
                     $recipe_ingredient->order = $order;
 
                     // determine ingredient used
-                    if ($rec_ingredient['ingredient_id']) {
+                    if ($rec_ingredient['ingredient_id'] && 
+                        $rec_ingredient['ingredient_id'] < $this->new_id_floor)
+                    {
                         // use a current ingredient
-                        $ingredient = $ingredient::find($rec_ingredient['ingredient_id']);
-
+                        $ingredient = Ingredient::find($rec_ingredient['ingredient_id']);
                         $recipe_ingredient->ingredient_id = $ingredient->id;
-                        $recipe_ingredient->ingredient_name = $ingredient->name;
                     }
                     else if ($rec_ingredient['ingredient_recipe_id']) {
                         // Using recipe as ingredient item
                         $recipe = Recipe::find($rec_ingredient['ingredient_recipe_id']);
-
                         $recipe_ingredient->ingredient_recipe_id = $recipe->id;
-                        $recipe_ingredient->ingredient_recipe_name = $recipe->name;
                     }
                     else {
                         // Try to find ingredient by name match
@@ -194,7 +175,6 @@ class RecipeController extends Controller
                         if ($ingredient_match) {
                             // Use found ingredient
                             $recipe_ingredient->ingredient_id = $ingredient_match->id;
-                            $recipe_ingredient->ingredient_name = $ingredient_match->name;
                         }
                         else {
                             // New Ingredient
@@ -203,16 +183,13 @@ class RecipeController extends Controller
                             // TODO: include way to save ingredient_category_id and ingredient_subcategory_id
                             $new_ingredient->created_user_id = $request->post('user_id');
                             $new_ingredient->save();
-                        }
 
+                            $recipe_ingredient->ingredient_id = $new_ingredient->id;
+                        }
                     }
 
                     $recipe_ingredient->ingredient_units = $rec_ingredient['ingredient_units'];
-                    
-                    // TODO: determine measurement units used
-                    $recipe_ingredient->measurement_unit_id = 1;
-                    
-
+                    $recipe_ingredient->measurement_unit_id = $rec_ingredient['measurement_unit_id'];
                     $recipe_ingredient->save();
                 }
                 else {
@@ -225,9 +202,7 @@ class RecipeController extends Controller
             }
 
             $updates[] = 'ingredients';
-            $response = RecipeIngredients::where('recipe_id', $recipe_id)
-                ->orderBy('order', 'asc')
-                ->get();
+            $response = RecipeIngredients::getByRecipeId($recipe_id);
         }
 
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];

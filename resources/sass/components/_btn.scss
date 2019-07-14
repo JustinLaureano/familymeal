@@ -65,12 +65,10 @@
     background: none;
     border: none;
     color: $white;
+    cursor: pointer;
     box-shadow: none;
     font-size: $size-sm;
     font-weight: 300;
-    &:hover {
-        font-weight: 400;
-    }
 }
 
 .btn--confirmation-confirm {

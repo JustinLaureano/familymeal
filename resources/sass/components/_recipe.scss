@@ -124,7 +124,7 @@
 }
 
 .recipe-grid__ingredient-input--measurement-unit {
-    @extend .recipe-grid__ingredient-input;
+    // @extend .recipe-grid__ingredient-input;
     grid-area: m-u;
 }
 

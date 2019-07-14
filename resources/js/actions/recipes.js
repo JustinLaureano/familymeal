@@ -225,11 +225,11 @@ export const updateRecipeIngredients = (ingredients) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
-				// dispatch({
-				// 	type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
-				// 	ingredients: data.response
-				// });
+				console.log(data.response);
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
+					ingredients: data.response
+				});
 			})
 			.catch(err => console.log(err))
 	}
