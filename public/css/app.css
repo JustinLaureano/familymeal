@@ -512,35 +512,47 @@ a:hover {
   right: 3px;
 }
 
-.add-icon,
-.remove-icon {
-  cursor: pointer;
-  justify-self: center;
-  align-self: center;
-}
-
-.add-icon {
-  color: #4fa75d;
-  grid-area: add-btn;
-}
-
-.drag-icon, .remove-icon {
+.drag-icon {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
+  align-self: center;
   cursor: move;
   font-size: 18px;
   grid-area: drag;
   opacity: 0.54;
 }
-.drag-icon:hover, .remove-icon:hover {
+.drag-icon:hover {
   color: #363636;
   opacity: 1;
 }
 
+.add-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  align-self: center;
+  color: #4fa75d;
+  cursor: pointer;
+  grid-area: add-btn;
+  justify-self: center;
+  opacity: 0.8;
+}
+.add-icon:hover {
+  opacity: 1;
+}
+
 .remove-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  align-self: center;
   cursor: pointer;
   font-size: 16px;
   grid-area: remove;
+  justify-self: center;
+  opacity: 0.54;
+}
+.remove-icon:hover {
+  color: #ce0e0e;
+  opacity: 1;
 }
 
 input, .input--edit, .page-header__title--input, .input {
@@ -640,6 +652,7 @@ input, .input--edit, .page-header__title--input, .input {
   background-color: #fffeff;
   border-color: #cfcfcf;
   position: relative;
+  width: 125px;
 }
 
 .select__wrapper--auto {

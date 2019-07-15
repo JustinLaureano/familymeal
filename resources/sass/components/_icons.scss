@@ -17,20 +17,9 @@
     right: 3px;
 }
 
-.add-icon,
-.remove-icon {
-    cursor: pointer;
-    justify-self: center;
-    align-self: center;
-}
-
-.add-icon {
-    color: $green;
-    grid-area: add-btn;
-}
-
 .drag-icon {
     @include transition;
+    align-self: center;
     $color: $gray-light;
     cursor: move;
     font-size: 18px;
@@ -43,9 +32,29 @@
     }
 }
 
+.add-icon {
+    @include transition;
+    align-self: center;
+    color: $green;
+    cursor: pointer;
+    grid-area: add-btn;
+    justify-self: center;
+    opacity: .8;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .remove-icon {
-    @extend .drag-icon;
+    @include transition;
+    align-self: center;
     cursor: pointer;
     font-size: 16px;
     grid-area: remove;
+    justify-self: center;
+    opacity: $icon-opacity;
+    &:hover {
+        color: $red;
+        opacity: 1;
+    }
 }
