@@ -15,7 +15,7 @@ get image upload feature working
 
 add option to make recipe a favorite
 
-add new recipe info sections
+* add new recipe info sections
     portions
     prep time
     cook time
@@ -27,3 +27,4 @@ Landing Page
 
     add quick login to login button on header
 
+limit models to only the data they need to show
