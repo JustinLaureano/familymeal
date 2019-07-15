@@ -34502,10 +34502,10 @@ var getRecipe = function getRecipe(recipe_id) {
     };
     fetch('/api/recipe/' + recipe_id, request).then(function (resp) {
       return resp.json();
-    }).then(function (data) {
+    }).then(function (recipe) {
       dispatch({
         type: 'SET_CURRENT_RECIPE',
-        recipe: data.recipe
+        recipe: recipe
       });
     })["catch"](function (err) {
       return console.log(err);

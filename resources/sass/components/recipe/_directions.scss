@@ -1,6 +1,5 @@
 .recipe-grid__directions {
     grid-area: directions;
-    width: 95%;
 }
 
 .recipe-grid__direction-list {
@@ -49,4 +48,5 @@
 
 .recipe-grid__direction {
     grid-area: direction;
+    width: 95%;
 }

@@ -493,7 +493,7 @@ a:hover {
   margin-right: calc(0.5 * 1em);
 }
 .btn--confirmation-confirm:hover {
-  color: #de2f04;
+  color: #ce0e0e;
 }
 
 .star-icon, .star-icon--edit {
@@ -520,6 +520,7 @@ a:hover {
 }
 
 .add-icon {
+  color: #4fa75d;
   grid-area: add-btn;
 }
 
@@ -1267,7 +1268,6 @@ page-header__options {
 
 .recipe-grid__directions {
   grid-area: directions;
-  width: 95%;
 }
 
 .recipe-grid__direction-list {
@@ -1312,6 +1312,7 @@ page-header__options {
 
 .recipe-grid__direction {
   grid-area: direction;
+  width: 95%;
 }
 
 .recipe-grid__notes {
@@ -1378,5 +1379,5 @@ page-header__options {
 }
 
 .input-error {
-  color: #de2f04;
+  color: #ce0e0e;
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Recipe extends Model
 {
@@ -13,4 +14,23 @@ class Recipe extends Model
     protected $dates = [
         'created_at', 'updated_at', 'deleted_at'
     ];
+
+    public static function getById($id)
+    {
+        return DB::table('recipe')
+            ->select(
+                'recipe.id',
+                'recipe.name',
+                'recipe.user_id',
+                'recipe_category.id AS recipe_category_id',
+                'recipe_category.name AS recipe_category_name',
+                'cuisine_type.id AS cuisine_type_id',
+                'cuisine_type.name AS cuisine_type',
+                'recipe.created_at'
+            )
+            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
+            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
+            ->where('recipe.id', $id)
+            ->first();
+    }
 }

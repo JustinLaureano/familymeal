@@ -56,40 +56,14 @@ class RecipeController extends Controller
 
     public function show(Request $request, $recipe_id)
     {
-        $recipe = DB::table('recipe')
-            ->select(
-                'recipe.id',
-                'recipe.name',
-                'recipe.user_id',
-                'recipe_category.id AS recipe_category_id',
-                'recipe_category.name AS recipe_category_name',
-                'cuisine_type.id AS cuisine_type_id',
-                'cuisine_type.name AS cuisine_type',
-                'recipe.created_at'
-            )
-            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
-            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
-            ->where('recipe.id', $recipe_id)
-            ->first();
-
-        $recipe_ingredients = RecipeIngredients::getByRecipeId($recipe_id);
-        $recipe_directions = RecipeDirections::getByRecipeId($recipe_id);
-        $recipe_notes = RecipeNotes::getByRecipeId($recipe_id);
-        $recipe_ratings = RecipeRatings::where('recipe_id', $recipe_id)->get();
-        $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id)->first();
-
-        $data = [
-            'recipe' => [
-                'info' => $recipe,
-                'summary' => $recipe_summary,
-                'ratings' => $recipe_ratings,
-                'ingredients' => $recipe_ingredients,
-                'directions' => $recipe_directions,
-                'notes' => $recipe_notes,
-            ]
-        ];
-
-        return response($data, 200);
+        return response([
+            'info' => Recipe::getById($recipe_id),
+            'summary' => RecipeSummary::getByRecipeId($recipe_id),
+            'ratings' => RecipeRatings::getByRecipeId($recipe_id),
+            'ingredients' => RecipeIngredients::getByRecipeId($recipe_id),
+            'directions' => RecipeDirections::getByRecipeId($recipe_id),
+            'notes' => RecipeNotes::getByRecipeId($recipe_id),
+        ], 200);
     }
 
     public function update(Request $request, $recipe_id)
@@ -292,7 +266,6 @@ class RecipeController extends Controller
 
         return response($data, 200);
     }
-
 
     public function destroy($id)
     {
