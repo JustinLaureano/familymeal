@@ -143,7 +143,6 @@ export class IngredientSelect extends React.Component {
         this.setState({ measurement_unit: suggestionValue, measurement_unit_id });
     }
 
-
     startAddIngredient = () => {
         if (this.isValidIngredientEntry()) {
             this.props.addIngredient(this.state);
