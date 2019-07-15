@@ -61,3 +61,21 @@ export const removeCurrentRecipeIngredient = (ingredients) => {
         });
 	}
 }
+
+export const addCurrentRecipeDirection = (direction) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_CURRENT_RECIPE_DIRECTION',
+			direction
+		});
+	}
+}
+
+export const removeCurrentRecipeDirection = (directions) => {
+	return (dispatch) => {
+        dispatch({
+            type: 'UPDATE_CURRENT_RECIPE_DIRECTIONS',
+            directions
+        });
+	}
+}

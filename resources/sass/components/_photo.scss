@@ -9,8 +9,8 @@
 
 .photo--recipe {
     grid-area: photo;
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
 
     @include for-desktop-up {
         justify-self: center;

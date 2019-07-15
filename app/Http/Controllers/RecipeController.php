@@ -205,6 +205,45 @@ class RecipeController extends Controller
             $response = RecipeIngredients::getByRecipeId($recipe_id);
         }
 
+        if ($request->post('directions')) {
+            $directions = $request->post('directions');
+
+            // Check direction deletions
+            $old_recipe_direction_ids = RecipeDirections::select('id')
+                ->where('recipe_id', $recipe_id)
+                ->get();
+
+            $new_direction_ids = [];
+            foreach ($directions as $direction)
+                $new_direction_ids[] = $direction['id'];
+
+            foreach ($old_recipe_direction_ids as $old_direction)
+                if (!in_array($old_direction['id'], $new_direction_ids))
+                    RecipeDirections::destroy($old_direction['id']);
+
+            $order = 1;
+            foreach ($directions as $direction) {
+                if ($direction['id'] >= $this->new_id_floor) {
+                    // New Recipe Ingredient
+                    $recipe_direction = new RecipeDirections;
+                    $recipe_direction->recipe_id = $recipe_id;
+                    $recipe_direction->order = $order;
+                    $recipe_direction->direction = $direction['direction'];
+                    $recipe_direction->save();
+                }
+                else {
+                    // Update Ingredient
+                    $recipe_direction = RecipeDirections::find($direction['id']);
+                    $recipe_direction->order = $order;
+                    $recipe_direction->save();
+                }
+                $order++;
+            }
+
+            $updates[] = 'directions';
+            $response = RecipeDirections::getByRecipeId($recipe_id);
+        }
+
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];
 
         if ($response) 

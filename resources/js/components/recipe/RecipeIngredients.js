@@ -16,6 +16,7 @@ export class RecipeIngredients extends React.Component {
         };
 
         this.newIdFloor = 900000;
+        this.newIdCeiling = 999999;
     };
 
     componentDidUpdate() {
@@ -133,14 +134,15 @@ export class RecipeIngredients extends React.Component {
                 }
             });
 
-            this.setState(() => ({ ingredients: arrayMove(this.state.ingredients, currentIndex, newIndex) }));
-            this.setState(() => ({ edited: true }));
+            this.setState(() => ({
+                ingredients: arrayMove(this.state.ingredients, currentIndex, newIndex),
+                edited: true 
+            }));
         }
 
     }
 
     setRecipeIngredients = () => {
-        // TODO: get real ingredients
         const ingredients = this.state.ingredients;
         this.setState(() => ({ ingredients }));
     }
@@ -154,7 +156,7 @@ export class RecipeIngredients extends React.Component {
     
     addIngredient = (ingredient) => {
         this.props.addCurrentRecipeIngredient({
-            id: Math.floor(Math.random() * (999999 - 900000) + 900000),
+            id: Math.floor(Math.random() * (this.newIdCeiling - this.newIdFloor) + this.newIdFloor),
             order: this.state.ingredients.length + 1,
             ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
             ingredient_name: ingredient.value,
@@ -206,8 +208,7 @@ export class RecipeIngredients extends React.Component {
                                     onDragEnd={ this.onDragEnd }
                                     onDrop={ this.onDrop }>
 
-                                    <i 
-                                        className="material-icons drag-icon">drag_indicator</i>
+                                    <i className="material-icons drag-icon">drag_indicator</i>
 
                                     <p className="recipe-grid__ingredient-amount">
                                         { ingredient.ingredient_units.toString().replace(/(?:(\.\d*?[1-9]+)|\.)0*$/g, '$1') }
@@ -332,7 +333,6 @@ export class RecipeIngredients extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
-    recipeId: state.filters.currentRecipe.info.id,
     ingredients: state.filters.currentRecipe.ingredients
 });
 

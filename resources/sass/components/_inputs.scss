@@ -44,6 +44,7 @@ input {
     @include pad($space-xxs);
     @include text-font;
     border-color: $gray-light;
+    font-size: $size-sm;
     &::-webkit-scrollbar {
         width: 0;
         height: 0;

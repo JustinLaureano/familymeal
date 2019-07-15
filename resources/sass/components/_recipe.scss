@@ -2,7 +2,7 @@
     @extend .content;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: #{$space-lg} auto auto;
+    grid-template-rows: #{$space-lg} minmax(min-content, max-content) auto;
     grid-template-areas:
         "breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
         "photo page-header page-header page-header"
@@ -21,6 +21,10 @@
             "ingredients ingredients ingredients directions directions directions"
             "notes notes notes notes notes notes";
     }
+}
+
+.recipe-grid__section-title {
+    margin-bottom: $space-md;
 }
 
 .recipe-grid__about {
@@ -53,137 +57,6 @@
     @include flex-center;
 }
 
-.recipe-grid__ingredients {
-    grid-area: ingredients;
-    display: flex;
-    flex-direction: column;
-}
-.recipe-grid__section-title {
-    margin-bottom: $space-md;
-}
-
-.recipe-grid__ingredient-list {
-    @include pad($space-xs, 0);
-}
-
-.recipe-grid__ingredient-row {
-    @include pad($space-xxs, 0);
-    display: grid;
-    grid-template-columns: 1.5fr 25px 3fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "amount . ingredient";
-}
-
-.recipe-grid__ingredient-row--edit {
-    @include margin(.1em, 0);
-    @include pad($space-xs, $space-xxs);
-    @include transition;
-    background-color: $weathered-blue-light;
-    border-radius: 3px;
-    display: grid;
-    grid-template-columns: 24px 1.5fr 25px 3fr 24px;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "drag amount . ingredient remove";
-    width: 90%;
-    &:hover {
-        background-color: $weathered-blue-hover;
-    }
-}
-
-.recipe-grid__ingredient-add {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas:
-        "amount amount m-u m-u  ingredient ingredient ingredient ingredient add-btn";
-    margin-bottom: $space-md;
-
-    .react-autosuggest__container {
-        border: none;
-        border-bottom: 1px solid $gray-dark;
-        grid-area: ingredient;
-        position: relative;
-    }
-    
-    .react-autosuggest__input {
-        border: none;
-    }
-}
-
-.recipe-grid__ingredient-input {
-    border: none;
-    border-bottom: 1px solid $gray-dark;
-    width: 100%;
-}
-
-.recipe-grid__ingredient-input--amount {
-    @extend .recipe-grid__ingredient-input;
-    grid-area: amount;
-}
-
-.recipe-grid__ingredient-input--measurement-unit {
-    // @extend .recipe-grid__ingredient-input;
-    grid-area: m-u;
-}
-
-.recipe-grid__ingredient-amount {
-    grid-area: amount;
-}
-
-.recipe-grid__ingredient-item {
-    grid-area: ingredient;
-    font-weight: 500;
-}
-
-.recipe-grid__directions {
-    grid-area: directions;
-}
-
-.recipe-grid__direction-row {
-    @include pad($space-xxs, 0);
-    display: grid;
-    grid-template-columns: 25px 1fr;
-    grid-template-rows: auto;
-    grid-template-areas:
-        "order direction";
-}
-
-.recipe-grid__direction-order {
-    grid-area: order;
-}
-
-.recipe-grid__direction {
-    grid-area: direction;
-}
-
-.recipe-grid__notes {
-    @include margin($space-md, 0);
-    grid-area: notes;
-}
-
-.recipe-grid__note-row {
-    display: grid;
-    grid-template-columns: 25px 1fr;
-    grid-template-areas:
-        "order note";
-}
-
-.recipe-grid__note-order {
-    grid-area: order;
-}
-
-.recipe-grid__note {
-    grid-area: note;
-}
-
-.recipe-grid__note--inactive {
-    @extend .recipe-grid__note;
-    color: $weathered-gray;
-    font-style: oblique;
-}
-
 .recipe-grid__remove {
     grid-area: remove;
     position: relative;
@@ -194,3 +67,7 @@
     right: 30px;
     top: 10px;
 }
+
+@import './recipe/ingredients';
+@import './recipe/directions';
+@import './recipe/notes';

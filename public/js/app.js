@@ -34361,7 +34361,7 @@ var startLogout = function startLogout() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34370,6 +34370,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setEditMode", function() { return setEditMode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeIngredient", function() { return addCurrentRecipeIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeIngredient", function() { return removeCurrentRecipeIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeDirection", function() { return addCurrentRecipeDirection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeDirection", function() { return removeCurrentRecipeDirection; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34431,6 +34433,22 @@ var removeCurrentRecipeIngredient = function removeCurrentRecipeIngredient(ingre
     });
   };
 };
+var addCurrentRecipeDirection = function addCurrentRecipeDirection(direction) {
+  return function (dispatch) {
+    dispatch({
+      type: 'ADD_CURRENT_RECIPE_DIRECTION',
+      direction: direction
+    });
+  };
+};
+var removeCurrentRecipeDirection = function removeCurrentRecipeDirection(directions) {
+  return function (dispatch) {
+    dispatch({
+      type: 'UPDATE_CURRENT_RECIPE_DIRECTIONS',
+      directions: directions
+    });
+  };
+};
 
 /***/ }),
 
@@ -34438,7 +34456,7 @@ var removeCurrentRecipeIngredient = function removeCurrentRecipeIngredient(ingre
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeCategory, updateRecipeIngredients, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeCategory, updateRecipeIngredients, updateRecipeDirections, deleteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34451,6 +34469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeCuisine", function() { return updateRecipeCuisine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeCategory", function() { return updateRecipeCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeIngredients", function() { return updateRecipeIngredients; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeDirections", function() { return updateRecipeDirections; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -34681,6 +34700,38 @@ var updateRecipeIngredients = function updateRecipeIngredients(ingredients) {
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
         ingredients: data.response
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var updateRecipeDirections = function updateRecipeDirections(directions) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var user_id = getState().user.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        directions: directions,
+        user_id: user_id
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data.response);
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_DIRECTIONS',
+        directions: data.response
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -35359,6 +35410,107 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/recipe/DirectionInput.js":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/recipe/DirectionInput.js ***!
+  \**********************************************************/
+/*! exports provided: DirectionInput, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DirectionInput", function() { return DirectionInput; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var DirectionInput =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(DirectionInput, _React$Component);
+
+  function DirectionInput(props) {
+    var _this;
+
+    _classCallCheck(this, DirectionInput);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DirectionInput).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "setDirection", function (e) {
+      var direction = e.target.value;
+
+      _this.setState(function () {
+        return {
+          direction: direction
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startAddDirection", function () {
+      if (_this.isValidDirectionEntry()) {
+        _this.props.addDirection(_this.state);
+      } else {
+        console.log('not valid'); // TODO: message notifying of invalid entry
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "isValidDirectionEntry", function () {
+      return _this.state.direction.trim() != '';
+    });
+
+    _this.state = {
+      direction: ''
+    };
+    return _this;
+  }
+
+  _createClass(DirectionInput, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "recipe-grid__direction-add"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        type: "text",
+        className: "recipe-grid__direction textarea--edit",
+        name: "direction",
+        value: this.state.direction,
+        placeholder: "Add direction",
+        onChange: this.setDirection
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons add-icon",
+        onClick: this.startAddDirection
+      }, "add_circle"));
+    }
+  }]);
+
+  return DirectionInput;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+/* harmony default export */ __webpack_exports__["default"] = (DirectionInput);
+
+/***/ }),
+
 /***/ "./resources/js/components/recipe/IngredientSelect.js":
 /*!************************************************************!*\
   !*** ./resources/js/components/recipe/IngredientSelect.js ***!
@@ -35570,8 +35722,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "startAddIngredient", function () {
-      console.log(_this.isValidIngredientEntry());
-
       if (_this.isValidIngredientEntry()) {
         _this.props.addIngredient(_this.state);
 
@@ -36030,7 +36180,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _recipe_DirectionInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../recipe/DirectionInput */ "./resources/js/components/recipe/DirectionInput.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -36040,13 +36202,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
 
 
 
@@ -36055,29 +36223,276 @@ var RecipeDirections =
 function (_React$Component) {
   _inherits(RecipeDirections, _React$Component);
 
-  function RecipeDirections() {
+  function RecipeDirections(props) {
+    var _this;
+
     _classCallCheck(this, RecipeDirections);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(RecipeDirections).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeDirections).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "addDirection", function (direction) {
+      _this.props.addCurrentRecipeDirection({
+        id: Math.floor(Math.random() * (_this.newIdCeiling - _this.newIdFloor) + _this.newIdFloor),
+        order: _this.state.directions.length + 1,
+        direction: direction.direction
+      });
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
+      e.dataTransfer.setData('id', id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
+      document.body.style.cursor = 'move';
+      var dropPos = e.clientY;
+      var directionList = document.querySelectorAll('.recipe-grid__direction-row--edit');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < directionList.length; i++) {
+        var top = directionList[i].getBoundingClientRect().top;
+        var height = directionList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof directionList[i + 1] == 'undefined' ? bottom : directionList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+          break;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == directionList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        _toConsumableArray(directionList).map(function (direction, index) {
+          if (index == newIndex) {
+            direction.style.marginTop = directionList[newIndex].getBoundingClientRect().height * .15 + 'px';
+            direction.style.borderTop = '2px solid #505d6a';
+          } else {
+            direction.style.marginTop = 0;
+            direction.style.borderTop = 'none';
+            direction.style.borderBottom = 'none';
+          }
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragEnd", function (e) {
+      document.body.style.cursor = 'auto';
+      var directionList = document.querySelectorAll('.recipe-grid__direction-row--edit');
+
+      _toConsumableArray(directionList).map(function (direction) {
+        direction.style.marginTop = 0;
+        direction.style.borderTop = 'none';
+        direction.style.borderBottom = 'none';
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragOver", function (e) {
+      e.preventDefault();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {
+      var dropPos = e.clientY;
+      var id = e.dataTransfer.getData('id');
+      var directionList = document.querySelectorAll('.recipe-grid__direction-row--edit');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < directionList.length; i++) {
+        var top = directionList[i].getBoundingClientRect().top;
+        var height = directionList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof directionList[i + 1] == 'undefined' ? bottom : directionList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+          break;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == directionList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        var currentIndex = null;
+
+        _this.state.directions.map(function (direction, index) {
+          if (direction.id == id) {
+            currentIndex = index;
+          }
+        });
+
+        console.log(currentIndex, newIndex, id);
+
+        _this.setState(function () {
+          return {
+            directions: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__["arrayMove"])(_this.state.directions, currentIndex, newIndex),
+            edited: true
+          };
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setRecipeDirections", function () {
+      var directions = _this.state.directions;
+
+      _this.setState(function () {
+        return {
+          directions: directions
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "saveRecipeDirections", function () {
+      if (_this.state.edited) {
+        _this.setState(function () {
+          return {
+            edited: false
+          };
+        });
+
+        _this.props.updateRecipeDirections(_this.state.directions);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleDirectionRemoveConfirm", function (e) {
+      var removeContainer = document.getElementById('direction-remove_' + e.target.id.replace(/\D/g, ''));
+
+      if (removeContainer.classList.contains('display--none')) {
+        removeContainer.classList.remove('display--none');
+      } else {
+        removeContainer.classList.add('display--none');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "removeDirection", function (e) {
+      var id = e.target.id.replace(/\D/g, '');
+
+      var filteredDirections = _this.state.directions.filter(function (direction) {
+        return direction.id != id;
+      });
+
+      _this.props.removeCurrentRecipeDirection(filteredDirections);
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
+    });
+
+    _this.state = {
+      directions: _this.props.directions,
+      edited: false
+    };
+    _this.newIdFloor = 900000;
+    _this.newIdCeiling = 999999;
+    return _this;
   }
 
   _createClass(RecipeDirections, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      if (!this.props.editMode) {
+        this.saveRecipeDirections();
+      }
+
+      if (this.state.directions.length !== this.props.directions.length) {
+        this.setState(function () {
+          return {
+            directions: _this2.props.directions
+          };
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "recipe-grid__directions"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "recipe-grid__section-title"
-      }, "Directions"), this.props.directions.map(function (direction, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: "direction_" + direction.id,
-          className: "recipe-grid__direction-row"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "recipe-grid__direction-order"
-        }, direction.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "recipe-grid__direction"
-        }, direction.direction));
-      }));
+      var _this3 = this;
+
+      if (this.props.editMode) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__directions"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "recipe-grid__section-title"
+        }, "Directions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipe_DirectionInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          addDirection: this.addDirection
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__direction-list",
+          onDragOver: this.onDragOver
+        }, this.state.directions.map(function (direction, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "direction_" + direction.id,
+            id: "direction_" + direction.id,
+            className: "recipe-grid__direction-row--edit",
+            draggable: true,
+            onDragStart: function onDragStart(e) {
+              return _this3.onDragStart(e, direction.id);
+            },
+            onDrag: function onDrag(e) {
+              return _this3.onDrag(e, direction.id);
+            },
+            onDragEnd: _this3.onDragEnd,
+            onDrop: _this3.onDrop
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons drag-icon"
+          }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__direction-order"
+          }, index + 1, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__direction-direction"
+          }, direction.direction), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "recipe-grid__remove"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            id: "remove-direction_" + direction.id,
+            className: "material-icons remove-icon",
+            onClick: _this3.toggleDirectionRemoveConfirm
+          }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+            id: "direction-remove_" + direction.id,
+            className: "recipe-grid__confirmation confirmation display--none"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "confirmation__label"
+          }, "Remove Direction?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "remove-btn_" + direction.id,
+            className: "btn--confirmation-confirm",
+            onClick: _this3.removeDirection
+          }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "confirmation-cancel-btn_" + direction.id,
+            className: "btn--confirmation",
+            onClick: _this3.toggleDirectionRemoveConfirm
+          }, "Cancel"))));
+        })));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__directions"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "recipe-grid__section-title"
+        }, "Directions"), this.props.directions.map(function (direction, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "direction_" + direction.id,
+            className: "recipe-grid__direction-row"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__direction-order"
+          }, direction.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__direction"
+          }, direction.direction));
+        }));
+      }
     }
   }]);
 
@@ -36087,12 +36502,26 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    recipeId: state.filters.currentRecipe.info.id,
-    directions: state.filters.currentRecipe.directions
+    directions: state.filters.currentRecipe.directions,
+    editMode: state.filters.editMode
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipeDirections));
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    addCurrentRecipeDirection: function addCurrentRecipeDirection(direction) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["addCurrentRecipeDirection"])(direction));
+    },
+    removeCurrentRecipeDirection: function removeCurrentRecipeDirection(direction) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["removeCurrentRecipeDirection"])(direction));
+    },
+    updateRecipeDirections: function updateRecipeDirections(directions) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeDirections"])(directions));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeDirections));
 
 /***/ }),
 
@@ -36326,12 +36755,7 @@ function (_React$Component) {
 
         _this.setState(function () {
           return {
-            ingredients: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_5__["arrayMove"])(_this.state.ingredients, currentIndex, newIndex)
-          };
-        });
-
-        _this.setState(function () {
-          return {
+            ingredients: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_5__["arrayMove"])(_this.state.ingredients, currentIndex, newIndex),
             edited: true
           };
         });
@@ -36339,7 +36763,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setRecipeIngredients", function () {
-      // TODO: get real ingredients
       var ingredients = _this.state.ingredients;
 
       _this.setState(function () {
@@ -36363,7 +36786,7 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "addIngredient", function (ingredient) {
       _this.props.addCurrentRecipeIngredient({
-        id: Math.floor(Math.random() * (999999 - 900000) + 900000),
+        id: Math.floor(Math.random() * (_this.newIdCeiling - _this.newIdFloor) + _this.newIdFloor),
         order: _this.state.ingredients.length + 1,
         ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
         ingredient_name: ingredient.value,
@@ -36411,6 +36834,7 @@ function (_React$Component) {
       edited: false
     };
     _this.newIdFloor = 900000;
+    _this.newIdCeiling = 999999;
     return _this;
   }
 
@@ -36544,7 +36968,6 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
-    recipeId: state.filters.currentRecipe.info.id,
     ingredients: state.filters.currentRecipe.ingredients
   };
 };
@@ -37824,10 +38247,24 @@ var filterReducerDefaultState = {
         currentRecipe: null
       });
 
+    case 'ADD_CURRENT_RECIPE_DIRECTION':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          directions: [].concat(_toConsumableArray(state.currentRecipe.directions), [action.direction])
+        })
+      });
+
     case 'ADD_CURRENT_RECIPE_INGREDIENT':
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           ingredients: [].concat(_toConsumableArray(state.currentRecipe.ingredients), [action.ingredient])
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          directions: action.directions
         })
       });
 

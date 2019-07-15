@@ -145,7 +145,6 @@ export class IngredientSelect extends React.Component {
 
 
     startAddIngredient = () => {
-        console.log(this.isValidIngredientEntry());
         if (this.isValidIngredientEntry()) {
             this.props.addIngredient(this.state);
             this.setState(() => (this.baseState));

@@ -1,0 +1,51 @@
+.recipe-grid__directions {
+    grid-area: directions;
+}
+
+.recipe-grid__direction-list {
+    @include pad($space-xs, 0);
+}
+
+
+.recipe-grid__direction-row {
+    @include pad($space-xxs, 0);
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "order direction";
+}
+
+.recipe-grid__direction-row--edit {
+    @include margin(.1em, 0);
+    @include pad($space-xs, $space-xxs);
+    @include transition;
+    background-color: $weathered-blue-light;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 24px 25px 1fr 24px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "drag order direction remove";
+    // width: 90%;
+    &:hover {
+        background-color: $weathered-blue-hover;
+    }
+}
+
+.recipe-grid__direction-add {
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "direction add-btn";
+    margin-bottom: $space-md;
+}
+
+.recipe-grid__direction-order {
+    grid-area: order;
+}
+
+.recipe-grid__direction {
+    grid-area: direction;
+}

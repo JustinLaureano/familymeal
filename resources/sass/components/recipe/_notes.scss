@@ -1,0 +1,25 @@
+.recipe-grid__notes {
+    @include margin($space-md, 0);
+    grid-area: notes;
+}
+
+.recipe-grid__note-row {
+    display: grid;
+    grid-template-columns: 25px 1fr;
+    grid-template-areas:
+        "order note";
+}
+
+.recipe-grid__note-order {
+    grid-area: order;
+}
+
+.recipe-grid__note {
+    grid-area: note;
+}
+
+.recipe-grid__note--inactive {
+    @extend .recipe-grid__note;
+    color: $weathered-gray;
+    font-style: oblique;
+}

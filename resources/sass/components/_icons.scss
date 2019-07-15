@@ -24,6 +24,10 @@
     align-self: center;
 }
 
+.add-icon {
+    grid-area: add-btn;
+}
+
 .drag-icon {
     @include transition;
     $color: $gray-light;

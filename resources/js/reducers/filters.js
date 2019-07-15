@@ -20,6 +20,17 @@ export default (state = filterReducerDefaultState, action) => {
                 ...state,
                 currentRecipe: null
             };
+        case 'ADD_CURRENT_RECIPE_DIRECTION':
+                return {
+                    ...state,
+                    currentRecipe: {
+                        ...state.currentRecipe,
+                        directions: [
+                            ...state.currentRecipe.directions,
+                            action.direction
+                        ]
+                    }
+                };
         case 'ADD_CURRENT_RECIPE_INGREDIENT':
                 return {
                     ...state,
@@ -29,6 +40,14 @@ export default (state = filterReducerDefaultState, action) => {
                             ...state.currentRecipe.ingredients,
                             action.ingredient
                         ]
+                    }
+                };
+        case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
+                return {
+                    ...state,
+                    currentRecipe: {
+                        ...state.currentRecipe,
+                        directions: action.directions
                     }
                 };
         case 'UPDATE_CURRENT_RECIPE_INGREDIENTS':
