@@ -130,8 +130,8 @@ Beans,9,43
 "Beef Tri-Tip Steak",7,34
 Beer,1,1
 "Beer Bread",6,22
-"Beet Juice",9,51
 "Beet Juice",5,20
+"Beet Juice",9,51
 Beets,9,50
 "Belgian Waffle",6,23
 "Bell Peppers",9,45
@@ -385,6 +385,7 @@ Edam,3,9
 Edamame,9,43
 Eggnog,3,10
 Eggplant,9,45
+Eggs,7,28
 "Eggs, Baked",7,28
 "Eggs, Basted",7,28
 "Eggs, Fried",7,28
@@ -619,8 +620,8 @@ Manchego,3,9
 Mangos,5,19
 Mangosteen,5,18
 "Maple Glazed Ham",7,27
-"Marinara Sauce",2,8
 "Marinara Sauce",9,44
+"Marinara Sauce",2,8
 Marjoram,8,37
 Marmite,2,6
 Marrows,9,49
@@ -990,8 +991,8 @@ Thyme,8,37
 "Tobasco Peppers",9,45
 Tofu,3,10
 Tomatillos,5,19
-"Tomato Juice",5,20
 "Tomato Juice",9,51
+"Tomato Juice",5,20
 "Tomato Sauce",2,8
 "Tomatoe Paste",9,44
 "Tomatoe Sauce",9,44

@@ -19,7 +19,7 @@ class MeasurementUnitsTableSeeder extends Seeder
             ['name' => 'each', 'measurement_system' => 'Universal', 'measurement_type' => 'Volume', 'aliases' => 'ea, ea., Ea., x'],
             ['name' => 'teaspoon', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'tsp, tps.'],
             ['name' => 'tablespoon', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'tbl, tbl., tbs, tbs., tbsp., tbsp.'],
-            ['name' => 'fluid ounce', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'fl oz, fl. oz., fluid oz, fluid oz.'],
+            ['name' => 'fl ounce', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'fluid ounce, fl. oz., fl oz, fluid oz, fluid oz., floz'],
             ['name' => 'cup', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'c, c.'],
             ['name' => 'pint', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'p, p., pt, pt., fl pt, fl. pt., fl pt.'],
             ['name' => 'quart', 'measurement_system' => 'US', 'measurement_type' => 'Volume', 'aliases' => 'q, q., qt, qt., fl qt, fl. qt., fl qt.'],

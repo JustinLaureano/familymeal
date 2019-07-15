@@ -35470,6 +35470,12 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "startAddDirection", function () {
       if (_this.isValidDirectionEntry()) {
         _this.props.addDirection(_this.state);
+
+        _this.setState(function () {
+          return {
+            direction: ''
+          };
+        });
       } else {
         console.log('not valid'); // TODO: message notifying of invalid entry
       }
@@ -38301,6 +38307,16 @@ var filterReducerDefaultState = {
         })
       });
 
+    case 'UPDATE_CURRENT_RECIPE_CATEGORY':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            recipe_category_id: action.category.id,
+            recipe_category_name: action.category.name
+          })
+        })
+      });
+
     case 'UPDATE_CURRENT_RECIPE_NAME':
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
@@ -39814,8 +39830,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -89,6 +89,18 @@ export default (state = filterReducerDefaultState, action) => {
                     }
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_CATEGORY':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        recipe_category_id: action.category.id,
+                        recipe_category_name: action.category.name
+                    }
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_NAME':
             return {
                 ...state,

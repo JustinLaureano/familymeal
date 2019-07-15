@@ -18,6 +18,7 @@ export class DirectionInput extends React.Component {
     startAddDirection = () => {
         if (this.isValidDirectionEntry()) {
             this.props.addDirection(this.state);
+            this.setState(() => ({ direction: '' }));
         }
         else {
             console.log('not valid');

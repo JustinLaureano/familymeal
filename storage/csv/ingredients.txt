@@ -610,6 +610,7 @@ Mortadella, 7, 27
 
 # eggs 28
 Custard, 7, 28
+Eggs, 7, 28
 Eggs - Hard Boiled, 7, 28
 Eggs - Soft Boiled, 7, 28
 Eggs - Poached, 7, 28

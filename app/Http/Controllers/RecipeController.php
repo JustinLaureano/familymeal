@@ -99,6 +99,7 @@ class RecipeController extends Controller
     public function update(Request $request, $recipe_id)
     {
         $updates = [];
+        $response = null;
         $recipe = Recipe::find($recipe_id);
 
         if ($request->post('name')) {
@@ -125,10 +126,15 @@ class RecipeController extends Controller
         }
 
         if ($request->post('cuisine')) {
-            $cuisine = $request->post('cuisine');
             $recipe->cuisine_type_id = $request->post('cuisine');
             $recipe->save();
             $updates[] = 'cuisine';
+        }
+
+        if ($request->post('category')) {
+            $recipe->recipe_category_id = $request->post('category');
+            $recipe->save();
+            $updates[] = 'category';
         }
 
         if ($request->post('ingredients')) {
