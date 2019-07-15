@@ -260,7 +260,6 @@ a:hover {
   -webkit-box-direction: normal;
           flex-direction: column;
   height: 100vh;
-  width: 100vw;
 }
 
 .main {
@@ -270,10 +269,10 @@ a:hover {
 }
 
 .content, .recipe-grid, .table-grid {
-  height: 100%;
-  margin: 20px auto 0 auto;
   max-width: 1200px;
   width: 90%;
+  height: 100%;
+  margin: 20px auto 0 auto;
 }
 
 .sidebar {
@@ -723,7 +722,7 @@ input, .input--edit, .page-header__title--input, .input {
   position: fixed;
   min-width: 50px;
   max-width: 50px;
-  overflow-y: hidden;
+  overflow-x: hidden;
   padding-top: calc(54px + 1em);
   top: 0;
   -webkit-transition: all 0.125s ease-in-out;
@@ -972,8 +971,23 @@ page-header__options {
 }
 
 .footer {
-  background-color: #eeeeee;
-  height: 44px;
+  padding: calc(0.5 * 1em);
+  background-color: #fffeff;
+  margin-top: calc(2 * 1em);
+}
+
+.footer__content {
+  max-width: 1200px;
+  width: 90%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  margin: 0 auto;
+}
+
+.footer__copyright {
+  font-size: 0.8em;
 }
 
 .login {

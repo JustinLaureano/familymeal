@@ -20,10 +20,6 @@ add new recipe info sections
     prep time
     cook time
 
-footer
-    decide on content
-    style
-
 Landing Page
     design
     layout html

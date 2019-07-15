@@ -34916,7 +34916,11 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
         className: "footer"
-      });
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "footer__content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "footer__copyright"
+      }, "\xA9 ", new Date().getFullYear(), " Recipe Confidential")));
     }
   }]);
 

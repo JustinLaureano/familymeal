@@ -14,6 +14,11 @@
 	@media (min-width: 1800px) { @content; }
 }
 
+@mixin content-width {
+	max-width: 1200px;
+	width: 90%;
+}
+
 @mixin transition {
 	transition: all .125s ease-in-out;
 }

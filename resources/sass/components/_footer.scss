@@ -1,4 +1,16 @@
 .footer {
-    background-color: rgb(238, 238, 238);
-    height: 44px;
+    @include pad($space-xs);
+    background-color: $white;
+    margin-top: $space-lg;
+}
+
+.footer__content {
+    @include content-width;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+}
+
+.footer__copyright {
+    font-size: $size-xs;
 }
