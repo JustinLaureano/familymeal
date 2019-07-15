@@ -11,6 +11,17 @@
         "ingredients ingredients directions directions"
         "notes notes notes notes";
 
+    @include for-tablet-portrait-up {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-areas:
+            "breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs breadcrumbs"
+            "photo page-header page-header page-header page-header page-header"
+            "photo about about about about about"
+            "info info info info info info"
+            "ingredients ingredients ingredients directions directions directions"
+            "notes notes notes . . .";
+    }
+
     @include for-desktop-up {
         grid-template-columns: repeat(6, 1fr);
         grid-template-areas:
@@ -19,7 +30,7 @@
             "photo about about about about about"
             "info info info info info info"
             "ingredients ingredients ingredients directions directions directions"
-            "notes notes notes notes notes notes";
+            "notes notes notes . . .";
     }
 }
 
@@ -58,7 +69,10 @@
 }
 
 .recipe-grid__remove {
+    @include flex-align-center;
+    align-self: center;
     grid-area: remove;
+    height: 24px;
     position: relative;
 }
 

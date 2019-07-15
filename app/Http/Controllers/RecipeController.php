@@ -73,12 +73,8 @@ class RecipeController extends Controller
             ->first();
 
         $recipe_ingredients = RecipeIngredients::getByRecipeId($recipe_id);
-
-        $recipe_directions = RecipeDirections::where('recipe_id', $recipe_id)
-            ->orderBy('order', 'asc')
-            ->get();
-
-        $recipe_notes = RecipeNotes::where('recipe_id', $recipe_id)->get();
+        $recipe_directions = RecipeDirections::getByRecipeId($recipe_id);
+        $recipe_notes = RecipeNotes::getByRecipeId($recipe_id);
         $recipe_ratings = RecipeRatings::where('recipe_id', $recipe_id)->get();
         $recipe_summary = RecipeSummary::where('recipe_id', $recipe_id)->first();
 
@@ -230,7 +226,7 @@ class RecipeController extends Controller
             $order = 1;
             foreach ($directions as $direction) {
                 if ($direction['id'] >= $this->new_id_floor) {
-                    // New Recipe Ingredient
+                    // New Recipe Direction
                     $recipe_direction = new RecipeDirections;
                     $recipe_direction->recipe_id = $recipe_id;
                     $recipe_direction->order = $order;
@@ -238,7 +234,7 @@ class RecipeController extends Controller
                     $recipe_direction->save();
                 }
                 else {
-                    // Update Ingredient
+                    // Update Direction
                     $recipe_direction = RecipeDirections::find($direction['id']);
                     $recipe_direction->order = $order;
                     $recipe_direction->save();
@@ -248,6 +244,45 @@ class RecipeController extends Controller
 
             $updates[] = 'directions';
             $response = RecipeDirections::getByRecipeId($recipe_id);
+        }
+
+        if ($request->post('notes')) {
+            $notes = $request->post('notes');
+
+            // Check note deletions
+            $old_recipe_note_ids = RecipeNotes::select('id')
+                ->where('recipe_id', $recipe_id)
+                ->get();
+
+            $new_note_ids = [];
+            foreach ($notes as $note)
+                $new_note_ids[] = $note['id'];
+
+            foreach ($old_recipe_note_ids as $old_note)
+                if (!in_array($old_note['id'], $new_note_ids))
+                    RecipeNotes::destroy($old_note['id']);
+
+            $order = 1;
+            foreach ($notes as $note) {
+                if ($note['id'] >= $this->new_id_floor) {
+                    // New Recipe Note
+                    $recipe_note = new RecipeNotes;
+                    $recipe_note->recipe_id = $recipe_id;
+                    $recipe_note->order = $order;
+                    $recipe_note->note = $note['note'];
+                    $recipe_note->save();
+                }
+                else {
+                    // Update Note
+                    $recipe_note = RecipeNotes::find($note['id']);
+                    $recipe_note->order = $order;
+                    $recipe_note->save();
+                }
+                $order++;
+            }
+
+            $updates[] = 'notes';
+            $response = RecipeNotes::getByRecipeId($recipe_id);
         }
 
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];

@@ -3,11 +3,42 @@
     grid-area: notes;
 }
 
+.recipe-grid__note-list {
+    @include pad($space-xs, 0);
+}
+
 .recipe-grid__note-row {
+    @include pad($space-xxs, 0);
     display: grid;
     grid-template-columns: 25px 1fr;
+    grid-template-rows: auto;
     grid-template-areas:
         "order note";
+}
+
+.recipe-grid__note-row--edit {
+    @include margin(.1em, 0);
+    @include pad($space-xs, $space-xxs);
+    @include transition;
+    background-color: $weathered-blue-light;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 24px 25px 1fr 24px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "drag order note remove";
+    &:hover {
+        background-color: $weathered-blue-hover;
+    }
+}
+
+.recipe-grid__note-add {
+    display: grid;
+    grid-template-columns: 1fr 24px;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "note add-btn";
+    margin-bottom: $space-md;
 }
 
 .recipe-grid__note-order {
@@ -16,6 +47,7 @@
 
 .recipe-grid__note {
     grid-area: note;
+    width: 95%;
 }
 
 .recipe-grid__note--inactive {

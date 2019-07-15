@@ -194,7 +194,6 @@ export const updateRecipeCategory = (category) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_CATEGORY',
 					category
@@ -225,7 +224,6 @@ export const updateRecipeIngredients = (ingredients) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data.response);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
 					ingredients: data.response
@@ -256,10 +254,39 @@ export const updateRecipeDirections = (directions) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data.response);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_DIRECTIONS',
 					directions: data.response
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const updateRecipeNotes = (notes) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+		const user_id = getState().user.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ notes, user_id })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_NOTES',
+					notes: data.response
 				});
 			})
 			.catch(err => console.log(err))

@@ -42,6 +42,17 @@ export default (state = filterReducerDefaultState, action) => {
                         ]
                     }
                 };
+        case 'ADD_CURRENT_RECIPE_NOTE':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    notes: [
+                        ...state.currentRecipe.notes,
+                        action.note
+                    ]
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
                 return {
                     ...state,
@@ -58,6 +69,14 @@ export default (state = filterReducerDefaultState, action) => {
                         ingredients: action.ingredients
                     }
                 };
+        case 'UPDATE_CURRENT_RECIPE_NOTES':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    notes: action.notes
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_RATINGS':
             return {
                 ...state,

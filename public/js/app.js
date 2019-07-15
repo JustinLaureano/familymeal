@@ -34361,7 +34361,7 @@ var startLogout = function startLogout() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34372,6 +34372,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeIngredient", function() { return removeCurrentRecipeIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeDirection", function() { return addCurrentRecipeDirection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeDirection", function() { return removeCurrentRecipeDirection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeNote", function() { return addCurrentRecipeNote; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeNote", function() { return removeCurrentRecipeNote; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34449,6 +34451,22 @@ var removeCurrentRecipeDirection = function removeCurrentRecipeDirection(directi
     });
   };
 };
+var addCurrentRecipeNote = function addCurrentRecipeNote(note) {
+  return function (dispatch) {
+    dispatch({
+      type: 'ADD_CURRENT_RECIPE_NOTE',
+      note: note
+    });
+  };
+};
+var removeCurrentRecipeNote = function removeCurrentRecipeNote(notes) {
+  return function (dispatch) {
+    dispatch({
+      type: 'UPDATE_CURRENT_RECIPE_NOTES',
+      notes: notes
+    });
+  };
+};
 
 /***/ }),
 
@@ -34456,7 +34474,7 @@ var removeCurrentRecipeDirection = function removeCurrentRecipeDirection(directi
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeCategory, updateRecipeIngredients, updateRecipeDirections, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeCategory, updateRecipeIngredients, updateRecipeDirections, updateRecipeNotes, deleteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34470,6 +34488,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeCategory", function() { return updateRecipeCategory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeIngredients", function() { return updateRecipeIngredients; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeDirections", function() { return updateRecipeDirections; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeNotes", function() { return updateRecipeNotes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -34664,7 +34683,6 @@ var updateRecipeCategory = function updateRecipeCategory(category) {
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_CATEGORY',
         category: category
@@ -34696,7 +34714,6 @@ var updateRecipeIngredients = function updateRecipeIngredients(ingredients) {
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data.response);
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_INGREDIENTS',
         ingredients: data.response
@@ -34728,10 +34745,40 @@ var updateRecipeDirections = function updateRecipeDirections(directions) {
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data.response);
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_DIRECTIONS',
         directions: data.response
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var updateRecipeNotes = function updateRecipeNotes(notes) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var recipe_id = getState().filters.currentRecipe.info.id;
+    var user_id = getState().user.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        notes: notes,
+        user_id: user_id
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_NOTES',
+        notes: data.response
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -35831,6 +35878,113 @@ var mapStateToProps = function mapStateToProps(state) {
 
 /***/ }),
 
+/***/ "./resources/js/components/recipe/NoteInput.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/recipe/NoteInput.js ***!
+  \*****************************************************/
+/*! exports provided: NoteInput, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NoteInput", function() { return NoteInput; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var NoteInput =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(NoteInput, _React$Component);
+
+  function NoteInput(props) {
+    var _this;
+
+    _classCallCheck(this, NoteInput);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(NoteInput).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "setNote", function (e) {
+      var note = e.target.value;
+
+      _this.setState(function () {
+        return {
+          note: note
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startAddNote", function () {
+      if (_this.isValidNoteEntry()) {
+        _this.props.addNote(_this.state);
+
+        _this.setState(function () {
+          return {
+            note: ''
+          };
+        });
+      } else {
+        console.log('not valid'); // TODO: message notifying of invalid entry
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "isValidNoteEntry", function () {
+      return _this.state.note.trim() != '';
+    });
+
+    _this.state = {
+      note: ''
+    };
+    return _this;
+  }
+
+  _createClass(NoteInput, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "recipe-grid__note-add"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        type: "text",
+        className: "recipe-grid__note textarea--edit",
+        name: "note",
+        value: this.state.note,
+        placeholder: "Add note",
+        onChange: this.setNote
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons add-icon",
+        onClick: this.startAddNote
+      }, "add_circle"));
+    }
+  }]);
+
+  return NoteInput;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+/* harmony default export */ __webpack_exports__["default"] = (NoteInput);
+
+/***/ }),
+
 /***/ "./resources/js/components/recipe/RecipeAbout.js":
 /*!*******************************************************!*\
   !*** ./resources/js/components/recipe/RecipeAbout.js ***!
@@ -36342,8 +36496,6 @@ function (_React$Component) {
           }
         });
 
-        console.log(currentIndex, newIndex, id);
-
         _this.setState(function () {
           return {
             directions: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__["arrayMove"])(_this.state.directions, currentIndex, newIndex),
@@ -36351,16 +36503,6 @@ function (_React$Component) {
           };
         });
       }
-    });
-
-    _defineProperty(_assertThisInitialized(_this), "setRecipeDirections", function () {
-      var directions = _this.state.directions;
-
-      _this.setState(function () {
-        return {
-          directions: directions
-        };
-      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipeDirections", function () {
@@ -36518,8 +36660,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
     addCurrentRecipeDirection: function addCurrentRecipeDirection(direction) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["addCurrentRecipeDirection"])(direction));
     },
-    removeCurrentRecipeDirection: function removeCurrentRecipeDirection(direction) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["removeCurrentRecipeDirection"])(direction));
+    removeCurrentRecipeDirection: function removeCurrentRecipeDirection(directions) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["removeCurrentRecipeDirection"])(directions));
     },
     updateRecipeDirections: function updateRecipeDirections(directions) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeDirections"])(directions));
@@ -36768,16 +36910,6 @@ function (_React$Component) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "setRecipeIngredients", function () {
-      var ingredients = _this.state.ingredients;
-
-      _this.setState(function () {
-        return {
-          ingredients: ingredients
-        };
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "saveRecipeIngredients", function () {
       if (_this.state.edited) {
         _this.setState(function () {
@@ -37009,8 +37141,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../helpers/Recipe */ "./resources/js/helpers/Recipe.js");
+/* harmony import */ var _recipe_NoteInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../recipe/NoteInput */ "./resources/js/components/recipe/NoteInput.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -37020,13 +37163,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
 
 
 
@@ -37036,34 +37184,269 @@ var RecipeNotes =
 function (_React$Component) {
   _inherits(RecipeNotes, _React$Component);
 
-  function RecipeNotes() {
+  function RecipeNotes(props) {
+    var _this;
+
     _classCallCheck(this, RecipeNotes);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(RecipeNotes).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeNotes).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "addNote", function (note) {
+      _this.props.addCurrentRecipeNote({
+        id: Math.floor(Math.random() * (_this.newIdCeiling - _this.newIdFloor) + _this.newIdFloor),
+        order: _this.state.notes.length + 1,
+        note: note.note
+      });
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
+      e.dataTransfer.setData('id', id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
+      document.body.style.cursor = 'move';
+      var dropPos = e.clientY;
+      var noteList = document.querySelectorAll('.recipe-grid__note-row--edit');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < noteList.length; i++) {
+        var top = noteList[i].getBoundingClientRect().top;
+        var height = noteList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof noteList[i + 1] == 'undefined' ? bottom : noteList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+          break;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == noteList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        _toConsumableArray(noteList).map(function (note, index) {
+          if (index == newIndex) {
+            note.style.marginTop = noteList[newIndex].getBoundingClientRect().height * .15 + 'px';
+            note.style.borderTop = '2px solid #505d6a';
+          } else {
+            note.style.marginTop = 0;
+            note.style.borderTop = 'none';
+            note.style.borderBottom = 'none';
+          }
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragEnd", function (e) {
+      document.body.style.cursor = 'auto';
+      var noteList = document.querySelectorAll('.recipe-grid__note-row--edit');
+
+      _toConsumableArray(noteList).map(function (note) {
+        note.style.marginTop = 0;
+        note.style.borderTop = 'none';
+        note.style.borderBottom = 'none';
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragOver", function (e) {
+      e.preventDefault();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {
+      var dropPos = e.clientY;
+      var id = e.dataTransfer.getData('id');
+      var noteList = document.querySelectorAll('.recipe-grid__note-row--edit');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < noteList.length; i++) {
+        var top = noteList[i].getBoundingClientRect().top;
+        var height = noteList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof noteList[i + 1] == 'undefined' ? bottom : noteList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+          break;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == noteList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        var currentIndex = null;
+
+        _this.state.notes.map(function (note, index) {
+          if (note.id == id) {
+            currentIndex = index;
+          }
+        });
+
+        _this.setState(function () {
+          return {
+            notes: Object(_helpers_Recipe__WEBPACK_IMPORTED_MODULE_4__["arrayMove"])(_this.state.notes, currentIndex, newIndex),
+            edited: true
+          };
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "saveRecipeNotes", function () {
+      if (_this.state.edited) {
+        _this.setState(function () {
+          return {
+            edited: false
+          };
+        });
+
+        _this.props.updateRecipeNotes(_this.state.notes);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleNoteRemoveConfirm", function (e) {
+      var removeContainer = document.getElementById('note-remove_' + e.target.id.replace(/\D/g, ''));
+
+      if (removeContainer.classList.contains('display--none')) {
+        removeContainer.classList.remove('display--none');
+      } else {
+        removeContainer.classList.add('display--none');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "removeNote", function (e) {
+      var id = e.target.id.replace(/\D/g, '');
+
+      var filteredNotes = _this.state.notes.filter(function (note) {
+        return note.id != id;
+      });
+
+      _this.props.removeCurrentRecipeNote(filteredNotes);
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
+    });
+
+    _this.state = {
+      notes: _this.props.notes,
+      edited: false
+    };
+    _this.newIdFloor = 900000;
+    _this.newIdCeiling = 999999;
+    return _this;
   }
 
   _createClass(RecipeNotes, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      if (!this.props.editMode) {
+        this.saveRecipeNotes();
+      }
+
+      if (this.state.notes.length !== this.props.notes.length) {
+        this.setState(function () {
+          return {
+            notes: _this2.props.notes
+          };
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "recipe-grid__notes"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-        className: "recipe-grid__section-title"
-      }, "Notes"), this.props.notes.length > 0 ? this.props.notes.map(function (note, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: "note_" + index,
+      var _this3 = this;
+
+      if (this.props.editMode) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__notes"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "recipe-grid__section-title"
+        }, "Notes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_recipe_NoteInput__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          addNote: this.addNote
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__note-list",
+          onDragOver: this.onDragOver
+        }, this.state.notes.map(function (note, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "note_" + note.id,
+            id: "note_" + note.id,
+            className: "recipe-grid__note-row--edit",
+            draggable: true,
+            onDragStart: function onDragStart(e) {
+              return _this3.onDragStart(e, note.id);
+            },
+            onDrag: function onDrag(e) {
+              return _this3.onDrag(e, note.id);
+            },
+            onDragEnd: _this3.onDragEnd,
+            onDrop: _this3.onDrop
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons drag-icon"
+          }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__note-order"
+          }, index + 1, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__note-note"
+          }, note.note), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            className: "recipe-grid__remove"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            id: "remove-note_" + note.id,
+            className: "material-icons remove-icon",
+            onClick: _this3.toggleNoteRemoveConfirm
+          }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+            id: "note-remove_" + note.id,
+            className: "recipe-grid__confirmation confirmation display--none"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "confirmation__label"
+          }, "Remove Note?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "remove-btn_" + note.id,
+            className: "btn--confirmation-confirm",
+            onClick: _this3.removeNote
+          }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+            id: "confirmation-cancel-btn_" + note.id,
+            className: "btn--confirmation",
+            onClick: _this3.toggleNoteRemoveConfirm
+          }, "Cancel"))));
+        })));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__notes"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+          className: "recipe-grid__section-title"
+        }, "Notes"), this.props.notes.length > 0 ? this.props.notes.map(function (note, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "note_" + index,
+            className: "recipe-grid__note-row"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__note-order"
+          }, note.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            className: "recipe-grid__note"
+          }, note.note));
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "note",
           className: "recipe-grid__note-row"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "recipe-grid__note-order"
-        }, note.order, "."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "recipe-grid__note"
-        }, note.note));
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        key: "note",
-        className: "recipe-grid__note-row"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "recipe-grid__note--inactive"
-      }, "No notes for this recipe.")));
+          className: "recipe-grid__note--inactive"
+        }, "No notes for this recipe.")));
+      }
     }
   }]);
 
@@ -37073,12 +37456,26 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    recipeId: state.filters.currentRecipe.info.id,
+    editMode: state.filters.editMode,
     notes: state.filters.currentRecipe.notes
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipeNotes));
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    addCurrentRecipeNote: function addCurrentRecipeNote(note) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["addCurrentRecipeNote"])(note));
+    },
+    removeCurrentRecipeNote: function removeCurrentRecipeNote(notes) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["removeCurrentRecipeNote"])(notes));
+    },
+    updateRecipeNotes: function updateRecipeNotes(notes) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipeNotes"])(notes));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeNotes));
 
 /***/ }),
 
@@ -38267,6 +38664,13 @@ var filterReducerDefaultState = {
         })
       });
 
+    case 'ADD_CURRENT_RECIPE_NOTE':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          notes: [].concat(_toConsumableArray(state.currentRecipe.notes), [action.note])
+        })
+      });
+
     case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
@@ -38278,6 +38682,13 @@ var filterReducerDefaultState = {
       return _objectSpread({}, state, {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           ingredients: action.ingredients
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_NOTES':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          notes: action.notes
         })
       });
 

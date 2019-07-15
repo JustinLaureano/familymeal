@@ -77,14 +77,12 @@ export class RecipeDirections extends React.Component {
                 if (index == newIndex) {
                     direction.style.marginTop = (directionList[newIndex].getBoundingClientRect().height * .15) + 'px';
                     direction.style.borderTop = '2px solid #505d6a';
-
                 }
                 else {
                     direction.style.marginTop = 0;
                     direction.style.borderTop = 'none';
                     direction.style.borderBottom = 'none';
                 }
-
             });
         }
     }
@@ -140,18 +138,13 @@ export class RecipeDirections extends React.Component {
                     currentIndex = index;
                 }
             });
-            console.log(currentIndex, newIndex, id);
+
             this.setState(() => ({
                 directions: arrayMove(this.state.directions, currentIndex, newIndex),
                 edited: true 
             }));
         }
 
-    }
-
-    setRecipeDirections = () => {
-        const directions = this.state.directions;
-        this.setState(() => ({ directions }));
     }
 
     saveRecipeDirections = () => {
@@ -273,7 +266,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch, props) => ({
 	addCurrentRecipeDirection: (direction) => dispatch(addCurrentRecipeDirection(direction)),
-	removeCurrentRecipeDirection: (direction) => dispatch(removeCurrentRecipeDirection(direction)),
+	removeCurrentRecipeDirection: (directions) => dispatch(removeCurrentRecipeDirection(directions)),
 	updateRecipeDirections: (directions) => dispatch(updateRecipeDirections(directions)),
 });
   

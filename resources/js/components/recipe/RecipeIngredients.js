@@ -141,11 +141,6 @@ export class RecipeIngredients extends React.Component {
         }
 
     }
-
-    setRecipeIngredients = () => {
-        const ingredients = this.state.ingredients;
-        this.setState(() => ({ ingredients }));
-    }
     
     saveRecipeIngredients = () => {
         if (this.state.edited) {

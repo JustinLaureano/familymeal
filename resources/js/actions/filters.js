@@ -79,3 +79,21 @@ export const removeCurrentRecipeDirection = (directions) => {
         });
 	}
 }
+
+export const addCurrentRecipeNote = (note) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_CURRENT_RECIPE_NOTE',
+			note
+		});
+	}
+}
+
+export const removeCurrentRecipeNote = (notes) => {
+	return (dispatch) => {
+        dispatch({
+            type: 'UPDATE_CURRENT_RECIPE_NOTES',
+            notes
+        });
+	}
+}
