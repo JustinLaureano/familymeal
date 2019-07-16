@@ -40768,7 +40768,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_recipe_RecipeIngredients__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/recipe/RecipeIngredients */ "./resources/js/components/recipe/RecipeIngredients.js");
 /* harmony import */ var _components_recipe_RecipeDirections__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/recipe/RecipeDirections */ "./resources/js/components/recipe/RecipeDirections.js");
 /* harmony import */ var _components_recipe_RecipeNotes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/recipe/RecipeNotes */ "./resources/js/components/recipe/RecipeNotes.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40786,6 +40787,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -40843,6 +40845,11 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.setEditMode(false);
+    }
+  }, {
     key: "render",
     value: function render() {
       if (this.state.loading) {
@@ -40886,10 +40893,13 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     clearCurrentRecipe: function clearCurrentRecipe() {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_11__["clearCurrentRecipe"])());
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_12__["clearCurrentRecipe"])());
     },
     getRecipe: function getRecipe(recipe_id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_11__["getRecipe"])(recipe_id));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_12__["getRecipe"])(recipe_id));
+    },
+    setEditMode: function setEditMode(editMode) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_11__["setEditMode"])(editMode));
     }
   };
 };

@@ -9,6 +9,7 @@ import RecipeInfo from '../components/recipe/RecipeInfo';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeDirections from '../components/recipe/RecipeDirections';
 import RecipeNotes from '../components/recipe/RecipeNotes';
+import { setEditMode } from '../actions/filters';
 import { getRecipe, clearCurrentRecipe } from '../actions/recipes';
 
 export class ViewRecipePage extends React.Component {
@@ -32,6 +33,10 @@ export class ViewRecipePage extends React.Component {
 		if (this.state.loading && this.props.recipe.info.id) {
 			this.setState(() => ({ loading: false }));
 		}
+	}
+
+	componentWillUnmount() {
+		this.props.setEditMode(false);
 	}
 	
 	render() {
@@ -84,7 +89,8 @@ const mapStateToProps = (state) => ({
   
 const mapDispatchToProps = (dispatch, props) => ({
 	clearCurrentRecipe: () => dispatch(clearCurrentRecipe()),
-	getRecipe: (recipe_id) => dispatch(getRecipe(recipe_id))
+	getRecipe: (recipe_id) => dispatch(getRecipe(recipe_id)),
+	setEditMode: (editMode) => dispatch(setEditMode(editMode))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipePage);
