@@ -68,7 +68,11 @@ input {
     background-color: $white;
     border-color: $gray-light;
     position: relative;
-    width: 125px;
+    width: 110px;
+    
+    @include for-desktop-up {
+        width: 125px;
+    }
 }
 
 .select__wrapper--auto {
@@ -83,7 +87,7 @@ input {
     border-radius: 4px;
     color: $gray-dark;
     cursor: pointer;
-    font-size: $size-md;
+    font-size: $size-sm;
     position: relative;
     width: 100%;
 }

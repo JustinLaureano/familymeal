@@ -120,6 +120,17 @@ export default (state = filterReducerDefaultState, action) => {
                     }
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_COOK_TIME':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        cook_time: action.cook_time
+                    }
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_DIFFICULTY':
             return {
                 ...state,
@@ -128,6 +139,28 @@ export default (state = filterReducerDefaultState, action) => {
                     info: {
                         ...state.currentRecipe.info,
                         difficulty: action.difficulty
+                    }
+                }
+            };
+        case 'UPDATE_CURRENT_RECIPE_PORTIONS':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        portions: action.portions
+                    }
+                }
+            };
+        case 'UPDATE_CURRENT_RECIPE_PREP_TIME':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        prep_time: action.prep_time
                     }
                 }
             };

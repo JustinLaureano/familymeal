@@ -31,11 +31,6 @@ combine pages for create / edit recipes
 
 * add new recipe info sections
     portions
+        validate str.length
     prep time
     cook time
-
-
-favorite_recipes
-    id
-    user_id
-    recipe_id

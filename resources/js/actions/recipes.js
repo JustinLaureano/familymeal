@@ -194,10 +194,38 @@ export const updateRecipeDifficulty = (difficulty) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_DIFFICULTY',
 					difficulty
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const updateRecipePortions = (portions) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ portions })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_PORTIONS',
+					portions
 				});
 			})
 			.catch(err => console.log(err))
@@ -227,6 +255,35 @@ export const updateRecipeCategory = (category) => {
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_CATEGORY',
 					category
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const updateRecipeCookTime = (cook_time) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ cook_time })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_COOK_TIME',
+					cook_time
 				});
 			})
 			.catch(err => console.log(err))
@@ -317,6 +374,35 @@ export const updateRecipeNotes = (notes) => {
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_NOTES',
 					notes: data.response
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const updateRecipePrepTime = (prep_time) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ prep_time })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_PREP_TIME',
+					prep_time
 				});
 			})
 			.catch(err => console.log(err))

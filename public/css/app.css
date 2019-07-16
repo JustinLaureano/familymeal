@@ -196,11 +196,11 @@ button:focus {
   outline: none;
 }
 
-input, .input--edit, .page-header__title--input, .input {
+input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
   font-size: 1em;
 }
 
-input:focus, .input--edit:focus, .page-header__title--input:focus, .input:focus,
+input:focus, .input--edit:focus, .recipe-grid__info-input:focus, .page-header__title--input:focus, .input:focus,
 select:focus {
   outline: none;
 }
@@ -235,6 +235,7 @@ h1 {
 }
 
 h3 {
+  font-size: 1em;
   font-weight: 500;
 }
 
@@ -554,7 +555,7 @@ a:hover {
   opacity: 1;
 }
 
-input, .input--edit, .page-header__title--input, .input {
+input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
   border: 1px solid #363636;
   border-radius: 0px;
   padding: calc(0.375 * 1em) calc(0.5 * 1em);
@@ -595,7 +596,7 @@ input, .input--edit, .page-header__title--input, .input {
   opacity: 0.54;
 }
 
-.input--edit, .page-header__title--input {
+.input--edit, .recipe-grid__info-input, .page-header__title--input {
   padding: 0;
   border: none;
   border-bottom: 1px solid #cfcfcf;
@@ -651,7 +652,12 @@ input, .input--edit, .page-header__title--input, .input {
   background-color: #fffeff;
   border-color: #cfcfcf;
   position: relative;
-  width: 125px;
+  width: 110px;
+}
+@media (min-width: 1200px) {
+  .select__wrapper {
+    width: 125px;
+  }
 }
 
 .select__wrapper--auto {
@@ -668,7 +674,7 @@ input, .input--edit, .page-header__title--input, .input {
   border-radius: 4px;
   color: #363636;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 0.875em;
   position: relative;
   width: 100%;
 }
@@ -1180,10 +1186,16 @@ page-header__options {
   grid-area: info;
   display: -webkit-box;
   display: flex;
+  flex-wrap: wrap;
   -webkit-box-pack: space-evenly;
           justify-content: space-evenly;
   border-top: 1px solid #505d6a;
   border-bottom: 1px solid #505d6a;
+}
+@media (min-width: 900px) {
+  .recipe-grid__info {
+    flex-wrap: nowrap;
+  }
 }
 
 .recipe-grid__info-block {
@@ -1196,6 +1208,12 @@ page-header__options {
           justify-content: center;
   -webkit-box-align: center;
           align-items: center;
+  width: 33%;
+}
+@media (min-width: 1200px) {
+  .recipe-grid__info-block {
+    width: auto;
+  }
 }
 
 .recipe-grid__remove {
@@ -1213,6 +1231,31 @@ page-header__options {
   position: absolute;
   right: 30px;
   top: 10px;
+}
+
+.recipe-grid__info-input {
+  margin: calc(0.5 * 1em) 0;
+  font-size: 0.875em;
+  font-weight: 300;
+  height: 2.435em;
+  max-width: 130px;
+  text-align: center;
+  width: 80%;
+}
+.recipe-grid__info-input::-webkit-input-placeholder {
+  font-style: oblique;
+}
+.recipe-grid__info-input::-moz-placeholder {
+  font-style: oblique;
+}
+.recipe-grid__info-input:-ms-input-placeholder {
+  font-style: oblique;
+}
+.recipe-grid__info-input::-ms-input-placeholder {
+  font-style: oblique;
+}
+.recipe-grid__info-input::placeholder {
+  font-style: oblique;
 }
 
 .recipe-grid__ingredients {

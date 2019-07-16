@@ -62,7 +62,6 @@ class RecipeController extends Controller
 
         if ($request->post('name')) {
             $recipe->name = $request->post('name');
-            // $recipe->save();
             $updates[] = 'name';
         }
 
@@ -85,19 +84,31 @@ class RecipeController extends Controller
 
         if ($request->post('difficulty')) {
             $recipe->difficulty = $request->post('difficulty');
-            // $recipe->save();
             $updates[] = 'difficulty';
+        }
+
+        if ($request->post('portions')) {
+            $recipe->portions = $request->post('portions');
+            $updates[] = 'portions';
+        }
+
+        if ($request->post('prep_time')) {
+            $recipe->prep_time = $request->post('prep_time');
+            $updates[] = 'prep_time';
+        }
+
+        if ($request->post('cook_time')) {
+            $recipe->cook_time = $request->post('cook_time');
+            $updates[] = 'cook_time';
         }
 
         if ($request->post('cuisine')) {
             $recipe->cuisine_type_id = $request->post('cuisine');
-            // $recipe->save();
             $updates[] = 'cuisine';
         }
 
         if ($request->post('category')) {
             $recipe->recipe_category_id = $request->post('category');
-            // $recipe->save();
             $updates[] = 'category';
         }
 

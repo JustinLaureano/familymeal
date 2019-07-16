@@ -59,13 +59,23 @@
     @include margin($space-lg, 0);
     grid-area: info;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     border-top: 1px solid $weathered-gray;
     border-bottom: 1px solid $weathered-gray;
+
+    @include for-tablet-landscape-up {
+        flex-wrap: nowrap;
+    }
 }
 
 .recipe-grid__info-block {
     @include flex-center;
+    width: 33%;
+
+    @include for-desktop-up {
+        width: auto;
+    }
 }
 
 .recipe-grid__remove {
@@ -80,6 +90,20 @@
     position: absolute;
     right: 30px;
     top: 10px;
+}
+
+.recipe-grid__info-input {
+    @extend .input--edit;
+    @include margin($space-xs, 0);
+    font-size: $size-sm;
+    font-weight: 300;
+    height: 2.435em; // 39px
+    max-width: 130px;
+    text-align: center;
+    width: 80%;
+    &::placeholder {
+        font-style: oblique;
+    }
 }
 
 @import './recipe/ingredients';
