@@ -31,8 +31,10 @@ class CreateFavoriteRecipesTable extends Migration
      */
     public function down()
     {
-        $table->dropForeign('favorite_recipes_recipe_id_foreign');
-        $table->dropForeign('favorite_recipes_user_id_foreign');
+        Schema::table('favorite_recipes', function (Blueprint $table) {
+            $table->dropForeign('favorite_recipes_recipe_id_foreign');
+            $table->dropForeign('favorite_recipes_user_id_foreign');
+        });
         Schema::dropIfExists('favorite_recipes');
     }
 }

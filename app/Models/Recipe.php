@@ -33,4 +33,25 @@ class Recipe extends Model
             ->where('recipe.id', $id)
             ->first();
     }
+
+    public static function getUserRecipes($params)
+    {
+        return DB::table('recipe')
+            ->select('recipe.name',
+                'recipe.id',
+                'recipe_category_id',
+                'recipe_category.name AS recipe_category',
+                'cuisine_type.name AS cuisine_type',
+                'recipe.created_at',
+                'recipe.updated_at'
+            )
+            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
+            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
+            ->where('user_id', $params['user_id'])
+            ->where('recipe.deleted_at', Null)
+            ->orderBy('name', 'asc')
+            ->take($params['take'])
+            ->offset($params['offset'])
+            ->get();
+    }
 }

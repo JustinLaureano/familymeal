@@ -19,6 +19,10 @@ class CreateRecipeTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('recipe_category_id')->nullable();
             $table->unsignedBigInteger('cuisine_type_id')->nullable();
+            $table->string('difficulty', 10)->nullable();
+            $table->string('portions', 20)->nullable();
+            $table->string('prep_time', 20)->nullable();
+            $table->string('cook_time', 20)->nullable();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             $table->softDeletes();

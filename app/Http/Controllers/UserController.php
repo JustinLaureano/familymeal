@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CuisineType;
+use App\Models\Ingredient;
 use App\Models\MeasurementUnits;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
@@ -30,37 +31,15 @@ class UserController extends Controller
 
         $recipe_categories = RecipeCategory::orderBy('name')->get();
 
-        $ingredients = DB::table('ingredient')
-            ->select(
-                'ingredient.id',
-                'ingredient.name',
-                'ingredient_category_id',
-                'ingredient_category.name AS ingredient_category_name'
-            )
-            ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
-            ->where('created_user_id', Null)
-            ->orWhere('created_user_id', $id)
-            ->orderBy('name', 'asc')
-            ->get();
+        $ingredients = Ingredient::getByUserId($id);
 
         $user_settings = UserSettings::where('user_id', $id)->first();
 
-        $recipes = DB::table('recipe')
-            ->select('recipe.name',
-                'recipe.id',
-                'recipe_category_id',
-                'recipe_category.name AS recipe_category',
-                'cuisine_type.name AS cuisine_type',
-                'recipe.created_at',
-                'recipe.updated_at'
-            )
-            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
-            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
-            ->where('user_id', $id)
-            ->where('recipe.deleted_at', Null)
-            ->orderBy('name', 'asc')
-            ->limit($user_settings->table_result_limit)
-            ->get();
+        $recipes = Recipe::getUserRecipes([
+            'user_id' => $id,
+            'take' => $user_settings->table_result_limit,
+            'offset' => 0,
+        ]);
 
         $data = [
             'cuisine_types' => $cuisine_types,

@@ -25,25 +25,13 @@ class RecipeController extends Controller
         $page = $request->page ? intval($request->page) : 1;
         $user = User::find($user_id);
         $user_settings = UserSettings::where('user_id', $user_id)->first();
-        $offset = ($page == 1 ? 1 : $page - 1) * intval($user_settings->table_result_limit);
+        $offset = $page == 1 ? 0 : ($page - 1) * intval($user_settings->table_result_limit);
 
-        $recipes = DB::table('recipe')
-            ->select('recipe.name',
-                'recipe.id',
-                'recipe_category_id',
-                'recipe_category.name AS recipe_category',
-                'cuisine_type.name AS cuisine_type',
-                'recipe.created_at',
-                'recipe.updated_at'
-            )
-            ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
-            ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
-            ->where('user_id', $user_id)
-            ->where('recipe.deleted_at', Null)
-            ->orderBy('name', 'asc')
-            ->take($user_settings->table_result_limit)
-            ->offset($offset)
-            ->get();
+        $recipes = Recipe::getUserRecipes([
+            'user_id' => $user_id,
+            'take' => $user_settings->table_result_limit,
+            'offset' => $offset,
+        ]);
 
         return response(['recipes' => $recipes], 200);
     }
