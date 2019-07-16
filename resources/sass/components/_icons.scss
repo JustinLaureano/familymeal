@@ -45,6 +45,11 @@
     }
 }
 
+.add-icon--textarea {
+    @extend .add-icon;
+    align-self: flex-start;
+}
+
 .remove-icon {
     @include transition;
     align-self: center;

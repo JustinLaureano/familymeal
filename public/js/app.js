@@ -35675,7 +35675,7 @@ function (_React$Component) {
         placeholder: "Add direction",
         onChange: this.setDirection
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons add-icon",
+        className: "material-icons add-icon--textarea",
         onClick: this.startAddDirection
       }, "add_circle"));
     }

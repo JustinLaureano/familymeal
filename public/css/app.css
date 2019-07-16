@@ -526,7 +526,7 @@ a:hover {
   opacity: 1;
 }
 
-.add-icon {
+.add-icon, .add-icon--textarea {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
   align-self: center;
@@ -536,8 +536,12 @@ a:hover {
   justify-self: center;
   opacity: 0.8;
 }
-.add-icon:hover {
+.add-icon:hover, .add-icon--textarea:hover {
   opacity: 1;
+}
+
+.add-icon--textarea {
+  align-self: flex-start;
 }
 
 .remove-icon {

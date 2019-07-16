@@ -42,7 +42,7 @@ export class DirectionInput extends React.Component {
                     onChange={ this.setDirection } />
 
                 <i
-                    className="material-icons add-icon"
+                    className="material-icons add-icon--textarea"
                     onClick={ this.startAddDirection }>add_circle</i>
             </section>
 		);
