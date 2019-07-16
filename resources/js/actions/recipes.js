@@ -174,6 +174,36 @@ export const updateRecipeCuisine = (cuisine) => {
 	}
 }
 
+export const updateRecipeDifficulty = (difficulty) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ difficulty })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_DIFFICULTY',
+					difficulty
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
 export const updateRecipeCategory = (category) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;

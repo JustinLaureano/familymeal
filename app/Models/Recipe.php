@@ -26,6 +26,10 @@ class Recipe extends Model
                 'recipe_category.name AS recipe_category_name',
                 'cuisine_type.id AS cuisine_type_id',
                 'cuisine_type.name AS cuisine_type',
+                'recipe.difficulty',
+                'recipe.portions',
+                'recipe.prep_time',
+                'recipe.cook_time',
                 'recipe.created_at'
             )
             ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')

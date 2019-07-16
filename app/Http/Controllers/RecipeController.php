@@ -62,7 +62,7 @@ class RecipeController extends Controller
 
         if ($request->post('name')) {
             $recipe->name = $request->post('name');
-            $recipe->save();
+            // $recipe->save();
             $updates[] = 'name';
         }
 
@@ -83,15 +83,21 @@ class RecipeController extends Controller
             $updates[] = 'summary';
         }
 
+        if ($request->post('difficulty')) {
+            $recipe->difficulty = $request->post('difficulty');
+            // $recipe->save();
+            $updates[] = 'difficulty';
+        }
+
         if ($request->post('cuisine')) {
             $recipe->cuisine_type_id = $request->post('cuisine');
-            $recipe->save();
+            // $recipe->save();
             $updates[] = 'cuisine';
         }
 
         if ($request->post('category')) {
             $recipe->recipe_category_id = $request->post('category');
-            $recipe->save();
+            // $recipe->save();
             $updates[] = 'category';
         }
 
@@ -247,6 +253,7 @@ class RecipeController extends Controller
             $response = RecipeNotes::getByRecipeId($recipe_id);
         }
 
+        $recipe->save();
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];
 
         if ($response) 

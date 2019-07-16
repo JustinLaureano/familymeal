@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import RecipeCuisine from '../../components/recipe/RecipeCuisine';
+import RecipeDifficulty from '../../components/recipe/RecipeDifficulty';
 import RecipeCategory from '../../components/recipe/RecipeCategory';
 
 export class RecipeInfo extends React.Component {
 	render() {
 		return (
             <section className="recipe-grid__info">
+				<RecipeDifficulty />
 				<RecipeCuisine />
 				<RecipeCategory />
             </section>

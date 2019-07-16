@@ -120,6 +120,17 @@ export default (state = filterReducerDefaultState, action) => {
                     }
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_DIFFICULTY':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        difficulty: action.difficulty
+                    }
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_NAME':
             return {
                 ...state,
