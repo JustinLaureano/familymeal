@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use App\Libraries\FileHelper;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeDirections;
@@ -68,16 +69,16 @@ class RecipeController extends Controller
             $updates[] = 'name';
         }
 
-        if ($request->post('photo')) {
-            // request()->validate([
-            //     'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // ]);
+        if ($_FILES['photo']) {
 
-            $photo = $request->post('photo');
+            $photo = $_FILES['photo'];
+            FileHelper::validateImage($photo);
+
             $recipe_name = str_replace(' ', '_', $recipe->name);
-            $file_name = $recipe_id . '_' .$recipe_name . $photo->getClientOriginalExtension();
+            $extension = FileHelper::getExtension($photo['type']);
+            $file_name = $recipe_id . '_' .$recipe_name . $extension;
 
-            Image::make($photo)
+            Image::make($photo['tmp_name'])
                 ->resize(150, 150)
                 ->save(storage_path('uploads/recipe_photos/' . $file_name));
 
@@ -305,7 +306,8 @@ class RecipeController extends Controller
         if ($response) 
             $data['response'] = $response;
 
-        $data['request'] = $request->all();
+        $tmp = $_FILES['photo'];
+        $data['request'] = $tmp;
 
         return response($data, 200);
     }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RecipePhoto extends Model
 {
-    protected $table = 'recipe_photo';
+    protected $table = 'recipe_photos';
 
     public static function getByRecipeId($recipe_id)
     {
