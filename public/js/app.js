@@ -36735,18 +36735,8 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
         'X-CSRF-TOKEN': csrf_token
       },
       body: formData
-    }; // fetch('/api/recipes/' + recipe_id + '/update', request)
-    // 	.then(resp => resp.json())
-    // 	.then((data) => {
-    // 		console.log(data);
-    // 		dispatch({
-    // 			type: 'UPDATE_CURRENT_RECIPE_PHOTO',
-    // 			photo: data.response
-    // 		});
-    // 	})
-    // 	.catch(err => console.log(err))
-
-    Object(axios__WEBPACK_IMPORTED_MODULE_0__["post"])('/api/recipes/' + recipe_id + '/update', formData, request).then(function (resp) {
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
       console.log(data);
@@ -36756,7 +36746,16 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
       });
     })["catch"](function (err) {
       return console.log(err);
-    });
+    }); // post('/api/recipes/' + recipe_id + '/update', formData, request)
+    // 	.then(resp => resp.json())
+    // 	.then((data) => {
+    // 		console.log(data);
+    // 		dispatch({
+    // 			type: 'UPDATE_CURRENT_RECIPE_PHOTO',
+    // 			photo: data.response
+    // 		});
+    // 	})
+    // 	.catch(err => console.log(err))
   };
 };
 var updateRecipeRating = function updateRecipeRating(rating) {
@@ -40437,6 +40436,9 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipePhoto", function (photo) {
+      console.log(_this.props.photo);
+      console.log(photo);
+
       _this.props.updateRecipePhoto(photo);
 
       _this.togglePhotoEditDialog();
@@ -40458,13 +40460,6 @@ function (_React$Component) {
   }
 
   _createClass(RecipePhoto, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      if (!this.props.editMode) {
-        this.saveRecipePhoto();
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       var photoProps = {

@@ -98,18 +98,7 @@ export const updateRecipePhoto = (photo) => {
 			body: formData
 		};
 
-		// fetch('/api/recipes/' + recipe_id + '/update', request)
-		// 	.then(resp => resp.json())
-		// 	.then((data) => {
-		// 		console.log(data);
-		// 		dispatch({
-		// 			type: 'UPDATE_CURRENT_RECIPE_PHOTO',
-		// 			photo: data.response
-		// 		});
-		// 	})
-		// 	.catch(err => console.log(err))
-
-		post('/api/recipes/' + recipe_id + '/update', formData, request)
+		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
 				console.log(data);
@@ -119,6 +108,17 @@ export const updateRecipePhoto = (photo) => {
 				});
 			})
 			.catch(err => console.log(err))
+
+		// post('/api/recipes/' + recipe_id + '/update', formData, request)
+		// 	.then(resp => resp.json())
+		// 	.then((data) => {
+		// 		console.log(data);
+		// 		dispatch({
+		// 			type: 'UPDATE_CURRENT_RECIPE_PHOTO',
+		// 			photo: data.response
+		// 		});
+		// 	})
+		// 	.catch(err => console.log(err))
 	}
 }
 

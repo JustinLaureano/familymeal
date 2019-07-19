@@ -16,6 +16,7 @@ use App\Models\RecipeSummary;
 use App\Models\User;
 use App\Models\UserSettings;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class RecipeController extends Controller
@@ -65,35 +66,58 @@ class RecipeController extends Controller
         $recipe = Recipe::find($recipe_id);
 
         if ($request->post('name')) {
+            $old_name = $recipe->name;
             $recipe->name = $request->post('name');
+            $recipe->save();
+
             $updates[] = 'name';
+
+            // Update recipe photo filename if exists
+            if (RecipePhoto::where('recipe_id', $recipe_id)->exists()) {
+                $recipe_photo = RecipePhoto::where('recipe_id', $recipe_id)->first();
+                $extension = FileHelper::getExtension($recipe_photo->filetype);
+
+                $old_filename = $recipe_id . '_' . str_replace(' ', '_', $old_name) . $extension;
+                $new_filename = $recipe_id . '_' . $recipe->name . $extension;
+
+                // Rename File
+                rename(storage_path('uploads/recipe_photos/') . $old_filename, storage_path('uploads/recipe_photos/') . $new_filename);
+
+                // Update DB record
+                $recipe_photo->filename = $new_filename;
+                $recipe_photo->save();
+
+                $updates[] = 'photo_name';
+            }
+
         }
 
-        if ($_FILES['photo']) {
-
+        if (isset($_FILES['photo'])) {
             $photo = $_FILES['photo'];
             FileHelper::validateImage($photo);
 
             $recipe_name = str_replace(' ', '_', $recipe->name);
             $extension = FileHelper::getExtension($photo['type']);
-            $file_name = $recipe_id . '_' .$recipe_name . $extension;
+            $filename = $recipe_id . '_' . $recipe_name . $extension;
 
             Image::make($photo['tmp_name'])
                 ->resize(150, 150)
-                ->save(storage_path('uploads/recipe_photos/' . $file_name));
+                ->save(storage_path('uploads/recipe_photos/' . $filename));
 
             if (RecipePhoto::where('recipe_id', $recipe_id)->exists()) {
                 $recipe_photo = RecipePhoto::where('recipe_id', $recipe_id)->first();
                 $old_filename = $recipe_photo->file_name;
 
                 Storage::delete(storage_path('uploads/recipe_photos/' . $old_filename));
-                $recipe_photo->file_name = $file_name;
+                $recipe_photo->filename = $filename;
+                $recipe_photo->filetype = $photo['type'];
                 $recipe_photo->save();
             }
             else {
                 $recipe_photo = new RecipePhoto;
                 $recipe_photo->recipe_id = $recipe_id;
-                $recipe_photo->file_name = $file_name;
+                $recipe_photo->filename = $filename;
+                $recipe_photo->filetype = $photo['type'];
                 $recipe_photo->save();
             }
 
@@ -305,9 +329,6 @@ class RecipeController extends Controller
 
         if ($response) 
             $data['response'] = $response;
-
-        $tmp = $_FILES['photo'];
-        $data['request'] = $tmp;
 
         return response($data, 200);
     }

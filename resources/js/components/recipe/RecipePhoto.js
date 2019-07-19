@@ -14,11 +14,11 @@ export class RecipePhoto extends React.Component {
         };
     };
 
-	componentDidUpdate() {
-		if (!this.props.editMode) {
-			this.saveRecipePhoto();
-		}
-	}
+	// componentDidUpdate() {
+	// 	if (!this.props.editMode) {
+	// 		this.saveRecipePhoto();
+	// 	}
+	// }
 	
 	setPhoto = (e) => {
         const photo = e.target.value;
@@ -26,6 +26,8 @@ export class RecipePhoto extends React.Component {
     }
 
     saveRecipePhoto = (photo) => {
+        console.log(this.props.photo);
+        console.log(photo);
         this.props.updateRecipePhoto(photo);
         this.togglePhotoEditDialog();
     }
