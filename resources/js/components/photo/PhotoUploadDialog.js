@@ -35,8 +35,8 @@ export class PhotoUploadDialog extends React.Component {
         reader.readAsDataURL(file);
     }
 
-    saveRecipePhoto = () => {
-        console.log('save');
+    startSaveRecipePhoto = () => {
+        this.props.saveRecipePhoto(this.state.photoPreview.file);
     }
 	
     render() {
@@ -71,7 +71,7 @@ export class PhotoUploadDialog extends React.Component {
                                             Clear
                                         </button>
                                         <button
-                                            onClick={ this.saveRecipePhoto }
+                                            onClick={ this.startSaveRecipePhoto }
                                             className="btn--primary">
                                             Save
                                         </button>

@@ -35880,8 +35880,8 @@ function (_React$Component) {
       reader.readAsDataURL(file);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "saveRecipePhoto", function () {
-      console.log('save');
+    _defineProperty(_assertThisInitialized(_this), "startSaveRecipePhoto", function () {
+      _this.props.saveRecipePhoto(_this.state.photoPreview.file);
     });
 
     _this.state = {
@@ -35921,7 +35921,7 @@ function (_React$Component) {
         className: "btn--primary",
         onClick: this.clearPhotoPreview
       }, "Clear"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.saveRecipePhoto,
+        onClick: this.startSaveRecipePhoto,
         className: "btn--primary"
       }, "Save"))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "photo-upload__placeholder"
@@ -38463,8 +38463,10 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "saveRecipePhoto", function () {
-      console.log(_this.state.photo);
+    _defineProperty(_assertThisInitialized(_this), "saveRecipePhoto", function (photo) {
+      console.log(photo);
+
+      _this.togglePhotoEditDialog();
     });
 
     _defineProperty(_assertThisInitialized(_this), "togglePhotoEditDialog", function () {
@@ -38504,7 +38506,8 @@ function (_React$Component) {
           className: "material-icons photo-edit-icon",
           onClick: this.togglePhotoEditDialog
         }, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps), this.state.photoEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          closeDialog: this.togglePhotoEditDialog
+          closeDialog: this.togglePhotoEditDialog,
+          saveRecipePhoto: this.saveRecipePhoto
         }) : '');
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps);

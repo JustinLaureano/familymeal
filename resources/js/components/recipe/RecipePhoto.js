@@ -25,8 +25,9 @@ export class RecipePhoto extends React.Component {
         this.setState(() => ({ photo }));
     }
 
-    saveRecipePhoto = () => {
-        console.log(this.state.photo);
+    saveRecipePhoto = (photo) => {
+        console.log(photo);
+        this.togglePhotoEditDialog();
     }
     
     togglePhotoEditDialog = () => {
@@ -56,7 +57,8 @@ export class RecipePhoto extends React.Component {
                     { 
                         this.state.photoEdit ? (
                             <PhotoUploadDialog
-                                closeDialog={ this.togglePhotoEditDialog }/>
+                                closeDialog={ this.togglePhotoEditDialog }
+                                saveRecipePhoto={ this.saveRecipePhoto }/>
                         ) : ''
                     }
                 </section>
