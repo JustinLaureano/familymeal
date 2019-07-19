@@ -69,9 +69,9 @@ class RecipeController extends Controller
         }
 
         if ($request->post('photo')) {
-            request()->validate([
-                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ]);
+            // request()->validate([
+            //     'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // ]);
 
             $photo = $request->post('photo');
             $recipe_name = str_replace(' ', '_', $recipe->name);
@@ -304,6 +304,8 @@ class RecipeController extends Controller
 
         if ($response) 
             $data['response'] = $response;
+
+        $data['request'] = $request->all();
 
         return response($data, 200);
     }

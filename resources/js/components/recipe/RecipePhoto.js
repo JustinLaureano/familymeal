@@ -27,6 +27,7 @@ export class RecipePhoto extends React.Component {
 
     saveRecipePhoto = (photo) => {
         console.log(photo);
+        this.props.updateRecipePhoto(photo);
         this.togglePhotoEditDialog();
     }
     
@@ -34,7 +35,6 @@ export class RecipePhoto extends React.Component {
         this.setState(() => ({
             photoEdit: this.state.photoEdit ? false : true
         }))
-
     }
 	
 	render() {

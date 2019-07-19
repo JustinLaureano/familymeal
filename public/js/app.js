@@ -34761,17 +34761,16 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
     var recipe_id = getState().filters.currentRecipe.info.id;
+    console.log(photo);
+    var formData = new FormData();
+    formData.append('photo', photo);
     var request = {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
         Authorization: "Bearer ".concat(token),
         'X-CSRF-TOKEN': csrf_token
       },
-      body: JSON.stringify({
-        photo: photo
-      })
+      body: formData
     };
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
@@ -38465,6 +38464,8 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "saveRecipePhoto", function (photo) {
       console.log(photo);
+
+      _this.props.updateRecipePhoto(photo);
 
       _this.togglePhotoEditDialog();
     });

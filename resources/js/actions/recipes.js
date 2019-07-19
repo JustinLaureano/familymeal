@@ -82,16 +82,17 @@ export const updateRecipePhoto = (photo) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
 		const recipe_id = getState().filters.currentRecipe.info.id;
+		console.log(photo);
+		const formData = new FormData();
+		formData.append('photo', photo);
 
 		const request = {
 			method: 'POST',
             headers: {
-                'Accept': 'application/json',
-				'Content-Type': 'application/json',
 				Authorization: `Bearer ${token}`,
 				'X-CSRF-TOKEN': csrf_token
 			},
-			body: JSON.stringify({ photo })
+			body: formData
 		};
 
 		fetch('/api/recipes/' + recipe_id + '/update', request)
