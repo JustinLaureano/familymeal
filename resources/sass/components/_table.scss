@@ -128,9 +128,8 @@
 
 .table__pagination {
     @include flex-align-center;
-    @include pad(0, $space-md);
+    @include pad($space-md);
     justify-content: space-between;
-    padding-top: $space-sm;
     width: 100%;
 }
 

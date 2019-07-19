@@ -657,7 +657,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   background-color: #fffeff;
   border-color: #cfcfcf;
   position: relative;
-  width: 110px;
+  width: 120px;
 }
 @media (min-width: 1200px) {
   .select__wrapper {
@@ -961,10 +961,9 @@ page-header__options {
   display: flex;
   -webkit-box-align: center;
           align-items: center;
-  padding: 0 calc(1.25 * 1em);
+  padding: calc(1.25 * 1em);
   -webkit-box-pack: justify;
           justify-content: space-between;
-  padding-top: calc(0.75 * 1em);
   width: 100%;
 }
 

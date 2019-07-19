@@ -68,7 +68,7 @@ input {
     background-color: $white;
     border-color: $gray-light;
     position: relative;
-    width: 110px;
+    width: 120px;
     
     @include for-desktop-up {
         width: 125px;

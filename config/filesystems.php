@@ -55,6 +55,11 @@ return [
             'visibility' => 'public',
         ],
 
+        'recipe_photos' => [
+            'driver' => 'local',
+            'root' => storage_path().'/uploads/recipe_photos',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

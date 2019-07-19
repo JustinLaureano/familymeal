@@ -9,11 +9,13 @@ use App\Models\Recipe;
 use App\Models\RecipeDirections;
 use App\Models\RecipeIngredients;
 use App\Models\RecipeNotes;
+use App\Models\RecipePhoto;
 use App\Models\RecipeRatings;
 use App\Models\RecipeSummary;
 use App\Models\User;
 use App\Models\UserSettings;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 class RecipeController extends Controller
 {
@@ -63,6 +65,37 @@ class RecipeController extends Controller
         if ($request->post('name')) {
             $recipe->name = $request->post('name');
             $updates[] = 'name';
+        }
+
+        if ($request->post('photo')) {
+            request()->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            ]);
+
+            $photo = $request->post('photo');
+            $recipe_name = str_replace(' ', '_', $recipe->name);
+            $file_name = $recipe_id . '_' .$recipe_name . $photo->getClientOriginalExtension();
+
+            Image::make($photo)
+                ->resize(150, 150)
+                ->save(storage_path('uploads/recipe_photos/' . $file_name));
+
+            if (RecipePhoto::where('recipe_id', $recipe_id)->exists()) {
+                $recipe_photo = RecipePhoto::where('recipe_id', $recipe_id)->first();
+                $old_filename = $recipe_photo->file_name;
+
+                Storage::delete(storage_path('uploads/recipe_photos/' . $old_filename));
+                $recipe_photo->file_name = $file_name;
+                $recipe_photo->save();
+            }
+            else {
+                $recipe_photo = new RecipePhoto;
+                $recipe_photo->recipe_id = $recipe_id;
+                $recipe_photo->file_name = $file_name;
+                $recipe_photo->save();
+            }
+
+            $updates[] = 'photo';
         }
 
         if ($request->post('rating')) {
