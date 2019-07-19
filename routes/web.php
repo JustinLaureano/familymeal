@@ -34,7 +34,6 @@ Route::get('recipe/photo/{image}', function($image = null)
     }
 });
 
-
 Route::fallback(function () {
     return redirect()->route('home');
 });
