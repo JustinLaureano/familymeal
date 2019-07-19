@@ -26,6 +26,15 @@ Route::redirect('/recipe-book', '/home/recipe-book');
 Route::redirect('/settings', '/home/settings');
 Route::redirect('/shopping-list', '/home/shopping-list');
 
+Route::get('recipe/photo/{image}', function($image = null)
+{
+    $path = storage_path('uploads/recipe_photos/') . $image;
+    if (file_exists($path)) { 
+        return Response::download($path);
+    }
+});
+
+
 Route::fallback(function () {
     return redirect()->route('home');
 });

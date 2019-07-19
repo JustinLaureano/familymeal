@@ -13,12 +13,6 @@ export class RecipePhoto extends React.Component {
            photoEdit: false
         };
     };
-
-	// componentDidUpdate() {
-	// 	if (!this.props.editMode) {
-	// 		this.saveRecipePhoto();
-	// 	}
-	// }
 	
 	setPhoto = (e) => {
         const photo = e.target.value;
@@ -41,7 +35,9 @@ export class RecipePhoto extends React.Component {
 	render() {
         const photoProps = {
             className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
-            src: 'https://www.fillmurray.com/120/120'
+            src: this.state.photo.filename ? 
+                '/recipe/photo/' + this.state.photo.filename :
+                'https://www.fillmurray.com/120/120'
         };
 
 		if (this.props.editMode) {

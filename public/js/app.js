@@ -40464,7 +40464,7 @@ function (_React$Component) {
     value: function render() {
       var photoProps = {
         className: 'photo--circle photo--recipe' + (this.props.editMode ? '-edit' : ''),
-        src: 'https://www.fillmurray.com/120/120'
+        src: this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : 'https://www.fillmurray.com/120/120'
       };
 
       if (this.props.editMode) {

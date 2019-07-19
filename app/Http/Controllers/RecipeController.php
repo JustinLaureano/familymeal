@@ -78,7 +78,7 @@ class RecipeController extends Controller
                 $extension = FileHelper::getExtension($recipe_photo->filetype);
 
                 $old_filename = $recipe_id . '_' . str_replace(' ', '_', $old_name) . $extension;
-                $new_filename = $recipe_id . '_' . $recipe->name . $extension;
+                $new_filename = $recipe_id . '_' . str_replace(' ', '_', $recipe->name) . $extension;
 
                 // Rename File
                 rename(storage_path('uploads/recipe_photos/') . $old_filename, storage_path('uploads/recipe_photos/') . $new_filename);
