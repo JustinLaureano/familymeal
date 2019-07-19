@@ -1,0 +1,74 @@
+.photo-upload {
+    border-radius: 3px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+}
+
+.photo-upload__header {
+    @include pad($space-xxs);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, .1);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.photo-upload__drop-zone {
+    @include flex-center;
+    flex-grow: 1;
+    height: 280px;
+    width: 325px;
+}
+
+.photo-upload__preview {
+    @include flex-center;
+    width: 75%;
+}
+
+.photo-upload__preview-subtitle {
+    margin-bottom: $space-xs;
+}
+
+.photo-upload__preview-thumbnail {
+    height: 150px;
+    width: 150px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .2);
+}
+
+.photo-upload__preview-name {
+    font-size: $size-sm;
+    margin-top: $space-xxs;
+}
+
+.photo-upload__placeholder {
+    
+}
+
+.photo-upload__target {
+    @include flex-center;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+}
+
+.photo-upload__drag--over-frame {
+    cursor: no-drop;
+}
+
+.photo-upload__drag--over-target {
+    @include transition;
+    background-color: $weathered-blue-hover;
+}
+
+.photo-upload__instructions {
+    font-style: oblique;
+    color: $gray-medium;
+}
+
+.photo-upload__btns {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: $space-xs;
+    width: 100%;
+}

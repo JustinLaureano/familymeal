@@ -77,6 +77,36 @@ export const updateRecipeName = (name) => {
 	}
 }
 
+export const updateRecipePhoto = (photo) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const recipe_id = getState().filters.currentRecipe.info.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ photo })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_PHOTO',
+					photo: data.response
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
 export const updateRecipeRating = (rating) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;

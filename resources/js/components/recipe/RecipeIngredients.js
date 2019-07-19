@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  updateRecipeIngredients } from '../../actions/recipes';
 import { addCurrentRecipeIngredient, removeCurrentRecipeIngredient } from '../../actions/filters';
-import { arrayMove } from '../../helpers/Recipe';
+import { arrayMove } from '../../services/Recipe';
 import IngredientSelect from '../recipe/IngredientSelect';
 
 export class RecipeIngredients extends React.Component {

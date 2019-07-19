@@ -1,0 +1,5 @@
+.recipe-grid__photo-edit {
+    @include flex-center;
+    grid-area: photo;
+    position: relative;
+}

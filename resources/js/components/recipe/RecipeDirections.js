@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {  updateRecipeDirections } from '../../actions/recipes';
 import { addCurrentRecipeDirection, removeCurrentRecipeDirection } from '../../actions/filters';
-import { arrayMove } from '../../helpers/Recipe';
+import { arrayMove } from '../../services/Recipe';
 import DirectionInput from '../recipe/DirectionInput';
 
 export class RecipeDirections extends React.Component {

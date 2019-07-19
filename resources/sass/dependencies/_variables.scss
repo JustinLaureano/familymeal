@@ -31,5 +31,13 @@ $header-height: 54px;
 $navbar-width: 50px;
 $navbar-hover-width: 160px;
 
+// z-indexes
+$navbar-z-index: 100;
+$table-options-z-index: 150;
+$overlay-z-index: 500;
+$dialog-z-index: 600;
+$header-z-index: 1000;
+
+
 // Misc
 $icon-opacity: .54;

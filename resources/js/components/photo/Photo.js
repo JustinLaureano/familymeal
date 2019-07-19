@@ -5,9 +5,7 @@ export class Photo extends React.Component {
 		return (
             <img
                 className={this.props.className}
-                src={this.props.src}
-                />
-
+                src={this.props.src} />
 		);
 	};
 };

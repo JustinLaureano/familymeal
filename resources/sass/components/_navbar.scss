@@ -10,7 +10,7 @@
     padding-top: calc(#{$header-height} + #{$size-md});
     top: 0;
     transition: all .125s ease-in-out;
-    z-index: 50;
+    z-index: $navbar-z-index;
     &:hover {
         max-width: $navbar-hover-width;
         min-width: $navbar-hover-width;

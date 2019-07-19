@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import RecipePageHeader from '../components/recipe/RecipePageHeader';
 import PageLoad from '../components/PageLoad';
-import Photo from '../components/Photo';
 import RecipeAbout from '../components/recipe/RecipeAbout';
 import RecipeInfo from '../components/recipe/RecipeInfo';
 import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeDirections from '../components/recipe/RecipeDirections';
 import RecipeNotes from '../components/recipe/RecipeNotes';
+import RecipePhoto from '../components/recipe/RecipePhoto';
 import { setEditMode } from '../actions/filters';
 import { getRecipe, clearCurrentRecipe } from '../actions/recipes';
 
@@ -62,14 +62,10 @@ export class ViewRecipePage extends React.Component {
 					]
 				}
 			}
-			const photoProps = {
-				className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
-				src: 'https://www.fillmurray.com/120/120'
-			}
 			return (
 				<section className="recipe-grid">
 					<Breadcrumbs />
-					<Photo {...photoProps}/>
+					<RecipePhoto />
 					<RecipePageHeader {...pageHeaderProps}/>
 					<RecipeAbout />
 					<RecipeInfo />

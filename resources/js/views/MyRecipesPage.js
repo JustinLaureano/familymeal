@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getRecipeTableHeaders, getRecipeTableOptions } from '../helpers/Table';
+import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import Table from '../components/table/Table.js';

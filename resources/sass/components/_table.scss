@@ -86,7 +86,7 @@
     right: 20px;
     top: 3px;
     min-width: 100px;
-    z-index: 500;
+    z-index: $table-options-z-index;
     &:hover {
         @include flex-column;
     }

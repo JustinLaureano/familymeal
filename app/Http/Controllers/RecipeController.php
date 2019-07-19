@@ -48,6 +48,7 @@ class RecipeController extends Controller
     {
         return response([
             'info' => Recipe::getById($recipe_id),
+            'photo' => RecipePhoto::getByRecipeId($recipe_id),
             'summary' => RecipeSummary::getByRecipeId($recipe_id),
             'ratings' => RecipeRatings::getByRecipeId($recipe_id),
             'ingredients' => RecipeIngredients::getByRecipeId($recipe_id),
@@ -96,6 +97,7 @@ class RecipeController extends Controller
             }
 
             $updates[] = 'photo';
+            $response = $recipe_photo;
         }
 
         if ($request->post('rating')) {

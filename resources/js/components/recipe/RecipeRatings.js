@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getAverageRating, getUserRating } from '../../helpers/Recipe';
+import { getAverageRating, getUserRating } from '../../services/Recipe';
 import { updateRecipeRating } from '../../actions/recipes';
 
 export class RecipeRatings extends React.Component {

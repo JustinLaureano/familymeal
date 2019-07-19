@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getBreadcrumbs } from '../../helpers/Breadcrumbs';
+import { getBreadcrumbs } from '../../services/Breadcrumbs';
 
 export class Breadcrumbs extends React.Component {
     constructor(props) {

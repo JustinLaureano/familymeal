@@ -77,6 +77,14 @@ export default (state = filterReducerDefaultState, action) => {
                     notes: action.notes
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_PHOTO':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    photo: action.photo
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_RATINGS':
             return {
                 ...state,

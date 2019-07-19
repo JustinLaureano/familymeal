@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {  updateRecipeNotes } from '../../actions/recipes';
 import { addCurrentRecipeNote, removeCurrentRecipeNote } from '../../actions/filters';
-import { arrayMove } from '../../helpers/Recipe';
+import { arrayMove } from '../../services/Recipe';
 import NoteInput from '../recipe/NoteInput';
 
 export class RecipeNotes extends React.Component {
