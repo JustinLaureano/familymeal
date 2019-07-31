@@ -325,6 +325,10 @@ class RecipeController extends Controller
             $response = RecipeNotes::getByRecipeId($recipe_id);
         }
 
+        if ($request->post('favorite')) {
+            $updates[] = 'favorite';
+        }
+
         $recipe->save();
         $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];
 

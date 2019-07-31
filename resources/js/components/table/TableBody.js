@@ -1,12 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteRecipe } from '../../actions/recipes';
+import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
 
 export class TableBody extends React.Component {
     startDeleteRecipe = (e) => {
 		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
 		this.props.deleteRecipe(id);
+    }
+
+    startFavoriteRecipe = (e) => {
+		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+		this.props.favoriteRecipe(id);
     }
     
 	render() {
@@ -46,6 +51,16 @@ export class TableBody extends React.Component {
                                                     }
                                                     else {
                                                         switch(option.onClick) {
+                                                            case 'favoriteRecipe':
+                                                                return (
+                                                                    <div
+                                                                        key={"option_" + option.label + "_" + item.id}
+                                                                        onClick={ this.startFavoriteRecipe }
+                                                                        className="table__more-option">
+                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
+                                                                        { option.label }
+                                                                    </div>
+                                                                )
                                                             case 'deleteRecipe':
                                                                 return (
                                                                     <div

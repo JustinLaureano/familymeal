@@ -473,3 +473,31 @@ export const deleteRecipe = (id) => {
 			.catch(err => console.log(err))
 	}
 }
+
+export const favoriteRecipe = (recipe_id, favorite) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ favorite })
+		};
+
+		fetch('/api/recipes/' + recipe_id + '/update', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch({
+					type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+					favorite
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}

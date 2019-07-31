@@ -34660,7 +34660,7 @@ var removeCurrentRecipeNote = function removeCurrentRecipeNote(notes) {
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipePhoto, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeDifficulty, updateRecipePortions, updateRecipeCategory, updateRecipeCookTime, updateRecipeIngredients, updateRecipeDirections, updateRecipeNotes, updateRecipePrepTime, deleteRecipe */
+/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipePhoto, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeDifficulty, updateRecipePortions, updateRecipeCategory, updateRecipeCookTime, updateRecipeIngredients, updateRecipeDirections, updateRecipeNotes, updateRecipePrepTime, deleteRecipe, favoriteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34681,6 +34681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeNotes", function() { return updateRecipeNotes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipePrepTime", function() { return updateRecipePrepTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -35148,6 +35149,34 @@ var deleteRecipe = function deleteRecipe(id) {
       dispatch({
         type: 'DELETE_RECIPE',
         id: id
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        favorite: favorite
+      })
+    };
+    fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+      dispatch({
+        type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+        favorite: favorite
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -39245,6 +39274,12 @@ function (_React$Component) {
       _this.props.deleteRecipe(id);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function (e) {
+      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+
+      _this.props.favoriteRecipe(id);
+    });
+
     return _this;
   }
 
@@ -39285,6 +39320,15 @@ function (_React$Component) {
                 }, option.icon), option.label);
               } else {
                 switch (option.onClick) {
+                  case 'favoriteRecipe':
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+                      key: "option_" + option.label + "_" + item.id,
+                      onClick: _this2.startFavoriteRecipe,
+                      className: "table__more-option"
+                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                      className: "material-icons table__more-option-icon"
+                    }, option.icon), option.label);
+
                   case 'deleteRecipe':
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
                       key: "option_" + option.label + "_" + item.id,
@@ -39832,6 +39876,15 @@ var filterReducerDefaultState = {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           info: _objectSpread({}, state.currentRecipe.info, {
             name: action.name
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            favorite: action.favorite
           })
         })
       });
@@ -40395,6 +40448,10 @@ function getRecipeTableHeaders() {
 }
 function getRecipeTableOptions() {
   return [{
+    label: 'Favorite',
+    icon: 'star_rate',
+    onClick: 'favoriteRecipe'
+  }, {
     label: 'Update',
     icon: 'edit',
     route: 'recipes/',

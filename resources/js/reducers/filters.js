@@ -183,6 +183,17 @@ export default (state = filterReducerDefaultState, action) => {
                     }
                 }
             };
+        case 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS':
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    info: {
+                        ...state.currentRecipe.info,
+                        favorite: action.favorite
+                    }
+                }
+            };
         case 'SORT_BY_NAME_ASC':
             return {
                 ...state,

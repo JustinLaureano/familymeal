@@ -33,6 +33,11 @@ export function getRecipeTableHeaders() {
 export function getRecipeTableOptions() {
     return [
         {
+            label: 'Favorite',
+            icon: 'star_rate',
+            onClick: 'favoriteRecipe'
+        },
+        {
             label: 'Update',
             icon: 'edit',
             route: 'recipes/',
