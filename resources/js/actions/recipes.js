@@ -477,6 +477,8 @@ export const deleteRecipe = (id) => {
 export const favoriteRecipe = (recipe_id, favorite) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const user_id = getState().user.id;
 
 		const request = {
 			method: 'POST',
@@ -486,17 +488,25 @@ export const favoriteRecipe = (recipe_id, favorite) => {
 				Authorization: `Bearer ${token}`,
 				'X-CSRF-TOKEN': csrf_token
 			},
-			body: JSON.stringify({ favorite })
+			body: JSON.stringify({ favorite, user_id })
 		};
 
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
+				const newFavoriteStatus = favorite == 'true' ? 'false': 'true';
+				console.log(data, newFavoriteStatus);
+
 				dispatch({
-					type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-					favorite
+					type: 'UPDATE_RECIPES_FAVORITE_STATUS_BY_RECIPE_ID',
+					recipe_id,
+					favorite: newFavoriteStatus
 				});
+
+				// dispatch({
+				// 	type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+				// 	favorite: newFavoriteStatus
+				// });
 			})
 			.catch(err => console.log(err))
 	}

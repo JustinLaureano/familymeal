@@ -34,7 +34,8 @@ export function getRecipeTableOptions() {
     return [
         {
             label: 'Favorite',
-            icon: 'star_rate',
+            icon: 'favorite',
+            iconClass: 'gold',
             onClick: 'favoriteRecipe'
         },
         {

@@ -1066,6 +1066,9 @@ page-header__options {
   right: 20px;
   top: 3px;
   min-width: 100px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
   z-index: 150;
 }
 .table__options-modal:hover {
@@ -1629,4 +1632,8 @@ page-header__options {
 
 .input-error {
   color: #ce0e0e;
+}
+
+.gold {
+  color: #fdc22d;
 }

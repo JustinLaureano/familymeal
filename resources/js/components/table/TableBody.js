@@ -10,8 +10,13 @@ export class TableBody extends React.Component {
     }
 
     startFavoriteRecipe = (e) => {
-		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-		this.props.favoriteRecipe(id);
+        const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+        console.log(id);
+        const recipe = this.props.data.filter(item => item.id == id)[0];
+        const favoriteStatus = recipe.favorite;
+        
+        console.log(favoriteStatus);
+        this.props.favoriteRecipe(id, favoriteStatus);
     }
     
 	render() {
@@ -57,8 +62,10 @@ export class TableBody extends React.Component {
                                                                         key={"option_" + option.label + "_" + item.id}
                                                                         onClick={ this.startFavoriteRecipe }
                                                                         className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                        { option.label }
+                                                                        <i className="material-icons table__more-option-icon ">
+                                                                            { option.icon }
+                                                                        </i>
+                                                                        { item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite' }
                                                                     </div>
                                                                 )
                                                             case 'deleteRecipe':
@@ -125,6 +132,7 @@ export class TableBody extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
 	deleteRecipe: (id) => dispatch(deleteRecipe(id))
 });
   

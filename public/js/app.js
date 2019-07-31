@@ -35158,6 +35158,8 @@ var deleteRecipe = function deleteRecipe(id) {
 var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var user_id = getState().user.id;
     var request = {
       method: 'POST',
       headers: {
@@ -35167,17 +35169,23 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
         'X-CSRF-TOKEN': csrf_token
       },
       body: JSON.stringify({
-        favorite: favorite
+        favorite: favorite,
+        user_id: user_id
       })
     };
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
+      var newFavoriteStatus = favorite == 'true' ? 'false' : 'true';
+      console.log(data, newFavoriteStatus);
       dispatch({
-        type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-        favorite: favorite
-      });
+        type: 'UPDATE_RECIPES_FAVORITE_STATUS_BY_RECIPE_ID',
+        recipe_id: recipe_id,
+        favorite: newFavoriteStatus
+      }); // dispatch({
+      // 	type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+      // 	favorite: newFavoriteStatus
+      // });
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -39276,8 +39284,16 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function (e) {
       var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+      console.log(id);
 
-      _this.props.favoriteRecipe(id);
+      var recipe = _this.props.data.filter(function (item) {
+        return item.id == id;
+      })[0];
+
+      var favoriteStatus = recipe.favorite;
+      console.log(favoriteStatus);
+
+      _this.props.favoriteRecipe(id, favoriteStatus);
     });
 
     return _this;
@@ -39326,8 +39342,8 @@ function (_React$Component) {
                       onClick: _this2.startFavoriteRecipe,
                       className: "table__more-option"
                     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
+                      className: "material-icons table__more-option-icon "
+                    }, option.icon), item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
                   case 'deleteRecipe':
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -39374,6 +39390,9 @@ function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
+    favoriteRecipe: function favoriteRecipe(id, favorite) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["favoriteRecipe"])(id, favorite));
+    },
     deleteRecipe: function deleteRecipe(id) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["deleteRecipe"])(id));
     }
@@ -40018,6 +40037,19 @@ var recipeReducerDefaultState = [];
         ;
       });
 
+    case 'UPDATE_RECIPES_FAVORITE_STATUS_BY_RECIPE_ID':
+      return state.map(function (recipe) {
+        if (recipe.id == action.recipe_id) {
+          return _objectSpread({}, recipe, {
+            favorite: action.favorite
+          });
+        } else {
+          return recipe;
+        }
+
+        ;
+      });
+
     case 'DELETE_RECIPE':
       return state.filter(function (recipe) {
         return recipe.id != action.id;
@@ -40449,7 +40481,8 @@ function getRecipeTableHeaders() {
 function getRecipeTableOptions() {
   return [{
     label: 'Favorite',
-    icon: 'star_rate',
+    icon: 'favorite',
+    iconClass: 'gold',
     onClick: 'favoriteRecipe'
   }, {
     label: 'Update',

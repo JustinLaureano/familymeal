@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Libraries\FileHelper;
+use App\Models\FavoriteRecipes;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipeDirections;
@@ -326,6 +327,22 @@ class RecipeController extends Controller
         }
 
         if ($request->post('favorite')) {
+            $favorite_status = $request->post('favorite');
+            $user_id = $request->post('user_id');
+
+            if ($favorite_status == 'false') {
+                // New favorite recipe
+                $favorite_recipe = new FavoriteRecipes;
+                $favorite_recipe->user_id = $user_id;
+                $favorite_recipe->recipe_id = $recipe_id;
+                $favorite_recipe->save();
+            }
+            else {
+                // Delete this favorite recipe
+                $favorite_recipe = FavoriteRecipes::where('recipe_id', $recipe_id)
+                    ->where('user_id', $user_id)
+                    ->delete();
+            }
             $updates[] = 'favorite';
         }
 
