@@ -16,7 +16,13 @@ export class RecipePhoto extends React.Component {
 
     componentDidUpdate() {
         console.log(this.state.photo);
-        document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
+        console.log(this.props.photo);
+        if (this.state.photo !== null) {
+            document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
+        }
+        else if (this.props.photo !== null) {
+            document.getElementById('recipe_photo').src = '/recipe/photo/' + this.props.photo.filename;
+        }
     }
 	
 	setPhoto = (e) => {
@@ -39,7 +45,7 @@ export class RecipePhoto extends React.Component {
         const photoProps = {
             id: 'recipe_photo',
             className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
-            src: this.state.photo.filename ? 
+            src: ( this.state.photo !== null && this.state.photo.filename ) ? 
                 '/recipe/photo/' + this.state.photo.filename :
                 'https://www.fillmurray.com/120/120'
         };

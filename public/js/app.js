@@ -38489,7 +38489,13 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       console.log(this.state.photo);
-      document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
+      console.log(this.props.photo);
+
+      if (this.state.photo !== null) {
+        document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
+      } else if (this.props.photo !== null) {
+        document.getElementById('recipe_photo').src = '/recipe/photo/' + this.props.photo.filename;
+      }
     }
   }, {
     key: "render",
@@ -38497,7 +38503,7 @@ function (_React$Component) {
       var photoProps = {
         id: 'recipe_photo',
         className: 'photo--circle photo--recipe' + (this.props.editMode ? '-edit' : ''),
-        src: this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : 'https://www.fillmurray.com/120/120'
+        src: this.state.photo !== null && this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : 'https://www.fillmurray.com/120/120'
       };
 
       if (this.props.editMode) {
