@@ -15,8 +15,10 @@ export class RecipePhoto extends React.Component {
     };
 
     componentDidUpdate() {
-        console.log(this.state.photo);
-        console.log(this.props.photo);
+        if (this.state.photo !== null && this.props.photo !== null && this.state.photo.filename !== this.props.photo.filename) {
+            this.setState(() => ({ photo: this.props.photo }));
+        }
+
         if (this.state.photo !== null) {
             document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
         }

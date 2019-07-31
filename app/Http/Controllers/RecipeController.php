@@ -88,6 +88,7 @@ class RecipeController extends Controller
                 $recipe_photo->save();
 
                 $updates[] = 'photo_name';
+                $response = $recipe_photo;
             }
 
         }

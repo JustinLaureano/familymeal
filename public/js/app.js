@@ -34751,6 +34751,14 @@ var updateRecipeName = function updateRecipeName(name) {
           recipes: recipes
         });
       }
+
+      if (data.updates.includes('photo_name')) {
+        // Update Recipe Photo as well
+        dispatch({
+          type: 'UPDATE_CURRENT_RECIPE_PHOTO',
+          photo: data.response
+        });
+      }
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -34768,7 +34776,6 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
       method: 'POST',
       headers: {
         Authorization: "Bearer ".concat(token),
-        // 'Content-Type': 'multipart/form-data',
         'X-CSRF-TOKEN': csrf_token
       },
       body: formData
@@ -34776,7 +34783,6 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
     fetch('/api/recipes/' + recipe_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_PHOTO',
         photo: data.response
@@ -38488,8 +38494,15 @@ function (_React$Component) {
   _createClass(RecipePhoto, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      console.log(this.state.photo);
-      console.log(this.props.photo);
+      var _this2 = this;
+
+      if (this.state.photo !== null && this.props.photo !== null && this.state.photo.filename !== this.props.photo.filename) {
+        this.setState(function () {
+          return {
+            photo: _this2.props.photo
+          };
+        });
+      }
 
       if (this.state.photo !== null) {
         document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;

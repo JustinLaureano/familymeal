@@ -72,6 +72,14 @@ export const updateRecipeName = (name) => {
 					});
 				}
 
+				if (data.updates.includes('photo_name')) {
+					// Update Recipe Photo as well
+					dispatch({
+						type: 'UPDATE_CURRENT_RECIPE_PHOTO',
+						photo: data.response
+					});
+				}
+
 			})
 			.catch(err => console.log(err))
 	}
@@ -90,7 +98,6 @@ export const updateRecipePhoto = (photo) => {
 			method: 'POST',
             headers: {
 				Authorization: `Bearer ${token}`,
-				// 'Content-Type': 'multipart/form-data',
 				'X-CSRF-TOKEN': csrf_token
 			},
 			body: formData
@@ -99,7 +106,6 @@ export const updateRecipePhoto = (photo) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_PHOTO',
 					photo: data.response
