@@ -721,6 +721,15 @@ a:hover {
   opacity: 1;
 }
 
+.table-favorite-icon {
+  color: #385e83;
+  font-size: 0.8em;
+  margin-left: calc(0.375 * 1em);
+  opacity: 0.54;
+  position: relative;
+  top: 1px;
+}
+
 input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
   border: 1px solid #363636;
   border-radius: 0px;

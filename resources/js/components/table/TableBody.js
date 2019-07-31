@@ -98,6 +98,11 @@ export class TableBody extends React.Component {
                                                 key={ index }
                                                 className={ this.props.headers[index].class }>
                                                 { item[header.column] }
+                                                { 
+                                                    item.favorite && 
+                                                    item.favorite == 'true' && 
+                                                    <i className="material-icons table-favorite-icon">favorite</i> 
+                                                }
                                             </Link>
                                         );
                                     }

@@ -95,3 +95,12 @@
         opacity: 1;
     }
 }
+
+.table-favorite-icon {
+    color: $weathered-blue;
+    font-size: $size-xs;
+    margin-left: $space-xxs;
+    opacity: $icon-opacity;
+    position: relative;
+    top: 1px;
+}

@@ -39367,7 +39367,9 @@ function (_React$Component) {
                 },
                 key: index,
                 className: _this2.props.headers[index]["class"]
-              }, item[header.column]);
+              }, item[header.column], item.favorite && item.favorite == 'true' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                className: "material-icons table-favorite-icon"
+              }, "favorite"));
             } else if (_this2.props.headers[index].type == 'date') {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
                 key: index,
