@@ -11,5 +11,5 @@ class RecipeCategory extends Model
     
     protected $table = 'recipe_category';
 
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }
