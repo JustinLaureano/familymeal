@@ -974,15 +974,91 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   width: 70%;
 }
 
-page-header__options {
+.page-header__options {
+  -webkit-box-align: center;
+          align-items: center;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: end;
           justify-content: flex-end;
+  position: relative;
 }
 
 .page-header__record-count {
   margin-left: calc(0.75 * 1em);
+}
+
+.page-header__save {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  margin-right: calc(1.25 * 1em);
+}
+
+.page-header__save-icon {
+  font-size: 1.125em;
+  margin-right: calc(0.5 * 1em);
+  position: relative;
+  top: 1px;
+}
+
+.page-header__more-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  cursor: pointer;
+  font-size: 18px;
+  justify-self: center;
+  opacity: 0.54;
+}
+.page-header__more-icon:hover + .page-header__options-modal {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.page-header__options-modal {
+  background: #fffeff;
+  border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 8px;
+  min-width: 100px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  z-index: 150;
+}
+.page-header__options-modal:hover {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.page-header__modal-option {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+          justify-content: flex-start;
+  padding: 0.4em;
+  width: 100%;
+}
+.page-header__modal-option:hover {
+  background-color: #5b677430;
+  cursor: pointer;
+}
+
+.page-header__modal-option-icon {
+  font-size: 1em;
+  margin-right: calc(0.5 * 1em);
 }
 
 .table-grid {
@@ -1104,7 +1180,7 @@ page-header__options {
 }
 
 .table__more-option-icon {
-  font-size: 16px;
+  font-size: 1em;
   margin-right: calc(0.5 * 1em);
 }
 

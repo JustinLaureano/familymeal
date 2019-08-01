@@ -38376,8 +38376,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -38390,31 +38388,26 @@ function (_React$Component) {
         value: this.state.name
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
-      }, this.props.name)), this.props.options ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
-      }, this.props.options.buttons ? this.props.options.buttons.map(function (button, index) {
-        if (button.onClick) {
-          switch (button.onClick) {
-            case 'edit':
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-                key: "button_" + index,
-                className: button.className,
-                onClick: _this2.toggleEditMode
-              }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                className: "material-icons btn__icon"
-              }, button.icon), _this2.props.filters.editMode ? button.label.edit : button.label.view);
-          }
-        } else {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-            key: "button_" + index,
-            to: button.link
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-            className: button.className
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-            className: "material-icons btn__icon"
-          }, button.icon), button.label));
-        }
-      }) : '') : '');
+      }, this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__save"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__save-icon"
+      }, "done"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Save")), this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__save"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__save-icon"
+      }, "cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel")), !this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__more-icon"
+      }, "more_vert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__options-modal"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__modal-option",
+        onClick: this.toggleEditMode
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__modal-option-icon"
+      }, "edit"), "Edit Recipe")))));
     }
   }]);
 
@@ -41568,8 +41561,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

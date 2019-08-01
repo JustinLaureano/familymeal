@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\FavoriteRecipes;
-use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

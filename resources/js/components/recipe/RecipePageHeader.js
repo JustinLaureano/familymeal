@@ -58,44 +58,39 @@ export class RecipePageHeader extends React.Component {
                         )
                     }				
                 </section>
-                {
-                    this.props.options ?
-                    (
-                        <section className="page-header__options">
-                            {
-                                this.props.options.buttons ?
-                                (
-                                    this.props.options.buttons.map((button, index) => {
-                                        if (button.onClick) {
-                                            switch(button.onClick) {
-                                                case 'edit':
-                                                    return (
-                                                        <button
-                                                                key={"button_" + index}
-                                                                className={ button.className }
-                                                                onClick={ this.toggleEditMode }>
-                                                            <i className="material-icons btn__icon">{ button.icon }</i>
-                                                            { this.props.filters.editMode ? button.label.edit : button.label.view }
-                                                        </button>
-                                                    )
-                                            }
-                                        }
-                                        else {
-                                            return (
-                                                <Link key={"button_" + index} to={ button.link }>
-                                                    <button className={ button.className }>
-                                                        <i className="material-icons btn__icon">{ button.icon }</i>
-                                                        { button.label }
-                                                    </button>
-                                                </Link>
-                                            )
-                                        }
-                                    })
-                                ) : ''
-                            }
-                        </section>
-                    ) : ''
-                }
+
+                <section className="page-header__options">
+                    { 
+                        this.props.filters.editMode &&
+                        <div className="page-header__save">
+                            <i className="material-icons page-header__save-icon">done</i>
+                            <span>Save</span>
+                        </div>
+                    }
+                    { 
+                        this.props.filters.editMode &&
+                        <div className="page-header__save">
+                            <i className="material-icons page-header__save-icon">cancel</i>
+                            <span>Cancel</span>
+                        </div>
+                    }
+                    {
+                        !this.props.filters.editMode &&
+                        <div>
+                            <i className="material-icons page-header__more-icon">more_vert</i>
+                            <div className="page-header__options-modal">
+                                <div
+                                    className="page-header__modal-option"
+                                    onClick={ this.toggleEditMode }>
+        
+                                    <i className="material-icons page-header__modal-option-icon">edit</i>
+                                    Edit Recipe
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </section>
+
             </section>
 		);
 	};

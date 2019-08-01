@@ -19,11 +19,68 @@
     width: 70%;
 }
 
-page-header__options {
+.page-header__options {
+    align-items: center;
     display: flex;
     justify-content: flex-end;
+    position: relative;
 }
 
 .page-header__record-count {
     margin-left: $space-sm;
+}
+
+.page-header__save {
+    @include flex-align-center;
+    margin-right: $space-md;
+}
+
+.page-header__save-icon {
+    font-size: $size-lg;
+    margin-right: $space-xs;
+    position: relative;
+    top: 1px;
+}
+
+.page-header__more-icon {
+    @include transition;
+    cursor: pointer;
+    font-size: 18px;
+    justify-self: center;
+    opacity: $icon-opacity;
+    &:hover + .page-header__options-modal {
+        @include flex-column;
+    }
+}
+
+.page-header__options-modal {
+    background: #fffeff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, .1);
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    min-width: 100px;
+    width: max-content;
+    z-index: $table-options-z-index;
+    &:hover {
+        @include flex-column;
+    }
+}
+
+.page-header__modal-option {
+    @include flex-align-center;
+    justify-content: flex-start;
+    padding: .4em;
+    width: 100%;
+    &:hover {
+        background-color: $weathered-gray-hover;
+        cursor: pointer;
+    }
+}
+
+.page-header__modal-option-icon {
+    font-size: $size-md;
+    margin-right: $space-xs;
 }

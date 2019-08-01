@@ -69,12 +69,9 @@
     font-size: 18px;
     justify-self: center;
     opacity: $icon-opacity;
-    // &:hover {
-    //     opacity: 1;
-    // }
     &:hover + .table__options-modal {
         @include flex-column;
-}
+    }
 }
 
 .table__options-modal {
@@ -105,7 +102,7 @@
 }
 
 .table__more-option-icon {
-    font-size: 16px;
+    font-size: $size-md;
     margin-right: $space-xs;
 }
 
