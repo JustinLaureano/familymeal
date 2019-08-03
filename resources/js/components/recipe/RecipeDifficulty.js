@@ -13,9 +13,12 @@ export class RecipeDifficulty extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipeDifficulty();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.difficulty !== this.props.difficulty) {
+            this.setState(() => ({ difficulty: this.props.difficulty }));
+        }
     }
 
     setRecipeDifficulty = (e) => {
@@ -71,6 +74,7 @@ export class RecipeDifficulty extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     difficulty: state.filters.currentRecipe.info.difficulty
 });
 

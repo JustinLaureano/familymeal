@@ -1,10 +1,21 @@
 const filterReducerDefaultState = {
     currentRecipe: null,
-    editMode: false
+    editMode: false,
+    cancelChanges: false
 };
 
 export default (state = filterReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_CANCEL_CHANGES_FILTER':
+            return {
+                ...state,
+                cancelChanges: true
+            };
+        case 'RESET_CANCEL_CHANGES_FILTER':
+            return {
+                ...state,
+                cancelChanges: false
+            };
         case 'SET_CURRENT_RECIPE':
             return {
                 ...state,

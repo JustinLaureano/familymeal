@@ -198,6 +198,17 @@ module.exports = _inheritsLoose;
 
 /***/ }),
 
+/***/ "./node_modules/constants-browserify/constants.json":
+/*!**********************************************************!*\
+  !*** ./node_modules/constants-browserify/constants.json ***!
+  \**********************************************************/
+/*! exports provided: O_RDONLY, O_WRONLY, O_RDWR, S_IFMT, S_IFREG, S_IFDIR, S_IFCHR, S_IFBLK, S_IFIFO, S_IFLNK, S_IFSOCK, O_CREAT, O_EXCL, O_NOCTTY, O_TRUNC, O_APPEND, O_DIRECTORY, O_NOFOLLOW, O_SYNC, O_SYMLINK, O_NONBLOCK, S_IRWXU, S_IRUSR, S_IWUSR, S_IXUSR, S_IRWXG, S_IRGRP, S_IWGRP, S_IXGRP, S_IRWXO, S_IROTH, S_IWOTH, S_IXOTH, E2BIG, EACCES, EADDRINUSE, EADDRNOTAVAIL, EAFNOSUPPORT, EAGAIN, EALREADY, EBADF, EBADMSG, EBUSY, ECANCELED, ECHILD, ECONNABORTED, ECONNREFUSED, ECONNRESET, EDEADLK, EDESTADDRREQ, EDOM, EDQUOT, EEXIST, EFAULT, EFBIG, EHOSTUNREACH, EIDRM, EILSEQ, EINPROGRESS, EINTR, EINVAL, EIO, EISCONN, EISDIR, ELOOP, EMFILE, EMLINK, EMSGSIZE, EMULTIHOP, ENAMETOOLONG, ENETDOWN, ENETRESET, ENETUNREACH, ENFILE, ENOBUFS, ENODATA, ENODEV, ENOENT, ENOEXEC, ENOLCK, ENOLINK, ENOMEM, ENOMSG, ENOPROTOOPT, ENOSPC, ENOSR, ENOSTR, ENOSYS, ENOTCONN, ENOTDIR, ENOTEMPTY, ENOTSOCK, ENOTSUP, ENOTTY, ENXIO, EOPNOTSUPP, EOVERFLOW, EPERM, EPIPE, EPROTO, EPROTONOSUPPORT, EPROTOTYPE, ERANGE, EROFS, ESPIPE, ESRCH, ESTALE, ETIME, ETIMEDOUT, ETXTBSY, EWOULDBLOCK, EXDEV, SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT, SIGBUS, SIGFPE, SIGKILL, SIGUSR1, SIGSEGV, SIGUSR2, SIGPIPE, SIGALRM, SIGTERM, SIGCHLD, SIGCONT, SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU, SIGURG, SIGXCPU, SIGXFSZ, SIGVTALRM, SIGPROF, SIGWINCH, SIGIO, SIGSYS, SSL_OP_ALL, SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION, SSL_OP_CIPHER_SERVER_PREFERENCE, SSL_OP_CISCO_ANYCONNECT, SSL_OP_COOKIE_EXCHANGE, SSL_OP_CRYPTOPRO_TLSEXT_BUG, SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS, SSL_OP_EPHEMERAL_RSA, SSL_OP_LEGACY_SERVER_CONNECT, SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER, SSL_OP_MICROSOFT_SESS_ID_BUG, SSL_OP_MSIE_SSLV2_RSA_PADDING, SSL_OP_NETSCAPE_CA_DN_BUG, SSL_OP_NETSCAPE_CHALLENGE_BUG, SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG, SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG, SSL_OP_NO_COMPRESSION, SSL_OP_NO_QUERY_MTU, SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION, SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TICKET, SSL_OP_NO_TLSv1, SSL_OP_NO_TLSv1_1, SSL_OP_NO_TLSv1_2, SSL_OP_PKCS1_CHECK_1, SSL_OP_PKCS1_CHECK_2, SSL_OP_SINGLE_DH_USE, SSL_OP_SINGLE_ECDH_USE, SSL_OP_SSLEAY_080_CLIENT_DH_BUG, SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG, SSL_OP_TLS_BLOCK_PADDING_BUG, SSL_OP_TLS_D5_BUG, SSL_OP_TLS_ROLLBACK_BUG, ENGINE_METHOD_DSA, ENGINE_METHOD_DH, ENGINE_METHOD_RAND, ENGINE_METHOD_ECDH, ENGINE_METHOD_ECDSA, ENGINE_METHOD_CIPHERS, ENGINE_METHOD_DIGESTS, ENGINE_METHOD_STORE, ENGINE_METHOD_PKEY_METHS, ENGINE_METHOD_PKEY_ASN1_METHS, ENGINE_METHOD_ALL, ENGINE_METHOD_NONE, DH_CHECK_P_NOT_SAFE_PRIME, DH_CHECK_P_NOT_PRIME, DH_UNABLE_TO_CHECK_GENERATOR, DH_NOT_SUITABLE_GENERATOR, NPN_ENABLED, RSA_PKCS1_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_X931_PADDING, RSA_PKCS1_PSS_PADDING, POINT_CONVERSION_COMPRESSED, POINT_CONVERSION_UNCOMPRESSED, POINT_CONVERSION_HYBRID, F_OK, R_OK, W_OK, X_OK, UV_UDP_REUSEADDR, default */
+/***/ (function(module) {
+
+module.exports = {"O_RDONLY":0,"O_WRONLY":1,"O_RDWR":2,"S_IFMT":61440,"S_IFREG":32768,"S_IFDIR":16384,"S_IFCHR":8192,"S_IFBLK":24576,"S_IFIFO":4096,"S_IFLNK":40960,"S_IFSOCK":49152,"O_CREAT":512,"O_EXCL":2048,"O_NOCTTY":131072,"O_TRUNC":1024,"O_APPEND":8,"O_DIRECTORY":1048576,"O_NOFOLLOW":256,"O_SYNC":128,"O_SYMLINK":2097152,"O_NONBLOCK":4,"S_IRWXU":448,"S_IRUSR":256,"S_IWUSR":128,"S_IXUSR":64,"S_IRWXG":56,"S_IRGRP":32,"S_IWGRP":16,"S_IXGRP":8,"S_IRWXO":7,"S_IROTH":4,"S_IWOTH":2,"S_IXOTH":1,"E2BIG":7,"EACCES":13,"EADDRINUSE":48,"EADDRNOTAVAIL":49,"EAFNOSUPPORT":47,"EAGAIN":35,"EALREADY":37,"EBADF":9,"EBADMSG":94,"EBUSY":16,"ECANCELED":89,"ECHILD":10,"ECONNABORTED":53,"ECONNREFUSED":61,"ECONNRESET":54,"EDEADLK":11,"EDESTADDRREQ":39,"EDOM":33,"EDQUOT":69,"EEXIST":17,"EFAULT":14,"EFBIG":27,"EHOSTUNREACH":65,"EIDRM":90,"EILSEQ":92,"EINPROGRESS":36,"EINTR":4,"EINVAL":22,"EIO":5,"EISCONN":56,"EISDIR":21,"ELOOP":62,"EMFILE":24,"EMLINK":31,"EMSGSIZE":40,"EMULTIHOP":95,"ENAMETOOLONG":63,"ENETDOWN":50,"ENETRESET":52,"ENETUNREACH":51,"ENFILE":23,"ENOBUFS":55,"ENODATA":96,"ENODEV":19,"ENOENT":2,"ENOEXEC":8,"ENOLCK":77,"ENOLINK":97,"ENOMEM":12,"ENOMSG":91,"ENOPROTOOPT":42,"ENOSPC":28,"ENOSR":98,"ENOSTR":99,"ENOSYS":78,"ENOTCONN":57,"ENOTDIR":20,"ENOTEMPTY":66,"ENOTSOCK":38,"ENOTSUP":45,"ENOTTY":25,"ENXIO":6,"EOPNOTSUPP":102,"EOVERFLOW":84,"EPERM":1,"EPIPE":32,"EPROTO":100,"EPROTONOSUPPORT":43,"EPROTOTYPE":41,"ERANGE":34,"EROFS":30,"ESPIPE":29,"ESRCH":3,"ESTALE":70,"ETIME":101,"ETIMEDOUT":60,"ETXTBSY":26,"EWOULDBLOCK":35,"EXDEV":18,"SIGHUP":1,"SIGINT":2,"SIGQUIT":3,"SIGILL":4,"SIGTRAP":5,"SIGABRT":6,"SIGIOT":6,"SIGBUS":10,"SIGFPE":8,"SIGKILL":9,"SIGUSR1":30,"SIGSEGV":11,"SIGUSR2":31,"SIGPIPE":13,"SIGALRM":14,"SIGTERM":15,"SIGCHLD":20,"SIGCONT":19,"SIGSTOP":17,"SIGTSTP":18,"SIGTTIN":21,"SIGTTOU":22,"SIGURG":16,"SIGXCPU":24,"SIGXFSZ":25,"SIGVTALRM":26,"SIGPROF":27,"SIGWINCH":28,"SIGIO":23,"SIGSYS":12,"SSL_OP_ALL":2147486719,"SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION":262144,"SSL_OP_CIPHER_SERVER_PREFERENCE":4194304,"SSL_OP_CISCO_ANYCONNECT":32768,"SSL_OP_COOKIE_EXCHANGE":8192,"SSL_OP_CRYPTOPRO_TLSEXT_BUG":2147483648,"SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS":2048,"SSL_OP_EPHEMERAL_RSA":0,"SSL_OP_LEGACY_SERVER_CONNECT":4,"SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER":32,"SSL_OP_MICROSOFT_SESS_ID_BUG":1,"SSL_OP_MSIE_SSLV2_RSA_PADDING":0,"SSL_OP_NETSCAPE_CA_DN_BUG":536870912,"SSL_OP_NETSCAPE_CHALLENGE_BUG":2,"SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG":1073741824,"SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG":8,"SSL_OP_NO_COMPRESSION":131072,"SSL_OP_NO_QUERY_MTU":4096,"SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION":65536,"SSL_OP_NO_SSLv2":16777216,"SSL_OP_NO_SSLv3":33554432,"SSL_OP_NO_TICKET":16384,"SSL_OP_NO_TLSv1":67108864,"SSL_OP_NO_TLSv1_1":268435456,"SSL_OP_NO_TLSv1_2":134217728,"SSL_OP_PKCS1_CHECK_1":0,"SSL_OP_PKCS1_CHECK_2":0,"SSL_OP_SINGLE_DH_USE":1048576,"SSL_OP_SINGLE_ECDH_USE":524288,"SSL_OP_SSLEAY_080_CLIENT_DH_BUG":128,"SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG":0,"SSL_OP_TLS_BLOCK_PADDING_BUG":512,"SSL_OP_TLS_D5_BUG":256,"SSL_OP_TLS_ROLLBACK_BUG":8388608,"ENGINE_METHOD_DSA":2,"ENGINE_METHOD_DH":4,"ENGINE_METHOD_RAND":8,"ENGINE_METHOD_ECDH":16,"ENGINE_METHOD_ECDSA":32,"ENGINE_METHOD_CIPHERS":64,"ENGINE_METHOD_DIGESTS":128,"ENGINE_METHOD_STORE":256,"ENGINE_METHOD_PKEY_METHS":512,"ENGINE_METHOD_PKEY_ASN1_METHS":1024,"ENGINE_METHOD_ALL":65535,"ENGINE_METHOD_NONE":0,"DH_CHECK_P_NOT_SAFE_PRIME":2,"DH_CHECK_P_NOT_PRIME":1,"DH_UNABLE_TO_CHECK_GENERATOR":4,"DH_NOT_SUITABLE_GENERATOR":8,"NPN_ENABLED":1,"RSA_PKCS1_PADDING":1,"RSA_SSLV23_PADDING":2,"RSA_NO_PADDING":3,"RSA_PKCS1_OAEP_PADDING":4,"RSA_X931_PADDING":5,"RSA_PKCS1_PSS_PADDING":6,"POINT_CONVERSION_COMPRESSED":2,"POINT_CONVERSION_UNCOMPRESSED":4,"POINT_CONVERSION_HYBRID":6,"F_OK":0,"R_OK":4,"W_OK":2,"X_OK":1,"UV_UDP_REUSEADDR":4};
+
+/***/ }),
+
 /***/ "./node_modules/gud/index.js":
 /*!***********************************!*\
   !*** ./node_modules/gud/index.js ***!
@@ -34547,7 +34558,7 @@ var startLogout = function startLogout() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34560,6 +34571,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeDirection", function() { return removeCurrentRecipeDirection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCurrentRecipeNote", function() { return addCurrentRecipeNote; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeNote", function() { return removeCurrentRecipeNote; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCancelChanges", function() { return setCancelChanges; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetCancelChanges", function() { return resetCancelChanges; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34650,6 +34663,23 @@ var removeCurrentRecipeNote = function removeCurrentRecipeNote(notes) {
     dispatch({
       type: 'UPDATE_CURRENT_RECIPE_NOTES',
       notes: notes
+    });
+  };
+};
+var setCancelChanges = function setCancelChanges() {
+  return function (dispatch) {
+    dispatch({
+      type: 'SET_CANCEL_CHANGES_FILTER'
+    });
+    return new Promise(function (resolve, reject) {
+      return resolve();
+    });
+  };
+};
+var resetCancelChanges = function resetCancelChanges() {
+  return function (dispatch) {
+    dispatch({
+      type: 'RESET_CANCEL_CHANGES_FILTER'
     });
   };
 };
@@ -36666,8 +36696,16 @@ function (_React$Component) {
   _createClass(RecipeCategory, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeCategory();
+      } else if (this.props.cancelChanges && this.state.category !== this.props.category) {
+        this.setState(function () {
+          return {
+            category: _this2.props.category
+          };
+        });
       }
     }
   }, {
@@ -36706,6 +36744,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     category: {
       id: state.filters.currentRecipe.info.recipe_category_id,
       name: state.filters.currentRecipe.info.recipe_category_name
@@ -36802,8 +36841,16 @@ function (_React$Component) {
   _createClass(RecipeCookTime, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeCookTime();
+      } else if (this.props.cancelChanges && this.state.cook_time !== this.props.cook_time) {
+        this.setState(function () {
+          return {
+            cook_time: _this2.props.cook_time
+          };
+        });
       }
     }
   }, {
@@ -36833,6 +36880,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     cook_time: state.filters.currentRecipe.info.cook_time
   };
 };
@@ -36928,8 +36976,16 @@ function (_React$Component) {
   _createClass(RecipeCuisine, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeCuisine();
+      } else if (this.props.cancelChanges && this.state.cuisine !== this.props.cuisine) {
+        this.setState(function () {
+          return {
+            cuisine: _this2.props.cuisine
+          };
+        });
       }
     }
   }, {
@@ -36968,6 +37024,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     cuisine: {
       id: state.filters.currentRecipe.info.cuisine_type_id,
       name: state.filters.currentRecipe.info.cuisine_type
@@ -37065,8 +37122,16 @@ function (_React$Component) {
   _createClass(RecipeDifficulty, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeDifficulty();
+      } else if (this.props.cancelChanges && this.state.difficulty !== this.props.difficulty) {
+        this.setState(function () {
+          return {
+            difficulty: _this2.props.difficulty
+          };
+        });
       }
     }
   }, {
@@ -37105,6 +37170,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     difficulty: state.filters.currentRecipe.info.difficulty
   };
 };
@@ -37138,6 +37204,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 /* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
 /* harmony import */ var _recipe_DirectionInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../recipe/DirectionInput */ "./resources/js/components/recipe/DirectionInput.js");
+/* harmony import */ var constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! constants */ "./node_modules/constants-browserify/constants.json");
+var constants__WEBPACK_IMPORTED_MODULE_6___namespace = /*#__PURE__*/__webpack_require__.t(/*! constants */ "./node_modules/constants-browserify/constants.json", 1);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -37165,6 +37233,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -37347,18 +37416,36 @@ function (_React$Component) {
   }
 
   _createClass(RecipeDirections, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate() {
       var _this2 = this;
 
-      if (!this.props.editMode) {
+      if (this.props.cancelChanges) {
+        for (var i = 0; i < this.state.directions.length; i++) {
+          if (this.state.directions[i].id !== this.props.directions[i].id) {
+            this.setState(function () {
+              return {
+                directions: _this2.props.directions
+              };
+            });
+            break;
+          }
+        }
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this3 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeDirections();
       }
 
       if (this.state.directions.length !== this.props.directions.length) {
         this.setState(function () {
           return {
-            directions: _this2.props.directions
+            directions: _this3.props.directions
           };
         });
       }
@@ -37366,7 +37453,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -37385,13 +37472,13 @@ function (_React$Component) {
             className: "recipe-grid__direction-row--edit",
             draggable: true,
             onDragStart: function onDragStart(e) {
-              return _this3.onDragStart(e, direction.id);
+              return _this4.onDragStart(e, direction.id);
             },
             onDrag: function onDrag(e) {
-              return _this3.onDrag(e, direction.id);
+              return _this4.onDrag(e, direction.id);
             },
-            onDragEnd: _this3.onDragEnd,
-            onDrop: _this3.onDrop
+            onDragEnd: _this4.onDragEnd,
+            onDrop: _this4.onDrop
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "material-icons drag-icon"
           }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -37403,7 +37490,7 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             id: "remove-direction_" + direction.id,
             className: "material-icons remove-icon",
-            onClick: _this3.toggleDirectionRemoveConfirm
+            onClick: _this4.toggleDirectionRemoveConfirm
           }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
             id: "direction-remove_" + direction.id,
             className: "recipe-grid__confirmation confirmation display--none"
@@ -37412,11 +37499,11 @@ function (_React$Component) {
           }, "Remove Direction?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "remove-btn_" + direction.id,
             className: "btn--confirmation-confirm",
-            onClick: _this3.removeDirection
+            onClick: _this4.removeDirection
           }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "confirmation-cancel-btn_" + direction.id,
             className: "btn--confirmation",
-            onClick: _this3.toggleDirectionRemoveConfirm
+            onClick: _this4.toggleDirectionRemoveConfirm
           }, "Cancel"))));
         })));
       } else {
@@ -37445,7 +37532,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     directions: state.filters.currentRecipe.directions,
-    editMode: state.filters.editMode
+    editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges
   };
 };
 
@@ -37779,18 +37867,36 @@ function (_React$Component) {
   }
 
   _createClass(RecipeIngredients, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate() {
       var _this2 = this;
 
-      if (!this.props.editMode) {
+      if (this.props.cancelChanges) {
+        for (var i = 0; i < this.state.ingredients.length; i++) {
+          if (this.state.ingredients[i].id !== this.props.ingredients[i].id) {
+            this.setState(function () {
+              return {
+                ingredients: _this2.props.ingredients
+              };
+            });
+            break;
+          }
+        }
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this3 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeIngredients();
       }
 
       if (this.state.ingredients.length !== this.props.ingredients.length) {
         this.setState(function () {
           return {
-            ingredients: _this2.props.ingredients
+            ingredients: _this3.props.ingredients
           };
         });
       }
@@ -37798,7 +37904,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -37817,13 +37923,13 @@ function (_React$Component) {
             className: "recipe-grid__ingredient-row--edit",
             draggable: true,
             onDragStart: function onDragStart(e) {
-              return _this3.onDragStart(e, ingredient.id);
+              return _this4.onDragStart(e, ingredient.id);
             },
             onDrag: function onDrag(e) {
-              return _this3.onDrag(e, ingredient.id);
+              return _this4.onDrag(e, ingredient.id);
             },
-            onDragEnd: _this3.onDragEnd,
-            onDrop: _this3.onDrop
+            onDragEnd: _this4.onDragEnd,
+            onDrop: _this4.onDrop
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "material-icons drag-icon"
           }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -37851,7 +37957,7 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             id: "remove_" + ingredient.id,
             className: "material-icons remove-icon",
-            onClick: _this3.toggleIngredientRemoveConfirm
+            onClick: _this4.toggleIngredientRemoveConfirm
           }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
             id: "ingredient-remove_" + ingredient.id,
             className: "recipe-grid__confirmation confirmation display--none"
@@ -37860,11 +37966,11 @@ function (_React$Component) {
           }, "Remove Ingredient?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "remove-btn_" + ingredient.id,
             className: "btn--confirmation-confirm",
-            onClick: _this3.removeIngredient
+            onClick: _this4.removeIngredient
           }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "confirmation-cancel-btn_" + ingredient.id,
             className: "btn--confirmation",
-            onClick: _this3.toggleIngredientRemoveConfirm
+            onClick: _this4.toggleIngredientRemoveConfirm
           }, "Cancel"))));
         })));
       } else {
@@ -37908,6 +38014,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     ingredients: state.filters.currentRecipe.ingredients
   };
 };
@@ -38156,18 +38263,36 @@ function (_React$Component) {
   }
 
   _createClass(RecipeNotes, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate() {
       var _this2 = this;
 
-      if (!this.props.editMode) {
+      if (this.props.cancelChanges) {
+        for (var i = 0; i < this.state.notes.length; i++) {
+          if (this.state.notes[i].id !== this.props.notes[i].id) {
+            this.setState(function () {
+              return {
+                notes: _this2.props.notes
+              };
+            });
+            break;
+          }
+        }
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this3 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeNotes();
       }
 
       if (this.state.notes.length !== this.props.notes.length) {
         this.setState(function () {
           return {
-            notes: _this2.props.notes
+            notes: _this3.props.notes
           };
         });
       }
@@ -38175,7 +38300,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -38194,13 +38319,13 @@ function (_React$Component) {
             className: "recipe-grid__note-row--edit",
             draggable: true,
             onDragStart: function onDragStart(e) {
-              return _this3.onDragStart(e, note.id);
+              return _this4.onDragStart(e, note.id);
             },
             onDrag: function onDrag(e) {
-              return _this3.onDrag(e, note.id);
+              return _this4.onDrag(e, note.id);
             },
-            onDragEnd: _this3.onDragEnd,
-            onDrop: _this3.onDrop
+            onDragEnd: _this4.onDragEnd,
+            onDrop: _this4.onDrop
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             className: "material-icons drag-icon"
           }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -38212,7 +38337,7 @@ function (_React$Component) {
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
             id: "remove-note_" + note.id,
             className: "material-icons remove-icon",
-            onClick: _this3.toggleNoteRemoveConfirm
+            onClick: _this4.toggleNoteRemoveConfirm
           }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
             id: "note-remove_" + note.id,
             className: "recipe-grid__confirmation confirmation display--none"
@@ -38221,11 +38346,11 @@ function (_React$Component) {
           }, "Remove Note?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "remove-btn_" + note.id,
             className: "btn--confirmation-confirm",
-            onClick: _this3.removeNote
+            onClick: _this4.removeNote
           }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
             id: "confirmation-cancel-btn_" + note.id,
             className: "btn--confirmation",
-            onClick: _this3.toggleNoteRemoveConfirm
+            onClick: _this4.toggleNoteRemoveConfirm
           }, "Cancel"))));
         })));
       } else {
@@ -38259,6 +38384,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     notes: state.filters.currentRecipe.notes
   };
 };
@@ -38334,6 +38460,18 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipePageHeader).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "cancelChanges", function () {
+      _this.setState(function () {
+        return {
+          name: _this.props.name
+        };
+      });
+
+      _this.props.setCancelChanges().then(function () {
+        return _this.toggleEditMode();
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "toggleEditMode", function () {
       var editMode = _this.props.filters.editMode ? false : true;
 
@@ -38348,6 +38486,24 @@ function (_React$Component) {
           name: name
         };
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "saveChanges", function () {
+      _this.props.resetCancelChanges();
+
+      if (_this.props.filters.cancelChanges) {
+        _this.props.resetCancelChanges();
+      }
+
+      _this.toggleEditMode();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startEditMode", function () {
+      if (_this.props.filters.cancelChanges) {
+        _this.props.resetCancelChanges();
+      }
+
+      _this.toggleEditMode();
     });
 
     _defineProperty(_assertThisInitialized(_this), "startSave", function () {
@@ -38369,7 +38525,7 @@ function (_React$Component) {
   _createClass(RecipePageHeader, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.filters.editMode) {
+      if (!this.props.filters.editMode && !this.props.filters.cancelChanges) {
         this.startSave();
       }
     }
@@ -38391,11 +38547,13 @@ function (_React$Component) {
       }, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
       }, this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "page-header__save"
+        className: "btn--primary page-header__save",
+        onClick: this.saveChanges
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__save-icon"
       }, "done"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Save")), this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "page-header__save"
+        className: "page-header__save",
+        onClick: this.cancelChanges
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__save-icon"
       }, "cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel")), !this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -38404,7 +38562,7 @@ function (_React$Component) {
         className: "page-header__options-modal"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-header__modal-option",
-        onClick: this.toggleEditMode
+        onClick: this.startEditMode
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__modal-option-icon"
       }, "edit"), "Edit Recipe")))));
@@ -38429,6 +38587,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     updateRecipeName: function updateRecipeName(name) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["updateRecipeName"])(name));
+    },
+    setCancelChanges: function setCancelChanges() {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setCancelChanges"])());
+    },
+    resetCancelChanges: function resetCancelChanges() {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["resetCancelChanges"])());
     }
   };
 };
@@ -38664,8 +38828,16 @@ function (_React$Component) {
   _createClass(RecipePortions, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipePortions();
+      } else if (this.props.cancelChanges && this.state.portions !== this.props.portions) {
+        this.setState(function () {
+          return {
+            portions: _this2.props.portions
+          };
+        });
       }
     }
   }, {
@@ -38695,6 +38867,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     portions: state.filters.currentRecipe.info.portions
   };
 };
@@ -38787,8 +38960,16 @@ function (_React$Component) {
   _createClass(RecipePrepTime, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipePrepTime();
+      } else if (this.props.cancelChanges && this.state.prep_time !== this.props.prep_time) {
+        this.setState(function () {
+          return {
+            prep_time: _this2.props.prep_time
+          };
+        });
       }
     }
   }, {
@@ -38818,6 +38999,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     prep_time: state.filters.currentRecipe.info.prep_time
   };
 };
@@ -38935,7 +39117,7 @@ function (_React$Component) {
   _createClass(RecipeRatings, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRatings();
       }
     }
@@ -38986,6 +39168,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     recipeId: state.filters.currentRecipe.info.id,
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     ratings: {
       average: Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_2__["getAverageRating"])(state.filters.currentRecipe.ratings),
       total: state.filters.currentRecipe.ratings.length,
@@ -39085,8 +39268,16 @@ function (_React$Component) {
   _createClass(RecipeSummary, [{
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (!this.props.editMode) {
+      var _this2 = this;
+
+      if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeSummary();
+      } else if (this.props.cancelChanges && this.state.summary !== this.props.summary) {
+        this.setState(function () {
+          return {
+            summary: _this2.props.summary
+          };
+        });
       }
     }
   }, {
@@ -39115,7 +39306,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     recipeId: state.filters.currentRecipe.info.id,
     summary: state.filters.currentRecipe.summary.summary,
-    editMode: state.filters.editMode
+    editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges
   };
 };
 
@@ -39742,13 +39934,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var filterReducerDefaultState = {
   currentRecipe: null,
-  editMode: false
+  editMode: false,
+  cancelChanges: false
 };
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : filterReducerDefaultState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case 'SET_CANCEL_CHANGES_FILTER':
+      return _objectSpread({}, state, {
+        cancelChanges: true
+      });
+
+    case 'RESET_CANCEL_CHANGES_FILTER':
+      return _objectSpread({}, state, {
+        cancelChanges: false
+      });
+
     case 'SET_CURRENT_RECIPE':
       return _objectSpread({}, state, {
         currentRecipe: action.recipe

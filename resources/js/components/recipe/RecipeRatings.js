@@ -13,7 +13,7 @@ export class RecipeRatings extends React.Component {
     };
 
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRatings();
 		}
     }
@@ -100,6 +100,7 @@ export class RecipeRatings extends React.Component {
 const mapStateToProps = (state) => ({
         recipeId: state.filters.currentRecipe.info.id,
         editMode: state.filters.editMode,
+        cancelChanges: state.filters.cancelChanges,
         ratings: {
             average: getAverageRating(state.filters.currentRecipe.ratings),
             total: state.filters.currentRecipe.ratings.length,

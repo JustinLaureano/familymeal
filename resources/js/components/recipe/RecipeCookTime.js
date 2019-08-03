@@ -12,9 +12,12 @@ export class RecipeCookTime extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipeCookTime();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.cook_time !== this.props.cook_time) {
+            this.setState(() => ({ cook_time: this.props.cook_time }));
+        }
     }
 
     setRecipeCookTime = (e) => {
@@ -55,6 +58,7 @@ export class RecipeCookTime extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     cook_time: state.filters.currentRecipe.info.cook_time
 });
 

@@ -12,9 +12,12 @@ export class RecipeCuisine extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipeCuisine();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.cuisine !== this.props.cuisine) {
+            this.setState(() => ({ cuisine: this.props.cuisine }));
+        }
     }
 
     setRecipeCuisine = (e) => {
@@ -73,6 +76,7 @@ export class RecipeCuisine extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     cuisine: {
         id: state.filters.currentRecipe.info.cuisine_type_id,
         name: state.filters.currentRecipe.info.cuisine_type

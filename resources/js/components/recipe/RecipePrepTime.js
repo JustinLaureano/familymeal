@@ -12,9 +12,12 @@ export class RecipePrepTime extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipePrepTime();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.prep_time !== this.props.prep_time) {
+            this.setState(() => ({ prep_time: this.props.prep_time }));
+        }
     }
 
     setRecipePrepTime = (e) => {
@@ -55,6 +58,7 @@ export class RecipePrepTime extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     prep_time: state.filters.currentRecipe.info.prep_time
 });
 

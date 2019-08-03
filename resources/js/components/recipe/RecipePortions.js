@@ -12,9 +12,12 @@ export class RecipePortions extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipePortions();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.portions !== this.props.portions) {
+            this.setState(() => ({ portions: this.props.portions }));
+        }
     }
 
     setRecipePortions = (e) => {
@@ -55,6 +58,7 @@ export class RecipePortions extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     portions: state.filters.currentRecipe.info.portions
 });
 

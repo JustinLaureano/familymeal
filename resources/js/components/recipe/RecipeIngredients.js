@@ -19,8 +19,19 @@ export class RecipeIngredients extends React.Component {
         this.newIdCeiling = 999999;
     };
 
+    componentWillUpdate() {
+        if (this.props.cancelChanges) {
+            for (let i = 0; i < this.state.ingredients.length; i++) {
+                if (this.state.ingredients[i].id !== this.props.ingredients[i].id) {
+                    this.setState(() => ({ ingredients: this.props.ingredients }));
+                    break;
+                }
+            }
+        }
+    }
+
     componentDidUpdate() {
-        if (!this.props.editMode) {
+        if (!this.props.editMode && !this.props.cancelChanges) {
             this.saveRecipeIngredients();
         }
 
@@ -328,6 +339,7 @@ export class RecipeIngredients extends React.Component {
 
 const mapStateToProps = (state) => ({
     editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
     ingredients: state.filters.currentRecipe.ingredients
 });
 

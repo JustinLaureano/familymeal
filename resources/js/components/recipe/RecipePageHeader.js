@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { setEditMode } from '../../actions/filters';
+import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
 import { updateRecipeName } from '../../actions/recipes';
 
 export class RecipePageHeader extends React.Component {
@@ -13,20 +13,43 @@ export class RecipePageHeader extends React.Component {
         };
     };
 
+    cancelChanges = () => {
+        this.setState(() => ({ name: this.props.name }));
+
+        this.props.setCancelChanges()
+            .then(() => this.toggleEditMode());
+    }
+
     componentDidUpdate() {
-		if (!this.props.filters.editMode) {
+		if (!this.props.filters.editMode && !this.props.filters.cancelChanges) {
 			this.startSave();
 		}
 	}
 
     toggleEditMode = () => {
         const editMode = this.props.filters.editMode ? false : true;
+
         this.props.setEditMode(editMode);
     }
     
     setName = (e) => {
         const name = e.target.value;
         this.setState(() => ({ name }));
+    }
+
+    saveChanges = () => {
+        this.props.resetCancelChanges();
+        if (this.props.filters.cancelChanges) {
+            this.props.resetCancelChanges();
+        }
+        this.toggleEditMode();
+    }
+
+    startEditMode = () => {
+        if (this.props.filters.cancelChanges) {
+            this.props.resetCancelChanges();
+        }
+        this.toggleEditMode();
     }
 
 
@@ -62,14 +85,14 @@ export class RecipePageHeader extends React.Component {
                 <section className="page-header__options">
                     { 
                         this.props.filters.editMode &&
-                        <div className="page-header__save">
+                        <div className="btn--primary page-header__save" onClick={ this.saveChanges }>
                             <i className="material-icons page-header__save-icon">done</i>
                             <span>Save</span>
                         </div>
                     }
                     { 
                         this.props.filters.editMode &&
-                        <div className="page-header__save">
+                        <div className="page-header__save" onClick={ this.cancelChanges }>
                             <i className="material-icons page-header__save-icon">cancel</i>
                             <span>Cancel</span>
                         </div>
@@ -81,7 +104,7 @@ export class RecipePageHeader extends React.Component {
                             <div className="page-header__options-modal">
                                 <div
                                     className="page-header__modal-option"
-                                    onClick={ this.toggleEditMode }>
+                                    onClick={ this.startEditMode }>
         
                                     <i className="material-icons page-header__modal-option-icon">edit</i>
                                     Edit Recipe
@@ -103,7 +126,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setEditMode: (editMode) => dispatch(setEditMode(editMode)),
-    updateRecipeName: (name) => dispatch(updateRecipeName(name))
+    updateRecipeName: (name) => dispatch(updateRecipeName(name)),
+    setCancelChanges: () => dispatch(setCancelChanges()),
+    resetCancelChanges: () => dispatch(resetCancelChanges())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePageHeader);

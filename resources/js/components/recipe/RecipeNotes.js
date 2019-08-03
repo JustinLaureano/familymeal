@@ -27,8 +27,19 @@ export class RecipeNotes extends React.Component {
         this.setState(() => ({ edited: true }));
     }
 
+    componentWillUpdate() {
+        if (this.props.cancelChanges) {
+            for (let i = 0; i < this.state.notes.length; i++) {
+                if (this.state.notes[i].id !== this.props.notes[i].id) {
+                    this.setState(() => ({ notes: this.props.notes }));
+                    break;
+                }
+            }
+        }
+    }
+
     componentDidUpdate() {
-        if (!this.props.editMode) {
+        if (!this.props.editMode && !this.props.cancelChanges) {
             this.saveRecipeNotes();
         }
 
@@ -271,6 +282,7 @@ export class RecipeNotes extends React.Component {
 const mapStateToProps = (state) => {
 	return {
         editMode: state.filters.editMode,
+        cancelChanges: state.filters.cancelChanges,
         notes: state.filters.currentRecipe.notes
 	}
 };

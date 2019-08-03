@@ -12,9 +12,12 @@ export class RecipeCategory extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipeCategory();
-		}
+        }
+        else if (this.props.cancelChanges && this.state.category !== this.props.category) {
+            this.setState(() => ({ category: this.props.category }));
+        }
     }
 
     setRecipeCategory = (e) => {
@@ -74,6 +77,7 @@ export class RecipeCategory extends React.Component {
 const mapStateToProps = (state) => {
 	return {
         editMode: state.filters.editMode,
+        cancelChanges: state.filters.cancelChanges,
         category: {
             id: state.filters.currentRecipe.info.recipe_category_id,
             name: state.filters.currentRecipe.info.recipe_category_name

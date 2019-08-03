@@ -97,3 +97,20 @@ export const removeCurrentRecipeNote = (notes) => {
         });
 	}
 }
+
+export const setCancelChanges = () => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_CANCEL_CHANGES_FILTER'
+		});
+		return new Promise((resolve, reject) => resolve());
+	}
+}
+
+export const resetCancelChanges = () => {
+	return (dispatch) => {
+        dispatch({
+            type: 'RESET_CANCEL_CHANGES_FILTER'
+        });
+	}
+}

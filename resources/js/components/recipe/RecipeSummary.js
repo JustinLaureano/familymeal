@@ -12,9 +12,12 @@ export class RecipeSummary extends React.Component {
 	};
 
 	componentDidUpdate() {
-		if (!this.props.editMode) {
+		if (!this.props.editMode && !this.props.cancelChanges) {
 			this.saveRecipeSummary();
 		}
+		else if (this.props.cancelChanges && this.state.summary !== this.props.summary) {
+            this.setState(() => ({ summary: this.props.summary }));
+        }
 	}
 	
 	setSummary = (e) => {
@@ -55,7 +58,8 @@ const mapStateToProps = (state) => {
 	return {
         recipeId: state.filters.currentRecipe.info.id,
 		summary: state.filters.currentRecipe.summary.summary,
-		editMode: state.filters.editMode
+		editMode: state.filters.editMode,
+		cancelChanges: state.filters.cancelChanges
 	}
 };
 

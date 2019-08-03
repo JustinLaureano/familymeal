@@ -4,6 +4,7 @@ import {  updateRecipeDirections } from '../../actions/recipes';
 import { addCurrentRecipeDirection, removeCurrentRecipeDirection } from '../../actions/filters';
 import { arrayMove } from '../../services/Recipe';
 import DirectionInput from '../recipe/DirectionInput';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 export class RecipeDirections extends React.Component {
     constructor(props) {
@@ -27,8 +28,19 @@ export class RecipeDirections extends React.Component {
         this.setState(() => ({ edited: true }));
     }
 
+    componentWillUpdate() {
+        if (this.props.cancelChanges) {
+            for (let i = 0; i < this.state.directions.length; i++) {
+                if (this.state.directions[i].id !== this.props.directions[i].id) {
+                    this.setState(() => ({ directions: this.props.directions }));
+                    break;
+                }
+            }
+        }
+    }
+
     componentDidUpdate() {
-        if (!this.props.editMode) {
+        if (!this.props.editMode && !this.props.cancelChanges) {
             this.saveRecipeDirections();
         }
 
@@ -261,7 +273,8 @@ export class RecipeDirections extends React.Component {
 
 const mapStateToProps = (state) => ({
     directions: state.filters.currentRecipe.directions,
-    editMode: state.filters.editMode
+    editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
