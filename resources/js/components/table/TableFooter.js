@@ -48,14 +48,13 @@ export class TableFooter extends React.Component {
         let pageCount = [];
         let paginationPos = 'start';
         let pages = 5;
-
-        console.log( Math.ceil(this.props.total / this.props.settings.table_result_limit));
-
+        let totalPages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
+        console.log(this.props);
         if (currentPage <= 5) {
             let index = 1;
             // Only display the correct number of pages if page count is less than 5
-            if (Math.ceil(this.props.total / this.props.settings.table_result_limit)) {
-                pages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
+            if (totalPages < 5) {
+                pages = totalPages;
             }
 
             while (pageCount.length < pages) {
@@ -116,7 +115,7 @@ export class TableFooter extends React.Component {
                         }
 
                         {
-                            (paginationPos == 'start' && pages > 5) || paginationPos == 'middle' ?
+                            (paginationPos == 'start' && totalPages > 5) || paginationPos == 'middle' ?
                             (
                                 <div>
                                     <button

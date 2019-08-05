@@ -2,7 +2,6 @@ import React from 'react';
 
 export class Toast extends React.Component {
     componentDidMount() {
-        console.log(this.props);
         if (document.getElementById('toast-container')) {
             setTimeout(() => {
                 document.getElementById('toast-container').className = 'toast--hidden';

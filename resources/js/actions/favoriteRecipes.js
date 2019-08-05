@@ -1,9 +1,11 @@
-export const getFavoriteRecipes = () => {
+export const getFavoriteRecipes = (user_id = null) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
-		const user_id = getState().user.id;
-
+		if (!user_id) {
+			user_id = getState().user.id;
+		}
+		
 		const request = {
             headers: {
                 'Accept': 'application/json',

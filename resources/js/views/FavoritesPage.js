@@ -6,6 +6,7 @@ import { getFavoriteRecipes } from '../actions/favoriteRecipes';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import Table from '../components/table/Table.js';
+import { timingSafeEqual } from 'crypto';
 
 export class FavoritesPage extends React.Component {
 	constructor(props) {
@@ -18,9 +19,13 @@ export class FavoritesPage extends React.Component {
 	};
 
 	componentDidMount() {
-		console.log('get favorites');
 		if (this.props.recipes.length === 0) {
-			this.props.getFavoriteRecipes();
+			if (this.state.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
+				this.props.getFavoriteRecipes(this.props.location.state.user_id);
+			}
+			else {
+				this.props.getFavoriteRecipes();
+			}
 		}
 	}
 	
@@ -60,15 +65,14 @@ export class FavoritesPage extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		recipes: state.favorite_recipes,
-		recipeTotal: state.totals.favorite_recipe
-    };
-};
+const mapStateToProps = (state) => ({
+	recipes: state.favorite_recipes,
+	recipeTotal: state.totals.favorite_recipe,
+	user_id: state.user.id
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
-	getFavoriteRecipes: () => dispatch(getFavoriteRecipes())
+	getFavoriteRecipes: (user_id) => dispatch(getFavoriteRecipes(user_id))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

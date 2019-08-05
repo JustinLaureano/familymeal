@@ -12,6 +12,10 @@ const jsx = (
 	</Provider>
 );
 
+const api_token = document.querySelector('meta[name="api-token"]').content;
+const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+const user_id = document.querySelector('meta[name="user_id"]').content;
+
 let hasRendered = false;
 const renderApp = () => {
 	if (!hasRendered) {
@@ -21,15 +25,17 @@ const renderApp = () => {
 
 			const page = document.querySelector('meta[name="page"]').content;
 			if (page && page !== '/home') {
-				history.push('/' + page);
+				const location = {
+					pathname: '/' + page,
+					state: {
+						user_id
+					}
+				}
+				history.push(location);
 			}
 		}
 	}
 };
-
-const api_token = document.querySelector('meta[name="api-token"]').content;
-const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-const user_id = document.querySelector('meta[name="user_id"]').content;
 
 store.dispatch(init(api_token, csrf_token, user_id));
   
