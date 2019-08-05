@@ -8,6 +8,7 @@
 @import 'dependencies/variables';
 @import 'dependencies/typography';
 @import 'dependencies/spacing';
+@import 'dependencies/animations';
 
 /* Components */
 @import 'components/layout';
@@ -29,5 +30,6 @@
 @import 'components/login';
 @import 'components/register';
 @import 'components/recipe';
+@import 'components/toast';
 
 @import 'dependencies/general';

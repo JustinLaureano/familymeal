@@ -1,0 +1,21 @@
+.toast {
+    @include pad($space-xxs, $space-sm);
+    @include transition;
+    animation: slidein .5s ease-in-out;
+    background-color: $gray-dark;
+    border-radius: 4px;
+    bottom: $space-sm;
+    color: $white;
+    position: fixed;
+    right: $space-md;
+    z-index: $toast-z-index;
+}
+
+.toast__message {
+    color: $white;
+}
+
+.toast--hidden {
+    @extend .toast;
+    animation: fadeout .35s ease-in-out 0s forwards;
+}

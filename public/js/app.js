@@ -35612,6 +35612,82 @@ function (_React$Component) {
 
 /***/ }),
 
+/***/ "./resources/js/components/Toast.js":
+/*!******************************************!*\
+  !*** ./resources/js/components/Toast.js ***!
+  \******************************************/
+/*! exports provided: Toast, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Toast", function() { return Toast; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var Toast =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Toast, _React$Component);
+
+  function Toast() {
+    _classCallCheck(this, Toast);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Toast).apply(this, arguments));
+  }
+
+  _createClass(Toast, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log(this.props);
+
+      if (document.getElementById('toast-container')) {
+        setTimeout(function () {
+          document.getElementById('toast-container').className = 'toast--hidden';
+        }, 3000);
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.location.state && this.props.location.state.toast) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "toast-container",
+          className: "toast"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "toast__message"
+        }, this.props.location.state.toast.message));
+      } else {
+        return '';
+      }
+    }
+  }]);
+
+  return Toast;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+/* harmony default export */ __webpack_exports__["default"] = (Toast);
+
+/***/ }),
+
 /***/ "./resources/js/components/navigation/Breadcrumbs.js":
 /*!***********************************************************!*\
   !*** ./resources/js/components/navigation/Breadcrumbs.js ***!
@@ -38424,9 +38500,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _services_ToastMessages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/ToastMessages */ "./resources/js/services/ToastMessages.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38446,6 +38524,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -38500,6 +38580,20 @@ function (_React$Component) {
       }
 
       _this.toggleEditMode();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function () {
+      _this.props.deleteRecipe(_this.props.recipe_id);
+
+      var location = {
+        pathname: '/home',
+        state: {
+          toast: {
+            message: Object(_services_ToastMessages__WEBPACK_IMPORTED_MODULE_6__["recipeDeleted"])()
+          }
+        }
+      };
+      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__["history"].push(location);
     });
 
     _defineProperty(_assertThisInitialized(_this), "startEditMode", function () {
@@ -38580,7 +38674,12 @@ function (_React$Component) {
         onClick: this.startFavoriteRecipe
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__modal-option-icon"
-      }, "favorite"), this.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite')))));
+      }, "favorite"), this.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__modal-option",
+        onClick: this.startDeleteRecipe
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__modal-option-icon"
+      }, "delete"), "Delete Recipe")))));
     }
   }]);
 
@@ -38600,24 +38699,27 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setEditMode: function setEditMode(editMode) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setEditMode"])(editMode));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["setEditMode"])(editMode));
     },
     updateRecipeName: function updateRecipeName(name) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["updateRecipeName"])(name));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["updateRecipeName"])(name));
     },
     setCancelChanges: function setCancelChanges() {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setCancelChanges"])());
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["setCancelChanges"])());
     },
     resetCancelChanges: function resetCancelChanges() {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["resetCancelChanges"])());
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["resetCancelChanges"])());
     },
     favoriteRecipe: function favoriteRecipe(id, favorite) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["favoriteRecipe"])(id, favorite));
+    },
+    deleteRecipe: function deleteRecipe(id) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["deleteRecipe"])(id));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(RecipePageHeader));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_3__["connect"])(mapStateToProps, mapDispatchToProps)(RecipePageHeader));
 
 /***/ }),
 
@@ -40495,11 +40597,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Header__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Header */ "./resources/js/components/Header.js");
 /* harmony import */ var _components_navigation_Navbar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/navigation/Navbar */ "./resources/js/components/navigation/Navbar.js");
 /* harmony import */ var _components_Footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Footer */ "./resources/js/components/Footer.js");
+/* harmony import */ var _components_Toast__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Toast */ "./resources/js/components/Toast.js");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
 
 
 
@@ -40518,7 +40622,7 @@ var PrivateRoute = function PrivateRoute(_ref) {
         className: "app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Header__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
         className: "main sidebar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Footer__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Footer__WEBPACK_IMPORTED_MODULE_5__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Toast__WEBPACK_IMPORTED_MODULE_6__["default"], props));
     }
   }));
 };
@@ -40711,6 +40815,23 @@ function getRecipeTableOptions() {
     icon: 'delete',
     onClick: 'deleteRecipe'
   }];
+}
+
+/***/ }),
+
+/***/ "./resources/js/services/ToastMessages.js":
+/*!************************************************!*\
+  !*** ./resources/js/services/ToastMessages.js ***!
+  \************************************************/
+/*! exports provided: recipeDeleted */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recipeDeleted", function() { return recipeDeleted; });
+function recipeDeleted() {
+  var message = 'Recipe Deleted Successfully.';
+  return message;
 }
 
 /***/ }),

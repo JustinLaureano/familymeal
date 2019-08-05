@@ -253,6 +253,46 @@ a:hover {
 }
 
 /* Spacing */
+@-webkit-keyframes slidein {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@keyframes slidein {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(20px);
+            transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+}
+@-webkit-keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 /* Components */
 .app {
   display: -webkit-box;
@@ -1707,6 +1747,30 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
           align-items: center;
   grid-area: photo;
   position: relative;
+}
+
+.toast, .toast--hidden {
+  padding: calc(0.375 * 1em) calc(0.75 * 1em);
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  -webkit-animation: slidein 0.5s ease-in-out;
+          animation: slidein 0.5s ease-in-out;
+  background-color: #363636;
+  border-radius: 4px;
+  bottom: calc(0.75 * 1em);
+  color: #fffeff;
+  position: fixed;
+  right: calc(1.25 * 1em);
+  z-index: 800;
+}
+
+.toast__message {
+  color: #fffeff;
+}
+
+.toast--hidden {
+  -webkit-animation: fadeout 0.35s ease-in-out 0s forwards;
+          animation: fadeout 0.35s ease-in-out 0s forwards;
 }
 
 .display--initial {

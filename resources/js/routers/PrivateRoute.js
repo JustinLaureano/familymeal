@@ -4,6 +4,7 @@ import { Route, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import Navbar from '../components/navigation/Navbar';
 import Footer from '../components/Footer';
+import Toast from '../components/Toast';
 
 export const PrivateRoute = ({
 	isAuthenticated,
@@ -18,12 +19,13 @@ export const PrivateRoute = ({
 				<Component {...props} />
 				<Footer />
 			</main>
+			<Toast {...props}/>
 		</div>
     )} />
 );
 
 const mapStateToProps = (state) => ({
-  	isAuthenticated: !!state.auth.token
+	  isAuthenticated: !!state.auth.token
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { history } from '../../routers/AppRouter';
 import { connect } from 'react-redux';
 import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
-import { updateRecipeName, favoriteRecipe } from '../../actions/recipes';
+import { deleteRecipe, updateRecipeName, favoriteRecipe } from '../../actions/recipes';
+import { recipeDeleted } from '../../services/ToastMessages';
 
 export class RecipePageHeader extends React.Component {
     constructor(props) {
@@ -43,6 +45,20 @@ export class RecipePageHeader extends React.Component {
             this.props.resetCancelChanges();
         }
         this.toggleEditMode();
+    }
+
+    startDeleteRecipe = () => {
+        this.props.deleteRecipe(this.props.recipe_id);
+
+        const location = {
+            pathname: '/home',
+            state: {
+                toast: {
+                    message: recipeDeleted()
+                }
+            }
+        }
+        history.push(location);
     }
 
     startEditMode = () => {
@@ -125,6 +141,13 @@ export class RecipePageHeader extends React.Component {
                                     <i className="material-icons page-header__modal-option-icon">favorite</i>
                                     { this.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite' }
                                 </div>
+                                <div
+                                    className="page-header__modal-option"
+                                    onClick={ this.startDeleteRecipe }>
+        
+                                    <i className="material-icons page-header__modal-option-icon">delete</i>
+                                    Delete Recipe
+                                </div>
                             </div>
                         </div>
                     }
@@ -148,6 +171,7 @@ const mapDispatchToProps = (dispatch) => ({
     setCancelChanges: () => dispatch(setCancelChanges()),
     resetCancelChanges: () => dispatch(resetCancelChanges()),
     favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
+    deleteRecipe: (id) => dispatch(deleteRecipe(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePageHeader);
