@@ -30,8 +30,10 @@
     margin-left: $space-sm;
 }
 
-.page-header__save {
+.page-header__action-btn {
     @include flex-align-center;
+    border: none;
+    cursor: pointer;
     margin-right: $space-md;
 }
 

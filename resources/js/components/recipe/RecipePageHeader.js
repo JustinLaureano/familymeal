@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
-import { updateRecipeName } from '../../actions/recipes';
+import { updateRecipeName, favoriteRecipe } from '../../actions/recipes';
 
 export class RecipePageHeader extends React.Component {
     constructor(props) {
@@ -52,6 +52,9 @@ export class RecipePageHeader extends React.Component {
         this.toggleEditMode();
     }
 
+    startFavoriteRecipe = () => {
+        this.props.favoriteRecipe(this.props.recipe_id, this.props.favorite);
+    }
 
     startSave = () => {
         const name = this.state.name;
@@ -77,7 +80,13 @@ export class RecipePageHeader extends React.Component {
                                 value={ this.state.name } />
                         ) :
                         (
-                            <h1 className="page-header__title">{ this.props.name }</h1>
+                            <h1 className="page-header__title">
+                                { this.props.name }
+                                {
+                                    this.props.favorite == 'true' &&
+                                    <i className="material-icons table-favorite-icon">favorite</i> 
+                                }
+                            </h1>
                         )
                     }				
                 </section>
@@ -85,14 +94,14 @@ export class RecipePageHeader extends React.Component {
                 <section className="page-header__options">
                     { 
                         this.props.filters.editMode &&
-                        <div className="btn--primary page-header__save" onClick={ this.saveChanges }>
+                        <div className="btn--primary page-header__action-btn" onClick={ this.saveChanges }>
                             <i className="material-icons page-header__save-icon">done</i>
                             <span>Save</span>
                         </div>
                     }
                     { 
                         this.props.filters.editMode &&
-                        <div className="page-header__save" onClick={ this.cancelChanges }>
+                        <div className="btn page-header__action-btn" onClick={ this.cancelChanges }>
                             <i className="material-icons page-header__save-icon">cancel</i>
                             <span>Cancel</span>
                         </div>
@@ -109,6 +118,13 @@ export class RecipePageHeader extends React.Component {
                                     <i className="material-icons page-header__modal-option-icon">edit</i>
                                     Edit Recipe
                                 </div>
+                                <div
+                                    className="page-header__modal-option"
+                                    onClick={ this.startFavoriteRecipe }>
+        
+                                    <i className="material-icons page-header__modal-option-icon">favorite</i>
+                                    { this.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite' }
+                                </div>
                             </div>
                         </div>
                     }
@@ -120,15 +136,18 @@ export class RecipePageHeader extends React.Component {
 };
   
 const mapStateToProps = (state) => ({
+    recipe_id: state.filters.currentRecipe.info.id,
     name: state.filters.currentRecipe.info.name,
-    filters: state.filters
+    filters: state.filters,
+    favorite: state.filters.currentRecipe.info.favorite
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setEditMode: (editMode) => dispatch(setEditMode(editMode)),
     updateRecipeName: (name) => dispatch(updateRecipeName(name)),
     setCancelChanges: () => dispatch(setCancelChanges()),
-    resetCancelChanges: () => dispatch(resetCancelChanges())
+    resetCancelChanges: () => dispatch(resetCancelChanges()),
+    favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePageHeader);

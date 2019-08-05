@@ -35207,15 +35207,19 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
       return resp.json();
     }).then(function (data) {
       var newFavoriteStatus = favorite == 'true' ? 'false' : 'true';
-      console.log(data, newFavoriteStatus);
       dispatch({
         type: 'UPDATE_RECIPES_FAVORITE_STATUS_BY_RECIPE_ID',
         recipe_id: recipe_id,
         favorite: newFavoriteStatus
-      }); // dispatch({
-      // 	type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-      // 	favorite: newFavoriteStatus
-      // });
+      });
+      var currentRecipeId = getState().filters.currentRecipe.info.id;
+
+      if (currentRecipeId == recipe_id) {
+        dispatch({
+          type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+          favorite: newFavoriteStatus
+        });
+      }
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -38506,6 +38510,10 @@ function (_React$Component) {
       _this.toggleEditMode();
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function () {
+      _this.props.favoriteRecipe(_this.props.recipe_id, _this.props.favorite);
+    });
+
     _defineProperty(_assertThisInitialized(_this), "startSave", function () {
       var name = _this.state.name;
 
@@ -38544,15 +38552,17 @@ function (_React$Component) {
         value: this.state.name
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
-      }, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, this.props.name, this.props.favorite == 'true' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons table-favorite-icon"
+      }, "favorite"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
       }, this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "btn--primary page-header__save",
+        className: "btn--primary page-header__action-btn",
         onClick: this.saveChanges
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__save-icon"
       }, "done"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Save")), this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "page-header__save",
+        className: "btn page-header__action-btn",
         onClick: this.cancelChanges
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__save-icon"
@@ -38565,7 +38575,12 @@ function (_React$Component) {
         onClick: this.startEditMode
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__modal-option-icon"
-      }, "edit"), "Edit Recipe")))));
+      }, "edit"), "Edit Recipe"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "page-header__modal-option",
+        onClick: this.startFavoriteRecipe
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons page-header__modal-option-icon"
+      }, "favorite"), this.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite')))));
     }
   }]);
 
@@ -38575,8 +38590,10 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    recipe_id: state.filters.currentRecipe.info.id,
     name: state.filters.currentRecipe.info.name,
-    filters: state.filters
+    filters: state.filters,
+    favorite: state.filters.currentRecipe.info.favorite
   };
 };
 
@@ -38593,6 +38610,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     resetCancelChanges: function resetCancelChanges() {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["resetCancelChanges"])());
+    },
+    favoriteRecipe: function favoriteRecipe(id, favorite) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
     }
   };
 };
@@ -39476,7 +39496,6 @@ function (_React$Component) {
       })[0];
 
       var favoriteStatus = recipe.favorite;
-      console.log(favoriteStatus);
 
       _this.props.favoriteRecipe(id, favoriteStatus);
     });
@@ -41766,8 +41785,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

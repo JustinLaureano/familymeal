@@ -495,7 +495,6 @@ export const favoriteRecipe = (recipe_id, favorite) => {
 			.then(resp => resp.json())
 			.then((data) => {
 				const newFavoriteStatus = favorite == 'true' ? 'false': 'true';
-				console.log(data, newFavoriteStatus);
 
 				dispatch({
 					type: 'UPDATE_RECIPES_FAVORITE_STATUS_BY_RECIPE_ID',
@@ -503,10 +502,14 @@ export const favoriteRecipe = (recipe_id, favorite) => {
 					favorite: newFavoriteStatus
 				});
 
-				// dispatch({
-				// 	type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-				// 	favorite: newFavoriteStatus
-				// });
+				const currentRecipeId = getState().filters.currentRecipe.info.id;
+				if (currentRecipeId == recipe_id) {
+					dispatch({
+						type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+						favorite: newFavoriteStatus
+					});
+				}
+
 			})
 			.catch(err => console.log(err))
 	}

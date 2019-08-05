@@ -14,8 +14,7 @@ export class TableBody extends React.Component {
         console.log(id);
         const recipe = this.props.data.filter(item => item.id == id)[0];
         const favoriteStatus = recipe.favorite;
-        
-        console.log(favoriteStatus);
+
         this.props.favoriteRecipe(id, favoriteStatus);
     }
     

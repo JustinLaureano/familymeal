@@ -988,11 +988,13 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   margin-left: calc(0.75 * 1em);
 }
 
-.page-header__save {
+.page-header__action-btn {
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
           align-items: center;
+  border: none;
+  cursor: pointer;
   margin-right: calc(1.25 * 1em);
 }
 
