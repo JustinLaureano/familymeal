@@ -45,7 +45,7 @@
 .page-header__more-icon {
     @include transition;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
     justify-self: center;
     opacity: $icon-opacity;
     &:hover + .page-header__options-modal {

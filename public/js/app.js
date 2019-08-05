@@ -41018,7 +41018,9 @@ function (_React$Component) {
   return FavoritesPage;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {};

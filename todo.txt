@@ -3,18 +3,19 @@ Add recipes to ingredient search
 
     add (r) next to ingredients that are recipes
 
-change save/edit recipe to more_vert icon with options
-    edit
-    delete
-
-add cancel edit button next to new more_vert when in edit mode
-    keep track of pre-edit recipe, and convert back if changes were made prior to saving
-
 
 add option to make recipe a favorite
     add this option to recipe table more dropdown
     add to recipe edit page
 
+    add heart icon next to recipe title
+
+    manage recipe name input responsize sizing
+    button spacing / sizing for recipe view options
+        save
+        cancel
+
+add clone recipe button
 
 Landing Page
     design

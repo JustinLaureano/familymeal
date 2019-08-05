@@ -14,8 +14,8 @@ export class FavoritesPage extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-};
+const mapStateToProps = (state) => ({
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
 });
