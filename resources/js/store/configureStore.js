@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import cuisineTypesReducer from '../reducers/cuisine_types';
+import favoriteRecipesReducer from '../reducers/favorite_recipes';
 import filterReducer from '../reducers/filters';
 import ingredientsReducer from '../reducers/ingredients';
 import measurementUnitsReducer from '../reducers/measurement_units';
@@ -22,6 +23,7 @@ export default () => {
 			ingredients: ingredientsReducer,
 			measurement_units: measurementUnitsReducer,
 			recipes: recipesReducer,
+			favorite_recipes: favoriteRecipesReducer,
 			recipe_categories: recipeCategoriesReducer,
 			totals: totalsReducer,
 			user: userReducer,

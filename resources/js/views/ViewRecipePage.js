@@ -47,20 +47,7 @@ export class ViewRecipePage extends React.Component {
 		}
 		else {
 			const pageHeaderProps = {
-				title: this.props.recipe.info.name,
-				options: {
-					buttons: [
-						{
-							onClick: 'edit',
-							className: 'btn--minimal',
-							icon: 'edit',
-							label: {
-								view: 'Edit Recipe',
-								edit: 'Save Recipe'
-							}
-						}
-					]
-				}
+				title: this.props.recipe.info.name
 			}
 			return (
 				<section className="recipe-grid">

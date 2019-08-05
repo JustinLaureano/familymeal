@@ -47,9 +47,18 @@ export class TableFooter extends React.Component {
         let currentPage = parseInt(this.state.page);
         let pageCount = [];
         let paginationPos = 'start';
+        let pages = 5;
+
+        console.log( Math.ceil(this.props.total / this.props.settings.table_result_limit));
+
         if (currentPage <= 5) {
             let index = 1;
-            while (pageCount.length < 5) {
+            // Only display the correct number of pages if page count is less than 5
+            if (Math.ceil(this.props.total / this.props.settings.table_result_limit)) {
+                pages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
+            }
+
+            while (pageCount.length < pages) {
                 pageCount.push(index);
                 index++;
             }
@@ -107,7 +116,7 @@ export class TableFooter extends React.Component {
                         }
 
                         {
-                            paginationPos == 'start' || paginationPos == 'middle' ?
+                            (paginationPos == 'start' && pages > 5) || paginationPos == 'middle' ?
                             (
                                 <div>
                                     <button
@@ -134,11 +143,9 @@ export class TableFooter extends React.Component {
 }
 
 
-const mapStateToProps = (state) => {
-	return {
+const mapStateToProps = (state) => ({
         settings: state.user_settings
-	}
-};
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
 	changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model))

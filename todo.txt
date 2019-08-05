@@ -1,3 +1,6 @@
+pagination
+    only display the amount of buttons necessary
+
 Add recipes to ingredient search
     make search async
 

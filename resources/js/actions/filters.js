@@ -14,7 +14,11 @@ export const changeTablePage = (pageNumber, model) => {
 
         switch (model) {
             case 'recipe':
-                url = '/api/recipes/'+ user_id +'/?page=' + pageNumber;
+				url = '/api/recipes/'+ user_id +'/?page=' + pageNumber;
+				break;
+			case 'favorite-recipes':
+				url = '/api/favorite-recipes/'+ user_id +'/?page=' + pageNumber;
+				break;
         }
 
 		fetch(url, request)
@@ -25,6 +29,12 @@ export const changeTablePage = (pageNumber, model) => {
                     case 'recipe':
                         dispatch({
                         	type: 'SET_RECIPES',
+                        	recipes: data.recipes
+                        });
+						break;
+					case 'favorite-recipes':
+                        dispatch({
+                        	type: 'SET_FAVORITE_RECIPES',
                         	recipes: data.recipes
                         });
                         break;

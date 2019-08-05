@@ -34554,6 +34554,48 @@ var startLogout = function startLogout() {
 
 /***/ }),
 
+/***/ "./resources/js/actions/favoriteRecipes.js":
+/*!*************************************************!*\
+  !*** ./resources/js/actions/favoriteRecipes.js ***!
+  \*************************************************/
+/*! exports provided: getFavoriteRecipes */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFavoriteRecipes", function() { return getFavoriteRecipes; });
+var getFavoriteRecipes = function getFavoriteRecipes() {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var user_id = getState().user.id;
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      }
+    };
+    fetch('/api/favorite-recipes/' + user_id, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'SET_FAVORITE_RECIPES',
+        recipes: data.recipes
+      });
+      dispatch({
+        type: 'SET_FAVORITE_RECIPE_TOTAL',
+        recipeTotal: data.recipe_total
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/filters.js":
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
@@ -34589,6 +34631,11 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
     switch (model) {
       case 'recipe':
         url = '/api/recipes/' + user_id + '/?page=' + pageNumber;
+        break;
+
+      case 'favorite-recipes':
+        url = '/api/favorite-recipes/' + user_id + '/?page=' + pageNumber;
+        break;
     }
 
     fetch(url, request).then(function (resp) {
@@ -34600,6 +34647,13 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
         case 'recipe':
           dispatch({
             type: 'SET_RECIPES',
+            recipes: data.recipes
+          });
+          break;
+
+        case 'favorite-recipes':
+          dispatch({
+            type: 'SET_FAVORITE_RECIPES',
             recipes: data.recipes
           });
           break;
@@ -39817,11 +39871,17 @@ function (_React$Component) {
       var currentPage = parseInt(this.state.page);
       var pageCount = [];
       var paginationPos = 'start';
+      var pages = 5;
+      console.log(Math.ceil(this.props.total / this.props.settings.table_result_limit));
 
       if (currentPage <= 5) {
-        var index = 1;
+        var index = 1; // Only display the correct number of pages if page count is less than 5
 
-        while (pageCount.length < 5) {
+        if (Math.ceil(this.props.total / this.props.settings.table_result_limit)) {
+          pages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
+        }
+
+        while (pageCount.length < pages) {
           pageCount.push(index);
           index++;
         }
@@ -39861,7 +39921,7 @@ function (_React$Component) {
           className: "btn--table" + (page == currentPage ? '-active' : ''),
           onClick: _this3.pageFilter
         }, page);
-      }), paginationPos == 'start' || paginationPos == 'middle' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), paginationPos == 'start' && pages > 5 || paginationPos == 'middle' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "page_" + (currentPage + 1),
         className: "btn--table",
         onClick: this.pageFilter
@@ -40024,6 +40084,31 @@ var cuisineTypesReducerDefaultState = [];
   switch (action.type) {
     case 'SET_CUISINE_TYPES':
       return action.cuisine_types;
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/reducers/favorite_recipes.js":
+/*!***************************************************!*\
+  !*** ./resources/js/reducers/favorite_recipes.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var favoriteRecipesReducerDefaultState = [];
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : favoriteRecipesReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_FAVORITE_RECIPES':
+      return action.recipes;
 
     default:
       return state;
@@ -40403,6 +40488,11 @@ var totalsReducerDefaultState = {};
     case 'SET_RECIPE_TOTAL':
       return _objectSpread({}, state, {
         recipe: action.recipeTotal
+      });
+
+    case 'SET_FAVORITE_RECIPE_TOTAL':
+      return _objectSpread({}, state, {
+        favorite_recipe: action.recipeTotal
       });
 
     default:
@@ -40849,14 +40939,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux_thunk__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-thunk */ "./node_modules/redux-thunk/es/index.js");
 /* harmony import */ var _reducers_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reducers/auth */ "./resources/js/reducers/auth.js");
 /* harmony import */ var _reducers_cuisine_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../reducers/cuisine_types */ "./resources/js/reducers/cuisine_types.js");
-/* harmony import */ var _reducers_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/filters */ "./resources/js/reducers/filters.js");
-/* harmony import */ var _reducers_ingredients__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/ingredients */ "./resources/js/reducers/ingredients.js");
-/* harmony import */ var _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/measurement_units */ "./resources/js/reducers/measurement_units.js");
-/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
-/* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
-/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
-/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+/* harmony import */ var _reducers_favorite_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../reducers/favorite_recipes */ "./resources/js/reducers/favorite_recipes.js");
+/* harmony import */ var _reducers_filters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../reducers/filters */ "./resources/js/reducers/filters.js");
+/* harmony import */ var _reducers_ingredients__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../reducers/ingredients */ "./resources/js/reducers/ingredients.js");
+/* harmony import */ var _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/measurement_units */ "./resources/js/reducers/measurement_units.js");
+/* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
+/* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
+/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
 
 
 
@@ -40874,14 +40966,15 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
   var store = Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
     auth: _reducers_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
     cuisine_types: _reducers_cuisine_types__WEBPACK_IMPORTED_MODULE_3__["default"],
-    filters: _reducers_filters__WEBPACK_IMPORTED_MODULE_4__["default"],
-    ingredients: _reducers_ingredients__WEBPACK_IMPORTED_MODULE_5__["default"],
-    measurement_units: _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_6__["default"],
-    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_7__["default"],
-    recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_8__["default"],
-    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_9__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_10__["default"],
-    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_11__["default"]
+    filters: _reducers_filters__WEBPACK_IMPORTED_MODULE_5__["default"],
+    ingredients: _reducers_ingredients__WEBPACK_IMPORTED_MODULE_6__["default"],
+    measurement_units: _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_7__["default"],
+    recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_8__["default"],
+    favorite_recipes: _reducers_favorite_recipes__WEBPACK_IMPORTED_MODULE_4__["default"],
+    recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_9__["default"],
+    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_10__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_11__["default"],
+    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_12__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });
@@ -41112,7 +41205,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/Table */ "./resources/js/services/Table.js");
+/* harmony import */ var _actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/favoriteRecipes */ "./resources/js/actions/favoriteRecipes.js");
+/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PageHeader */ "./resources/js/components/PageHeader.js");
+/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41135,23 +41232,66 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+
+
 var FavoritesPage =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(FavoritesPage, _React$Component);
 
-  function FavoritesPage() {
+  function FavoritesPage(props) {
+    var _this;
+
     _classCallCheck(this, FavoritesPage);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FavoritesPage).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(FavoritesPage).call(this, props));
+    _this.state = {
+      headers: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableHeaders"])(),
+      options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableOptions"])()
+    };
+    return _this;
   }
 
   _createClass(FavoritesPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log('get favorites');
+
+      if (this.props.recipes.length === 0) {
+        this.props.getFavoriteRecipes();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var tableProps = {
+        headers: this.state.headers,
+        data: this.props.recipes,
+        className: 'table__row--recipe',
+        model: 'favorite-recipes',
+        options: this.state.options,
+        total: this.props.recipeTotal
+      };
+      var pageHeaderProps = {
+        title: 'My Favorite Recipes',
+        subtitle: {
+          className: 'page-header__record-count',
+          text: this.props.recipeTotal + ' Recipes Total'
+        },
+        options: {
+          buttons: [{
+            link: 'recipes/create',
+            className: 'btn--primary',
+            icon: 'add',
+            label: 'New Recipe'
+          }]
+        }
+      };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Favorites"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableProps));
     }
   }]);
 
@@ -41159,11 +41299,18 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {};
+  return {
+    recipes: state.favorite_recipes,
+    recipeTotal: state.totals.favorite_recipe
+  };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
-  return {};
+  return {
+    getFavoriteRecipes: function getFavoriteRecipes() {
+      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["getFavoriteRecipes"])());
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(FavoritesPage));
@@ -41840,18 +41987,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       } else {
         var pageHeaderProps = {
-          title: this.props.recipe.info.name,
-          options: {
-            buttons: [{
-              onClick: 'edit',
-              className: 'btn--minimal',
-              icon: 'edit',
-              label: {
-                view: 'Edit Recipe',
-                edit: 'Save Recipe'
-              }
-            }]
-          }
+          title: this.props.recipe.info.name
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid"
