@@ -12,8 +12,15 @@ export class TableBody extends React.Component {
     startFavoriteRecipe = (e) => {
         const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
 
-        this.props.favoriteRecipe(id, 'true');
-        this.props.refreshFavorites();
+        if (this.props.model == 'favorite-recipes') {
+            this.props.favoriteRecipe(id, 'true');
+            this.props.refreshFavorites();
+        }
+        else {
+            const recipe = this.props.data.filter(item => item.id == id)[0];
+            const favoriteStatus = recipe.favorite;
+            this.props.favoriteRecipe(id, favoriteStatus);
+        }
     }
     
 	render() {

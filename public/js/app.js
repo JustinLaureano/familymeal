@@ -34558,12 +34558,13 @@ var startLogout = function startLogout() {
 /*!*************************************************!*\
   !*** ./resources/js/actions/favoriteRecipes.js ***!
   \*************************************************/
-/*! exports provided: getFavoriteRecipes */
+/*! exports provided: getFavoriteRecipes, clearFavoriteRecipes */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFavoriteRecipes", function() { return getFavoriteRecipes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearFavoriteRecipes", function() { return clearFavoriteRecipes; });
 var getFavoriteRecipes = function getFavoriteRecipes() {
   var user_id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
@@ -34596,6 +34597,13 @@ var getFavoriteRecipes = function getFavoriteRecipes() {
       });
     })["catch"](function (err) {
       return console.log(err);
+    });
+  };
+};
+var clearFavoriteRecipes = function clearFavoriteRecipes() {
+  return function (dispatch) {
+    dispatch({
+      type: 'CLEAR_FAVORITE_RECIPES'
     });
   };
 };
@@ -35540,6 +35548,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _components_PageSearch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PageSearch */ "./resources/js/components/PageSearch.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35557,6 +35566,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -35586,7 +35596,9 @@ function (_React$Component) {
         className: this.props.subtitle.className
       }, this.props.subtitle.text) : ''), this.props.options ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
-      }, this.props.options.buttons ? this.props.options.buttons.map(function (button, index) {
+      }, this.props.search && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        type: this.props.search.type
+      }), this.props.options.buttons ? this.props.options.buttons.map(function (button, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           key: "button_" + index,
           to: button.link
@@ -35678,6 +35690,70 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 ;
 /* harmony default export */ __webpack_exports__["default"] = (PageLoad);
+
+/***/ }),
+
+/***/ "./resources/js/components/PageSearch.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/PageSearch.js ***!
+  \***********************************************/
+/*! exports provided: PageSearch, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageSearch", function() { return PageSearch; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_recipe_RecipePageSearch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/recipe/RecipePageSearch */ "./resources/js/components/recipe/RecipePageSearch.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var PageSearch =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PageSearch, _React$Component);
+
+  function PageSearch() {
+    _classCallCheck(this, PageSearch);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(PageSearch).apply(this, arguments));
+  }
+
+  _createClass(PageSearch, [{
+    key: "render",
+    value: function render() {
+      switch (this.props.type) {
+        case 'recipe':
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePageSearch__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+
+        default:
+          return '';
+      }
+    }
+  }]);
+
+  return PageSearch;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+/* harmony default export */ __webpack_exports__["default"] = (PageSearch);
 
 /***/ }),
 
@@ -38786,6 +38862,76 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/components/recipe/RecipePageSearch.js":
+/*!************************************************************!*\
+  !*** ./resources/js/components/recipe/RecipePageSearch.js ***!
+  \************************************************************/
+/*! exports provided: RecipePageSearch, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipePageSearch", function() { return RecipePageSearch; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var RecipePageSearch =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(RecipePageSearch, _React$Component);
+
+  function RecipePageSearch() {
+    _classCallCheck(this, RecipePageSearch);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(RecipePageSearch).apply(this, arguments));
+  }
+
+  _createClass(RecipePageSearch, [{
+    key: "render",
+    value: function render() {
+      var inputProps = {
+        placeholder: 'Ingredient',
+        value: value,
+        onChange: this.onChange
+      };
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Autosuggest, {
+        id: "ingredient_autosuggest",
+        suggestions: this.state.suggestions,
+        onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+        onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+        onSuggestionSelected: this.onSuggestionSelected,
+        getSuggestionValue: this.getSuggestionValue,
+        renderSuggestion: this.renderSuggestion,
+        inputProps: inputProps
+      });
+    }
+  }]);
+
+  return RecipePageSearch;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+/* harmony default export */ __webpack_exports__["default"] = (PageSearch);
+
+/***/ }),
+
 /***/ "./resources/js/components/recipe/RecipePhoto.js":
 /*!*******************************************************!*\
   !*** ./resources/js/components/recipe/RecipePhoto.js ***!
@@ -39654,9 +39800,19 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function (e) {
       var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
 
-      _this.props.favoriteRecipe(id, 'true');
+      if (_this.props.model == 'favorite-recipes') {
+        _this.props.favoriteRecipe(id, 'true');
 
-      _this.props.refreshFavorites();
+        _this.props.refreshFavorites();
+      } else {
+        var recipe = _this.props.data.filter(function (item) {
+          return item.id == id;
+        })[0];
+
+        var favoriteStatus = recipe.favorite;
+
+        _this.props.favoriteRecipe(id, favoriteStatus);
+      }
     });
 
     return _this;
@@ -40112,6 +40268,9 @@ var favoriteRecipesReducerDefaultState = [];
   switch (action.type) {
     case 'SET_FAVORITE_RECIPES':
       return action.recipes;
+
+    case 'CLEAR_FAVORITE_RECIPES':
+      return favoriteRecipesReducerDefaultState;
 
     default:
       return state;
@@ -41287,6 +41446,13 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.recipes.length > 0) {
+        this.props.clearFavoriteRecipes();
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       var tableProps = {
@@ -41334,6 +41500,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     getFavoriteRecipes: function getFavoriteRecipes(user_id, page) {
       return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["getFavoriteRecipes"])(user_id, page));
+    },
+    clearFavoriteRecipes: function clearFavoriteRecipes() {
+      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["clearFavoriteRecipes"])());
     }
   };
 };
@@ -41631,6 +41800,9 @@ function (_React$Component) {
           text: this.props.recipeTotal + ' Recipes Total'
         },
         options: {
+          search: {
+            type: 'recipe'
+          },
           buttons: [{
             link: 'recipes/create',
             className: 'btn--primary',

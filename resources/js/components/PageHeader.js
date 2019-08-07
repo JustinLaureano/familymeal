@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setEditMode } from '../actions/filters';
+import PageSearch from '../components/PageSearch';
 
 export class PageHeader extends React.Component {
 	render() {
@@ -22,6 +23,10 @@ export class PageHeader extends React.Component {
                     this.props.options ?
                     (
                         <section className="page-header__options">
+                            {
+                                this.props.search &&
+                                <PageSearch type={this.props.search.type}/>
+                            }
                             {
                                 this.props.options.buttons ?
                                 (

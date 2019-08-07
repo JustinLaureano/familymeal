@@ -1,26 +1,16 @@
-pagination
-    only display the amount of buttons necessary
-
 add search to table pages
+
+    in progress - recipe page search
 
 Add recipes to ingredient search
     make search async
-
     add (r) next to ingredients that are recipes
 
+manage recipe name input responsize sizing
 
-add option to make recipe a favorite
-    add this option to recipe table more dropdown
-    add to recipe edit page
-
-    add heart icon next to recipe title
-
-    manage recipe name input responsize sizing
-    button spacing / sizing for recipe view options
-        save
-        cancel
-
-add clone recipe button
+add clone recipe button to more options dropdown
+    view recipe page
+    maybe the recipe table page
 
 Landing Page
     design
@@ -29,4 +19,20 @@ Landing Page
 
     add quick login to login button on header
 
+Responsive styles
+
 combine pages for create / edit recipes
+
+
+add view filter to recipe pages
+    favorites
+    my recipes
+
+    this view will show cards instead of table
+        make user setting to keep track of default
+            or use cookie to save last view on each table
+
+    max 5 wide on card display
+        3 wide on tablet
+        1 wide on mobile
+        keep consistent with results amounts (10, 25, 50)

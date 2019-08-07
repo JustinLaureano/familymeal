@@ -32,6 +32,9 @@ export class MyRecipesPage extends React.Component {
 				text: this.props.recipeTotal + ' Recipes Total'
 			},
 			options: {
+				search: {
+					type: 'recipe'
+				},
 				buttons: [
 					{
 						link: 'recipes/create',

@@ -31,3 +31,11 @@ export const getFavoriteRecipes = (user_id = null, page = 1) => {
 			.catch(err => console.log(err))
 	}
 }
+
+export const clearFavoriteRecipes = () => {
+	return (dispatch) => {
+		dispatch({
+			type: 'CLEAR_FAVORITE_RECIPES'
+		});
+	}
+}

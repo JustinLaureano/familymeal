@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
-import { getFavoriteRecipes } from '../actions/favoriteRecipes';
+import { getFavoriteRecipes, clearFavoriteRecipes } from '../actions/favoriteRecipes';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import Table from '../components/table/Table.js';
@@ -25,6 +25,12 @@ export class FavoritesPage extends React.Component {
 			else {
 				this.props.getFavoriteRecipes();
 			}
+		}
+	}
+
+	componentWillMount() {
+		if (this.props.recipes.length > 0) {
+			this.props.clearFavoriteRecipes();
 		}
 	}
 
@@ -84,7 +90,8 @@ const mapStateToProps = (state) => ({
 });
   
 const mapDispatchToProps = (dispatch, props) => ({
-	getFavoriteRecipes: (user_id, page) => dispatch(getFavoriteRecipes(user_id, page))
+	getFavoriteRecipes: (user_id, page) => dispatch(getFavoriteRecipes(user_id, page)),
+	clearFavoriteRecipes: () => dispatch(clearFavoriteRecipes())
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);
