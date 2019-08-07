@@ -1,6 +1,8 @@
 pagination
     only display the amount of buttons necessary
 
+add search to table pages
+
 Add recipes to ingredient search
     make search async
 

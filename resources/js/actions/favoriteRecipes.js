@@ -1,4 +1,4 @@
-export const getFavoriteRecipes = (user_id = null) => {
+export const getFavoriteRecipes = (user_id = null, page = 1) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
@@ -15,7 +15,7 @@ export const getFavoriteRecipes = (user_id = null) => {
 			}
 		};
 
-		fetch('/api/favorite-recipes/' + user_id, request)
+		fetch('/api/favorite-recipes/' + user_id + '?page=' + page, request)
 			.then(resp => resp.json())
 			.then((data) => {
                 dispatch({

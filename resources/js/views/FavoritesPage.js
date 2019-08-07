@@ -28,6 +28,19 @@ export class FavoritesPage extends React.Component {
 			}
 		}
 	}
+
+	refreshFavorites = () => {
+		let currentPage = 1;
+		const currentPageBtn = document.querySelector('.btn--table-active');
+		if (currentPageBtn) {
+			const currentPageNumber = parseInt(currentPageBtn.innerHTML);
+			if (currentPageNumber) {
+				currentPage = currentPageNumber;
+			}
+		}
+		console.log(currentPage);
+		this.props.getFavoriteRecipes(this.props.user_id, currentPage);
+	}
 	
 	render() {
 		const tableProps = {
@@ -36,7 +49,8 @@ export class FavoritesPage extends React.Component {
 			className: 'table__row--recipe',
 			model: 'favorite-recipes',
 			options: this.state.options,
-			total: this.props.recipeTotal
+			total: this.props.recipeTotal,
+			refreshFavorites: this.refreshFavorites
 		};
 		const pageHeaderProps = {
 			title: 'My Favorite Recipes',
@@ -72,7 +86,7 @@ const mapStateToProps = (state) => ({
 });
   
 const mapDispatchToProps = (dispatch, props) => ({
-	getFavoriteRecipes: (user_id) => dispatch(getFavoriteRecipes(user_id))
+	getFavoriteRecipes: (user_id, page) => dispatch(getFavoriteRecipes(user_id, page))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesPage);

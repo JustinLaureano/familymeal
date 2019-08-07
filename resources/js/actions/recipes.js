@@ -502,14 +502,15 @@ export const favoriteRecipe = (recipe_id, favorite) => {
 					favorite: newFavoriteStatus
 				});
 
-				const currentRecipeId = getState().filters.currentRecipe.info.id;
-				if (currentRecipeId == recipe_id) {
-					dispatch({
-						type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-						favorite: newFavoriteStatus
-					});
+				if (getState().filters.currentRecipe) {
+					const currentRecipeId = getState().filters.currentRecipe.info.id;
+					if (currentRecipeId == recipe_id) {
+						dispatch({
+							type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+							favorite: newFavoriteStatus
+						});
+					}
 				}
-
 			})
 			.catch(err => console.log(err))
 	}

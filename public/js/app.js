@@ -58025,6 +58025,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFavoriteRecipes", function() { return getFavoriteRecipes; });
 var getFavoriteRecipes = function getFavoriteRecipes() {
   var user_id = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return function (dispatch, getState) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
@@ -58041,7 +58042,7 @@ var getFavoriteRecipes = function getFavoriteRecipes() {
         'X-CSRF-TOKEN': csrf_token
       }
     };
-    fetch('/api/favorite-recipes/' + user_id, request).then(function (resp) {
+    fetch('/api/favorite-recipes/' + user_id + '?page=' + page, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
       dispatch({
@@ -58730,13 +58731,16 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
         recipe_id: recipe_id,
         favorite: newFavoriteStatus
       });
-      var currentRecipeId = getState().filters.currentRecipe.info.id;
 
-      if (currentRecipeId == recipe_id) {
-        dispatch({
-          type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
-          favorite: newFavoriteStatus
-        });
+      if (getState().filters.currentRecipe) {
+        var currentRecipeId = getState().filters.currentRecipe.info.id;
+
+        if (currentRecipeId == recipe_id) {
+          dispatch({
+            type: 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS',
+            favorite: newFavoriteStatus
+          });
+        }
       }
     })["catch"](function (err) {
       return console.log(err);
@@ -63113,15 +63117,10 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function (e) {
       var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-      console.log(id);
 
-      var recipe = _this.props.data.filter(function (item) {
-        return item.id == id;
-      })[0];
+      _this.props.favoriteRecipe(id, 'true');
 
-      var favoriteStatus = recipe.favorite;
-
-      _this.props.favoriteRecipe(id, favoriteStatus);
+      _this.props.refreshFavorites();
     });
 
     return _this;
@@ -63171,7 +63170,7 @@ function (_React$Component) {
                       className: "table__more-option"
                     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
                       className: "material-icons table__more-option-icon "
-                    }, option.icon), item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
+                    }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
                   case 'deleteRecipe':
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -63341,7 +63340,6 @@ function (_React$Component) {
       var paginationPos = 'start';
       var pages = 5;
       var totalPages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
-      console.log(this.props);
 
       if (currentPage <= 5) {
         var index = 1; // Only display the correct number of pages if page count is less than 5
@@ -64691,13 +64689,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -64719,6 +64719,24 @@ function (_React$Component) {
     _classCallCheck(this, FavoritesPage);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(FavoritesPage).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "refreshFavorites", function () {
+      var currentPage = 1;
+      var currentPageBtn = document.querySelector('.btn--table-active');
+
+      if (currentPageBtn) {
+        var currentPageNumber = parseInt(currentPageBtn.innerHTML);
+
+        if (currentPageNumber) {
+          currentPage = currentPageNumber;
+        }
+      }
+
+      console.log(currentPage);
+
+      _this.props.getFavoriteRecipes(_this.props.user_id, currentPage);
+    });
+
     _this.state = {
       headers: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableHeaders"])(),
       options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableOptions"])()
@@ -64746,7 +64764,8 @@ function (_React$Component) {
         className: 'table__row--recipe',
         model: 'favorite-recipes',
         options: this.state.options,
-        total: this.props.recipeTotal
+        total: this.props.recipeTotal,
+        refreshFavorites: this.refreshFavorites
       };
       var pageHeaderProps = {
         title: 'My Favorite Recipes',
@@ -64782,8 +64801,8 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
-    getFavoriteRecipes: function getFavoriteRecipes(user_id) {
-      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["getFavoriteRecipes"])(user_id));
+    getFavoriteRecipes: function getFavoriteRecipes(user_id, page) {
+      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["getFavoriteRecipes"])(user_id, page));
     }
   };
 };

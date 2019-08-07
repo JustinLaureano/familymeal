@@ -11,11 +11,9 @@ export class TableBody extends React.Component {
 
     startFavoriteRecipe = (e) => {
         const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-        console.log(id);
-        const recipe = this.props.data.filter(item => item.id == id)[0];
-        const favoriteStatus = recipe.favorite;
 
-        this.props.favoriteRecipe(id, favoriteStatus);
+        this.props.favoriteRecipe(id, 'true');
+        this.props.refreshFavorites();
     }
     
 	render() {
@@ -36,6 +34,7 @@ export class TableBody extends React.Component {
                                             <div
                                                 id={ "options_" + item.id }
                                                 className="table__options-modal">
+
                                                 { this.props.options.map((option) => {
                                                     if (typeof option.route != 'undefined') {
                                                         return (
@@ -64,7 +63,11 @@ export class TableBody extends React.Component {
                                                                         <i className="material-icons table__more-option-icon ">
                                                                             { option.icon }
                                                                         </i>
-                                                                        { item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite' }
+                                                                        { 
+                                                                            this.props.model == 'favorite-recipes' ||
+                                                                            item.favorite == 'true' ? 
+                                                                                'Remove Favorite' : 'Make Favorite'
+                                                                        }
                                                                     </div>
                                                                 )
                                                             case 'deleteRecipe':

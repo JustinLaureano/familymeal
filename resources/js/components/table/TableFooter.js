@@ -49,7 +49,7 @@ export class TableFooter extends React.Component {
         let paginationPos = 'start';
         let pages = 5;
         let totalPages = Math.ceil(this.props.total / this.props.settings.table_result_limit);
-        console.log(this.props);
+
         if (currentPage <= 5) {
             let index = 1;
             // Only display the correct number of pages if page count is less than 5
