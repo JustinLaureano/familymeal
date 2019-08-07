@@ -6,7 +6,6 @@ import { getFavoriteRecipes } from '../actions/favoriteRecipes';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import Table from '../components/table/Table.js';
-import { timingSafeEqual } from 'crypto';
 
 export class FavoritesPage extends React.Component {
 	constructor(props) {
@@ -38,7 +37,6 @@ export class FavoritesPage extends React.Component {
 				currentPage = currentPageNumber;
 			}
 		}
-		console.log(currentPage);
 		this.props.getFavoriteRecipes(this.props.user_id, currentPage);
 	}
 	

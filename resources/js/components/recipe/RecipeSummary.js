@@ -29,7 +29,6 @@ export class RecipeSummary extends React.Component {
 		const summary = this.state.summary;
 		if (summary != this.props.summary) {
 			document.querySelector("section[class='recipe-grid__summary']").innerHTML = summary;
-			console.log(summary);
 			this.props.updateRecipeSummary(summary);
 		}
 	}

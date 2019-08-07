@@ -155,8 +155,6 @@ export class IngredientSelect extends React.Component {
     }
     
     isValidIngredientEntry = () => {
-        console.log(parseInt(this.state.measurement_unit_id));
-        console.log(typeof this.state.measurement_unit_id);
         return this.state.amount.trim() != '' &&
             this.state.measurement_unit_id != '' &&
             this.state.value.trim() != '';

@@ -19,8 +19,6 @@ export class PhotoUploadDialog extends React.Component {
     }
 
     handleDrop = (files, event) => {
-        console.log(files);
-        console.log(event.target.result);
         const file = files[0];
         const reader = new FileReader();
         reader.onload = (event) => {
