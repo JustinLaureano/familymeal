@@ -1026,6 +1026,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   font-size: 1.5em;
   font-weight: 700;
   bottom: calc(0.25 * 1em);
+  font-weight: 400;
   position: relative;
   width: 100%;
 }
@@ -1816,4 +1817,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .gold {
   color: #fdc22d;
+}
+
+.bold {
+  font-weight: 700;
 }

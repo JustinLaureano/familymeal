@@ -38812,9 +38812,10 @@ function (_React$Component) {
       }, this.props.filters.editMode ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         name: "name",
-        className: "page-header__title--input",
+        className: "page-header__title--input" + (this.state.name != '' ? ' bold' : ''),
         onChange: this.setName,
-        value: this.state.name
+        value: this.state.name,
+        placeholder: "Recipe Name"
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "page-header__title"
       }, this.props.name, this.props.favorite == 'true' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {

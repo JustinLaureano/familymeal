@@ -91,9 +91,12 @@ export class RecipePageHeader extends React.Component {
                             <input
                                 type="text"
                                 name="name"
-                                className="page-header__title--input"
+                                className={
+                                    "page-header__title--input" + (this.state.name != '' ? ' bold' : '')
+                                }
                                 onChange={ this.setName }
-                                value={ this.state.name } />
+                                value={ this.state.name }
+                                placeholder="Recipe Name" />
                         ) :
                         (
                             <h1 className="page-header__title">

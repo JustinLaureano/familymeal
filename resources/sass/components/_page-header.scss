@@ -9,6 +9,7 @@
     @extend .input--edit;
     @include h1-font;
     bottom: $space-xxxs;
+    font-weight: 400;
     position: relative;
     width: 100%;
 }
