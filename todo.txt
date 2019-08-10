@@ -1,6 +1,5 @@
 add search to table pages
-
-    in progress - recipe page search
+    favorites
 
 Add recipes to ingredient search
     make search async

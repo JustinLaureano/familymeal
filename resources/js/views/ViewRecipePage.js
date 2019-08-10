@@ -9,7 +9,7 @@ import RecipeIngredients from '../components/recipe/RecipeIngredients';
 import RecipeDirections from '../components/recipe/RecipeDirections';
 import RecipeNotes from '../components/recipe/RecipeNotes';
 import RecipePhoto from '../components/recipe/RecipePhoto';
-import { setEditMode } from '../actions/filters';
+import { setEditMode, startNewRecipe } from '../actions/filters';
 import { getRecipe, clearCurrentRecipe } from '../actions/recipes';
 
 export class ViewRecipePage extends React.Component {
@@ -17,16 +17,33 @@ export class ViewRecipePage extends React.Component {
         super(props);
         
         this.state = {
-			loading: true
+			loading: true,
+			newRecipe: false
         };
 	};
 	componentWillMount() {
+		if (this.props.location.pathname === '/recipes/create') {
+			this.setState(() => ({ newRecipe: true }));
+		}
+
 		this.setState(() => ({ loading: true }));
 	}
 
 	componentDidMount() {
-		const recipe_id = this.props.location.state.id;
-		this.props.getRecipe(recipe_id);
+		if (this.state.newRecipe) {
+			this.props.startNewRecipe();
+			this.setState(() => ({ loading: false }));
+			this.props.setEditMode(true);
+		}
+		else {
+			const recipe_id = this.props.location.state.id;
+			this.props.getRecipe(recipe_id);
+	
+			// Set editMode if needed
+			if (this.props.location.state && this.props.location.state.editMode) {
+				this.props.setEditMode(true);
+			}
+		}
 	}
 
 	componentDidUpdate() {
@@ -73,7 +90,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, props) => ({
 	clearCurrentRecipe: () => dispatch(clearCurrentRecipe()),
 	getRecipe: (recipe_id) => dispatch(getRecipe(recipe_id)),
-	setEditMode: (editMode) => dispatch(setEditMode(editMode))
+	setEditMode: (editMode) => dispatch(setEditMode(editMode)),
+	startNewRecipe: () => dispatch(startNewRecipe())
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(ViewRecipePage);

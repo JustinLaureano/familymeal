@@ -151,3 +151,11 @@ export const getRecipeSearchResults = (params) => {
 
 	});
 }
+
+export const startNewRecipe = () => {
+	return (dispatch) => {
+        dispatch({
+            type: 'SET_NEW_CURRENT_RECIPE'
+        });
+	}
+}

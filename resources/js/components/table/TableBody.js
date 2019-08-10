@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { history } from '../../routers/AppRouter';
 import { Link } from 'react-router-dom';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
 
@@ -21,6 +22,15 @@ export class TableBody extends React.Component {
             const favoriteStatus = recipe.favorite;
             this.props.favoriteRecipe(id, favoriteStatus);
         }
+    }
+
+    updateRecipe = (e) => {
+        const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+
+        history.push({
+            pathname: '/recipes/' + id,
+            state: { id: id, editMode: true }
+        });
     }
     
 	render() {
@@ -77,6 +87,16 @@ export class TableBody extends React.Component {
                                                                         }
                                                                     </div>
                                                                 )
+                                                            case 'updateRecipe':
+                                                                return (
+                                                                    <div
+                                                                        key={"option_" + option.label + "_" + item.id}
+                                                                        onClick={ this.updateRecipe }
+                                                                        className="table__more-option">
+                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
+                                                                        { option.label }
+                                                                    </div>
+                                                                )
                                                             case 'deleteRecipe':
                                                                 return (
                                                                     <div
@@ -92,7 +112,7 @@ export class TableBody extends React.Component {
                                                 })}
                                             </div>
                                         </div>
-                                        );
+                                        )
                                     }
                                 else {
                                     if (this.props.headers[index].type == 'link') {

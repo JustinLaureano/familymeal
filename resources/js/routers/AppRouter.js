@@ -25,7 +25,7 @@ const AppRouter = () => (
       <Switch>
         <PrivateRoute path="/home" component={MyRecipesPage} exact={true} />
         <PrivateRoute path="/recipes" component={MyRecipesPage} exact={true} />
-        <PrivateRoute path="/recipes/create" component={EditRecipePage} exact={true} />
+        <PrivateRoute path="/recipes/create" component={ViewRecipePage} exact={true} />
         <PrivateRoute path="/recipes/:id" component={ViewRecipePage} exact={true} />
         <PrivateRoute path="/recipes/:id/edit" component={EditRecipePage} exact={true} />
         <PrivateRoute path="/categories" component={CategoriesPage} exact={true} />

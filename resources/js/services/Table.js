@@ -41,8 +41,7 @@ export function getRecipeTableOptions() {
         {
             label: 'Update',
             icon: 'edit',
-            route: 'recipes/',
-            action: '/edit'
+            onClick: 'updateRecipe'
         },
         {
             label: 'Delete',

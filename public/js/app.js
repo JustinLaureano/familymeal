@@ -34614,7 +34614,7 @@ var clearFavoriteRecipes = function clearFavoriteRecipes() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges, getRecipeSearchResults */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges, getRecipeSearchResults, startNewRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34630,6 +34630,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCancelChanges", function() { return setCancelChanges; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetCancelChanges", function() { return resetCancelChanges; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipeSearchResults", function() { return getRecipeSearchResults; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startNewRecipe", function() { return startNewRecipe; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34775,6 +34776,13 @@ var getRecipeSearchResults = function getRecipeSearchResults(params) {
       return reject(err);
     });
   });
+};
+var startNewRecipe = function startNewRecipe() {
+  return function (dispatch) {
+    dispatch({
+      type: 'SET_NEW_CURRENT_RECIPE'
+    });
+  };
 };
 
 /***/ }),
@@ -39881,8 +39889,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39902,6 +39911,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -39949,6 +39959,17 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "updateRecipe", function (e) {
+      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__["history"].push({
+        pathname: '/recipes/' + id,
+        state: {
+          id: id,
+          editMode: true
+        }
+      });
+    });
+
     return _this;
   }
 
@@ -39975,7 +39996,7 @@ function (_React$Component) {
               className: "table__options-modal"
             }, _this2.props.options.map(function (option) {
               if (typeof option.route != 'undefined') {
-                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
                   key: "option_" + option.label + "_" + item.id,
                   to: {
                     pathname: option.route + item.id,
@@ -39998,6 +40019,15 @@ function (_React$Component) {
                       className: "material-icons table__more-option-icon "
                     }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
+                  case 'updateRecipe':
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+                      key: "option_" + option.label + "_" + item.id,
+                      onClick: _this2.updateRecipe,
+                      className: "table__more-option"
+                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                      className: "material-icons table__more-option-icon"
+                    }, option.icon), option.label);
+
                   case 'deleteRecipe':
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
                       key: "option_" + option.label + "_" + item.id,
@@ -40011,7 +40041,7 @@ function (_React$Component) {
             })));
           } else {
             if (_this2.props.headers[index].type == 'link') {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
                 to: {
                   pathname: _this2.props.headers[index].route + item.id,
                   state: {
@@ -40046,10 +40076,10 @@ function (_React$Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     favoriteRecipe: function favoriteRecipe(id, favorite) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["favoriteRecipe"])(id, favorite));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
     },
     deleteRecipe: function deleteRecipe(id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_3__["deleteRecipe"])(id));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["deleteRecipe"])(id));
     }
   };
 };
@@ -40439,6 +40469,33 @@ var filterReducerDefaultState = {
   editMode: false,
   cancelChanges: false
 };
+var currentRecipeDefaultState = {
+  info: {
+    id: null,
+    name: '',
+    user_id: null,
+    recipe_category_id: '',
+    recipe_category_name: '',
+    cuisine_type_id: '',
+    cuisine_type: '',
+    difficulty: 'Easy',
+    portions: '',
+    prep_time: '',
+    cook_time: '',
+    created_at: null,
+    favorite: 'false'
+  },
+  photo: null,
+  summary: {
+    id: null,
+    recipe_id: null,
+    summary: ''
+  },
+  ratings: [],
+  ingredients: [],
+  directions: [],
+  notes: []
+};
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : filterReducerDefaultState;
   var action = arguments.length > 1 ? arguments[1] : undefined;
@@ -40488,6 +40545,11 @@ var filterReducerDefaultState = {
         currentRecipe: _objectSpread({}, state.currentRecipe, {
           notes: [].concat(_toConsumableArray(state.currentRecipe.notes), [action.note])
         })
+      });
+
+    case 'SET_NEW_CURRENT_RECIPE':
+      return _objectSpread({}, state, {
+        currentRecipe: currentRecipeDefaultState
       });
 
     case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
@@ -40911,7 +40973,7 @@ var AppRouter = function AppRouter() {
     exact: true
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PrivateRoute__WEBPACK_IMPORTED_MODULE_3__["default"], {
     path: "/recipes/create",
-    component: _views_EditRecipePage__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _views_ViewRecipePage__WEBPACK_IMPORTED_MODULE_17__["default"],
     exact: true
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_PrivateRoute__WEBPACK_IMPORTED_MODULE_3__["default"], {
     path: "/recipes/:id",
@@ -41127,12 +41189,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserRating", function() { return getUserRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayMove", function() { return arrayMove; });
 function getAverageRating(ratings) {
+  if (ratings.length == 0) {
+    return 0;
+  }
+
   var total = ratings.reduce(function (acc, cur) {
     return parseFloat(acc) + parseFloat(cur.rating);
   }, 0);
   return total / ratings.length;
 }
 function getUserRating(ratings, user_id) {
+  if (ratings.length == 0) {
+    return 0;
+  }
+
   var rating = ratings.filter(function (rating) {
     return rating.user_id == user_id;
   });
@@ -41194,8 +41264,7 @@ function getRecipeTableOptions() {
   }, {
     label: 'Update',
     icon: 'edit',
-    route: 'recipes/',
-    action: '/edit'
+    onClick: 'updateRecipe'
   }, {
     label: 'Delete',
     icon: 'delete',
@@ -42275,7 +42344,8 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ViewRecipePage).call(this, props));
     _this.state = {
-      loading: true
+      loading: true,
+      newRecipe: false
     };
     return _this;
   }
@@ -42283,6 +42353,14 @@ function (_React$Component) {
   _createClass(ViewRecipePage, [{
     key: "componentWillMount",
     value: function componentWillMount() {
+      if (this.props.location.pathname === '/recipes/create') {
+        this.setState(function () {
+          return {
+            newRecipe: true
+          };
+        });
+      }
+
       this.setState(function () {
         return {
           loading: true
@@ -42292,8 +42370,22 @@ function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      var recipe_id = this.props.location.state.id;
-      this.props.getRecipe(recipe_id);
+      if (this.state.newRecipe) {
+        this.props.startNewRecipe();
+        this.setState(function () {
+          return {
+            loading: false
+          };
+        });
+        this.props.setEditMode(true);
+      } else {
+        var recipe_id = this.props.location.state.id;
+        this.props.getRecipe(recipe_id); // Set editMode if needed
+
+        if (this.props.location.state && this.props.location.state.editMode) {
+          this.props.setEditMode(true);
+        }
+      }
     }
   }, {
     key: "componentDidUpdate",
@@ -42347,6 +42439,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
     },
     setEditMode: function setEditMode(editMode) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_11__["setEditMode"])(editMode));
+    },
+    startNewRecipe: function startNewRecipe() {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_11__["startNewRecipe"])());
     }
   };
 };

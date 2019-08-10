@@ -4,6 +4,34 @@ const filterReducerDefaultState = {
     cancelChanges: false
 };
 
+const currentRecipeDefaultState = {
+    info: {
+        id: null,
+        name: '',
+        user_id: null,
+        recipe_category_id: '',
+        recipe_category_name: '',
+        cuisine_type_id: '',
+        cuisine_type: '',
+        difficulty: 'Easy',
+        portions: '',
+        prep_time: '',
+        cook_time: '',
+        created_at: null,
+        favorite: 'false'
+    },
+    photo: null,
+    summary: {
+        id: null,
+        recipe_id: null,
+        summary: ''
+    },
+    ratings: [],
+    ingredients: [],
+    directions: [],
+    notes: []
+}
+
 export default (state = filterReducerDefaultState, action) => {
     switch (action.type) {
         case 'SET_CANCEL_CHANGES_FILTER':
@@ -32,27 +60,27 @@ export default (state = filterReducerDefaultState, action) => {
                 currentRecipe: null
             };
         case 'ADD_CURRENT_RECIPE_DIRECTION':
-                return {
-                    ...state,
-                    currentRecipe: {
-                        ...state.currentRecipe,
-                        directions: [
-                            ...state.currentRecipe.directions,
-                            action.direction
-                        ]
-                    }
-                };
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    directions: [
+                        ...state.currentRecipe.directions,
+                        action.direction
+                    ]
+                }
+            };
         case 'ADD_CURRENT_RECIPE_INGREDIENT':
-                return {
-                    ...state,
-                    currentRecipe: {
-                        ...state.currentRecipe,
-                        ingredients: [
-                            ...state.currentRecipe.ingredients,
-                            action.ingredient
-                        ]
-                    }
-                };
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    ingredients: [
+                        ...state.currentRecipe.ingredients,
+                        action.ingredient
+                    ]
+                }
+            };
         case 'ADD_CURRENT_RECIPE_NOTE':
             return {
                 ...state,
@@ -64,22 +92,27 @@ export default (state = filterReducerDefaultState, action) => {
                     ]
                 }
             };
+        case 'SET_NEW_CURRENT_RECIPE':
+            return {
+                ...state,
+                currentRecipe: currentRecipeDefaultState
+            }
         case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
-                return {
-                    ...state,
-                    currentRecipe: {
-                        ...state.currentRecipe,
-                        directions: action.directions
-                    }
-                };
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    directions: action.directions
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_INGREDIENTS':
-                return {
-                    ...state,
-                    currentRecipe: {
-                        ...state.currentRecipe,
-                        ingredients: action.ingredients
-                    }
-                };
+            return {
+                ...state,
+                currentRecipe: {
+                    ...state.currentRecipe,
+                    ingredients: action.ingredients
+                }
+            };
         case 'UPDATE_CURRENT_RECIPE_NOTES':
             return {
                 ...state,
