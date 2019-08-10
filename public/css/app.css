@@ -399,6 +399,11 @@ a:hover {
   background-color: #2780d31c;
 }
 
+.react-autosuggest__suggestion-option {
+  display: block;
+  width: 100%;
+}
+
 .confirmation {
   display: -webkit-box;
   display: flex;

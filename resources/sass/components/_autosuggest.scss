@@ -53,3 +53,8 @@
         background-color: $weathered-blue-hover;
     }
 }
+
+.react-autosuggest__suggestion-option {
+   display: block;
+   width: 100%; 
+}

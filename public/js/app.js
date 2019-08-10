@@ -38900,9 +38900,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
-/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38922,6 +38923,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -38955,24 +38957,29 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
       var value = _ref2.value,
           reason = _ref2.reason;
-      var searchParams = {
-        token: _this.props.token,
-        csrf_token: _this.props.csrf_token,
-        user_id: _this.props.user_id,
-        value: value
-      };
-      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["getRecipeSearchResults"])(searchParams).then(function (data) {
-        _this.setState({
-          suggestions: data.recipes
-        });
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+
+      if (_this.timer) {
+        clearTimeout(_this.timer);
+      }
+
+      _this.timer = setTimeout(function () {
+        _this.startSuggestionFetch(value);
+      }, 400);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
       _this.setState({
         suggestions: []
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionSelected", function (event, _ref3) {
+      var suggestion = _ref3.suggestion;
+      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__["history"].push({
+        pathname: '/recipes/' + suggestion.id,
+        state: {
+          id: suggestion.id
+        }
       });
     });
 
@@ -38982,6 +38989,22 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", inputProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons react-autosuggest__input-icon"
       }, "search"));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startSuggestionFetch", function (value) {
+      var searchParams = {
+        token: _this.props.token,
+        csrf_token: _this.props.csrf_token,
+        user_id: _this.props.user_id,
+        value: value
+      };
+      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_5__["getRecipeSearchResults"])(searchParams).then(function (data) {
+        _this.setState({
+          suggestions: data.recipes
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
@@ -39001,6 +39024,7 @@ function (_React$Component) {
       value: '',
       suggestions: []
     };
+    _this.timer;
     return _this;
   }
 
@@ -39012,12 +39036,13 @@ function (_React$Component) {
         value: this.state.value,
         onChange: this.onChange
       };
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_4___default.a, {
         id: "recipe_autosuggest",
         suggestions: this.state.suggestions,
         onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
         onSuggestionsClearRequested: this.onSuggestionsClearRequested,
         getSuggestionValue: this.getSuggestionValue,
+        onSuggestionSelected: this.onSuggestionSelected,
         renderInputComponent: this.renderInputComponent,
         renderSuggestion: this.renderSuggestion,
         inputProps: inputProps
