@@ -68,4 +68,28 @@ class Recipe extends Model
             ->offset($params['offset'])
             ->get();
     }
+
+    public static function getSearchResults($params = null)
+    {
+        if (!$params) return [];
+
+        $take = 25;
+
+        return DB::table('recipe')
+            ->select(
+                'recipe.name',
+                'recipe.id',
+                DB::raw('IF(favorite_recipes.id IS NOT NULL, \'true\', \'false\') AS favorite')
+            )
+            ->leftJoin('favorite_recipes', function($leftJoin) {
+                $leftJoin->on('recipe.id', '=', 'favorite_recipes.recipe_id')
+                    ->on('recipe.user_id', '=', 'favorite_recipes.user_id');
+            })
+            ->where('recipe.user_id', $params['user_id'])
+            ->where('name', 'like', '%' . $params['value'] . '%')
+            ->where('recipe.deleted_at', Null)
+            ->orderBy('name', 'asc')
+            ->take($take)
+            ->get();
+    }
 }

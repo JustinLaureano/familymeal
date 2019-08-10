@@ -1,8 +1,22 @@
 .react-autosuggest__container {
+    max-width: 275px;
     width: 100%;
 }
 
+.react-autosuggest__input-container {
+    position: relative;
+}
+
+.react-autosuggest__input-icon {
+    font-size: 1.25em;
+    opacity: $icon-opacity;
+    position: absolute;
+    right: 5px;
+    top: 6px;
+}
+
 .react-autosuggest__input {
+    @include border(2px);
     width: 100%;
 }
 
@@ -17,6 +31,7 @@
     @include border();
     box-shadow: 1px 1px 4px rgba(0, 0, 0, .15);
     max-height: 200px;
+    max-width: 275px;
     overflow-y: scroll;
     scrollbar-width: none;
     

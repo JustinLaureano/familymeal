@@ -124,3 +124,30 @@ export const resetCancelChanges = () => {
         });
 	}
 }
+
+export const getRecipeSearchResults = (params) => {
+	return new Promise((resolve, reject) => {
+		const token = params.token;
+		const csrf_token = params.csrf_token;
+		const user_id = params.user_id;
+		const value = params.value.toString();
+
+		const request = {
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			}
+		};
+
+		const url = '/api/search/recipes?user_id=' + user_id + '&value=' + value;
+		fetch(url, request)
+			.then(resp => resp.json())
+			.then((data) => {
+				resolve(data);
+			})
+			.catch(err => reject(err))
+
+	});
+}

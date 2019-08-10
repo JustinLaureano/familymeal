@@ -24,8 +24,8 @@ export class PageHeader extends React.Component {
                     (
                         <section className="page-header__options">
                             {
-                                this.props.search &&
-                                <PageSearch type={this.props.search.type}/>
+                                this.props.options.search &&
+                                <PageSearch type={ this.props.options.search.type }/>
                             }
                             {
                                 this.props.options.buttons ?
@@ -33,7 +33,7 @@ export class PageHeader extends React.Component {
                                     this.props.options.buttons.map((button, index) => {
                                         return (
                                             <Link key={"button_" + index} to={ button.link }>
-                                                <button className={ button.className }>
+                                                <button className={ button.className + ' page-header__button' }>
                                                     <i className="material-icons btn__icon">{ button.icon }</i>
                                                     { button.label }
                                                 </button>

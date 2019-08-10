@@ -90,7 +90,7 @@ export const updateRecipePhoto = (photo) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
 		const recipe_id = getState().filters.currentRecipe.info.id;
-		console.log(photo);
+
 		const formData = new FormData();
 		formData.append('photo', photo);
 

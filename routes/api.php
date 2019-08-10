@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/init/{id}', 'UserController@init');
     
     Route::get('/recipes/{id}/', 'RecipeController@index');
+    Route::get('/search/recipes', 'RecipeController@search');
     Route::get('/favorite-recipes/{id}/', 'FavoriteRecipeController@index');
     Route::get('/recipe/{id}', 'RecipeController@show');
 

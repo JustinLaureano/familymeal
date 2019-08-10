@@ -360,4 +360,17 @@ class RecipeController extends Controller
         Recipe::find($id)->delete();
         return response(['id' => $id], 200);
     }
+
+    public function search(Request $request)
+    {
+        $user_id = $request->user_id;
+        $searchValue = $request->value;
+
+        if (!intval($user_id) && !$searchValue && !is_string($searchValue))
+            return response([], 200);
+
+        $recipes = Recipe::getSearchResults(['user_id' => $user_id, 'value' => $searchValue]);
+
+        return response(['recipes' => $recipes], 200);
+    }
 }

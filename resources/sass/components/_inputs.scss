@@ -1,6 +1,6 @@
 input {
     @include border(0px);
-    @include pad($space-xxs, $space-xs);
+    @include pad($space-xs, $space-xs);
     background: $white;
     font-size: $size-sm;
 }

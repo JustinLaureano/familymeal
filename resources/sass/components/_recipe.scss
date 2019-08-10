@@ -2,7 +2,6 @@
     @extend .content;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    // grid-template-rows: #{$space-lg} minmax(min-content, max-content) auto;
     grid-template-rows: #{$space-lg} minmax(min-content, max-content) minmax(min-content, max-content) minmax(min-content, max-content) auto minmax(min-content, max-content);
     grid-template-areas:
         "breadcrumbs breadcrumbs breadcrumbs breadcrumbs"

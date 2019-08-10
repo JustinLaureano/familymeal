@@ -345,10 +345,25 @@ a:hover {
 }
 
 .react-autosuggest__container {
+  max-width: 275px;
   width: 100%;
 }
 
+.react-autosuggest__input-container {
+  position: relative;
+}
+
+.react-autosuggest__input-icon {
+  font-size: 1.25em;
+  opacity: 0.54;
+  position: absolute;
+  right: 5px;
+  top: 6px;
+}
+
 .react-autosuggest__input {
+  border: 1px solid #363636;
+  border-radius: 2px;
   width: 100%;
 }
 
@@ -363,6 +378,7 @@ a:hover {
   border-radius: 3px;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
   max-height: 200px;
+  max-width: 275px;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -617,6 +633,9 @@ a:hover {
   border: none;
   border-radius: 3px;
   color: #fffeff;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
 .btn--primary:hover {
   background-color: #fffeff;
@@ -773,7 +792,7 @@ a:hover {
 input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
   border: 1px solid #363636;
   border-radius: 0px;
-  padding: calc(0.375 * 1em) calc(0.5 * 1em);
+  padding: calc(0.5 * 1em) calc(0.5 * 1em);
   background: #fffeff;
   font-size: 0.875em;
 }
@@ -1022,6 +1041,11 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   -webkit-box-pack: end;
           justify-content: flex-end;
   position: relative;
+  width: 100%;
+}
+
+.page-header__button {
+  margin-left: calc(1.25 * 1em);
 }
 
 .page-header__record-count {

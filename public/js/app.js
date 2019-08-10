@@ -34614,7 +34614,7 @@ var clearFavoriteRecipes = function clearFavoriteRecipes() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges, getRecipeSearchResults */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34629,6 +34629,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCurrentRecipeNote", function() { return removeCurrentRecipeNote; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setCancelChanges", function() { return setCancelChanges; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetCancelChanges", function() { return resetCancelChanges; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipeSearchResults", function() { return getRecipeSearchResults; });
 var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34751,6 +34752,30 @@ var resetCancelChanges = function resetCancelChanges() {
     });
   };
 };
+var getRecipeSearchResults = function getRecipeSearchResults(params) {
+  return new Promise(function (resolve, reject) {
+    var token = params.token;
+    var csrf_token = params.csrf_token;
+    var user_id = params.user_id;
+    var value = params.value.toString();
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      }
+    };
+    var url = '/api/search/recipes?user_id=' + user_id + '&value=' + value;
+    fetch(url, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      resolve(data);
+    })["catch"](function (err) {
+      return reject(err);
+    });
+  });
+};
 
 /***/ }),
 
@@ -34868,7 +34893,6 @@ var updateRecipePhoto = function updateRecipePhoto(photo) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
     var recipe_id = getState().filters.currentRecipe.info.id;
-    console.log(photo);
     var formData = new FormData();
     formData.append('photo', photo);
     var request = {
@@ -35596,14 +35620,14 @@ function (_React$Component) {
         className: this.props.subtitle.className
       }, this.props.subtitle.text) : ''), this.props.options ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header__options"
-      }, this.props.search && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        type: this.props.search.type
+      }, this.props.options.search && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageSearch__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        type: this.props.options.search.type
       }), this.props.options.buttons ? this.props.options.buttons.map(function (button, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           key: "button_" + index,
           to: button.link
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: button.className
+          className: button.className + ' page-header__button'
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "material-icons btn__icon"
         }, button.icon), button.label));
@@ -38874,6 +38898,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipePageSearch", function() { return RecipePageSearch; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38884,13 +38913,19 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
 
 
 var RecipePageSearch =
@@ -38898,27 +38933,92 @@ var RecipePageSearch =
 function (_React$Component) {
   _inherits(RecipePageSearch, _React$Component);
 
-  function RecipePageSearch() {
+  function RecipePageSearch(props) {
+    var _this;
+
     _classCallCheck(this, RecipePageSearch);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(RecipePageSearch).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipePageSearch).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (suggestion) {
+      return suggestion.name;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (e, _ref) {
+      var newValue = _ref.newValue;
+
+      _this.setState({
+        value: newValue
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
+      var value = _ref2.value,
+          reason = _ref2.reason;
+      var searchParams = {
+        token: _this.props.token,
+        csrf_token: _this.props.csrf_token,
+        user_id: _this.props.user_id,
+        value: value
+      };
+      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["getRecipeSearchResults"])(searchParams).then(function (data) {
+        _this.setState({
+          suggestions: data.recipes
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
+      _this.setState({
+        suggestions: []
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderInputComponent", function (inputProps) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "react-autosuggest__input-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", inputProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons react-autosuggest__input-icon"
+      }, "search"));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: {
+          pathname: '/recipes/' + suggestion.id,
+          state: {
+            id: suggestion.id
+          }
+        },
+        id: "option_" + suggestion.id,
+        className: "react-autosuggest__suggestion-option"
+      }, suggestion.name);
+    });
+
+    _this.state = {
+      value: '',
+      suggestions: []
+    };
+    return _this;
   }
 
   _createClass(RecipePageSearch, [{
     key: "render",
     value: function render() {
       var inputProps = {
-        placeholder: 'Ingredient',
-        value: value,
+        placeholder: 'Search',
+        value: this.state.value,
         onChange: this.onChange
       };
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Autosuggest, {
-        id: "ingredient_autosuggest",
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        id: "recipe_autosuggest",
         suggestions: this.state.suggestions,
         onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
         onSuggestionsClearRequested: this.onSuggestionsClearRequested,
-        onSuggestionSelected: this.onSuggestionSelected,
         getSuggestionValue: this.getSuggestionValue,
+        renderInputComponent: this.renderInputComponent,
         renderSuggestion: this.renderSuggestion,
         inputProps: inputProps
       });
@@ -38928,7 +39028,16 @@ function (_React$Component) {
   return RecipePageSearch;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 ;
-/* harmony default export */ __webpack_exports__["default"] = (PageSearch);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(RecipePageSearch));
 
 /***/ }),
 
@@ -42239,8 +42348,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -24,6 +24,11 @@
     display: flex;
     justify-content: flex-end;
     position: relative;
+    width: 100%;
+}
+
+.page-header__button {
+    margin-left: $space-md;
 }
 
 .page-header__record-count {
