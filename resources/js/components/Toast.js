@@ -4,9 +4,7 @@ import { clearToastMessages } from '../actions/toast';
 
 export class Toast extends React.Component {
     componentDidMount() {
-        if (document.getElementById('toast-container')) {
-            this.hideToast();
-        }
+        this.hideToast();
     }
 
     componentDidUpdate() {
@@ -17,7 +15,9 @@ export class Toast extends React.Component {
 
     hideToast = () => {
         setTimeout(() => {
-            document.getElementById('toast-container').className = 'toast--hidden';
+            if (document.getElementById('toast-container')) {
+                document.getElementById('toast-container').className = 'toast--hidden';
+            }
         }, 3000);
 
         if (this.props.messages.length > 0) {

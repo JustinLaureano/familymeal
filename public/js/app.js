@@ -35875,7 +35875,9 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "hideToast", function () {
       setTimeout(function () {
-        document.getElementById('toast-container').className = 'toast--hidden';
+        if (document.getElementById('toast-container')) {
+          document.getElementById('toast-container').className = 'toast--hidden';
+        }
       }, 3000);
 
       if (_this.props.messages.length > 0) {
@@ -35891,9 +35893,7 @@ function (_React$Component) {
   _createClass(Toast, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      if (document.getElementById('toast-container')) {
-        this.hideToast();
-      }
+      this.hideToast();
     }
   }, {
     key: "componentDidUpdate",
