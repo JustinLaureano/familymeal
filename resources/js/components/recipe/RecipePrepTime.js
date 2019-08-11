@@ -38,6 +38,7 @@ export class RecipePrepTime extends React.Component {
 				<section className="recipe-grid__info-block">
 					<h3>Prep Time</h3>
                     <input
+                        name="prep-time"
                         className="recipe-grid__info-input"
                         value={ this.state.prep_time }
                         onChange={ this.setRecipePrepTime }

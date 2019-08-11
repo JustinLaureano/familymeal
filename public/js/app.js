@@ -35331,6 +35331,35 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/toast.js":
+/*!***************************************!*\
+  !*** ./resources/js/actions/toast.js ***!
+  \***************************************/
+/*! exports provided: setToastMessages, clearToastMessages */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToastMessages", function() { return setToastMessages; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearToastMessages", function() { return clearToastMessages; });
+var setToastMessages = function setToastMessages(messages) {
+  return function (dispatch) {
+    dispatch({
+      type: 'SET_TOAST_MESSAGES',
+      messages: messages
+    });
+  };
+};
+var clearToastMessages = function clearToastMessages() {
+  return function (dispatch) {
+    dispatch({
+      type: 'CLEAR_TOAST_MESSAGES'
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -35801,6 +35830,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Toast", function() { return Toast; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_toast__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/toast */ "./resources/js/actions/toast.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35811,13 +35842,17 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 var Toast =
@@ -35826,18 +35861,45 @@ function (_React$Component) {
   _inherits(Toast, _React$Component);
 
   function Toast() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, Toast);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Toast).apply(this, arguments));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Toast)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "hideToast", function () {
+      setTimeout(function () {
+        document.getElementById('toast-container').className = 'toast--hidden';
+      }, 3000);
+
+      if (_this.props.messages.length > 0) {
+        setTimeout(function () {
+          _this.props.clearToastMessages();
+        }, 3250);
+      }
+    });
+
+    return _this;
   }
 
   _createClass(Toast, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       if (document.getElementById('toast-container')) {
-        setTimeout(function () {
-          document.getElementById('toast-container').className = 'toast--hidden';
-        }, 3000);
+        this.hideToast();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.messages) {
+        this.hideToast();
       }
     }
   }, {
@@ -35850,6 +35912,16 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "toast__message"
         }, this.props.location.state.toast.message));
+      } else if (this.props.messages.length > 0) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "toast-container",
+          className: "toast"
+        }, this.props.messages.map(function (msg, index) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            key: "toast_" + index,
+            className: "toast__message"
+          }, msg);
+        }));
       } else {
         return '';
       }
@@ -35859,7 +35931,35 @@ function (_React$Component) {
   return Toast;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 ;
-/* harmony default export */ __webpack_exports__["default"] = (Toast);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    messages: state.toast.messages
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+  return {
+    updateRecipeSummary: function (_updateRecipeSummary) {
+      function updateRecipeSummary(_x) {
+        return _updateRecipeSummary.apply(this, arguments);
+      }
+
+      updateRecipeSummary.toString = function () {
+        return _updateRecipeSummary.toString();
+      };
+
+      return updateRecipeSummary;
+    }(function (summary) {
+      return dispatch(updateRecipeSummary(summary));
+    }),
+    clearToastMessages: function clearToastMessages() {
+      return dispatch(Object(_actions_toast__WEBPACK_IMPORTED_MODULE_2__["clearToastMessages"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(Toast));
 
 /***/ }),
 
@@ -36968,10 +37068,15 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Category"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "select__wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          name: "recipe-category",
           className: "select",
           value: this.state.category.id,
           onChange: this.setRecipeCategory
-        }, this.props.recipe_categories.map(function (category) {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "category",
+          className: "select__option--category",
+          value: ""
+        }), this.props.recipe_categories.map(function (category) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             key: "category_" + category.id,
             className: "select__option--category",
@@ -37111,6 +37216,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__info-block"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Cook Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "cook-time",
           className: "recipe-grid__info-input",
           value: this.state.cook_time,
           onChange: this.setRecipeCookTime,
@@ -37248,10 +37354,15 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Cuisine"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "select__wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          name: "cuisine-type",
           className: "select",
           value: this.state.cuisine.id,
           onChange: this.setRecipeCuisine
-        }, this.props.cuisine_types.map(function (cuisine) {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "cuisine",
+          className: "select__option",
+          value: ""
+        }), this.props.cuisine_types.map(function (cuisine) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             key: "cuisine_" + cuisine.id,
             className: "select__option",
@@ -37394,6 +37505,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Difficulty"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "select__wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          name: "difficulty",
           className: "select",
           value: this.state.difficulty,
           onChange: this.setRecipeDifficulty
@@ -38675,7 +38787,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _services_ToastMessages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/ToastMessages */ "./resources/js/services/ToastMessages.js");
+/* harmony import */ var _actions_toast__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/toast */ "./resources/js/actions/toast.js");
+/* harmony import */ var _services_ToastMessages__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/ToastMessages */ "./resources/js/services/ToastMessages.js");
+/* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38695,6 +38809,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -38744,13 +38860,27 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveChanges", function () {
-      _this.props.resetCancelChanges();
-
-      if (_this.props.filters.cancelChanges) {
+      if (_this.props.recipe_id) {
         _this.props.resetCancelChanges();
-      }
 
-      _this.toggleEditMode();
+        if (_this.props.filters.cancelChanges) {
+          _this.props.resetCancelChanges();
+        }
+
+        _this.toggleEditMode();
+      } else {
+        // New recipe
+        var newRecipe = Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_8__["getNewRecipe"])(_this.props.currentRecipe);
+        var validation = Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_8__["validateRecipe"])(newRecipe);
+
+        if (!validation.errors) {
+          console.log('valid');
+        } else {
+          console.log('not valid', validation.errors, _this.props, _this.state);
+
+          _this.props.setToastMessages(validation.errors);
+        }
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function () {
@@ -38760,7 +38890,7 @@ function (_React$Component) {
         pathname: '/home',
         state: {
           toast: {
-            message: Object(_services_ToastMessages__WEBPACK_IMPORTED_MODULE_6__["recipeDeleted"])()
+            message: Object(_services_ToastMessages__WEBPACK_IMPORTED_MODULE_7__["recipeDeleted"])()
           }
         }
       };
@@ -38863,6 +38993,7 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     recipe_id: state.filters.currentRecipe.info.id,
     name: state.filters.currentRecipe.info.name,
+    currentRecipe: state.filters.currentRecipe,
     filters: state.filters,
     favorite: state.filters.currentRecipe.info.favorite
   };
@@ -38887,6 +39018,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deleteRecipe: function deleteRecipe(id) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["deleteRecipe"])(id));
+    },
+    setToastMessages: function setToastMessages(messages) {
+      return dispatch(Object(_actions_toast__WEBPACK_IMPORTED_MODULE_6__["setToastMessages"])(messages));
     }
   };
 };
@@ -39321,6 +39455,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__info-block"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Portions"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "portions",
           className: "recipe-grid__info-input",
           value: this.state.portions,
           onChange: this.setRecipePortions,
@@ -39453,6 +39588,7 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__info-block"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Prep Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          name: "prep-time",
           className: "recipe-grid__info-input",
           value: this.state.prep_time,
           onChange: this.setRecipePrepTime,
@@ -39758,6 +39894,7 @@ function (_React$Component) {
     value: function render() {
       if (this.props.editMode) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+          name: "summary",
           className: "recipe-grid__summary textarea--edit",
           placeholder: "Summary",
           onChange: this.setSummary,
@@ -40825,6 +40962,44 @@ var recipeReducerDefaultState = [];
 
 /***/ }),
 
+/***/ "./resources/js/reducers/toast.js":
+/*!****************************************!*\
+  !*** ./resources/js/reducers/toast.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var toastReducerDefaultState = {
+  messages: []
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : toastReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_TOAST_MESSAGES':
+      return _objectSpread({}, state, {
+        messages: action.messages
+      });
+
+    case 'CLEAR_TOAST_MESSAGES':
+      return _objectSpread({}, state, {
+        messages: []
+      });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/totals.js":
 /*!*****************************************!*\
   !*** ./resources/js/reducers/totals.js ***!
@@ -41181,7 +41356,7 @@ var photoUploadProps = {
 /*!*****************************************!*\
   !*** ./resources/js/services/Recipe.js ***!
   \*****************************************/
-/*! exports provided: getAverageRating, getUserRating, arrayMove */
+/*! exports provided: getAverageRating, getUserRating, arrayMove, validateRecipe, getNewRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -41189,6 +41364,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAverageRating", function() { return getAverageRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserRating", function() { return getUserRating; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "arrayMove", function() { return arrayMove; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateRecipe", function() { return validateRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNewRecipe", function() { return getNewRecipe; });
 function getAverageRating(ratings) {
   if (ratings.length == 0) {
     return 0;
@@ -41215,6 +41392,100 @@ function arrayMove(arr, curIndex, toIndex) {
   clone.splice(curIndex, 1);
   clone.splice(toIndex, 0, element);
   return clone;
+}
+function validateRecipe(recipe) {
+  console.log(recipe);
+  var errors = []; // name
+
+  if (recipe.info.name == null) {
+    errors.push('Recipe Needs a Name');
+  } // cuisine_type
+
+
+  if (recipe.cuisine_type_id === '' || typeof recipe.cuisine_type_id !== 'integer') {
+    errors.push('Select a cuisine type');
+  } // difficulty
+
+
+  if (recipe.difficulty === '' || typeof recipe.difficulty == 'string') {
+    errors.push('Select a recipe difficulty');
+  } // recipe category id
+
+
+  if (recipe.recipe_category_id === '' || typeof recipe.recipe_category_id !== 'integer') {
+    errors.push('Select a recipe category');
+  } // directions
+
+
+  if (recipe.directions.length === 0) {
+    errors.push('Enter at least 1 direction');
+  } // ingredients
+
+
+  if (recipe.ingredients.length === 0) {
+    errors.push('Enter at least 1 ingredient');
+  } // return validation
+
+
+  return errors.length === 0 ? {
+    valid: true
+  } : {
+    errors: errors
+  };
+}
+function getNewRecipe(currentRecipe) {
+  console.log(currentRecipe); // Calculate user rating
+
+  var rating = 0;
+  var ratingStars = document.querySelectorAll('.recipe-grid__stars');
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = ratingStars[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var star = _step.value;
+
+      if (star.innerHTML === 'star') {
+        rating++;
+      }
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+        _iterator["return"]();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return {
+    info: {
+      cook_time: document.querySelector('input[name="cook-time"]').value,
+      cuisine_type_id: document.querySelector('select[name="cuisine-type"]').value,
+      difficulty: document.querySelector('select[name="difficulty"]').value,
+      name: document.querySelector('input[name="name"]').value,
+      portions: document.querySelector('input[name="portions"]').value,
+      prep_time: document.querySelector('input[name="prep-time"]').value,
+      recipe_category_id: document.querySelector('select[name="recipe-category"]').value
+    },
+    photo: null,
+    summary: {
+      summary: document.querySelector('textarea[name="summary"]').value
+    },
+    ratings: [{
+      rating: rating
+    }],
+    directions: currentRecipe.directions,
+    ingredients: currentRecipe.ingredients,
+    notes: currentRecipe.notes
+  };
 }
 
 /***/ }),
@@ -41311,9 +41582,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../reducers/measurement_units */ "./resources/js/reducers/measurement_units.js");
 /* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
 /* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
-/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
-/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+/* harmony import */ var _reducers_toast__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/toast */ "./resources/js/reducers/toast.js");
+/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
 
 
 
@@ -41338,9 +41611,10 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
     recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_8__["default"],
     favorite_recipes: _reducers_favorite_recipes__WEBPACK_IMPORTED_MODULE_4__["default"],
     recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_9__["default"],
-    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_10__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_11__["default"],
-    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_12__["default"]
+    toast: _reducers_toast__WEBPACK_IMPORTED_MODULE_10__["default"],
+    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_11__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_12__["default"],
+    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_13__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });

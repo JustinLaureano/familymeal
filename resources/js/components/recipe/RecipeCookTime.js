@@ -38,6 +38,7 @@ export class RecipeCookTime extends React.Component {
 				<section className="recipe-grid__info-block">
 					<h3>Cook Time</h3>
                     <input
+                        name="cook-time"
                         className="recipe-grid__info-input"
                         value={ this.state.cook_time }
                         onChange={ this.setRecipeCookTime }

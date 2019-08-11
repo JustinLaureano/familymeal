@@ -8,6 +8,7 @@ import ingredientsReducer from '../reducers/ingredients';
 import measurementUnitsReducer from '../reducers/measurement_units';
 import recipesReducer from '../reducers/recipes';
 import recipeCategoriesReducer from '../reducers/recipe_categories';
+import toastReducer from '../reducers/toast';
 import totalsReducer from '../reducers/totals';
 import userReducer from '../reducers/user';
 import userSettingsReducer from '../reducers/userSettings';
@@ -25,6 +26,7 @@ export default () => {
 			recipes: recipesReducer,
 			favorite_recipes: favoriteRecipesReducer,
 			recipe_categories: recipeCategoriesReducer,
+			toast: toastReducer,
 			totals: totalsReducer,
 			user: userReducer,
 			user_settings: userSettingsReducer,

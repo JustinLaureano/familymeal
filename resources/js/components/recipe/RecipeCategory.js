@@ -42,9 +42,15 @@ export class RecipeCategory extends React.Component {
 					<h3>Category</h3>
                     <section className="select__wrapper">                    
                         <select
+                            name="recipe-category"
                             className="select"
                             value={ this.state.category.id }
                             onChange={ this.setRecipeCategory }>
+                            <option
+                                key="category"
+                                className="select__option--category"
+                                value="">
+                            </option>
                             {
                                 this.props.recipe_categories.map((category) => {
                                     return (

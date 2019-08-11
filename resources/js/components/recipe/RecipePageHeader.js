@@ -4,7 +4,9 @@ import { history } from '../../routers/AppRouter';
 import { connect } from 'react-redux';
 import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
 import { deleteRecipe, updateRecipeName, favoriteRecipe } from '../../actions/recipes';
+import { setToastMessages } from '../../actions/toast';
 import { recipeDeleted } from '../../services/ToastMessages';
+import { validateRecipe, getNewRecipe } from '../../services/Recipe';
 
 export class RecipePageHeader extends React.Component {
     constructor(props) {
@@ -26,8 +28,8 @@ export class RecipePageHeader extends React.Component {
 		if (!this.props.filters.editMode && !this.props.filters.cancelChanges) {
 			this.startSave();
 		}
-	}
-
+    }
+    
     toggleEditMode = () => {
         const editMode = this.props.filters.editMode ? false : true;
 
@@ -40,11 +42,25 @@ export class RecipePageHeader extends React.Component {
     }
 
     saveChanges = () => {
-        this.props.resetCancelChanges();
-        if (this.props.filters.cancelChanges) {
+        if (this.props.recipe_id) {
             this.props.resetCancelChanges();
+            if (this.props.filters.cancelChanges) {
+                this.props.resetCancelChanges();
+            }
+            this.toggleEditMode();
         }
-        this.toggleEditMode();
+        else {
+            // New recipe
+            const newRecipe = getNewRecipe(this.props.currentRecipe);
+            const validation = validateRecipe(newRecipe);
+            if (!validation.errors) {
+                console.log('valid');
+            }
+            else {
+                console.log('not valid', validation.errors, this.props, this.state);
+                this.props.setToastMessages(validation.errors);
+            }
+        }
     }
 
     startDeleteRecipe = () => {
@@ -164,6 +180,7 @@ export class RecipePageHeader extends React.Component {
 const mapStateToProps = (state) => ({
     recipe_id: state.filters.currentRecipe.info.id,
     name: state.filters.currentRecipe.info.name,
+    currentRecipe: state.filters.currentRecipe,
     filters: state.filters,
     favorite: state.filters.currentRecipe.info.favorite
 });
@@ -174,7 +191,8 @@ const mapDispatchToProps = (dispatch) => ({
     setCancelChanges: () => dispatch(setCancelChanges()),
     resetCancelChanges: () => dispatch(resetCancelChanges()),
     favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
-    deleteRecipe: (id) => dispatch(deleteRecipe(id))
+    deleteRecipe: (id) => dispatch(deleteRecipe(id)),
+    setToastMessages: (messages) => dispatch(setToastMessages(messages))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePageHeader);

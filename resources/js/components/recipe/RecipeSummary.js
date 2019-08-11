@@ -37,6 +37,7 @@ export class RecipeSummary extends React.Component {
 		if (this.props.editMode) {
 			return (
 				<textarea
+					name="summary"
 					className="recipe-grid__summary textarea--edit"
 					placeholder="Summary"
 					onChange={ this.setSummary }
@@ -46,21 +47,19 @@ export class RecipeSummary extends React.Component {
 		else {
 			return (
 				<section className="recipe-grid__summary">
-					{this.props.summary}
+					{ this.props.summary }
 				</section>
 			);
 		}
 	};
 };
 
-const mapStateToProps = (state) => {
-	return {
-        recipeId: state.filters.currentRecipe.info.id,
-		summary: state.filters.currentRecipe.summary.summary,
-		editMode: state.filters.editMode,
-		cancelChanges: state.filters.cancelChanges
-	}
-};
+const mapStateToProps = (state) => ({
+	recipeId: state.filters.currentRecipe.info.id,
+	summary: state.filters.currentRecipe.summary.summary,
+	editMode: state.filters.editMode,
+	cancelChanges: state.filters.cancelChanges
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
 	updateRecipeSummary: (summary) => dispatch(updateRecipeSummary(summary))

@@ -38,6 +38,7 @@ export class RecipePortions extends React.Component {
 				<section className="recipe-grid__info-block">
 					<h3>Portions</h3>
                     <input
+                        name="portions"
                         className="recipe-grid__info-input"
                         value={ this.state.portions }
                         onChange={ this.setRecipePortions }

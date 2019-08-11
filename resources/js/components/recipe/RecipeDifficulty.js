@@ -40,6 +40,7 @@ export class RecipeDifficulty extends React.Component {
 					<h3>Difficulty</h3>
                     <section className="select__wrapper">                    
                         <select
+                            name="difficulty"
                             className="select"
                             value={ this.state.difficulty }
                             onChange={ this.setRecipeDifficulty }>

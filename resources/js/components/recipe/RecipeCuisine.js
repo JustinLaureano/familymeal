@@ -42,9 +42,15 @@ export class RecipeCuisine extends React.Component {
 					<h3>Cuisine</h3>
                     <section className="select__wrapper">                    
                         <select
+                            name="cuisine-type"
                             className="select"
                             value={ this.state.cuisine.id }
                             onChange={ this.setRecipeCuisine }>
+                            <option
+                                key="cuisine"
+                                className="select__option"
+                                value="">
+                            </option>
                             {
                                 this.props.cuisine_types.map((cuisine) => {
                                     return (
