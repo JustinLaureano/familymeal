@@ -35,3 +35,8 @@ add view filter to recipe pages
         3 wide on tablet
         1 wide on mobile
         keep consistent with results amounts (10, 25, 50)
+
+user setting
+    length of toast notifications
+        short - 3 seconds
+        long - 5 seconds
