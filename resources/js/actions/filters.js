@@ -24,7 +24,7 @@ export const changeTablePage = (pageNumber, model) => {
 		fetch(url, request)
 			.then(resp => resp.json())
 			.then((data) => {
-                console.log(data)
+                console.log(data);
                 switch (model) {
                     case 'recipe':
                         dispatch({

@@ -44,7 +44,79 @@ class RecipeController extends Controller
 
     public function store(Request $request)
     {
+        $user_id = $request->post('user_id');
+        $new_recipe = $request->post('recipe');
 
+        $recipe = new Recipe;
+        $recipe->name = $new_recipe['info']['name'];
+        $recipe->user_id = $user_id;
+        $recipe->recipe_category_id = $new_recipe['info']['recipe_category_id'];
+        $recipe->cuisine_type_id = $new_recipe['info']['cuisine_type_id'];
+        $recipe->difficulty = $new_recipe['info']['difficulty'] != '' ? $new_recipe['info']['difficulty'] : 'Easy';
+        $recipe->portions = $new_recipe['info']['portions'] != '' ? $new_recipe['info']['portions'] : 'n/a';
+        $recipe->prep_time = $new_recipe['info']['prep_time'] != '' ? $new_recipe['info']['prep_time'] : 'n/a';
+        $recipe->cook_time = $new_recipe['info']['cook_time'] != '' ? $new_recipe['info']['cook_time'] : 'n/a';
+        $recipe->save();
+
+        $recipe_id = $recipe->id;
+
+        foreach($new_recipe['directions'] as $new_direction) {
+            $direction = new RecipeDirections;
+            $direction->recipe_id = $recipe_id;
+            $direction->order = $new_direction['order'];
+            $direction->direction = $new_direction['direction'];
+            $direction->save();
+        }
+
+        foreach($new_recipe['ingredients'] as $new_ingredient) {
+            $ingredient = new RecipeIngredients;
+            $ingredient->recipe_id = $recipe_id;
+            $ingredient->order = $new_ingredient['order'];
+            if ($new_ingredient['ingredient_id']) {
+                $ingredient->ingredient_id = $new_ingredient['ingredient_id'];
+            }
+            if ($new_ingredient['ingredient_recipe_id']) {
+                $ingredient->ingredient_recipe_id = $new_ingredient['ingredient_recipe_id'];
+            }
+            $ingredient->ingredient_units = $new_ingredient['ingredient_units'];
+            $ingredient->measurement_unit_id = $new_ingredient['measurement_unit_id'];
+            $ingredient->save();
+        }
+
+        foreach($new_recipe['notes'] as $new_note) {
+            $note = new RecipeNotes;
+            $note->recipe_id = $recipe_id;
+            $note->order = $new_note['order'];
+            $note->note = $new_note['note'];
+            $note->save();
+        }
+
+        if (floatval($new_recipe['ratings'][0]['rating'])) {
+            $rating = new RecipeRatings;
+            $rating->recipe_id = $recipe_id;
+            $rating->rating = floatval($new_recipe['ratings'][0]['rating']);
+            $rating->user_id = $user_id;
+            $rating->save();
+        }
+
+        $summary = new RecipeSummary;
+        $summary->recipe_id = $recipe_id;
+        $summary->summary = strval($new_recipe['summary']['summary']);
+        $summary->save();
+
+        // return new recipe
+        return response([
+            'recipe' => [
+                'info' => Recipe::getById($recipe_id),
+                'photo' => RecipePhoto::getByRecipeId($recipe_id),
+                'summary' => RecipeSummary::getByRecipeId($recipe_id),
+                'ratings' => RecipeRatings::getByRecipeId($recipe_id),
+                'ingredients' => RecipeIngredients::getByRecipeId($recipe_id),
+                'directions' => RecipeDirections::getByRecipeId($recipe_id),
+                'notes' => RecipeNotes::getByRecipeId($recipe_id),
+            ],
+            'recipe_total' => Recipe::where('user_id', $user_id)->where('deleted_at', Null)->count()
+        ], 200);
     }
 
     public function show(Request $request, $recipe_id)

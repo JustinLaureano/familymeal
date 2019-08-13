@@ -39,17 +39,17 @@ export function validateRecipe(recipe) {
     }
 
     // cuisine_type
-    if (recipe.cuisine_type_id === '' || typeof recipe.cuisine_type_id !== 'integer') {
+    if (recipe.info.cuisine_type_id === '' || typeof recipe.info.cuisine_type_id !== 'number') {
         errors.push('Select a cuisine type');
     }
 
     // difficulty
-    if (recipe.difficulty === '' || typeof recipe.difficulty == 'string') {
+    if (recipe.info.difficulty === '' || typeof recipe.info.difficulty !== 'string') {
         errors.push('Select a recipe difficulty');
     }
 
     // recipe category id
-    if (recipe.recipe_category_id === '' || typeof recipe.recipe_category_id !== 'integer') {
+    if (recipe.info.recipe_category_id === '' || typeof recipe.info.recipe_category_id !== 'number') {
         errors.push('Select a recipe category');
     }
 
@@ -68,7 +68,6 @@ export function validateRecipe(recipe) {
 }
 
 export function getNewRecipe(currentRecipe) {
-    console.log(currentRecipe);
     // Calculate user rating
     let rating = 0;
     const ratingStars = document.querySelectorAll('.recipe-grid__stars');
@@ -81,12 +80,12 @@ export function getNewRecipe(currentRecipe) {
     return {
         info: {
             cook_time: document.querySelector('input[name="cook-time"]').value,
-            cuisine_type_id: document.querySelector('select[name="cuisine-type"]').value,
+            cuisine_type_id: parseInt(document.querySelector('select[name="cuisine-type"]').value),
             difficulty: document.querySelector('select[name="difficulty"]').value,
             name: document.querySelector('input[name="name"]').value,
             portions: document.querySelector('input[name="portions"]').value,
             prep_time: document.querySelector('input[name="prep-time"]').value,
-            recipe_category_id: document.querySelector('select[name="recipe-category"]').value
+            recipe_category_id: parseInt(document.querySelector('select[name="recipe-category"]').value)
         },
         photo: null,
         summary: {

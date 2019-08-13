@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { history } from '../../routers/AppRouter';
 import { connect } from 'react-redux';
 import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
-import { deleteRecipe, updateRecipeName, favoriteRecipe } from '../../actions/recipes';
+import { createNewRecipe, deleteRecipe, updateRecipeName, favoriteRecipe } from '../../actions/recipes';
 import { setToastMessages } from '../../actions/toast';
 import { recipeDeleted } from '../../services/ToastMessages';
 import { validateRecipe, getNewRecipe } from '../../services/Recipe';
@@ -54,10 +54,9 @@ export class RecipePageHeader extends React.Component {
             const newRecipe = getNewRecipe(this.props.currentRecipe);
             const validation = validateRecipe(newRecipe);
             if (!validation.errors) {
-                console.log('valid');
+                this.props.createNewRecipe(newRecipe);
             }
             else {
-                console.log('not valid', validation.errors, this.props, this.state);
                 this.props.setToastMessages(validation.errors);
             }
         }
@@ -187,6 +186,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setEditMode: (editMode) => dispatch(setEditMode(editMode)),
+    createNewRecipe: (recipe) => dispatch(createNewRecipe(recipe)),
     updateRecipeName: (name) => dispatch(updateRecipeName(name)),
     setCancelChanges: () => dispatch(setCancelChanges()),
     resetCancelChanges: () => dispatch(resetCancelChanges()),

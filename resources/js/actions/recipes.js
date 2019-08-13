@@ -1,3 +1,5 @@
+import { changeTablePage } from './filters';
+
 export const getRecipe = (recipe_id) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -15,6 +17,51 @@ export const getRecipe = (recipe_id) => {
 				dispatch({
 					type: 'SET_CURRENT_RECIPE',
 					recipe
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}
+
+export const createNewRecipe = (recipe) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const user_id = getState().user.id;
+
+		console.log(recipe);
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ user_id, recipe })
+		};
+
+		fetch('/api/recipes/store', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				dispatch({
+					type: 'SET_CURRENT_RECIPE',
+					recipe: data.recipe
+				});
+
+				// Update Recipe Table
+				changeTablePage(1, 'recipe');
+
+				dispatch({
+					type: 'SET_RECIPE_TOTAL',
+					recipeTotal: data.recipe_total
+				});
+
+				dispatch({
+					type: 'SET_EDIT_MODE',
+					editMode: false
 				});
 			})
 			.catch(err => console.log(err))

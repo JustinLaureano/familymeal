@@ -34791,12 +34791,13 @@ var startNewRecipe = function startNewRecipe() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/recipes.js ***!
   \*****************************************/
-/*! exports provided: getRecipe, clearCurrentRecipe, updateRecipeName, updateRecipePhoto, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeDifficulty, updateRecipePortions, updateRecipeCategory, updateRecipeCookTime, updateRecipeIngredients, updateRecipeDirections, updateRecipeNotes, updateRecipePrepTime, deleteRecipe, favoriteRecipe */
+/*! exports provided: getRecipe, createNewRecipe, clearCurrentRecipe, updateRecipeName, updateRecipePhoto, updateRecipeRating, updateRecipeSummary, updateRecipeCuisine, updateRecipeDifficulty, updateRecipePortions, updateRecipeCategory, updateRecipeCookTime, updateRecipeIngredients, updateRecipeDirections, updateRecipeNotes, updateRecipePrepTime, deleteRecipe, favoriteRecipe */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipe", function() { return getRecipe; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewRecipe", function() { return createNewRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCurrentRecipe", function() { return clearCurrentRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipeName", function() { return updateRecipeName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipePhoto", function() { return updateRecipePhoto; });
@@ -34813,6 +34814,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateRecipePrepTime", function() { return updateRecipePrepTime; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
+/* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
+
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -34829,6 +34832,48 @@ var getRecipe = function getRecipe(recipe_id) {
       dispatch({
         type: 'SET_CURRENT_RECIPE',
         recipe: recipe
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var createNewRecipe = function createNewRecipe(recipe) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var user_id = getState().user.id;
+    console.log(recipe);
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        recipe: recipe
+      })
+    };
+    fetch('/api/recipes/store', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+      dispatch({
+        type: 'SET_CURRENT_RECIPE',
+        recipe: data.recipe
+      }); // Update Recipe Table
+
+      Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'recipe');
+      dispatch({
+        type: 'SET_RECIPE_TOTAL',
+        recipeTotal: data.recipe_total
+      });
+      dispatch({
+        type: 'SET_EDIT_MODE',
+        editMode: false
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -38874,10 +38919,8 @@ function (_React$Component) {
         var validation = Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_8__["validateRecipe"])(newRecipe);
 
         if (!validation.errors) {
-          console.log('valid');
+          _this.props.createNewRecipe(newRecipe);
         } else {
-          console.log('not valid', validation.errors, _this.props, _this.state);
-
           _this.props.setToastMessages(validation.errors);
         }
       }
@@ -39003,6 +39046,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     setEditMode: function setEditMode(editMode) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["setEditMode"])(editMode));
+    },
+    createNewRecipe: function createNewRecipe(recipe) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["createNewRecipe"])(recipe));
     },
     updateRecipeName: function updateRecipeName(name) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["updateRecipeName"])(name));
@@ -41402,17 +41448,17 @@ function validateRecipe(recipe) {
   } // cuisine_type
 
 
-  if (recipe.cuisine_type_id === '' || typeof recipe.cuisine_type_id !== 'integer') {
+  if (recipe.info.cuisine_type_id === '' || typeof recipe.info.cuisine_type_id !== 'number') {
     errors.push('Select a cuisine type');
   } // difficulty
 
 
-  if (recipe.difficulty === '' || typeof recipe.difficulty == 'string') {
+  if (recipe.info.difficulty === '' || typeof recipe.info.difficulty !== 'string') {
     errors.push('Select a recipe difficulty');
   } // recipe category id
 
 
-  if (recipe.recipe_category_id === '' || typeof recipe.recipe_category_id !== 'integer') {
+  if (recipe.info.recipe_category_id === '' || typeof recipe.info.recipe_category_id !== 'number') {
     errors.push('Select a recipe category');
   } // directions
 
@@ -41434,8 +41480,7 @@ function validateRecipe(recipe) {
   };
 }
 function getNewRecipe(currentRecipe) {
-  console.log(currentRecipe); // Calculate user rating
-
+  // Calculate user rating
   var rating = 0;
   var ratingStars = document.querySelectorAll('.recipe-grid__stars');
   var _iteratorNormalCompletion = true;
@@ -41468,12 +41513,12 @@ function getNewRecipe(currentRecipe) {
   return {
     info: {
       cook_time: document.querySelector('input[name="cook-time"]').value,
-      cuisine_type_id: document.querySelector('select[name="cuisine-type"]').value,
+      cuisine_type_id: parseInt(document.querySelector('select[name="cuisine-type"]').value),
       difficulty: document.querySelector('select[name="difficulty"]').value,
       name: document.querySelector('input[name="name"]').value,
       portions: document.querySelector('input[name="portions"]').value,
       prep_time: document.querySelector('input[name="prep-time"]').value,
-      recipe_category_id: document.querySelector('select[name="recipe-category"]').value
+      recipe_category_id: parseInt(document.querySelector('select[name="recipe-category"]').value)
     },
     photo: null,
     summary: {
