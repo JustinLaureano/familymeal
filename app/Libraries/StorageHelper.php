@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class StorageHelper
 {
-    public static function checkRecipePhotoStoage()
+    public static function checkRecipePhotoStorage()
     {
         self::checkUploadDir();
         

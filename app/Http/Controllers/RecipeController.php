@@ -175,7 +175,7 @@ class RecipeController extends Controller
             $extension = FileHelper::getExtension($photo['type']);
             $filename = $recipe_id . '_' . $recipe_name . $extension;
 
-            StorageHelper::checkRecipePhotoStoage();
+            StorageHelper::checkRecipePhotoStorage();
 
             Image::make($photo['tmp_name'])
                 ->resize(150, 150)
