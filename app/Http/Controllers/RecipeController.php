@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Libraries\FileHelper;
+use App\Libraries\StorageHelper;
 use App\Models\FavoriteRecipes;
 use App\Models\Ingredient;
 use App\Models\Recipe;
@@ -173,6 +174,8 @@ class RecipeController extends Controller
             $recipe_name = str_replace(' ', '_', $recipe->name);
             $extension = FileHelper::getExtension($photo['type']);
             $filename = $recipe_id . '_' . $recipe_name . $extension;
+
+            StorageHelper::checkRecipePhotoStoage();
 
             Image::make($photo['tmp_name'])
                 ->resize(150, 150)
