@@ -63,6 +63,9 @@ export class FavoritesPage extends React.Component {
 				text: this.props.recipeTotal + ' Recipes Total'
 			},
 			options: {
+				search: {
+					type: 'favorite'
+				},
 				buttons: [
 					{
 						link: 'recipes/create',

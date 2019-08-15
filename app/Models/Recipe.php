@@ -88,6 +88,9 @@ class Recipe extends Model
             ->where('recipe.user_id', $params['user_id'])
             ->where('name', 'like', '%' . $params['value'] . '%')
             ->where('recipe.deleted_at', Null)
+            ->when($params['favorites'], function($query) {
+                return $query->whereNotNull('favorite_recipes.id');
+            })
             ->orderBy('name', 'asc')
             ->take($take)
             ->get();

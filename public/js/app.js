@@ -58218,6 +58218,7 @@ var getRecipeSearchResults = function getRecipeSearchResults(params) {
     var csrf_token = params.csrf_token;
     var user_id = params.user_id;
     var value = params.value.toString();
+    var favorites = params.favorites;
     var request = {
       headers: {
         'Accept': 'application/json',
@@ -58227,6 +58228,11 @@ var getRecipeSearchResults = function getRecipeSearchResults(params) {
       }
     };
     var url = '/api/search/recipes?user_id=' + user_id + '&value=' + value;
+
+    if (favorites) {
+      url += '&favorites=true';
+    }
+
     fetch(url, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
@@ -59319,6 +59325,11 @@ function (_React$Component) {
       switch (this.props.type) {
         case 'recipe':
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePageSearch__WEBPACK_IMPORTED_MODULE_1__["default"], null);
+
+        case 'favorite':
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePageSearch__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            favorites: true
+          });
 
         default:
           return '';
@@ -62655,11 +62666,13 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "startSuggestionFetch", function (value) {
+      var favorites = _this.props.favorites ? true : false;
       var searchParams = {
         token: _this.props.token,
         csrf_token: _this.props.csrf_token,
         user_id: _this.props.user_id,
-        value: value
+        value: value,
+        favorites: favorites
       };
       Object(_actions_filters__WEBPACK_IMPORTED_MODULE_5__["getRecipeSearchResults"])(searchParams).then(function (data) {
         _this.setState({
@@ -65483,6 +65496,9 @@ function (_React$Component) {
           text: this.props.recipeTotal + ' Recipes Total'
         },
         options: {
+          search: {
+            type: 'favorite'
+          },
           buttons: [{
             link: 'recipes/create',
             className: 'btn--primary',

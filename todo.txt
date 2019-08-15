@@ -20,9 +20,6 @@ Landing Page
 
 Responsive styles
 
-combine pages for create / edit recipes
-
-
 add view filter to recipe pages
     favorites
     my recipes

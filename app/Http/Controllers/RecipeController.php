@@ -449,11 +449,16 @@ class RecipeController extends Controller
     {
         $user_id = $request->user_id;
         $searchValue = $request->value;
+        $favorites = $request->favorites ? true : false;
 
         if (!intval($user_id) && !$searchValue && !is_string($searchValue))
             return response([], 200);
 
-        $recipes = Recipe::getSearchResults(['user_id' => $user_id, 'value' => $searchValue]);
+        $recipes = Recipe::getSearchResults([
+            'user_id' => $user_id, 
+            'value' => $searchValue,
+            'favorites' => $favorites
+        ]);
 
         return response(['recipes' => $recipes], 200);
     }
