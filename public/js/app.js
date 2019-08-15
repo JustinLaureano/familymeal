@@ -41482,7 +41482,7 @@ function validateRecipe(recipe) {
 function getNewRecipe(currentRecipe) {
   // Calculate user rating
   var rating = 0;
-  var ratingStars = document.querySelectorAll('.recipe-grid__stars');
+  var ratingStars = document.querySelectorAll('.star-icon--edit');
   var _iteratorNormalCompletion = true;
   var _didIteratorError = false;
   var _iteratorError = undefined;
@@ -41524,9 +41524,7 @@ function getNewRecipe(currentRecipe) {
     summary: {
       summary: document.querySelector('textarea[name="summary"]').value
     },
-    ratings: [{
-      rating: rating
-    }],
+    rating: rating,
     directions: currentRecipe.directions,
     ingredients: currentRecipe.ingredients,
     notes: currentRecipe.notes
@@ -42788,8 +42786,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
