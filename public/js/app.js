@@ -47490,7 +47490,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62782,6 +62782,19 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipePhoto).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "getRecipeCategoryPhoto", function () {
+      var currentRecipeCategory = _this.props.currentRecipe.info.recipe_category_name;
+      var photo = 'All';
+
+      _this.props.recipeCategories.map(function (category) {
+        if (currentRecipeCategory.toLowerCase() == category.name.toLowerCase()) {
+          photo = currentRecipeCategory;
+        }
+      });
+
+      return '/images/recipe-categories/' + photo + '.jpg';
+    });
+
     _defineProperty(_assertThisInitialized(_this), "setPhoto", function (e) {
       var photo = e.target.value;
 
@@ -62838,7 +62851,7 @@ function (_React$Component) {
       var photoProps = {
         id: 'recipe_photo',
         className: 'photo--circle photo--recipe' + (this.props.editMode ? '-edit' : ''),
-        src: this.state.photo !== null && this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : 'https://www.fillmurray.com/120/120'
+        src: this.state.photo !== null && this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : this.getRecipeCategoryPhoto()
       };
 
       if (this.props.editMode) {
@@ -62864,7 +62877,9 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     editMode: state.filters.editMode,
-    photo: state.filters.currentRecipe.photo
+    photo: state.filters.currentRecipe.photo,
+    currentRecipe: state.filters.currentRecipe,
+    recipeCategories: state.recipe_categories
   };
 };
 
