@@ -40,7 +40,6 @@ export class RecipeDirections extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state, this.props);
         if (!this.props.editMode && !this.props.cancelChanges) {
             this.saveRecipeDirections();
         }

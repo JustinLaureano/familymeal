@@ -204,9 +204,18 @@ class RecipeController extends Controller
             $recipe_rating = RecipeRatings::where('user_id', $user_id)
                 ->where('recipe_id', $recipe_id)
                 ->first();
+
+            // create a new user rating if not already found
+            if (!$recipe_rating) {
+                $recipe_rating = new RecipeRatings;
+                $recipe_rating->recipe_id = $recipe_id;
+                $recipe_rating->user_id = $user_id;
+            }
+
             $recipe_rating->rating = $request->post('rating');
             $recipe_rating->save();
             $updates[] = 'rating';
+            $response = ['id' => $recipe_rating->id, 'rating' => $request->post('rating')];
         }
         
         if ($request->post('summary')) {

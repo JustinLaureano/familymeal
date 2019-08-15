@@ -58274,6 +58274,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 /* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -58318,7 +58320,6 @@ var createNewRecipe = function createNewRecipe(recipe) {
     fetch('/api/recipes/store', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'SET_CURRENT_RECIPE',
         recipe: data.recipe
@@ -58455,6 +58456,17 @@ var updateRecipeRating = function updateRecipeRating(rating) {
 
         return r;
       });
+      console.log(ratings, _typeof(ratings));
+
+      if (ratings.length == 0) {
+        ratings = [{
+          id: data.response.id,
+          recipe_id: recipe_id,
+          user_id: user_id,
+          rating: data.response.rating
+        }];
+      }
+
       dispatch({
         type: 'UPDATE_CURRENT_RECIPE_RATINGS',
         ratings: ratings
@@ -61308,8 +61320,6 @@ function (_React$Component) {
     value: function componentDidUpdate() {
       var _this3 = this;
 
-      console.log(this.state, this.props);
-
       if (!this.props.editMode && !this.props.cancelChanges) {
         this.saveRecipeDirections();
       }
@@ -63191,8 +63201,9 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "saveRatings", function () {
       var rating = _this.state.rating.rating;
+      console.log(_this.state.rating, _this.props.ratings);
 
-      if (parseInt(rating) != parseInt(_this.props.ratings.user.rating)) {
+      if (typeof rating !== 'undefined' && parseInt(rating) != parseInt(_this.props.ratings.user.rating)) {
         _this.props.updateRecipeRating(rating);
       }
     });
