@@ -29,7 +29,6 @@ export function arrayMove(arr, curIndex, toIndex) {
 }
 
 export function validateRecipe(recipe) {
-    console.log(recipe);
 
     const errors = [];
 

@@ -29,8 +29,6 @@ export const createNewRecipe = (recipe) => {
 		const csrf_token = getState().auth.csrf_token;
 		const user_id = getState().user.id;
 
-		console.log(recipe);
-
 		const request = {
 			method: 'POST',
             headers: {

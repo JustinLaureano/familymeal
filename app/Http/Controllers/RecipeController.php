@@ -91,10 +91,10 @@ class RecipeController extends Controller
             $note->save();
         }
 
-        if (floatval($new_recipe['ratings'][0]['rating'])) {
+        if (isset($new_recipe['rating']) && floatval($new_recipe['rating'])) {
             $rating = new RecipeRatings;
             $rating->recipe_id = $recipe_id;
-            $rating->rating = floatval($new_recipe['ratings'][0]['rating']);
+            $rating->rating = floatval($new_recipe['rating']);
             $rating->user_id = $user_id;
             $rating->save();
         }

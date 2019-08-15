@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateRecipeCookTime } from '../../actions/recipes';
+import { timingSafeEqual } from 'crypto';
 
 export class RecipeCookTime extends React.Component {
 	constructor(props) {
@@ -27,6 +28,7 @@ export class RecipeCookTime extends React.Component {
     
     saveRecipeCookTime = () => {
         const cook_time = this.state.cook_time;
+        if (cook_time === '' && this.props.cook_time == 'n/a') return;
         if (cook_time != this.props.cook_time) {
             this.props.updateRecipeCookTime(cook_time);
         }
