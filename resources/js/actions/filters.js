@@ -192,3 +192,21 @@ export const removeRecipeCategoryFilter = (recipe_category_id) => {
 		});
 	}
 }
+
+export const addCuisineTypeFilter = (cuisine_type_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_CUISINE_TYPE_FILTER',
+			cuisine_type_id
+		});
+	}
+}
+
+export const removeCuisineTypeFilter = (cuisine_type_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'REMOVE_CUISINE_TYPE_FILTER',
+			cuisine_type_id
+		});
+	}
+}

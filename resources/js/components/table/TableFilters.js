@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import RecipeCategoryFilter from '../filters/RecipeCategoryFilter';
+import CuisineTypeFilter from '../filters/CuisineTypeFilter';
 
 export class TableFilters extends React.Component {
 	render() {
@@ -10,6 +11,7 @@ export class TableFilters extends React.Component {
                 return (
                     <section className="table-filter">
                         <RecipeCategoryFilter />
+                        <CuisineTypeFilter />
                     </section>
                 )
         }
