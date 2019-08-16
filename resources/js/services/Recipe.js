@@ -29,7 +29,6 @@ export function arrayMove(arr, curIndex, toIndex) {
 }
 
 export function validateRecipe(recipe) {
-    console.log(recipe);
 
     const errors = [];
 
@@ -70,7 +69,7 @@ export function validateRecipe(recipe) {
 export function getNewRecipe(currentRecipe) {
     // Calculate user rating
     let rating = 0;
-    const ratingStars = document.querySelectorAll('.recipe-grid__stars');
+    const ratingStars = document.querySelectorAll('.star-icon--edit');
     for (const star of ratingStars) {
         if (star.innerHTML === 'star') {
             rating++;
@@ -91,7 +90,7 @@ export function getNewRecipe(currentRecipe) {
         summary: {
             summary: document.querySelector('textarea[name="summary"]').value
         },
-        ratings: [{ rating }],
+        rating,
         directions: currentRecipe.directions,
         ingredients: currentRecipe.ingredients,
         notes: currentRecipe.notes

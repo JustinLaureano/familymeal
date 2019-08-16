@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Libraries\FileHelper;
+use App\Libraries\StorageHelper;
 use App\Models\FavoriteRecipes;
 use App\Models\Ingredient;
 use App\Models\Recipe;
@@ -91,10 +92,10 @@ class RecipeController extends Controller
             $note->save();
         }
 
-        if (floatval($new_recipe['ratings'][0]['rating'])) {
+        if (isset($new_recipe['rating']) && floatval($new_recipe['rating'])) {
             $rating = new RecipeRatings;
             $rating->recipe_id = $recipe_id;
-            $rating->rating = floatval($new_recipe['ratings'][0]['rating']);
+            $rating->rating = floatval($new_recipe['rating']);
             $rating->user_id = $user_id;
             $rating->save();
         }
@@ -174,6 +175,8 @@ class RecipeController extends Controller
             $extension = FileHelper::getExtension($photo['type']);
             $filename = $recipe_id . '_' . $recipe_name . $extension;
 
+            StorageHelper::checkRecipePhotoStorage();
+
             Image::make($photo['tmp_name'])
                 ->resize(150, 150)
                 ->save(storage_path('uploads/recipe_photos/' . $filename));
@@ -204,9 +207,18 @@ class RecipeController extends Controller
             $recipe_rating = RecipeRatings::where('user_id', $user_id)
                 ->where('recipe_id', $recipe_id)
                 ->first();
+
+            // create a new user rating if not already found
+            if (!$recipe_rating) {
+                $recipe_rating = new RecipeRatings;
+                $recipe_rating->recipe_id = $recipe_id;
+                $recipe_rating->user_id = $user_id;
+            }
+
             $recipe_rating->rating = $request->post('rating');
             $recipe_rating->save();
             $updates[] = 'rating';
+            $response = ['id' => $recipe_rating->id, 'rating' => $request->post('rating')];
         }
         
         if ($request->post('summary')) {
@@ -437,11 +449,16 @@ class RecipeController extends Controller
     {
         $user_id = $request->user_id;
         $searchValue = $request->value;
+        $favorites = $request->favorites ? true : false;
 
         if (!intval($user_id) && !$searchValue && !is_string($searchValue))
             return response([], 200);
 
-        $recipes = Recipe::getSearchResults(['user_id' => $user_id, 'value' => $searchValue]);
+        $recipes = Recipe::getSearchResults([
+            'user_id' => $user_id, 
+            'value' => $searchValue,
+            'favorites' => $favorites
+        ]);
 
         return response(['recipes' => $recipes], 200);
     }

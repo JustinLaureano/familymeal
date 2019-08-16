@@ -27,6 +27,7 @@ export class RecipePrepTime extends React.Component {
     
     saveRecipePrepTime = () => {
         const prep_time = this.state.prep_time;
+        if (prep_time === '' && this.props.prep_time == 'n/a') return;
         if (prep_time != this.props.prep_time) {
             this.props.updateRecipePrepTime(prep_time);
         }

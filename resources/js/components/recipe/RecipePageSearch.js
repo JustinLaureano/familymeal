@@ -51,11 +51,13 @@ export class RecipePageSearch extends React.Component {
     );
 
     startSuggestionFetch = (value) => {
+        const favorites = this.props.favorites ? true : false;
         const searchParams = {
             token: this.props.token,
             csrf_token: this.props.csrf_token,
             user_id: this.props.user_id,
-            value
+            value,
+            favorites
         }
 
         getRecipeSearchResults(searchParams)

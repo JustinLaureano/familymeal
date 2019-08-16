@@ -29,8 +29,6 @@ export const createNewRecipe = (recipe) => {
 		const csrf_token = getState().auth.csrf_token;
 		const user_id = getState().user.id;
 
-		console.log(recipe);
-
 		const request = {
 			method: 'POST',
             headers: {
@@ -45,7 +43,7 @@ export const createNewRecipe = (recipe) => {
 		fetch('/api/recipes/store', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
+
 				dispatch({
 					type: 'SET_CURRENT_RECIPE',
 					recipe: data.recipe
@@ -183,12 +181,23 @@ export const updateRecipeRating = (rating) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				const ratings = getState().filters.currentRecipe.ratings.map((r) => {
+				let ratings = getState().filters.currentRecipe.ratings.map((r) => {
 					if (r.user_id == user_id) {
 						r.rating = rating;
 					}
 					return r;
 				});
+
+				console.log(ratings, typeof ratings);
+
+				if (ratings.length == 0) {
+					ratings = [{
+						id: data.response.id,
+						recipe_id,
+						user_id,
+						rating: data.response.rating
+					}];
+				}
 
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_RATINGS',

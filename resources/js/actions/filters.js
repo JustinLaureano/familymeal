@@ -131,6 +131,7 @@ export const getRecipeSearchResults = (params) => {
 		const csrf_token = params.csrf_token;
 		const user_id = params.user_id;
 		const value = params.value.toString();
+		const favorites = params.favorites;
 
 		const request = {
             headers: {
@@ -141,7 +142,11 @@ export const getRecipeSearchResults = (params) => {
 			}
 		};
 
-		const url = '/api/search/recipes?user_id=' + user_id + '&value=' + value;
+		let url = '/api/search/recipes?user_id=' + user_id + '&value=' + value;
+		if (favorites) {
+			url += '&favorites=true';
+		}
+
 		fetch(url, request)
 			.then(resp => resp.json())
 			.then((data) => {

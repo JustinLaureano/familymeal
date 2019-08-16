@@ -27,6 +27,7 @@ export class RecipePortions extends React.Component {
     
     saveRecipePortions = () => {
         const portions = this.state.portions;
+        if (portions === '' && this.props.portions == 'n/a') return;
         if (portions != this.props.portions) {
             this.props.updateRecipePortions(portions);
         }

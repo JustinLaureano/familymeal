@@ -26,6 +26,17 @@ export class RecipePhoto extends React.Component {
             document.getElementById('recipe_photo').src = '/recipe/photo/' + this.props.photo.filename;
         }
     }
+
+    getRecipeCategoryPhoto = () => {
+        const currentRecipeCategory = this.props.currentRecipe.info.recipe_category_name;
+        let photo = 'All';
+        this.props.recipeCategories.map(category => {
+            if (currentRecipeCategory.toLowerCase() == category.name.toLowerCase()) {
+                photo = currentRecipeCategory;
+            }
+        });
+        return '/images/recipe-categories/' + photo + '.jpg';
+    }
 	
 	setPhoto = (e) => {
         const photo = e.target.value;
@@ -49,7 +60,7 @@ export class RecipePhoto extends React.Component {
             className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
             src: ( this.state.photo !== null && this.state.photo.filename ) ? 
                 '/recipe/photo/' + this.state.photo.filename :
-                'https://www.fillmurray.com/120/120'
+                this.getRecipeCategoryPhoto()
         };
 
 		if (this.props.editMode) {
@@ -83,7 +94,9 @@ export class RecipePhoto extends React.Component {
 
 const mapStateToProps = (state) => ({
         editMode: state.filters.editMode,
-        photo: state.filters.currentRecipe.photo
+        photo: state.filters.currentRecipe.photo,
+        currentRecipe: state.filters.currentRecipe,
+        recipeCategories: state.recipe_categories
 });
 
 const mapDispatchToProps = (dispatch, props) => ({

@@ -8,6 +8,10 @@ export class PageSearch extends React.Component {
                 return (
                     <RecipePageSearch />
                 )
+            case 'favorite':
+                return (
+                    <RecipePageSearch favorites={ true } />
+                )
             default:
                 return '';
         }
