@@ -1,0 +1,63 @@
+.filter {
+    position: relative;
+    width: 100px;
+}
+
+.filter__btn {
+    @include pad($space-xxs);
+    @include border();
+    @include transition;
+    background-color: $white;
+    font-size: $size-xs;
+    width: 100%;
+
+    &:hover {
+        background-color: $white;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+        color: $weathered-blue;
+    }
+}
+
+.filter__suggestions {
+    @include border();
+    background-color: $white;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, .15);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    position: absolute;
+    scrollbar-width: none;
+    width: 100%;
+    z-index: $filter-z-index;
+    
+    &::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+}
+
+.filter__suggestion {
+    @include pad($space-xxs);
+    cursor: pointer;
+    width: 100%;
+    
+    &:nth-child(odd) {
+        background-color: $weathered-blue-light;
+    }
+    &:hover {
+        background-color: $weathered-blue-hover;
+    }
+}
+
+.filter__suggestion--selected {
+    @include pad($space-xxs);
+    background-color: $weathered-blue;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+
+    &:hover {
+        background-color: $weathered-blue;
+    }
+}

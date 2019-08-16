@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
+import PageLoad from '../components/PageLoad';
+import TableFilters from '../components/table/TableFilters.js';
 import Table from '../components/table/Table.js';
 
 export class MyRecipesPage extends React.Component {
@@ -11,10 +13,20 @@ export class MyRecipesPage extends React.Component {
         super(props);
         
         this.state = {
+			loading: true,
 			headers: getRecipeTableHeaders(),
 			options: getRecipeTableOptions(),
         };
 	};
+
+	componentDidUpdate() {
+		if (this.props.recipes.length == 0 && !this.state.loading) {
+			this.setState({ loading: true });
+		}
+		else if (this.state.loading && this.props.recipes.length > 0) {
+			this.setState({ loading: false });
+		}
+	}
 	
 	render() {
 		const tableProps = {
@@ -45,13 +57,25 @@ export class MyRecipesPage extends React.Component {
 				]
 			}
 		}
-		return (
-			<section className="table-grid">
-				<Breadcrumbs />
-				<PageHeader {...pageHeaderProps} />
-				<Table {...tableProps}/>
-			</section>
-		)
+		const tableFilterProps = {
+			table: 'recipes'
+		}
+		if (this.state.loading) {
+			return (
+				<PageLoad />
+			)
+		}
+		else {
+			return (
+				<section className="table-grid">
+					<Breadcrumbs />
+					<PageHeader { ...pageHeaderProps } />
+					<TableFilters { ...tableFilterProps } />
+					<Table { ...tableProps }/>
+				</section>
+			)
+		}
+
 	}
 }
 

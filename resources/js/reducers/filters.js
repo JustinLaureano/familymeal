@@ -1,7 +1,8 @@
 const filterReducerDefaultState = {
     currentRecipe: null,
     editMode: false,
-    cancelChanges: false
+    cancelChanges: false,
+    recipe_category: []
 };
 
 const currentRecipeDefaultState = {
@@ -242,6 +243,23 @@ export default (state = filterReducerDefaultState, action) => {
             return {
                 ...state,
             };
+        case 'ADD_RECIPE_CATEGORY_FILTER':
+            return {
+                ...state,
+                recipe_category: [
+                    ...state.recipe_category,
+                    action.recipe_category_id
+                ]
+            };
+        case 'REMOVE_RECIPE_CATEGORY_FILTER':
+                const recipe_category = state
+                    .recipe_category
+                    .filter(category => category != action.recipe_category_id);
+
+                return {
+                    ...state,
+                    recipe_category
+                };
         default:
             return state;
     }

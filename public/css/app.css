@@ -344,6 +344,72 @@ a:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.filter {
+  position: relative;
+  width: 100px;
+}
+
+.filter__btn {
+  padding: calc(0.375 * 1em);
+  border: 1px solid #363636;
+  border-radius: 3px;
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  background-color: #fffeff;
+  font-size: 0.8em;
+  width: 100%;
+}
+.filter__btn:hover {
+  background-color: #fffeff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  color: #385e83;
+}
+
+.filter__suggestions {
+  border: 1px solid #363636;
+  border-radius: 3px;
+  background-color: #fffeff;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  overflow-y: scroll;
+  position: absolute;
+  scrollbar-width: none;
+  width: 100%;
+  z-index: 700;
+}
+.filter__suggestions::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.filter__suggestion {
+  padding: calc(0.375 * 1em);
+  cursor: pointer;
+  width: 100%;
+}
+.filter__suggestion:nth-child(odd) {
+  background-color: #4f5d6a07;
+}
+.filter__suggestion:hover {
+  background-color: #2780d31c;
+}
+
+.filter__suggestion--selected {
+  padding: calc(0.375 * 1em);
+  background-color: #385e83;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+.filter__suggestion--selected:hover {
+  background-color: #385e83;
+}
+
 .react-autosuggest__container {
   max-width: 275px;
   width: 100%;
@@ -716,6 +782,10 @@ a:hover {
 .drag-icon:hover {
   color: #363636;
   opacity: 1;
+}
+
+.dropdown-icon {
+  font-size: 0.875em;
 }
 
 .add-icon, .add-icon--textarea {
@@ -1137,7 +1207,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: calc(2 * 1em) calc(3.25 * 1em) auto;
-  grid-template-areas: "breadcrumbs" "page-header" "table";
+  grid-template-areas: "breadcrumbs" "page-header" "filters" "table";
 }
 
 .table {
@@ -1299,6 +1369,17 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .table__pagination-ellipsis {
   margin-right: calc(0.375 * 1em);
+}
+
+.table-filter {
+  -webkit-box-align: baseline;
+          align-items: baseline;
+  display: -webkit-box;
+  display: flex;
+  grid-area: filters;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  padding-bottom: calc(1.25 * 1em);
 }
 
 .footer {

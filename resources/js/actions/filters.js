@@ -159,3 +159,21 @@ export const startNewRecipe = () => {
         });
 	}
 }
+
+export const addRecipeCategoryFilter = (recipe_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_RECIPE_CATEGORY_FILTER',
+			recipe_category_id
+		});
+	}
+}
+
+export const removeRecipeCategoryFilter = (recipe_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'REMOVE_RECIPE_CATEGORY_FILTER',
+			recipe_category_id
+		});
+	}
+}

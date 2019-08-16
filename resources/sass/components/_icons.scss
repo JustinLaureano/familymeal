@@ -32,6 +32,10 @@
     }
 }
 
+.dropdown-icon {
+    font-size: $size-sm;
+}
+
 .add-icon {
     @include transition;
     align-self: center;

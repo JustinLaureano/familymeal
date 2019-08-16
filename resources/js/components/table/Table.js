@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
-import { deleteRecipe } from '../../actions/recipes';
-import { changeTablePage } from '../../actions/filters';
 
 export class Table extends React.Component {
 	componentWillMount() {
