@@ -2,7 +2,7 @@
     @extend .content;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: #{$space-lg} #{$space-xl} auto;
+    grid-template-rows: #{$space-lg} #{$space-xl} minmax(min-content, max-content) auto;
     grid-template-areas:
         "breadcrumbs"
         "page-header"
@@ -12,6 +12,8 @@
 
 .table {
     @include modal-box;
+    display: flex;
+    flex-direction: column;
     padding: 0;
 }
 
@@ -49,10 +51,12 @@
 }
 
 .table__body {
+    flex-grow: 1;
     overflow-x: scroll;
     scrollbar-width: none;
     -ms-overflow-style: none;
     width: 100%;
+
     &::-webkit-scrollbar {
         width: 0;
         height: 0;

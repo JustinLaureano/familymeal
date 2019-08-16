@@ -44,8 +44,8 @@ export class CuisineTypeFilter extends React.Component {
         const cuisine_type_id = e.target.id.replace(/\D/g, '');
 
         e.target.className.includes('filter__suggestion--selected') ?
-            this.props.removeCuisineFilter( parseInt(cuisine_type_id) ) :
-            this.props.addCuisineFilter( parseInt(cuisine_type_id) );
+            this.props.removeCuisineTypeFilter( parseInt(cuisine_type_id) ) :
+            this.props.addCuisineTypeFilter( parseInt(cuisine_type_id) );
 
         this.props.changeTablePage(1, 'recipe');
     }

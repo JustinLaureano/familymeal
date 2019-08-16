@@ -30,6 +30,7 @@ class RecipeController extends Controller
     {
         $page = $request->page ? intval($request->page) : 1;
         $categories = $request->categories ? explode(',', $request->categories) : null;
+        $cuisines = $request->cuisines ? explode(',', $request->cuisines) : null;
         $user = User::find($user_id);
         $user_settings = UserSettings::where('user_id', $user_id)->first();
         $offset = $page == 1 ? 0 : ($page - 1) * intval($user_settings->table_result_limit);
@@ -38,13 +39,17 @@ class RecipeController extends Controller
             'user_id' => $user_id,
             'take' => $user_settings->table_result_limit,
             'offset' => $offset,
-            'categories' => $categories
+            'categories' => $categories,
+            'cuisines' => $cuisines
         ]);
 
         $recipe_total = Recipe::where('user_id', $user_id)
             ->where('deleted_at', Null)
             ->when($categories && count($categories), function($query) use($categories) {
                 return $query->whereIn('recipe.recipe_category_id', $categories);
+            })
+            ->when($cuisines && count($cuisines), function($query) use($cuisines) {
+                return $query->whereIn('recipe.cuisine_type_id', $cuisines);
             })
             ->count();
 

@@ -3,6 +3,7 @@ export const changeTablePage = (pageNumber, model) => {
         const token = getState().auth.token;
 		const user_id = getState().user.id;
 		const recipeCategories = getState().filters.recipe_category;
+		const cuisine_types = getState().filters.cuisine_type;
         let url = '';
 
         const request = {
@@ -24,6 +25,10 @@ export const changeTablePage = (pageNumber, model) => {
 		
 		if (recipeCategories.length > 0) {
 			url += '&categories=' + recipeCategories.join(",");
+		}
+
+		if (cuisine_types.length > 0) {
+			url += '&cuisines=' + cuisine_types.join(",");
 		}
 
 		fetch(url, request)

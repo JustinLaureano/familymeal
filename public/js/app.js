@@ -58099,6 +58099,7 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
     var token = getState().auth.token;
     var user_id = getState().user.id;
     var recipeCategories = getState().filters.recipe_category;
+    var cuisine_types = getState().filters.cuisine_type;
     var url = '';
     var request = {
       headers: {
@@ -58120,6 +58121,10 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
 
     if (recipeCategories.length > 0) {
       url += '&categories=' + recipeCategories.join(",");
+    }
+
+    if (cuisine_types.length > 0) {
+      url += '&cuisines=' + cuisine_types.join(",");
     }
 
     fetch(url, request).then(function (resp) {
@@ -59600,7 +59605,7 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "toggleCuisineOption", function (e) {
       var cuisine_type_id = e.target.id.replace(/\D/g, '');
-      e.target.className.includes('filter__suggestion--selected') ? _this.props.removeCuisineFilter(parseInt(cuisine_type_id)) : _this.props.addCuisineFilter(parseInt(cuisine_type_id));
+      e.target.className.includes('filter__suggestion--selected') ? _this.props.removeCuisineTypeFilter(parseInt(cuisine_type_id)) : _this.props.addCuisineTypeFilter(parseInt(cuisine_type_id));
 
       _this.props.changeTablePage(1, 'recipe');
     });
@@ -64556,9 +64561,263 @@ var favoriteRecipesReducerDefaultState = [];
   !*** ./resources/js/reducers/filters.js ***!
   \******************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/justinlaureano/dev/recipe-confidential/resources/js/reducers/filters.js: Multiple default clauses (283:8)\n\n\u001b[0m \u001b[90m 281 | \u001b[39m                    cuisine_type\u001b[0m\n\u001b[0m \u001b[90m 282 | \u001b[39m                }\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 283 | \u001b[39m        \u001b[36mdefault\u001b[39m\u001b[33m:\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m     | \u001b[39m        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 284 | \u001b[39m            \u001b[36mreturn\u001b[39m state\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 285 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 286 | \u001b[39m}\u001b[33m;\u001b[39m\u001b[0m\n    at Object.raise (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:6344:17)\n    at Object.parseSwitchStatement (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10185:18)\n    at Object.parseStatementContent (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9839:21)\n    at Object.parseStatement (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9788:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10364:25)\n    at Object.parseBlockBody (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10351:10)\n    at Object.parseBlock (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10335:10)\n    at Object.parseFunctionBody (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9408:24)\n    at Object.parseArrowExpression (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9349:10)\n    at Object.parseParenAndDistinguishExpression (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8986:12)\n    at Object.parseExprAtom (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8760:21)\n    at Object.parseExprAtom (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:3599:20)\n    at Object.parseExprSubscripts (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8413:23)\n    at Object.parseMaybeUnary (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8393:21)\n    at Object.parseExprOps (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8280:23)\n    at Object.parseMaybeConditional (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8253:23)\n    at Object.parseMaybeAssign (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:8200:21)\n    at Object.parseExportDefaultExpression (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10973:24)\n    at Object.parseExport (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10868:31)\n    at Object.parseStatementContent (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9892:27)\n    at Object.parseStatement (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9788:17)\n    at Object.parseBlockOrModuleBlockBody (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10364:25)\n    at Object.parseBlockBody (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:10351:10)\n    at Object.parseTopLevel (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:9717:10)\n    at Object.parse (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:11233:17)\n    at parse (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/parser/lib/index.js:11269:38)\n    at parser (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/core/lib/transformation/normalize-file.js:170:34)\n    at normalizeFile (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/core/lib/transformation/normalize-file.js:138:11)\n    at runSync (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/Users/justinlaureano/dev/recipe-confidential/node_modules/@babel/core/lib/transform.js:34:34)\n    at process.internalTickCallback (internal/process/next_tick.js:70:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var filterReducerDefaultState = {
+  currentRecipe: null,
+  editMode: false,
+  cancelChanges: false,
+  recipe_category: [],
+  cuisine_type: []
+};
+var currentRecipeDefaultState = {
+  info: {
+    id: null,
+    name: '',
+    user_id: null,
+    recipe_category_id: '',
+    recipe_category_name: '',
+    cuisine_type_id: '',
+    cuisine_type: '',
+    difficulty: 'Easy',
+    portions: '',
+    prep_time: '',
+    cook_time: '',
+    created_at: null,
+    favorite: 'false'
+  },
+  photo: null,
+  summary: {
+    id: null,
+    recipe_id: null,
+    summary: ''
+  },
+  ratings: [],
+  ingredients: [],
+  directions: [],
+  notes: []
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : filterReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_CANCEL_CHANGES_FILTER':
+      return _objectSpread({}, state, {
+        cancelChanges: true
+      });
+
+    case 'RESET_CANCEL_CHANGES_FILTER':
+      return _objectSpread({}, state, {
+        cancelChanges: false
+      });
+
+    case 'SET_CURRENT_RECIPE':
+      return _objectSpread({}, state, {
+        currentRecipe: action.recipe
+      });
+
+    case 'SET_EDIT_MODE':
+      return _objectSpread({}, state, {
+        editMode: action.editMode
+      });
+
+    case 'CLEAR_CURRENT_RECIPE':
+      return _objectSpread({}, state, {
+        currentRecipe: null
+      });
+
+    case 'ADD_CURRENT_RECIPE_DIRECTION':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          directions: [].concat(_toConsumableArray(state.currentRecipe.directions), [action.direction])
+        })
+      });
+
+    case 'ADD_CURRENT_RECIPE_INGREDIENT':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ingredients: [].concat(_toConsumableArray(state.currentRecipe.ingredients), [action.ingredient])
+        })
+      });
+
+    case 'ADD_CURRENT_RECIPE_NOTE':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          notes: [].concat(_toConsumableArray(state.currentRecipe.notes), [action.note])
+        })
+      });
+
+    case 'SET_NEW_CURRENT_RECIPE':
+      return _objectSpread({}, state, {
+        currentRecipe: currentRecipeDefaultState
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_DIRECTIONS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          directions: action.directions
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_INGREDIENTS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ingredients: action.ingredients
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_NOTES':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          notes: action.notes
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_PHOTO':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          photo: action.photo
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_RATINGS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          ratings: action.ratings
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_SUMMARY':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          summary: _objectSpread({}, state.currentRecipe.summary, {
+            summary: action.summary
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_CUISINE':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            cuisine_type_id: action.cuisine.id,
+            cuisine_type: action.cuisine.name
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_CATEGORY':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            recipe_category_id: action.category.id,
+            recipe_category_name: action.category.name
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_COOK_TIME':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            cook_time: action.cook_time
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_DIFFICULTY':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            difficulty: action.difficulty
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_PORTIONS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            portions: action.portions
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_PREP_TIME':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            prep_time: action.prep_time
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_NAME':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            name: action.name
+          })
+        })
+      });
+
+    case 'UPDATE_CURRENT_RECIPE_FAVORITE_STATUS':
+      return _objectSpread({}, state, {
+        currentRecipe: _objectSpread({}, state.currentRecipe, {
+          info: _objectSpread({}, state.currentRecipe.info, {
+            favorite: action.favorite
+          })
+        })
+      });
+
+    case 'SORT_BY_NAME_ASC':
+      return _objectSpread({}, state);
+
+    case 'ADD_RECIPE_CATEGORY_FILTER':
+      return _objectSpread({}, state, {
+        recipe_category: [].concat(_toConsumableArray(state.recipe_category), [action.recipe_category_id])
+      });
+
+    case 'REMOVE_RECIPE_CATEGORY_FILTER':
+      var recipe_category = state.recipe_category.filter(function (category) {
+        return category != action.recipe_category_id;
+      });
+      return _objectSpread({}, state, {
+        recipe_category: recipe_category
+      });
+
+    case 'ADD_CUISINE_TYPE_FILTER':
+      return _objectSpread({}, state, {
+        cuisine_type: [].concat(_toConsumableArray(state.cuisine_type), [action.cuisine_type_id])
+      });
+
+    case 'REMOVE_CUISINE_TYPE_FILTER':
+      var cuisine_type = state.cuisine_type.filter(function (cuisine) {
+        return cuisine != action.cuisine_type_id;
+      });
+      return _objectSpread({}, state, {
+        cuisine_type: cuisine_type
+      });
+
+    default:
+      return state;
+  }
+});
 
 /***/ }),
 

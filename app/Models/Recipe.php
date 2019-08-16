@@ -66,6 +66,9 @@ class Recipe extends Model
             ->when(isset($params['categories']) && count($params['categories']), function($query) use($params) {
                 return $query->whereIn('recipe.recipe_category_id', $params['categories']);
             })
+            ->when(isset($params['cuisines']) && count($params['cuisines']), function($query) use($params) {
+                return $query->whereIn('recipe.cuisine_type_id', $params['cuisines']);
+            })
             ->orderBy('name', 'asc')
             ->take($params['take'])
             ->offset($params['offset'])
