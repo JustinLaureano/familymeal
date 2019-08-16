@@ -1,6 +1,3 @@
-add search to table pages
-    favorites
-
 Add recipes to ingredient search
     make search async
     add (r) next to ingredients that are recipes
@@ -37,3 +34,9 @@ user setting
     length of toast notifications
         short - 3 seconds
         long - 5 seconds
+
+categories page
+    card view only
+
+    future
+        add/edit/delete new category

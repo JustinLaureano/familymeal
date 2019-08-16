@@ -1,6 +1,11 @@
 .filter {
     position: relative;
-    width: 100px;
+    width: 105px;
+    margin-left: $space-sm;
+
+    &:first-child {
+        margin-left: 0;
+    }
 }
 
 .filter__btn {
@@ -25,6 +30,7 @@
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    font-size: $size-sm;
     overflow-y: scroll;
     position: absolute;
     scrollbar-width: none;

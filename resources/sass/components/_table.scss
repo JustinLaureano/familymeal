@@ -10,6 +10,14 @@
         "table";
 }
 
+.table-grid--simple {
+    @extend .table-grid;
+    grid-template-areas:
+        "breadcrumbs"
+        "page-header"
+        "table";
+}
+
 .table {
     @include modal-box;
     display: flex;

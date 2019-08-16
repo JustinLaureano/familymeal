@@ -198,6 +198,15 @@ export const removeRecipeCategoryFilter = (recipe_category_id) => {
 	}
 }
 
+export const setRecipeCategoryFilter = (recipe_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_RECIPE_CATEGORY_FILTER',
+			recipe_category: [recipe_category_id]
+		});
+	}
+}
+
 export const addCuisineTypeFilter = (cuisine_type_id) => {
 	return (dispatch) => {
 		dispatch({

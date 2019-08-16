@@ -261,6 +261,11 @@ export default (state = filterReducerDefaultState, action) => {
                     ...state,
                     recipe_category
                 };
+        case 'SET_RECIPE_CATEGORY_FILTER':
+            return {
+                ...state,
+                recipe_category: action.recipe_category
+            };
         case 'ADD_CUISINE_TYPE_FILTER':
             return {
                 ...state,

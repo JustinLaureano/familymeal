@@ -1,0 +1,47 @@
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card__area {
+    @include flex-center;
+    @include pad($space-sm);
+    
+    @include for-phone-only {
+        width: 50%;
+    }
+    
+    @include for-desktop-up {
+        width: 25%;
+    }
+    width: 33.333%;
+}
+
+.card {
+    @include border();
+    border-color: $gray-border;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+    max-width: 250px;
+    width: 100%;
+
+    @include for-desktop-up {
+        max-width: 275px;
+    }
+}
+
+.card__photo {
+    width: 100%;
+    height: 207px; // correct ratio
+}
+
+.card__header {
+    display: flex;
+    justify-content: center;
+    padding: $space-xs;
+}
+
+.card__footer {
+    display: flex;
+    justify-content: center;
+    padding: $space-xs;
+}

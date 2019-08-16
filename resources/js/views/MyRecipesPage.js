@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
+import { changeTablePage, setRecipeCategoryFilter } from '../actions/filters';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
@@ -20,8 +21,15 @@ export class MyRecipesPage extends React.Component {
         };
 	};
 
+	componentWillMount() {
+		if (this.props.location && this.props.location.state && this.props.location.state.recipe_category_id) {
+			const recipe_category_id = this.props.location.state.recipe_category_id;
+			this.props.setRecipeCategoryFilter(parseInt(recipe_category_id));
+			this.props.changeTablePage(1, 'recipe');
+		}
+	}
+
 	componentDidMount() {
-		console.log(this.state, this.props);
 		if (this.state.loading && this.props.recipes.length > 0) {
 			this.setState({ loading: false });
 		}
@@ -87,15 +95,15 @@ export class MyRecipesPage extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		recipes: state.recipes,
-		recipeTotal: state.totals.recipe,
-		categoryFilter: state.filters.recipe_category
-    };
-};
+const mapStateToProps = (state) => ({
+	recipes: state.recipes,
+	recipeTotal: state.totals.recipe,
+	categoryFilter: state.filters.recipe_category
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
+	changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model)),
+	setRecipeCategoryFilter: (recipe_category_id) => dispatch(setRecipeCategoryFilter(recipe_category_id))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(MyRecipesPage);
