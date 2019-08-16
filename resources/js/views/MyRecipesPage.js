@@ -16,8 +16,16 @@ export class MyRecipesPage extends React.Component {
 			loading: true,
 			headers: getRecipeTableHeaders(),
 			options: getRecipeTableOptions(),
+			categoryFilter: this.props.categoryFilter
         };
 	};
+
+	componentDidMount() {
+		console.log(this.state, this.props);
+		if (this.state.loading && this.props.recipes.length > 0) {
+			this.setState({ loading: false });
+		}
+	}
 
 	componentDidUpdate() {
 		if (this.props.recipes.length == 0 && !this.state.loading) {
@@ -82,7 +90,8 @@ export class MyRecipesPage extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		recipes: state.recipes,
-		recipeTotal: state.totals.recipe
+		recipeTotal: state.totals.recipe,
+		categoryFilter: state.filters.recipe_category
     };
 };
   

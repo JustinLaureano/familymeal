@@ -15056,10 +15056,10 @@ utils.intFromLE = intFromLE;
 /*!********************************************!*\
   !*** ./node_modules/elliptic/package.json ***!
   \********************************************/
-/*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, dependencies, deprecated, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_args":[["elliptic@6.4.1","D:\\xampp\\htdocs\\recipe-confidential"]],"_development":true,"_from":"elliptic@6.4.1","_id":"elliptic@6.4.1","_inBundle":false,"_integrity":"sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.1","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.1","saveSpec":null,"fetchSpec":"6.4.1"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.1.tgz","_spec":"6.4.1","_where":"D:\\xampp\\htdocs\\recipe-confidential","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.1"};
+module.exports = {"_from":"elliptic@^6.0.0","_id":"elliptic@6.4.1","_inBundle":false,"_integrity":"sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"elliptic@^6.0.0","name":"elliptic","escapedName":"elliptic","rawSpec":"^6.0.0","saveSpec":null,"fetchSpec":"^6.0.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.1.tgz","_shasum":"c2d0b7776911b86722c632c3c06c60f2f819939a","_spec":"elliptic@^6.0.0","_where":"/Users/justinlaureano/dev/recipe-confidential/node_modules/browserify-sign","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"bundleDependencies":false,"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"deprecated":false,"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.1"};
 
 /***/ }),
 
@@ -58096,6 +58096,7 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
     var user_id = getState().user.id;
+    var recipeCategories = getState().filters.recipe_category;
     var url = '';
     var request = {
       headers: {
@@ -58115,16 +58116,22 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
         break;
     }
 
+    if (recipeCategories.length > 0) {
+      url += '&categories=' + recipeCategories.join(",");
+    }
+
     fetch(url, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
-
       switch (model) {
         case 'recipe':
           dispatch({
             type: 'SET_RECIPES',
             recipes: data.recipes
+          });
+          dispatch({
+            type: 'SET_RECIPE_TOTAL',
+            recipeTotal: data.recipe_total
           });
           break;
 
@@ -59559,8 +59566,6 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeCategoryFilter).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "clickEvent", function (e) {
-      console.log(e.target.id.includes('category_'));
-
       if (!e.target.id.includes('category_') && _this.state.menuOpen) {
         // mouse click was outside the category menu, so close the menu
         _this.setState({
@@ -59578,6 +59583,8 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "toggleCategoryOption", function (e) {
       var recipeCategoryId = e.target.id.replace(/\D/g, '');
       e.target.className.includes('filter__suggestion--selected') ? _this.props.removeRecipeCategoryFilter(parseInt(recipeCategoryId)) : _this.props.addRecipeCategoryFilter(parseInt(recipeCategoryId));
+
+      _this.props.changeTablePage(1, 'recipe');
     });
 
     _this.state = {
@@ -59628,7 +59635,7 @@ function (_React$Component) {
           key: "category_" + category.id,
           id: "category_" + category.id,
           onClick: _this2.toggleCategoryOption,
-          className: "filter__suggestion" + (_this2.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : '')
+          className: _this2.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion'
         }, category.name);
       })));
     }
@@ -59647,6 +59654,9 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
+    changeTablePage: function changeTablePage(pageNumber, model) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["changeTablePage"])(pageNumber, model));
+    },
     addRecipeCategoryFilter: function addRecipeCategoryFilter(recipeCategoryId) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["addRecipeCategoryFilter"])(recipeCategoryId));
     },
@@ -66057,12 +66067,24 @@ function (_React$Component) {
     _this.state = {
       loading: true,
       headers: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableHeaders"])(),
-      options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableOptions"])()
+      options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableOptions"])(),
+      categoryFilter: _this.props.categoryFilter
     };
     return _this;
   }
 
   _createClass(MyRecipesPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      console.log(this.state, this.props);
+
+      if (this.state.loading && this.props.recipes.length > 0) {
+        this.setState({
+          loading: false
+        });
+      }
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       if (this.props.recipes.length == 0 && !this.state.loading) {
@@ -66124,7 +66146,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     recipes: state.recipes,
-    recipeTotal: state.totals.recipe
+    recipeTotal: state.totals.recipe,
+    categoryFilter: state.filters.recipe_category
   };
 };
 
@@ -66566,8 +66589,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

@@ -1,7 +1,8 @@
 export const changeTablePage = (pageNumber, model) => {
     return (dispatch, getState) => {
         const token = getState().auth.token;
-        const user_id = getState().user.id;
+		const user_id = getState().user.id;
+		const recipeCategories = getState().filters.recipe_category;
         let url = '';
 
         const request = {
@@ -19,18 +20,27 @@ export const changeTablePage = (pageNumber, model) => {
 			case 'favorite-recipes':
 				url = '/api/favorite-recipes/'+ user_id +'/?page=' + pageNumber;
 				break;
-        }
+		}
+		
+		if (recipeCategories.length > 0) {
+			url += '&categories=' + recipeCategories.join(",");
+		}
 
 		fetch(url, request)
 			.then(resp => resp.json())
 			.then((data) => {
-                console.log(data);
                 switch (model) {
                     case 'recipe':
                         dispatch({
                         	type: 'SET_RECIPES',
                         	recipes: data.recipes
-                        });
+						});
+						
+						dispatch({
+							type: 'SET_RECIPE_TOTAL',
+							recipeTotal: data.recipe_total
+						});
+						
 						break;
 					case 'favorite-recipes':
                         dispatch({

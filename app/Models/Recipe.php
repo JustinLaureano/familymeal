@@ -63,6 +63,9 @@ class Recipe extends Model
             })
             ->where('recipe.user_id', $params['user_id'])
             ->where('recipe.deleted_at', Null)
+            ->when(isset($params['categories']) && count($params['categories']), function($query) use($params) {
+                return $query->whereIn('recipe.recipe_category_id', $params['categories']);
+            })
             ->orderBy('name', 'asc')
             ->take($params['take'])
             ->offset($params['offset'])

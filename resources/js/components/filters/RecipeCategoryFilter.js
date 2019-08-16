@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addRecipeCategoryFilter, removeRecipeCategoryFilter } from '../../actions/filters';
+import { changeTablePage, addRecipeCategoryFilter, removeRecipeCategoryFilter } from '../../actions/filters';
 
 export class RecipeCategoryFilter extends React.Component {
     constructor(props) {
@@ -32,7 +32,6 @@ export class RecipeCategoryFilter extends React.Component {
     }
 
     clickEvent = (e) => {
-        console.log(e.target.id.includes('category_'));
         if (!e.target.id.includes('category_') && this.state.menuOpen) {
             // mouse click was outside the category menu, so close the menu
             this.setState({ menuOpen: false });
@@ -47,6 +46,8 @@ export class RecipeCategoryFilter extends React.Component {
         e.target.className.includes('filter__suggestion--selected') ?
             this.props.removeRecipeCategoryFilter( parseInt(recipeCategoryId) ) :
             this.props.addRecipeCategoryFilter( parseInt(recipeCategoryId) );
+
+        this.props.changeTablePage(1, 'recipe');
     }
 
 	render() {
@@ -64,7 +65,7 @@ export class RecipeCategoryFilter extends React.Component {
                                     key={ "category_" + category.id }
                                     id={ "category_" + category.id }
                                     onClick={ this.toggleCategoryOption }
-                                    className={ "filter__suggestion" + ( this.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : '' )}>
+                                    className={ this.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
                                     { category.name }
                                 </div>
                             )
@@ -82,6 +83,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model)),
     addRecipeCategoryFilter: (recipeCategoryId) => dispatch(addRecipeCategoryFilter(recipeCategoryId)),
     removeRecipeCategoryFilter: (recipeCategoryId) => dispatch(removeRecipeCategoryFilter(recipeCategoryId))
 });
