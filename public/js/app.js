@@ -59560,7 +59560,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _table_CardView__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../table/CardView */ "./resources/js/components/table/CardView.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -59582,7 +59581,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var CategoryCard =
 /*#__PURE__*/
 function (_React$Component) {
@@ -59597,7 +59595,6 @@ function (_React$Component) {
   _createClass(CategoryCard, [{
     key: "render",
     value: function render() {
-      console.log(this.props);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "card__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -59617,8 +59614,9 @@ function (_React$Component) {
           state: {
             recipe_category_id: this.props.id
           }
-        }
-      }, this.props.total, " Recipes"))));
+        },
+        className: "card__link"
+      }, this.props.total ? this.props.total + ' Recipes' : 'View Recipes'))));
     }
   }]);
 
@@ -63999,7 +63997,7 @@ function (_React$Component) {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_card_CategoryCard__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
                 key: "category-card_" + index,
                 index: index,
-                total: _this.props.totals[index]
+                total: _this.props.totals[index] ? _this.props.totals[index].count : null
               }, category));
             }));
         }
@@ -65516,14 +65514,34 @@ function getBreadcrumbs() {
 /*!****************************************!*\
   !*** ./resources/js/services/Cards.js ***!
   \****************************************/
-/*! exports provided: getRecipesByCategoryTotals */
+/*! exports provided: getRecipeCountByCategory */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipesByCategoryTotals", function() { return getRecipesByCategoryTotals; });
-function getRecipesByCategoryTotals() {
-  return [24, 14, 12, 34, 8, 12, 23, 10, 30];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipeCountByCategory", function() { return getRecipeCountByCategory; });
+function getRecipeCountByCategory() {
+  // return [24, 14, 12, 34, 8, 12, 23, 10, 30];
+  return new Promise(function (resolve, reject) {
+    var token = document.querySelector('meta[name="api-token"]').content;
+    var csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+    var user_id = document.querySelector('meta[name="user_id"]').content;
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      }
+    };
+    fetch('/api/recipes/count/categories/' + user_id, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      return resolve(data.totals);
+    })["catch"](function (err) {
+      return reject(err);
+    });
+  });
 }
 
 /***/ }),
@@ -65869,34 +65887,36 @@ function (_React$Component) {
     _this.state = {
       loading: true,
       categories: _this.props.categories,
-      totals: []
+      totals: [],
+      needsTotals: _this.needsTotals()
     };
     return _this;
   }
 
   _createClass(CategoriesPage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      var totals = Object(_services_Cards__WEBPACK_IMPORTED_MODULE_6__["getRecipesByCategoryTotals"])();
-      this.setState({
-        totals: totals
-      });
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.state);
+      var _this2 = this;
 
       if (this.state.loading && this.props.categories.length > 0) {
         this.setState({
           loading: false
         });
+
+        if (this.state.totals.length == 0) {
+          Object(_services_Cards__WEBPACK_IMPORTED_MODULE_6__["getRecipeCountByCategory"])().then(function (totals) {
+            _this2.setState({
+              totals: totals,
+              needsTotals: false
+            });
+          });
+        }
       }
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      console.log(this.props);
+      var _this3 = this;
 
       if (this.props.categories.length == 0 && !this.state.loading) {
         this.setState({
@@ -65909,7 +65929,21 @@ function (_React$Component) {
         this.setState({
           loading: false
         });
+
+        if (this.state.needsTotals) {
+          Object(_services_Cards__WEBPACK_IMPORTED_MODULE_6__["getRecipeCountByCategory"])().then(function (totals) {
+            _this3.setState({
+              totals: totals,
+              needsTotals: false
+            });
+          });
+        }
       }
+    }
+  }, {
+    key: "needsTotals",
+    value: function needsTotals() {
+      return this.props.location && this.props.location.state && this.props.location.state.user_id;
     }
   }, {
     key: "render",

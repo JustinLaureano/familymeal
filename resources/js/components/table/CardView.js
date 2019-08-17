@@ -16,7 +16,7 @@ export class CardView extends React.Component {
                                     <CategoryCard 
                                         key={ "category-card_" + index } 
                                         index={ index }
-                                        total={ this.props.totals[index] }
+                                        total={ this.props.totals[index] ? this.props.totals[index].count : null }
                                         { ...category } />
                                 )
                             })

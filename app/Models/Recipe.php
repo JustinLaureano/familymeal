@@ -101,4 +101,20 @@ class Recipe extends Model
             ->take($take)
             ->get();
     }
+
+    public static function getCountByCategory($user_id = null)
+    {
+        if (!$user_id) return [];
+
+        return DB::table('recipe_category')
+            ->select('recipe_category.name',
+                DB::raw('COUNT(recipe_category.id) AS count')
+            )
+            ->leftJoin('recipe', 'recipe_category.id', 'recipe.recipe_category_id')
+            ->where('recipe.user_id', $user_id)
+            ->where('recipe.deleted_at', Null)
+            ->groupBy('recipe_category.id')
+            ->orderBy('recipe_category.name', 'asc')
+            ->get();
+    }
 }

@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/search/recipes', 'RecipeController@search');
     Route::get('/favorite-recipes/{id}/', 'FavoriteRecipeController@index');
     Route::get('/recipe/{id}', 'RecipeController@show');
+    Route::get('/recipes/count/categories/{user_id}', 'RecipeController@getCountByCategory');
 
     Route::post('/recipes/store', 'RecipeController@store');
     Route::post('/recipes/{id}/update', 'RecipeController@update');

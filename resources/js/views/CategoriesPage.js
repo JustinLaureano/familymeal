@@ -4,40 +4,50 @@ import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
 import CardView from '../components/table/CardView';
-import { getRecipesByCategoryTotals } from '../services/Cards';
+import { getRecipeCountByCategory } from '../services/Cards';
 
 export class CategoriesPage extends React.Component {
 	constructor(props) {
-        super(props);
+		super(props);
         
         this.state = {
 			loading: true,
 			categories: this.props.categories,
-			totals: []
+			totals: [],
+			needsTotals: this.needsTotals()
         };
 	};
 
-	componentWillMount() {
-		const totals = getRecipesByCategoryTotals();
-		this.setState({ totals })
-	}
-
 	componentDidMount() {
-		console.log(this.state);
 		if (this.state.loading && this.props.categories.length > 0) {
 			this.setState({ loading: false });
+
+			if (this.state.totals.length == 0) {
+				getRecipeCountByCategory().then((totals) => {
+					this.setState({ totals, needsTotals: false });
+				});
+			}
 		}
 	}
 
 	componentDidUpdate() {
-		console.log(this.props);
 		if (this.props.categories.length == 0 && !this.state.loading) {
 			this.setState({ loading: true });
 		}
 		else if (this.state.loading && this.props.categories.length > 0) {
 			this.setState({ categories: this.props.categories });
 			this.setState({ loading: false });
+
+			if (this.state.needsTotals) {
+				getRecipeCountByCategory().then((totals) => {
+					this.setState({ totals, needsTotals: false });
+				});
+			}
 		}
+	}
+
+	needsTotals() {
+		return this.props.location && this.props.location.state && this.props.location.state.user_id;
 	}
 	
 	render() {

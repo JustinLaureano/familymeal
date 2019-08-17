@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import CardView from '../table/CardView';
 
 export class CategoryCard extends React.Component {
 	render() {
-        console.log(this.props);
         return (
             <section className="card__area">
                 <div id={ "category_" + this.props.id } className="card">
@@ -25,8 +23,9 @@ export class CategoryCard extends React.Component {
                                 state: {
                                     recipe_category_id: this.props.id
                                 }
-                            }}>
-                            { this.props.total } Recipes
+                            }}
+                            className="card__link" >
+                            { this.props.total ? this.props.total + ' Recipes' : 'View Recipes' }
                         </Link>
                     </div>
                 </div>
