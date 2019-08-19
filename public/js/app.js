@@ -57990,6 +57990,10 @@ var init = function init(token, csrf_token, user_id) {
         type: 'SET_INGREDIENTS',
         ingredients: data.ingredients
       });
+      dispatch({
+        type: 'SET_INGREDIENT_TOTAL',
+        ingredientTotal: data.ingredient_total
+      });
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -58081,7 +58085,7 @@ var clearFavoriteRecipes = function clearFavoriteRecipes() {
 /*!*****************************************!*\
   !*** ./resources/js/actions/filters.js ***!
   \*****************************************/
-/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges, getRecipeSearchResults, startNewRecipe, addRecipeCategoryFilter, removeRecipeCategoryFilter, setRecipeCategoryFilter, addCuisineTypeFilter, removeCuisineTypeFilter, addIngredientCategoryFilter, removeIngredientCategoryFilter, setIngredientCategoryFilter, addIngredientSubcategoryFilter, removeIngredientSubcategoryFilter, setIngredientSubcategoryFilter */
+/*! exports provided: changeTablePage, setEditMode, addCurrentRecipeIngredient, removeCurrentRecipeIngredient, addCurrentRecipeDirection, removeCurrentRecipeDirection, addCurrentRecipeNote, removeCurrentRecipeNote, setCancelChanges, resetCancelChanges, getRecipeSearchResults, startNewRecipe, addRecipeCategoryFilter, removeRecipeCategoryFilter, setRecipeCategoryFilter, addCuisineTypeFilter, removeCuisineTypeFilter, getIngredientSearchResults, addIngredientCategoryFilter, removeIngredientCategoryFilter, setIngredientCategoryFilter, addIngredientSubcategoryFilter, removeIngredientSubcategoryFilter, setIngredientSubcategoryFilter */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58103,6 +58107,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRecipeCategoryFilter", function() { return setRecipeCategoryFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCuisineTypeFilter", function() { return addCuisineTypeFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeCuisineTypeFilter", function() { return removeCuisineTypeFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIngredientSearchResults", function() { return getIngredientSearchResults; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addIngredientCategoryFilter", function() { return addIngredientCategoryFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeIngredientCategoryFilter", function() { return removeIngredientCategoryFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setIngredientCategoryFilter", function() { return setIngredientCategoryFilter; });
@@ -58168,10 +58173,14 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
           });
           break;
 
-        case 'ingredients':
+        case 'ingredient':
           dispatch({
             type: 'SET_INGREDIENTS',
-            recipes: data.recipes
+            ingredients: data.ingredients
+          });
+          dispatch({
+            type: 'SET_INGREDIENT_TOTAL',
+            ingredientTotal: data.ingredient_total
           });
           break;
       }
@@ -58330,6 +58339,30 @@ var removeCuisineTypeFilter = function removeCuisineTypeFilter(cuisine_type_id) 
       cuisine_type_id: cuisine_type_id
     });
   };
+};
+var getIngredientSearchResults = function getIngredientSearchResults(params) {
+  return new Promise(function (resolve, reject) {
+    var token = params.token;
+    var csrf_token = params.csrf_token;
+    var user_id = params.user_id;
+    var value = params.value.toString();
+    var request = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      }
+    };
+    var url = '/api/search/ingredients?user_id=' + user_id + '&value=' + value;
+    fetch(url, request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      resolve(data);
+    })["catch"](function (err) {
+      return reject(err);
+    });
+  });
 };
 var addIngredientCategoryFilter = function addIngredientCategoryFilter(ingredient_category_id) {
   return function (dispatch) {
@@ -60380,6 +60413,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
 /* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
 /* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60399,6 +60433,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -60432,9 +60467,13 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
       var value = _ref2.value;
 
-      _this.setState({
-        suggestions: _this.getSuggestions(value)
-      });
+      if (_this.timer) {
+        clearTimeout(_this.timer);
+      }
+
+      _this.timer = setTimeout(function () {
+        _this.startSuggestionFetch(value);
+      }, 400);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
@@ -60461,14 +60500,6 @@ function (_React$Component) {
       }, "search"));
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getSuggestions", function (value) {
-      var inputValue = value.trim().toLowerCase();
-      var inputLength = inputValue.length;
-      return inputLength === 0 ? [] : _this.props.ingredients.filter(function (ingredient) {
-        return ingredient.name.toLowerCase().slice(0, inputLength) === inputValue;
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: {
@@ -60482,10 +60513,27 @@ function (_React$Component) {
       }, suggestion.name);
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startSuggestionFetch", function (value) {
+      var searchParams = {
+        token: _this.props.token,
+        csrf_token: _this.props.csrf_token,
+        user_id: _this.props.user_id,
+        value: value
+      };
+      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_5__["getIngredientSearchResults"])(searchParams).then(function (data) {
+        _this.setState({
+          suggestions: data.ingredients
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    });
+
     _this.state = {
       value: '',
       suggestions: []
     };
+    _this.timer;
     return _this;
   }
 
@@ -60517,7 +60565,9 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    ingredients: state.ingredients
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id
   };
 };
 
@@ -61062,6 +61112,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
 /* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -61081,6 +61132,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -61107,14 +61159,6 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "getSuggestions", function (value) {
-      var inputValue = value.trim().toLowerCase();
-      var inputLength = inputValue.length;
-      return inputLength === 0 ? [] : _this.props.ingredients.filter(function (ingredient) {
-        return ingredient.name.toLowerCase().slice(0, inputLength) === inputValue;
-      });
-    });
-
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "option_" + suggestion.id,
@@ -61135,9 +61179,13 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
       var value = _ref2.value;
 
-      _this.setState({
-        suggestions: _this.getSuggestions(value)
-      });
+      if (_this.timer) {
+        clearTimeout(_this.timer);
+      }
+
+      _this.timer = setTimeout(function () {
+        _this.startSuggestionFetch(value);
+      }, 400);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
@@ -61269,6 +61317,22 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startSuggestionFetch", function (value) {
+      var searchParams = {
+        token: _this.props.token,
+        csrf_token: _this.props.csrf_token,
+        user_id: _this.props.user_id,
+        value: value
+      };
+      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["getIngredientSearchResults"])(searchParams).then(function (data) {
+        _this.setState({
+          suggestions: data.ingredients
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "isValidIngredientEntry", function () {
       return _this.state.amount.trim() != '' && _this.state.measurement_unit_id != '' && _this.state.value.trim() != '';
     });
@@ -61283,6 +61347,7 @@ function (_React$Component) {
       measurement_unit_id: 0
     };
     _this.baseState = _this.state;
+    _this.timer;
     _this.errorRed = 'rgb(222, 47, 4)';
     _this.inputColor = '#151515';
     return _this;
@@ -61350,6 +61415,9 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id,
     ingredients: state.ingredients,
     measurement_units: state.measurement_units
   };
@@ -63665,8 +63733,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
-      var value = _ref2.value,
-          reason = _ref2.reason;
+      var value = _ref2.value;
 
       if (_this.timer) {
         clearTimeout(_this.timer);
@@ -65922,6 +65989,11 @@ var totalsReducerDefaultState = {};
         favorite_recipe: action.recipeTotal
       });
 
+    case 'SET_INGREDIENT_TOTAL':
+      return _objectSpread({}, state, {
+        ingredient: action.ingredientTotal
+      });
+
     default:
       return state;
   }
@@ -67203,8 +67275,6 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      console.log(this.state, this.props);
-
       if (this.props.ingredients.length == 0 && !this.state.loading) {
         this.setState({
           loading: true
@@ -67264,7 +67334,7 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     ingredients: state.ingredients,
-    ingredientTotal: state.ingredients.length,
+    ingredientTotal: state.totals.ingredient,
     categoryFilter: state.filters.ingredient_category,
     subcategoryFilter: state.filters.ingredient_subcategory
   };

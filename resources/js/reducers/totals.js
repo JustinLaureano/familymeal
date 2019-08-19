@@ -12,6 +12,11 @@ export default (state = totalsReducerDefaultState, action) => {
                 ...state,
                 favorite_recipe: action.recipeTotal
             };
+        case 'SET_INGREDIENT_TOTAL':
+            return {
+                ...state,
+                ingredient: action.ingredientTotal
+            };
         default:
             return state;
     }

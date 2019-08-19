@@ -25,18 +25,23 @@ class UserController extends Controller
     public function init($id)
     {
         $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
-        $ingredients = Ingredient::getByUserId($id);
         $ingredient_categories = IngredientCategory::where('deleted_at', Null)->orderBy('name')->get();
         $ingredient_subcategories = IngredientSubcategory::where('deleted_at', Null)->orderBy('name')->get();
-
+        
         $measurement_units = MeasurementUnits::orderBy('measurement_system', 'desc')
-            ->orderBy('measurement_type', 'asc')
-            ->orderBy('name', 'asc')
-            ->get();
-
+        ->orderBy('measurement_type', 'asc')
+        ->orderBy('name', 'asc')
+        ->get();
+        
         $recipe_categories = RecipeCategory::orderBy('name')->get();
         $user_settings = UserSettings::where('user_id', $id)->first();
 
+        $ingredients = Ingredient::getUserIngredients([
+            'user_id' => $id,
+            'take' => $user_settings->table_result_limit,
+            'offset' => 0,
+        ]);
+        
         $recipes = Recipe::getUserRecipes([
             'user_id' => $id,
             'take' => $user_settings->table_result_limit,
@@ -48,6 +53,7 @@ class UserController extends Controller
             'ingredients' => $ingredients,
             'ingredient_categories' => $ingredient_categories,
             'ingredient_subcategories' => $ingredient_subcategories,
+            'ingredient_total' => Ingredient::getUserTotal($id),
             'measurement_units' => $measurement_units,
             'recipes' => $recipes,
             'recipe_categories' => $recipe_categories,

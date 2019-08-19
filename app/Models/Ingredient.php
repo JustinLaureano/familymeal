@@ -44,7 +44,10 @@ class Ingredient extends Model
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
             ->leftJoin('ingredient_subcategory', 'ingredient.ingredient_subcategory_id', 'ingredient_subcategory.id')
-            ->whereIn('ingredient.created_user_id', [Null, $params['user_id']])
+            ->where(function ($query) use($params) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $params['user_id']);
+            })
             ->where('ingredient.deleted_at', Null)
             ->when(isset($params['categories']) && count($params['categories']), function($query) use($params) {
                 return $query->whereIn('ingredient.ingredient_category_id', $params['categories']);
@@ -86,7 +89,10 @@ class Ingredient extends Model
                 'ingredient.name',
                 'ingredient.id'
             )
-            ->whereIn('ingredient.user_id', [Null, $params['user_id']])
+            ->where(function ($query) use($params) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $params['user_id']);
+            })
             ->where('name', 'like', '%' . $params['value'] . '%')
             ->where('ingredient.deleted_at', Null)
             ->orderBy('name', 'asc')
@@ -103,10 +109,26 @@ class Ingredient extends Model
                 DB::raw('COUNT(ingredient_category.id) AS count')
             )
             ->leftJoin('ingredient', 'ingredient_category.id', 'ingredient.ingredient_category_id')
-            ->whereIn('ingredient.user_id', [Null, $user_id])
+            ->where(function ($query) use($user_id) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $user_id);
+            })
             ->where('ingredient.deleted_at', Null)
             ->groupBy('ingredient_category.id')
             ->orderBy('ingredient_category.name', 'asc')
             ->get();
+    }
+
+    public static function getUserTotal($user_id = null)
+    {
+        if (!$user_id) return 0;
+
+        return DB::table('ingredient')
+            ->where(function ($query) use($user_id) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $user_id);
+            })
+            ->where('deleted_at', Null)
+            ->count();
     }
 }

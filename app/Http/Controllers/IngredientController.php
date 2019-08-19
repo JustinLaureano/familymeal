@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Ingredient;
+use App\Models\User;
+use App\Models\UserSettings;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -25,8 +27,11 @@ class IngredientController extends Controller
             'subcategories' => $subcategories
         ]);
 
-        $ingredient_total = Ingredient::where('user_id', $user_id)
-            ->where('deleted_at', Null)
+        $ingredient_total = Ingredient::where('deleted_at', Null)
+            ->where(function ($query) use($user_id) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $user_id);
+            })
             ->when($categories && count($categories), function($query) use($categories) {
                 return $query->whereIn('ingredient.ingredient_category_id', $categories);
             })

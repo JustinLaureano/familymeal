@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Autosuggest from 'react-autosuggest';
+import { getIngredientSearchResults } from '../../actions/filters';
 
 export class IngredientSelect extends React.Component {
     constructor(props) {
@@ -17,6 +18,8 @@ export class IngredientSelect extends React.Component {
         };
         this.baseState = this.state;
 
+        this.timer;
+
         this.errorRed = 'rgb(222, 47, 4)';
         this.inputColor = '#151515';
     }
@@ -25,14 +28,7 @@ export class IngredientSelect extends React.Component {
         const amount = e.target.value;
         this.setState(() => ({ amount }));
     }
-    getSuggestions = (value) => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-       
-        return inputLength === 0 ? [] : this.props.ingredients.filter(ingredient =>
-            ingredient.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-    };
+
     renderSuggestion = (suggestion) => {
         return (
             <div id={ "option_" + suggestion.id } className="react-autosuggest__suggestion-option">
@@ -45,9 +41,12 @@ export class IngredientSelect extends React.Component {
         this.setState({ value: newValue, ingredient_id });
     };
     onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+            this.startSuggestionFetch(value);
+        }, 400);
     };
     onSuggestionsClearRequested = () => {
         this.setState({ suggestions: [] });
@@ -153,6 +152,23 @@ export class IngredientSelect extends React.Component {
             // TODO: message notifying of invalid entry
         }
     }
+
+    startSuggestionFetch = (value) => {
+        const searchParams = {
+            token: this.props.token,
+            csrf_token: this.props.csrf_token,
+            user_id: this.props.user_id,
+            value
+        }
+
+        getIngredientSearchResults(searchParams)
+            .then((data) => {
+                this.setState({
+                    suggestions: data.ingredients
+                });
+            })
+            .catch(err => console.log(err));
+    }
     
     isValidIngredientEntry = () => {
         return this.state.amount.trim() != '' &&
@@ -218,6 +234,9 @@ export class IngredientSelect extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id,
     ingredients: state.ingredients,
     measurement_units: state.measurement_units
 });

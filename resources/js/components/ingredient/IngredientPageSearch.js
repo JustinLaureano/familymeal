@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { history } from '../../routers/AppRouter';
 import Autosuggest from 'react-autosuggest';
+import { getIngredientSearchResults } from '../../actions/filters';
 
 export class IngredientPageSearch extends React.Component {
     constructor(props) {
@@ -12,6 +13,8 @@ export class IngredientPageSearch extends React.Component {
             value: '',
             suggestions: []
         };
+
+        this.timer;
     }
 
     getSuggestionValue = suggestion => suggestion.name;
@@ -21,9 +24,12 @@ export class IngredientPageSearch extends React.Component {
     };
 
     onSuggestionsFetchRequested = ({ value }) => {
-        this.setState({
-            suggestions: this.getSuggestions(value)
-        });
+        if (this.timer) {
+            clearTimeout(this.timer);
+        }
+        this.timer = setTimeout(() => {
+            this.startSuggestionFetch(value);
+        }, 400);
     };
 
     onSuggestionsClearRequested = () => {
@@ -44,15 +50,6 @@ export class IngredientPageSearch extends React.Component {
         </div>
     );
 
-    getSuggestions = (value) => {
-        const inputValue = value.trim().toLowerCase();
-        const inputLength = inputValue.length;
-       
-        return inputLength === 0 ? [] : this.props.ingredients.filter(ingredient =>
-            ingredient.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
-    };
-
     renderSuggestion = (suggestion) => {
         return (
             <Link
@@ -68,6 +65,23 @@ export class IngredientPageSearch extends React.Component {
             </Link>
         )
     };
+
+    startSuggestionFetch = (value) => {
+        const searchParams = {
+            token: this.props.token,
+            csrf_token: this.props.csrf_token,
+            user_id: this.props.user_id,
+            value
+        }
+
+        getIngredientSearchResults(searchParams)
+            .then((data) => {
+                this.setState({
+                    suggestions: data.ingredients
+                });
+            })
+            .catch(err => console.log(err));
+    }
 
 	render() {
 
@@ -93,7 +107,9 @@ export class IngredientPageSearch extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    ingredients: state.ingredients
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id
 });
 
 export default connect(mapStateToProps)(IngredientPageSearch);

@@ -48,19 +48,26 @@ export const changeTablePage = (pageNumber, model) => {
 							type: 'SET_RECIPE_TOTAL',
 							recipeTotal: data.recipe_total
 						});
-						
 						break;
+
 					case 'favorite-recipes':
                         dispatch({
                         	type: 'SET_FAVORITE_RECIPES',
                         	recipes: data.recipes
                         });
 						break;
-					case 'ingredients':
+
+					case 'ingredient':
                         dispatch({
                         	type: 'SET_INGREDIENTS',
-                        	recipes: data.recipes
-                        });
+                        	ingredients: data.ingredients
+						});
+						
+						dispatch({
+							type: 'SET_INGREDIENT_TOTAL',
+							ingredientTotal: data.ingredient_total
+						});
+
                         break;
                 }
 			})
@@ -232,6 +239,34 @@ export const removeCuisineTypeFilter = (cuisine_type_id) => {
 			cuisine_type_id
 		});
 	}
+}
+
+export const getIngredientSearchResults = (params) => {
+	return new Promise((resolve, reject) => {
+		const token = params.token;
+		const csrf_token = params.csrf_token;
+		const user_id = params.user_id;
+		const value = params.value.toString();
+
+		const request = {
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			}
+		};
+
+		let url = '/api/search/ingredients?user_id=' + user_id + '&value=' + value;
+
+		fetch(url, request)
+			.then(resp => resp.json())
+			.then((data) => {
+				resolve(data);
+			})
+			.catch(err => reject(err))
+
+	});
 }
 
 export const addIngredientCategoryFilter = (ingredient_category_id) => {

@@ -70,6 +70,11 @@ export const init = (token, csrf_token, user_id) => {
 					type: 'SET_INGREDIENTS',
 					ingredients: data.ingredients
 				});
+				
+				dispatch({
+					type: 'SET_INGREDIENT_TOTAL',
+					ingredientTotal: data.ingredient_total
+				});
 			})
 			.catch(err => console.log(err))
 	}

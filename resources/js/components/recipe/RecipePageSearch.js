@@ -23,7 +23,7 @@ export class RecipePageSearch extends React.Component {
         this.setState({ value: newValue });
     };
 
-    onSuggestionsFetchRequested = ({ value, reason }) => {
+    onSuggestionsFetchRequested = ({ value }) => {
         if (this.timer) {
             clearTimeout(this.timer);
         }

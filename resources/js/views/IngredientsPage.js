@@ -36,7 +36,6 @@ export class IngredientsPage extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log(this.state, this.props);
 		if (this.props.ingredients.length == 0 && !this.state.loading) {
 			this.setState({ loading: true });
 		}
@@ -98,7 +97,7 @@ export class IngredientsPage extends React.Component {
 
 const mapStateToProps = (state) => ({
 	ingredients: state.ingredients,
-	ingredientTotal: state.ingredients.length,
+	ingredientTotal: state.totals.ingredient,
 	categoryFilter: state.filters.ingredient_category,
 	subcategoryFilter: state.filters.ingredient_subcategory
 });
