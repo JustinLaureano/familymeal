@@ -58013,7 +58013,6 @@ var startLogout = function startLogout() {
     fetch('/api/logout', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'LOGOUT'
       });
@@ -58449,7 +58448,7 @@ var setIngredientSubcategoryFilter = function setIngredientSubcategoryFilter(sub
 /*!*********************************************!*\
   !*** ./resources/js/actions/ingredients.js ***!
   \*********************************************/
-/*! exports provided: getIngredient, createNewIngredient, updateIngredient, clearCurrentIngredient, deleteIngredient, updateIngredientCategory */
+/*! exports provided: getIngredient, createNewIngredient, updateIngredient, clearCurrentIngredient, deleteIngredient */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58459,7 +58458,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateIngredient", function() { return updateIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCurrentIngredient", function() { return clearCurrentIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteIngredient", function() { return deleteIngredient; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateIngredientCategory", function() { return updateIngredientCategory; });
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -58544,7 +58542,6 @@ var updateIngredient = function updateIngredient(ingredient) {
     fetch('/api/ingredients/' + ingredient_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
       dispatch({
         type: 'UPDATE_CURRENT_INGREDIENT',
         ingredient: data.ingredient
@@ -58602,32 +58599,6 @@ var deleteIngredient = function deleteIngredient(id) {
     })["catch"](function (err) {
       return console.log(err);
     });
-  };
-};
-var updateIngredientCategory = function updateIngredientCategory(category) {
-  return function (dispatch, getState) {// const token = getState().auth.token;
-    // const csrf_token = getState().auth.csrf_token;
-    // const recipe_id = getState().filters.currentRecipe.info.id;
-    // const request = {
-    // 	method: 'POST',
-    //     headers: {
-    //         'Accept': 'application/json',
-    // 		'Content-Type': 'application/json',
-    // 		Authorization: `Bearer ${token}`,
-    // 		'X-CSRF-TOKEN': csrf_token
-    // 	},
-    // 	body: JSON.stringify({ cuisine: cuisine.id })
-    // };
-    // fetch('/api/recipes/' + recipe_id + '/update', request)
-    // 	.then(resp => resp.json())
-    // 	.then((data) => {
-    // 		console.log(data);
-    // 		dispatch({
-    // 			type: 'UPDATE_CURRENT_RECIPE_CUISINE',
-    // 			cuisine
-    // 		});
-    // 	})
-    // 	.catch(err => console.log(err))
   };
 };
 
@@ -60591,7 +60562,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -60611,7 +60581,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -60640,14 +60609,6 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "saveIngredientCategory", function () {
-      var category = _this.state.category;
-
-      if (category.id != _this.props.category.id) {
-        _this.props.updateIngredientCategory(category);
-      }
-    });
-
     _this.state = {
       category: _this.props.category
     };
@@ -60659,9 +60620,7 @@ function (_React$Component) {
     value: function componentDidUpdate() {
       var _this2 = this;
 
-      if (!this.props.editMode && !this.props.cancelChanges) {
-        this.saveIngredientCategory();
-      } else if (this.props.cancelChanges && this.state.category !== this.props.category) {
+      if (this.props.cancelChanges && this.state.category !== this.props.category) {
         this.setState(function () {
           return {
             category: _this2.props.category
@@ -60719,15 +60678,7 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
-  return {
-    updateIngredientCategory: function updateIngredientCategory(category) {
-      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_2__["updateIngredientCategory"])(category));
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(IngredientCategory));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(IngredientCategory));
 
 /***/ }),
 
@@ -60898,9 +60849,9 @@ function (_React$Component) {
           id: _this.props.currentIngredient.id,
           ingredient_category_id: parseInt(document.querySelector('select[name="ingredient-category"]').value),
           ingredient_subcategory_id: _this.props.currentIngredient.ingredient_subcategory_id,
-          name: _this.state.ingredient.name
+          name: _this.state.ingredient.name // TODO validate and make sure the ingredient needs updating
+
         };
-        console.log(ingredient);
 
         _this.props.updateIngredient(ingredient);
 
@@ -64983,7 +64934,6 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "saveRatings", function () {
       var rating = _this.state.rating.rating;
-      console.log(_this.state.rating, _this.props.ratings);
 
       if (typeof rating !== 'undefined' && parseInt(rating) != parseInt(_this.props.ratings.user.rating)) {
         _this.props.updateRecipeRating(rating);
@@ -67245,11 +67195,9 @@ function getIngredientTableHeaders() {
   return [{
     label: 'Name',
     column: 'name',
-    type: 'text',
-    "class": 'table__inactive' // type: 'link',
-    // route: 'ingredients/',
-    // class: 'table__emphasize'
-
+    type: 'link',
+    route: 'ingredients/',
+    "class": 'table__emphasize'
   }, {
     label: 'Category',
     column: 'ingredient_category_name',
@@ -68642,8 +68590,6 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      console.log(this.state, this.props);
-
       if (this.state.loading && this.props.ingredient.id) {
         this.setState(function () {
           return {

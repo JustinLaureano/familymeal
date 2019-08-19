@@ -96,7 +96,6 @@ export const startLogout = () => {
 		fetch('/api/logout', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'LOGOUT'
 				});

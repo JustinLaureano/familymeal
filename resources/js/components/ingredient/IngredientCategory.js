@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updateIngredientCategory } from '../../actions/ingredients';
 
 export class IngredientCategory extends React.Component {
 	constructor(props) {
@@ -12,10 +11,7 @@ export class IngredientCategory extends React.Component {
     };
     
     componentDidUpdate() {
-		if (!this.props.editMode && !this.props.cancelChanges) {
-			this.saveIngredientCategory();
-        }
-        else if (this.props.cancelChanges && this.state.category !== this.props.category) {
+        if (this.props.cancelChanges && this.state.category !== this.props.category) {
             this.setState(() => ({ category: this.props.category }));
         }
     }
@@ -27,13 +23,7 @@ export class IngredientCategory extends React.Component {
         };
         this.setState(() => ({ category }));
     }
-    
-    saveIngredientCategory = () => {
-        const category = this.state.category;
-		if (category.id != this.props.category.id) {
-			this.props.updateIngredientCategory(category);
-		}
-	}
+
 
 	render() {
 		if (this.props.editMode) {
@@ -90,8 +80,5 @@ const mapStateToProps = (state) => ({
     ingredient_categories: state.ingredient_categories
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-	updateIngredientCategory: (category) => dispatch(updateIngredientCategory(category))
-});
   
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientCategory);
+export default connect(mapStateToProps)(IngredientCategory);

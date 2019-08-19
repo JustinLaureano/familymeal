@@ -52,7 +52,7 @@ export class IngredientPageHeader extends React.Component {
                 name: this.state.ingredient.name
             }
 
-            console.log(ingredient);
+            // TODO validate and make sure the ingredient needs updating
             this.props.updateIngredient(ingredient);
 
             this.toggleEditMode();

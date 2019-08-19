@@ -42,7 +42,6 @@ export class ViewIngredientPage extends React.Component {
 	}
 
 	componentDidUpdate() {
-		console.log(this.state, this.props);
 		if (this.state.loading && this.props.ingredient.id) {
 			this.setState(() => ({ loading: false }));
 		}

@@ -56,11 +56,9 @@ export function getIngredientTableHeaders() {
         {
             label: 'Name',
             column: 'name',
-            type: 'text',
-            class: 'table__inactive',
-            // type: 'link',
-            // route: 'ingredients/',
-            // class: 'table__emphasize'
+            type: 'link',
+            route: 'ingredients/',
+            class: 'table__emphasize'
         },
         {
             label: 'Category',

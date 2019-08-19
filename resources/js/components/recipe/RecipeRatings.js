@@ -20,7 +20,7 @@ export class RecipeRatings extends React.Component {
     
     saveRatings = () => {
         const rating = this.state.rating.rating;
-        console.log(this.state.rating, this.props.ratings);
+
 		if (typeof rating !== 'undefined' && parseInt(rating) != parseInt(this.props.ratings.user.rating)) {
 			this.props.updateRecipeRating(rating);
 		}
