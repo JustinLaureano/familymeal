@@ -50,3 +50,44 @@ export function getRecipeTableOptions() {
         },
     ]
 }
+
+export function getIngredientTableHeaders() {
+    return [
+        {
+            label: 'Name',
+            column: 'name',
+            type: 'text',
+            class: 'table__inactive',
+            // type: 'link',
+            // route: 'ingredients/',
+            // class: 'table__emphasize'
+        },
+        {
+            label: 'Category',
+            column: 'ingredient_category',
+            type: 'text',
+            class: 'table__inactive',
+        },
+        {
+            label: 'Subcategory',
+            column: 'ingredient_subcategory',
+            type: 'text',
+            class: 'table__inactive'
+        }
+    ];
+}
+
+export function getIngredientTableOptions() {
+    return [
+        {
+            label: 'Update',
+            icon: 'edit',
+            onClick: 'updateIngredient'
+        },
+        {
+            label: 'Delete',
+            icon: 'delete',
+            onClick: 'deleteIngredient'
+        },
+    ]
+}

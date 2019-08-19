@@ -3,7 +3,9 @@ const filterReducerDefaultState = {
     editMode: false,
     cancelChanges: false,
     recipe_category: [],
-    cuisine_type: []
+    cuisine_type: [],
+    ingredient_category: [],
+    ingredient_subcategory: []
 };
 
 const currentRecipeDefaultState = {
@@ -283,6 +285,50 @@ export default (state = filterReducerDefaultState, action) => {
                     ...state,
                     cuisine_type
                 };
+        case 'ADD_INGREDIENT_CATEGORY_FILTER':
+            return {
+                ...state,
+                ingredient_category: [
+                    ...state.ingredient_category,
+                    action.ingredient_category_id
+                ]
+            };
+        case 'REMOVE_INGREDIENT_CATEGORY_FILTER':
+                const ingredient_category = state
+                    .ingredient_category
+                    .filter(category => category != action.ingredient_category_id);
+
+                return {
+                    ...state,
+                    ingredient_category
+                };
+        case 'SET_INGREDIENT_CATEGORY_FILTER':
+            return {
+                ...state,
+                ingredient_category: action.ingredient_category
+            };
+        case 'ADD_INGREDIENT_SUBCATEGORY_FILTER':
+            return {
+                ...state,
+                ingredient_subcategory: [
+                    ...state.ingredient_subcategory,
+                    action.ingredient_subcategory_id
+                ]
+            };
+        case 'REMOVE_INGREDIENT_SUBCATEGORY_FILTER':
+                const ingredient_subcategory = state
+                    .ingredient_subcategory
+                    .filter(category => category != action.ingredient_subcategory_id);
+
+                return {
+                    ...state,
+                    ingredient_subcategory
+                };
+        case 'SET_INGREDIENT_SUBCATEGORY_FILTER':
+            return {
+                ...state,
+                ingredient_subcategory: action.ingredient_subcategory
+            };
         default:
             return state;
     }

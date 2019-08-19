@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\CuisineType;
 use App\Models\Ingredient;
+use App\Models\IngredientCategory;
+use App\Models\IngredientSubcategory;
 use App\Models\MeasurementUnits;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
@@ -23,6 +25,9 @@ class UserController extends Controller
     public function init($id)
     {
         $cuisine_types = CuisineType::orderBy('name', 'asc')->get();
+        $ingredients = Ingredient::getByUserId($id);
+        $ingredient_categories = IngredientCategory::where('deleted_at', Null)->orderBy('name')->get();
+        $ingredient_subcategories = IngredientSubcategory::where('deleted_at', Null)->orderBy('name')->get();
 
         $measurement_units = MeasurementUnits::orderBy('measurement_system', 'desc')
             ->orderBy('measurement_type', 'asc')
@@ -30,9 +35,6 @@ class UserController extends Controller
             ->get();
 
         $recipe_categories = RecipeCategory::orderBy('name')->get();
-
-        $ingredients = Ingredient::getByUserId($id);
-
         $user_settings = UserSettings::where('user_id', $id)->first();
 
         $recipes = Recipe::getUserRecipes([
@@ -44,6 +46,8 @@ class UserController extends Controller
         $data = [
             'cuisine_types' => $cuisine_types,
             'ingredients' => $ingredients,
+            'ingredient_categories' => $ingredient_categories,
+            'ingredient_subcategories' => $ingredient_subcategories,
             'measurement_units' => $measurement_units,
             'recipes' => $recipes,
             'recipe_categories' => $recipe_categories,

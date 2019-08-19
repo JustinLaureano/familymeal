@@ -42,6 +42,16 @@ export const init = (token, csrf_token, user_id) => {
 				});
 
 				dispatch({
+					type: 'SET_INGREDIENT_CATEGORIES',
+					ingredient_categories: data.ingredient_categories
+				});
+
+				dispatch({
+					type: 'SET_INGREDIENT_SUBCATEGORIES',
+					ingredient_subcategories: data.ingredient_subcategories
+				});
+
+				dispatch({
 					type: 'SET_CUISINE_TYPES',
 					cuisine_types: data.cuisine_types
 				});

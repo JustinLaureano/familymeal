@@ -482,6 +482,5 @@ class RecipeController extends Controller
         $totals = Recipe::getCountByCategory($user_id);
 
         return response(['totals' => $totals], 200);
-        // return response(['totals' => [1, 2, 3, 4, 5, 6, 7, 8, 9]], 200);
     }
 }

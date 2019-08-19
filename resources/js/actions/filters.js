@@ -224,3 +224,57 @@ export const removeCuisineTypeFilter = (cuisine_type_id) => {
 		});
 	}
 }
+
+export const addIngredientCategoryFilter = (ingredient_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_INGREDIENT_CATEGORY_FILTER',
+			ingredient_category_id
+		});
+	}
+}
+
+export const removeIngredientCategoryFilter = (ingredient_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'REMOVE_INGREDIENT_CATEGORY_FILTER',
+			ingredient_category_id
+		});
+	}
+}
+
+export const setIngredientCategoryFilter = (ingredient_category_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_INGREDIENT_CATEGORY_FILTER',
+			ingredient_category: [ingredient_category_id]
+		});
+	}
+}
+
+export const addIngredientSubcategoryFilter = (ingredient_subcategory_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'ADD_INGREDIENT_SUBCATEGORY_FILTER',
+			ingredient_subcategory_id
+		});
+	}
+}
+
+export const removeIngredientSubcategoryFilter = (ingredient_subcategory_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'REMOVE_INGREDIENT_SUBCATEGORY_FILTER',
+			ingredient_subcategory_id
+		});
+	}
+}
+
+export const setIngredientSubcategoryFilter = (ingredient_subcategory_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_INGREDIENT_SUBCATEGORY_FILTER',
+			ingredient_subcategory: [ingredient_subcategory_id]
+		});
+	}
+}

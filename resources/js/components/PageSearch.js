@@ -1,5 +1,6 @@
 import React from 'react';
 import RecipePageSearch from '../components/recipe/RecipePageSearch';
+import IngredientPageSearch from '../components/ingredient/IngredientPageSearch';
 
 export class PageSearch extends React.Component {
 	render() {
@@ -12,6 +13,12 @@ export class PageSearch extends React.Component {
                 return (
                     <RecipePageSearch favorites={ true } />
                 )
+
+            case 'ingredient':
+                return (
+                    <IngredientPageSearch />
+                )
+                
             default:
                 return '';
         }

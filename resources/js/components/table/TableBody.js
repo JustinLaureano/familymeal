@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 import { history } from '../../routers/AppRouter';
 import { Link } from 'react-router-dom';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
+import { deleteIngredient } from '../../actions/ingredients';
 
 export class TableBody extends React.Component {
     startDeleteRecipe = (e) => {
 		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
 		this.props.deleteRecipe(id);
+    }
+
+    startDeleteIngredient = (e) => {
+		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+		this.props.deleteIngredient(id);
     }
 
     startFavoriteRecipe = (e) => {
@@ -29,6 +35,15 @@ export class TableBody extends React.Component {
 
         history.push({
             pathname: '/recipes/' + id,
+            state: { id: id, editMode: true }
+        });
+    }
+
+    updateIngredient = (e) => {
+        const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+
+        history.push({
+            pathname: '/ingredients/' + id,
             state: { id: id, editMode: true }
         });
     }
@@ -107,6 +122,26 @@ export class TableBody extends React.Component {
                                                                         { option.label }
                                                                     </div>
                                                                 )
+                                                            case 'updateIngredient':
+                                                                return (
+                                                                    <div
+                                                                        key={"option_" + option.label + "_" + item.id}
+                                                                        onClick={ this.updateIngredient }
+                                                                        className="table__more-option">
+                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
+                                                                        { option.label }
+                                                                    </div>
+                                                                )
+                                                            case 'deleteIngredient':
+                                                                return (
+                                                                    <div
+                                                                        key={"option_" + option.label + "_" + item.id}
+                                                                        onClick={ this.startDeleteIngredient }
+                                                                        className="table__more-option">
+                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
+                                                                        { option.label }
+                                                                    </div>
+                                                                )
                                                         }
                                                     }
                                                 })}
@@ -167,7 +202,8 @@ export class TableBody extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => ({
 	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
-	deleteRecipe: (id) => dispatch(deleteRecipe(id))
+	deleteRecipe: (id) => dispatch(deleteRecipe(id)),
+	deleteIngredient: (id) => dispatch(deleteIngredient(id))
 });
   
 export default connect(undefined, mapDispatchToProps)(TableBody);

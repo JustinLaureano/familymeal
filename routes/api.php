@@ -25,6 +25,7 @@ Route::middleware('auth:api')->group(function() {
     
     Route::get('/init/{id}', 'UserController@init');
     
+    /* Recipe Routes */
     Route::get('/recipes/{id}/', 'RecipeController@index');
     Route::get('/search/recipes', 'RecipeController@search');
     Route::get('/favorite-recipes/{id}/', 'FavoriteRecipeController@index');
@@ -34,6 +35,15 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/recipes/store', 'RecipeController@store');
     Route::post('/recipes/{id}/update', 'RecipeController@update');
     Route::post('/recipes/{id}/delete', 'RecipeController@destroy');
+
+    /* Ingredient Routes */
+    Route::get('/search/ingredients', 'IngredientController@search');
+    Route::get('/ingredient/{id}', 'IngredientController@show');
+    Route::get('/ingredients/count/categories/{user_id}', 'IngredientController@getCountByCategory');
+
+    Route::post('/ingredients/store', 'IngredientController@store');
+    Route::post('/ingredients/{id}/update', 'IngredientController@update');
+    Route::post('/ingredients/{id}/delete', 'IngredientController@destroy');
     
     Route::post('/logout', 'HomeController@logout');
 });

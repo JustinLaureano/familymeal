@@ -9,4 +9,6 @@ class IngredientSubcategory extends Model
 {
     use SoftDeletes;
     protected $table = 'ingredient_subcategory';
+
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 }

@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
 import { changeTablePage, setRecipeCategoryFilter } from '../actions/filters';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';

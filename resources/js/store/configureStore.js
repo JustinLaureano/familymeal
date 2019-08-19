@@ -5,6 +5,8 @@ import cuisineTypesReducer from '../reducers/cuisine_types';
 import favoriteRecipesReducer from '../reducers/favorite_recipes';
 import filterReducer from '../reducers/filters';
 import ingredientsReducer from '../reducers/ingredients';
+import ingredientCategoriesReducer from '../reducers/ingredient_categories';
+import ingredientSubcategoriesReducer from '../reducers/ingredient_subcategories';
 import measurementUnitsReducer from '../reducers/measurement_units';
 import recipesReducer from '../reducers/recipes';
 import recipeCategoriesReducer from '../reducers/recipe_categories';
@@ -22,6 +24,8 @@ export default () => {
 			cuisine_types: cuisineTypesReducer,
 			filters: filterReducer,
 			ingredients: ingredientsReducer,
+			ingredient_categories: ingredientCategoriesReducer,
+			ingredient_subcategories: ingredientSubcategoriesReducer,
 			measurement_units: measurementUnitsReducer,
 			recipes: recipesReducer,
 			favorite_recipes: favoriteRecipesReducer,
