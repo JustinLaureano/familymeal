@@ -251,6 +251,15 @@ export const removeCuisineTypeFilter = (cuisine_type_id) => {
 	}
 }
 
+
+export const startNewIngredient = () => {
+	return (dispatch) => {
+        dispatch({
+            type: 'SET_NEW_CURRENT_INGREDIENT'
+        });
+	}
+}
+
 export const getIngredientSearchResults = (params) => {
 	return new Promise((resolve, reject) => {
 		const token = params.token;

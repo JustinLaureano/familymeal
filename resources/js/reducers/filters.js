@@ -1,5 +1,6 @@
 const filterReducerDefaultState = {
     currentRecipe: null,
+    currentIngredient: null,
     editMode: false,
     cancelChanges: false,
     recipe_category: [],
@@ -34,6 +35,14 @@ const currentRecipeDefaultState = {
     ingredients: [],
     directions: [],
     notes: []
+}
+
+const currentIngredientDefaultState = {
+    id: null,
+    name: '',
+    ingredient_category_id: '',
+    ingredient_subcategory_id: '',
+    created_user_id: null,
 }
 
 export default (state = filterReducerDefaultState, action) => {
@@ -285,6 +294,28 @@ export default (state = filterReducerDefaultState, action) => {
                     ...state,
                     cuisine_type
                 };
+
+
+        case 'SET_CURRENT_INGREDIENT':
+            return {
+                ...state,
+                currentIngredient: action.ingredient
+            };
+        case 'SET_NEW_CURRENT_INGREDIENT':
+            return {
+                ...state,
+                currentIngredient: currentIngredientDefaultState
+            }
+        case 'UPDATE_CURRENT_INGREDIENT':
+            return {
+                ...state,
+                currentIngredient: action.ingredient
+            };
+        case 'CLEAR_CURRENT_INGREDIENT':
+            return {
+                ...state,
+                currentIngredient: null
+            };
         case 'ADD_INGREDIENT_CATEGORY_FILTER':
             return {
                 ...state,

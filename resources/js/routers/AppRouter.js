@@ -15,6 +15,7 @@ import NotFoundPage from '../views/NotFoundPage';
 import RecipeBookPage from '../views/RecipeBookPage';
 import SettingsPage from '../views/SettingsPage';
 import ShoppingListPage from '../views/ShoppingListPage';
+import ViewIngredientPage from '../views/ViewIngredientPage';
 import ViewRecipePage from '../views/ViewRecipePage';
 
 export const history = createHistory();
@@ -33,6 +34,8 @@ const AppRouter = () => (
         <PrivateRoute path="/favorites" component={FavoritesPage} exact={true} />
         <PrivateRoute path="/import-export" component={ImportExportPage} exact={true} />
         <PrivateRoute path="/ingredients" component={IngredientsPage} exact={true} />
+        <PrivateRoute path="/ingredients/:id" component={ViewIngredientPage} exact={true} />
+        <PrivateRoute path="/ingredients/:id/edit" component={ViewIngredientPage} exact={true} />
         <PrivateRoute path="/meal-planner" component={MealPlannerPage} exact={true} />
         <PrivateRoute path="/recipe-book" component={RecipeBookPage} exact={true} />
         <PrivateRoute path="/settings" component={SettingsPage} exact={true} />

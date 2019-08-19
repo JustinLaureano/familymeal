@@ -57,7 +57,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
-	updateRecipeSummary: (summary) => dispatch(updateRecipeSummary(summary)),
 	clearToastMessages: () => dispatch(clearToastMessages())
 });
   
