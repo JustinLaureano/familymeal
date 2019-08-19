@@ -258,7 +258,6 @@ export const updateRecipeCuisine = (cuisine) => {
 		fetch('/api/recipes/' + recipe_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				dispatch({
 					type: 'UPDATE_CURRENT_RECIPE_CUISINE',
 					cuisine

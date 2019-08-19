@@ -75,14 +75,18 @@ class IngredientController extends Controller
     public function update(Request $request, $ingredient_id)
     {
         $updates = [];
-        $ingredient = Recipe::find($ingredient_id);
+        $ingredient = Ingredient::find($ingredient_id);
         $ingredient->name = $request->post('name');
         $ingredient->ingredient_category_id = $request->post('ingredient_category_id');
         $ingredient->ingredient_subcategory_id = $request->post('ingredient_subcategory_id');
         $ingredient->save();
 
         $updates[] = 'ingredient';
-        $data = ['ingredient_id' => $ingredient_id, 'updates' => $updates];
+        $data = [
+            'ingredient_id' => $ingredient_id,
+            'ingredient' => Ingredient::getById($ingredient_id),
+            'updates' => $updates
+        ];
 
         return response($data, 200);
     }

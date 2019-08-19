@@ -42,6 +42,7 @@ export class ViewIngredientPage extends React.Component {
 	}
 
 	componentDidUpdate() {
+		console.log(this.state, this.props);
 		if (this.state.loading && this.props.ingredient.id) {
 			this.setState(() => ({ loading: false }));
 		}
@@ -58,13 +59,10 @@ export class ViewIngredientPage extends React.Component {
 			)
 		}
 		else {
-			const pageHeaderProps = {
-				title: this.props.ingredient.name
-			}
 			return (
 				<section className="recipe-grid">
 					<Breadcrumbs />
-					<IngredientPageHeader {...pageHeaderProps}/>
+					<IngredientPageHeader />
 					<IngredientInfo />
 				</section>
 			)

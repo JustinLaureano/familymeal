@@ -12,21 +12,15 @@ export class IngredientPageHeader extends React.Component {
         super(props);
         
         this.state = {
-            ingredient: this.props.ingredient
+            ingredient: this.props.currentIngredient
         };
     };
 
     cancelChanges = () => {
-        this.setState(() => ({ ingredient: this.props.ingredient }));
+        this.setState(() => ({ ingredient: this.props.currentIngredient }));
 
         this.props.setCancelChanges()
             .then(() => this.toggleEditMode());
-    }
-
-    componentDidUpdate() {
-		if (!this.props.filters.editMode && !this.props.filters.cancelChanges) {
-			this.startSave();
-		}
     }
     
     toggleEditMode = () => {
@@ -44,11 +38,23 @@ export class IngredientPageHeader extends React.Component {
     }
 
     saveChanges = () => {
+
         if (this.props.ingredient_id) {
             this.props.resetCancelChanges();
             if (this.props.filters.cancelChanges) {
                 this.props.resetCancelChanges();
             }
+
+            const ingredient = {
+                id: this.props.currentIngredient.id,
+                ingredient_category_id: parseInt(document.querySelector('select[name="ingredient-category"]').value),
+                ingredient_subcategory_id: this.props.currentIngredient.ingredient_subcategory_id,
+                name: this.state.ingredient.name
+            }
+
+            console.log(ingredient);
+            this.props.updateIngredient(ingredient);
+
             this.toggleEditMode();
         }
         else {
@@ -85,16 +91,8 @@ export class IngredientPageHeader extends React.Component {
         this.toggleEditMode();
     }
 
-    startFavoriteIngredient = () => {
-        this.props.favoriteIngredient(this.props.ingredient_id, this.props.favorite);
-    }
-
-    startSave = () => {
-        const ingredient = this.state.ingredient;
-        this.props.updateIngredient(ingredient);
-    }
-
 	render() {
+        const name = this.state.ingredient && this.state.ingredient.name ? this.state.ingredient.name : '';
 		return (
             <section className="page-header">
                 <section className="page-header__info">
@@ -105,10 +103,10 @@ export class IngredientPageHeader extends React.Component {
                                 type="text"
                                 name="name"
                                 className={
-                                    "page-header__title--input" + (this.state.name != '' ? ' bold' : '')
+                                    "page-header__title--input" + (name != '' ? ' bold' : '')
                                 }
                                 onChange={ this.setName }
-                                value={ this.state.name }
+                                value={ name }
                                 placeholder="Ingredient Name" />
                         ) :
                         (
@@ -164,8 +162,8 @@ export class IngredientPageHeader extends React.Component {
 };
   
 const mapStateToProps = (state) => ({
-    ingredient_id: state.filters.currentIngredient.info.id,
-    name: state.filters.currentIngredient.info.name,
+    ingredient_id: state.filters.currentIngredient.id,
+    name: state.filters.currentIngredient.name,
     currentIngredient: state.filters.currentIngredient,
     filters: state.filters,
 });
@@ -173,7 +171,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     setEditMode: (editMode) => dispatch(setEditMode(editMode)),
     createNewIngredient: (ingredient) => dispatch(createNewIngredient(ingredient)),
-    updateIngredientName: (name) => dispatch(updateIngredientName(name)),
+    updateIngredient: (ingredient) => dispatch(updateIngredient(ingredient)),
     setCancelChanges: () => dispatch(setCancelChanges()),
     resetCancelChanges: () => dispatch(resetCancelChanges()),
     deleteIngredient: (id) => dispatch(deleteIngredient(id)),
