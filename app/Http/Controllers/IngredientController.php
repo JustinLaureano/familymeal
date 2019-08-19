@@ -15,6 +15,7 @@ class IngredientController extends Controller
         $page = $request->page ? intval($request->page) : 1;
         $categories = $request->categories ? explode(',', $request->categories) : null;
         $subcategories = $request->subcategories ? explode(',', $request->subcategories): null;
+        
         $user = User::find($user_id);
         $user_settings = UserSettings::where('user_id', $user_id)->first();
         $offset = $page == 1 ? 0 : ($page - 1) * intval($user_settings->table_result_limit);

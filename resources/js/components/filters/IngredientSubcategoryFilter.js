@@ -9,7 +9,7 @@ export class IngredientSubcategoryFilter extends React.Component {
         this.state = {
             menuOpen: false,
             ingredient_subcategories: this.props.ingredient_subcategories,
-            filteredCategories: this.props.filteredCategories
+            filteredSubcategory: this.props.filteredSubcategory
         }
     }
 
@@ -18,8 +18,8 @@ export class IngredientSubcategoryFilter extends React.Component {
             this.setState({ ingredient_subcategories: this.props.ingredient_subcategories });
         }
         
-        if (this.state.filteredCategories.length !== this.props.filteredCategories.length) {
-            this.setState({ filteredCategories: this.props.filteredCategories });
+        if (this.state.filteredSubcategory.length !== this.props.filteredSubcategory.length) {
+            this.setState({ filteredSubcategory: this.props.filteredSubcategory });
         }
         
         if (this.state.menuOpen) {
@@ -53,21 +53,24 @@ export class IngredientSubcategoryFilter extends React.Component {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCategoryFilterMenu }>
-                Subcategory
-                <i className="material-icons dropdown-icon">arrow_drop_down</i>
+                    { this.state.filteredSubcategory.length > 0 ? '(' + this.state.filteredSubcategory.length + ')' : '' } Subcategory
+                    <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
+                
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>
                     {
                         this.state.ingredient_subcategories.map((category) => {
-                            return (
-                                <div
-                                    key={ "subcategory_" + category.id }
-                                    id={ "subcategory_" + category.id }
-                                    onClick={ this.toggleCategoryOption }
-                                    className={ this.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
-                                    { category.name }
-                                </div>
-                            )
+                            if (this.props.filteredCategory.length == 0 || this.props.filteredCategory.indexOf(category.ingredient_category_id) >= 0) {
+                                return (
+                                    <div
+                                        key={ "subcategory_" + category.id }
+                                        id={ "subcategory_" + category.id }
+                                        onClick={ this.toggleCategoryOption }
+                                        className={ this.state.filteredSubcategory.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
+                                        { category.name }
+                                    </div>
+                                )
+                            }
                         })
                     }
                 </div>
@@ -78,13 +81,14 @@ export class IngredientSubcategoryFilter extends React.Component {
 
 const mapStateToProps = (state) => ({
     ingredient_subcategories: state.ingredient_subcategories,
-    filteredCategories: state.filters.ingredient_subcategory
+    filteredCategory: state.filters.ingredient_category,
+    filteredSubcategory: state.filters.ingredient_subcategory
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model)),
-    addIngredientSubcategoryFilter: (ingredientSubcategoryId) => dispatch(addIngredientCategoryFilter(ingredientSubcategoryId)),
-    removeIngredientSubcategoryFilter: (ingredientSubcategoryId) => dispatch(removeIngredientCategoryFilter(ingredientSubcategoryId))
+    addIngredientSubcategoryFilter: (ingredientSubcategoryId) => dispatch(addIngredientSubcategoryFilter(ingredientSubcategoryId)),
+    removeIngredientSubcategoryFilter: (ingredientSubcategoryId) => dispatch(removeIngredientSubcategoryFilter(ingredientSubcategoryId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientSubcategoryFilter);

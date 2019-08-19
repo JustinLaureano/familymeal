@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { changeTablePage, addIngredientCategoryFilter, removeIngredientCategoryFilter } from '../../actions/filters';
+import { 
+    changeTablePage, 
+    addIngredientCategoryFilter, 
+    removeIngredientCategoryFilter, 
+    setIngredientSubcategoryFilter
+} from '../../actions/filters';
 
 export class IngredientCategoryFilter extends React.Component {
     constructor(props) {
@@ -24,6 +29,7 @@ export class IngredientCategoryFilter extends React.Component {
         
         if (this.state.menuOpen) {
             document.addEventListener('click', this.clickEvent);
+            // this.getIngredientSubcategories();
         }
         else {
             document.removeEventListener('click', this.clickEvent);
@@ -46,8 +52,28 @@ export class IngredientCategoryFilter extends React.Component {
             this.props.removeIngredientCategoryFilter( parseInt(ingredientCategoryId) ) :
             this.props.addIngredientCategoryFilter( parseInt(ingredientCategoryId) );
 
+        this.getIngredientSubcategories();
         this.props.changeTablePage(1, 'ingredient');
     }
+    
+    getIngredientSubcategories = () => {
+        if (this.state.filteredCategories.length == 0) {
+            // reset the filter
+            this.props.setIngredientSubcategoryFilter([]);
+        }
+        else {
+            let ingredient_subcategories = [];
+
+            // only select ingredient_subcategories that belong to the selected categories
+            // this.state.filteredCategories.map((category_id) => {
+            //     const subcategories = this.props.ingredient_subcategories.filter(subcategory => subcategory.ingredient_category_id == category_id);
+            //     ingredient_subcategories = [ ...ingredient_subcategories, ...subcategories ];
+            // });
+
+            // const subcategories = ingredient_subcategories.map(subcategory => subcategory.id);
+            // this.props.setIngredientSubcategoryFilter(subcategories);
+        }
+    };
 
 	render() {
 		return (
@@ -78,13 +104,16 @@ export class IngredientCategoryFilter extends React.Component {
 
 const mapStateToProps = (state) => ({
     ingredient_categories: state.ingredient_categories,
-    filteredCategories: state.filters.ingredient_category
+    ingredient_subcategories: state.ingredient_subcategories,
+    filteredCategories: state.filters.ingredient_category,
+    filteredSubcategories: state.filters.ingredient_subcategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model)),
     addIngredientCategoryFilter: (ingredientCategoryId) => dispatch(addIngredientCategoryFilter(ingredientCategoryId)),
-    removeIngredientCategoryFilter: (ingredientCategoryId) => dispatch(removeIngredientCategoryFilter(ingredientCategoryId))
+    removeIngredientCategoryFilter: (ingredientCategoryId) => dispatch(removeIngredientCategoryFilter(ingredientCategoryId)),
+    setIngredientSubcategoryFilter: (subcategories) => dispatch(setIngredientSubcategoryFilter(subcategories))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientCategoryFilter);

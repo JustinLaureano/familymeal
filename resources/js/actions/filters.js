@@ -4,6 +4,8 @@ export const changeTablePage = (pageNumber, model) => {
 		const user_id = getState().user.id;
 		const recipeCategories = getState().filters.recipe_category;
 		const cuisine_types = getState().filters.cuisine_type;
+		const ingredientCategories = getState().filters.ingredient_category;
+		const ingredientSubcategories = getState().filters.ingredient_subcategory;
         let url = '';
 
         const request = {
@@ -32,6 +34,14 @@ export const changeTablePage = (pageNumber, model) => {
 
 		if (cuisine_types.length > 0) {
 			url += '&cuisines=' + cuisine_types.join(",");
+		}
+
+		if (model == 'ingredient' && ingredientCategories.length > 0) {
+			url += '&categories=' + ingredientCategories.join(",");
+		}
+
+		if (model == 'ingredient' && ingredientSubcategories.length > 0) {
+			url += '&subcategories=' + ingredientSubcategories.join(",");
 		}
 
 		fetch(url, request)
@@ -279,7 +289,24 @@ export const addIngredientCategoryFilter = (ingredient_category_id) => {
 }
 
 export const removeIngredientCategoryFilter = (ingredient_category_id) => {
-	return (dispatch) => {
+	return (dispatch, getState) => {
+		const filteredSubcategories = getState().filters.ingredient_subcategory;
+		const ingredientSubcategories = getState().ingredient_subcategories;
+
+		// Remove any filtered subcategories for this category first
+		ingredientSubcategories.map(subcategory => {
+			if (
+				subcategory.ingredient_category_id == ingredient_category_id &&
+				filteredSubcategories.indexOf(subcategory.id) >= 0
+			) {
+				dispatch({
+					type: 'REMOVE_INGREDIENT_SUBCATEGORY_FILTER',
+					ingredient_subcategory_id: subcategory.id
+				});
+			}
+		})
+
+		// remove the ingredient category from filter list
 		dispatch({
 			type: 'REMOVE_INGREDIENT_CATEGORY_FILTER',
 			ingredient_category_id
@@ -314,11 +341,11 @@ export const removeIngredientSubcategoryFilter = (ingredient_subcategory_id) => 
 	}
 }
 
-export const setIngredientSubcategoryFilter = (ingredient_subcategory_id) => {
+export const setIngredientSubcategoryFilter = (subcategories) => {
 	return (dispatch) => {
 		dispatch({
 			type: 'SET_INGREDIENT_SUBCATEGORY_FILTER',
-			ingredient_subcategory: [ingredient_subcategory_id]
+			ingredient_subcategory: subcategories
 		});
 	}
 }

@@ -58120,6 +58120,8 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
     var user_id = getState().user.id;
     var recipeCategories = getState().filters.recipe_category;
     var cuisine_types = getState().filters.cuisine_type;
+    var ingredientCategories = getState().filters.ingredient_category;
+    var ingredientSubcategories = getState().filters.ingredient_subcategory;
     var url = '';
     var request = {
       headers: {
@@ -58149,6 +58151,14 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
 
     if (cuisine_types.length > 0) {
       url += '&cuisines=' + cuisine_types.join(",");
+    }
+
+    if (model == 'ingredient' && ingredientCategories.length > 0) {
+      url += '&categories=' + ingredientCategories.join(",");
+    }
+
+    if (model == 'ingredient' && ingredientSubcategories.length > 0) {
+      url += '&subcategories=' + ingredientSubcategories.join(",");
     }
 
     fetch(url, request).then(function (resp) {
@@ -58373,7 +58383,19 @@ var addIngredientCategoryFilter = function addIngredientCategoryFilter(ingredien
   };
 };
 var removeIngredientCategoryFilter = function removeIngredientCategoryFilter(ingredient_category_id) {
-  return function (dispatch) {
+  return function (dispatch, getState) {
+    var filteredSubcategories = getState().filters.ingredient_subcategory;
+    var ingredientSubcategories = getState().ingredient_subcategories; // Remove any filtered subcategories for this category first
+
+    ingredientSubcategories.map(function (subcategory) {
+      if (subcategory.ingredient_category_id == ingredient_category_id && filteredSubcategories.indexOf(subcategory.id) >= 0) {
+        dispatch({
+          type: 'REMOVE_INGREDIENT_SUBCATEGORY_FILTER',
+          ingredient_subcategory_id: subcategory.id
+        });
+      }
+    }); // remove the ingredient category from filter list
+
     dispatch({
       type: 'REMOVE_INGREDIENT_CATEGORY_FILTER',
       ingredient_category_id: ingredient_category_id
@@ -58404,11 +58426,11 @@ var removeIngredientSubcategoryFilter = function removeIngredientSubcategoryFilt
     });
   };
 };
-var setIngredientSubcategoryFilter = function setIngredientSubcategoryFilter(ingredient_subcategory_id) {
+var setIngredientSubcategoryFilter = function setIngredientSubcategoryFilter(subcategories) {
   return function (dispatch) {
     dispatch({
       type: 'SET_INGREDIENT_SUBCATEGORY_FILTER',
-      ingredient_subcategory: [ingredient_subcategory_id]
+      ingredient_subcategory: subcategories
     });
   };
 };
@@ -60000,7 +60022,24 @@ function (_React$Component) {
       var ingredientCategoryId = e.target.id.replace(/\D/g, '');
       e.target.className.includes('filter__suggestion--selected') ? _this.props.removeIngredientCategoryFilter(parseInt(ingredientCategoryId)) : _this.props.addIngredientCategoryFilter(parseInt(ingredientCategoryId));
 
+      _this.getIngredientSubcategories();
+
       _this.props.changeTablePage(1, 'ingredient');
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getIngredientSubcategories", function () {
+      if (_this.state.filteredCategories.length == 0) {
+        // reset the filter
+        _this.props.setIngredientSubcategoryFilter([]);
+      } else {
+        var ingredient_subcategories = []; // only select ingredient_subcategories that belong to the selected categories
+        // this.state.filteredCategories.map((category_id) => {
+        //     const subcategories = this.props.ingredient_subcategories.filter(subcategory => subcategory.ingredient_category_id == category_id);
+        //     ingredient_subcategories = [ ...ingredient_subcategories, ...subcategories ];
+        // });
+        // const subcategories = ingredient_subcategories.map(subcategory => subcategory.id);
+        // this.props.setIngredientSubcategoryFilter(subcategories);
+      }
     });
 
     _this.state = {
@@ -60027,7 +60066,7 @@ function (_React$Component) {
       }
 
       if (this.state.menuOpen) {
-        document.addEventListener('click', this.clickEvent);
+        document.addEventListener('click', this.clickEvent); // this.getIngredientSubcategories();
       } else {
         document.removeEventListener('click', this.clickEvent);
       }
@@ -60064,7 +60103,9 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     ingredient_categories: state.ingredient_categories,
-    filteredCategories: state.filters.ingredient_category
+    ingredient_subcategories: state.ingredient_subcategories,
+    filteredCategories: state.filters.ingredient_category,
+    filteredSubcategories: state.filters.ingredient_subcategory
   };
 };
 
@@ -60078,6 +60119,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     removeIngredientCategoryFilter: function removeIngredientCategoryFilter(ingredientCategoryId) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["removeIngredientCategoryFilter"])(ingredientCategoryId));
+    },
+    setIngredientSubcategoryFilter: function setIngredientSubcategoryFilter(subcategories) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["setIngredientSubcategoryFilter"])(subcategories));
     }
   };
 };
@@ -60160,7 +60204,7 @@ function (_React$Component) {
     _this.state = {
       menuOpen: false,
       ingredient_subcategories: _this.props.ingredient_subcategories,
-      filteredCategories: _this.props.filteredCategories
+      filteredSubcategory: _this.props.filteredSubcategory
     };
     return _this;
   }
@@ -60174,9 +60218,9 @@ function (_React$Component) {
         });
       }
 
-      if (this.state.filteredCategories.length !== this.props.filteredCategories.length) {
+      if (this.state.filteredSubcategory.length !== this.props.filteredSubcategory.length) {
         this.setState({
-          filteredCategories: this.props.filteredCategories
+          filteredSubcategory: this.props.filteredSubcategory
         });
       }
 
@@ -60196,17 +60240,19 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "filter__btn",
         onClick: this.toggleCategoryFilterMenu
-      }, "Subcategory", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, this.state.filteredSubcategory.length > 0 ? '(' + this.state.filteredSubcategory.length + ')' : '', " Subcategory", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
       }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')
       }, this.state.ingredient_subcategories.map(function (category) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: "subcategory_" + category.id,
-          id: "subcategory_" + category.id,
-          onClick: _this2.toggleCategoryOption,
-          className: _this2.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion'
-        }, category.name);
+        if (_this2.props.filteredCategory.length == 0 || _this2.props.filteredCategory.indexOf(category.ingredient_category_id) >= 0) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: "subcategory_" + category.id,
+            id: "subcategory_" + category.id,
+            onClick: _this2.toggleCategoryOption,
+            className: _this2.state.filteredSubcategory.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion'
+          }, category.name);
+        }
       })));
     }
   }]);
@@ -60218,7 +60264,8 @@ function (_React$Component) {
 var mapStateToProps = function mapStateToProps(state) {
   return {
     ingredient_subcategories: state.ingredient_subcategories,
-    filteredCategories: state.filters.ingredient_subcategory
+    filteredCategory: state.filters.ingredient_category,
+    filteredSubcategory: state.filters.ingredient_subcategory
   };
 };
 
@@ -60228,10 +60275,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["changeTablePage"])(pageNumber, model));
     },
     addIngredientSubcategoryFilter: function addIngredientSubcategoryFilter(ingredientSubcategoryId) {
-      return dispatch(addIngredientCategoryFilter(ingredientSubcategoryId));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["addIngredientSubcategoryFilter"])(ingredientSubcategoryId));
     },
     removeIngredientSubcategoryFilter: function removeIngredientSubcategoryFilter(ingredientSubcategoryId) {
-      return dispatch(removeIngredientCategoryFilter(ingredientSubcategoryId));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["removeIngredientSubcategoryFilter"])(ingredientSubcategoryId));
     }
   };
 };
