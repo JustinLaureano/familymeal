@@ -381,6 +381,7 @@ a:hover {
   -webkit-box-direction: normal;
           flex-direction: column;
   font-size: 0.875em;
+  max-height: 200px;
   overflow-y: scroll;
   position: absolute;
   scrollbar-width: none;
@@ -452,6 +453,7 @@ a:hover {
   max-width: 275px;
   overflow-y: scroll;
   scrollbar-width: none;
+  z-index: 900;
 }
 .react-autosuggest__suggestions-container--open::-webkit-scrollbar {
   width: 0;
@@ -1303,16 +1305,16 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   padding: 0;
 }
 
-.table__row, .table__row--recipe {
+.table__row, .table__row--ingredient, .table__row--recipe {
   padding: calc(0.75 * 1em) calc(1.25 * 1em);
   background-color: #fffeff;
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 0.25fr;
 }
-.table__row:nth-child(even), .table__row--recipe:nth-child(even) {
+.table__row:nth-child(even), .table__row--ingredient:nth-child(even), .table__row--recipe:nth-child(even) {
   background-color: #4f5d6a07;
 }
-.table__row:hover, .table__row--recipe:hover {
+.table__row:hover, .table__row--ingredient:hover, .table__row--recipe:hover {
   background-color: #2780d31c;
 }
 
@@ -1327,6 +1329,11 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .table__row--recipe {
   grid-template-areas: "name category cuisine created-at more";
+}
+
+.table__row--ingredient {
+  grid-template-columns: 2fr 1fr 1fr 0.25fr;
+  grid-template-areas: "name name category subcategory more";
 }
 
 .table__cell {

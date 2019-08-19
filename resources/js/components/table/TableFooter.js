@@ -8,7 +8,7 @@ export class TableFooter extends React.Component {
         super(props);
         this.state = {
 			page: 1,
-			totalPages: 0
+            totalPages: 0
         };
     };
 

@@ -17,9 +17,9 @@ class Ingredient extends Model
             ->select(
                 'ingredient.id',
                 'ingredient.name',
-                'ingredient_category_id',
+                'ingredient.ingredient_category_id',
                 'ingredient_category.name AS ingredient_category_name',
-                'ingredient_subcategory_id',
+                'ingredient.ingredient_subcategory_id',
                 'ingredient_subcategory.name AS ingredient_subcategory_name'
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
@@ -36,9 +36,9 @@ class Ingredient extends Model
             ->select(
                 'ingredient.id',
                 'ingredient.name',
-                'ingredient_category_id',
+                'ingredient.ingredient_category_id',
                 'ingredient_category.name AS ingredient_category_name',
-                'ingredient_subcategory_id',
+                'ingredient.ingredient_subcategory_id',
                 'ingredient_subcategory.name AS ingredient_subcategory_name'
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')

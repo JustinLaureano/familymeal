@@ -34,6 +34,7 @@
     max-width: 275px;
     overflow-y: scroll;
     scrollbar-width: none;
+    z-index: $autosuggest-container-z-index;
     
     &::-webkit-scrollbar {
         width: 0;

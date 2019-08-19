@@ -64,13 +64,13 @@ export function getIngredientTableHeaders() {
         },
         {
             label: 'Category',
-            column: 'ingredient_category',
+            column: 'ingredient_category_name',
             type: 'text',
             class: 'table__inactive',
         },
         {
             label: 'Subcategory',
-            column: 'ingredient_subcategory',
+            column: 'ingredient_subcategory_name',
             type: 'text',
             class: 'table__inactive'
         }

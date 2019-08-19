@@ -47,8 +47,8 @@ export class IngredientsPage extends React.Component {
 	render() {
 		const tableProps = {
 			headers: this.state.headers,
-			data: this.props.recipes,
-			className: 'table__row--recipe',
+			data: this.props.ingredients,
+			className: 'table__row--ingredient',
 			model: 'ingredient',
 			options: this.state.options,
 			total: this.props.ingredientTotal
@@ -96,8 +96,8 @@ export class IngredientsPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	recipes: state.recipes,
-	recipeTotal: state.totals.recipe,
+	ingredients: state.ingredients,
+	ingredientTotal: state.ingredients.length,
 	categoryFilter: state.filters.ingredient_category,
 	subcategoryFilter: state.filters.ingredient_subcategory
 });

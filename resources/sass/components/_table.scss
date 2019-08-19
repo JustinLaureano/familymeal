@@ -53,6 +53,13 @@
         "name category cuisine created-at more";
 }
 
+.table__row--ingredient {
+    @extend .table__row;
+    grid-template-columns: 2fr 1fr 1fr .25fr;
+    grid-template-areas:
+        "name name category subcategory more";
+}
+
 .table__cell {
     display: flex;
     justify-content: flex-start;

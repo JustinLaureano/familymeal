@@ -1,6 +1,4 @@
 export function getRecipeCountByCategory() {
-    // return [24, 14, 12, 34, 8, 12, 23, 10, 30];
-
     return new Promise((resolve, reject) => {
         const token = document.querySelector('meta[name="api-token"]').content;
         const csrf_token = document.querySelector('meta[name="csrf-token"]').content;

@@ -1,4 +1,6 @@
 import React from 'react';
+import RecipeCategoryFilter from '../filters/RecipeCategoryFilter';
+import CuisineTypeFilter from '../filters/CuisineTypeFilter';
 import IngredientCategoryFilter from '../filters/IngredientCategoryFilter';
 import IngredientSubcategoryFilter from '../filters/IngredientSubcategoryFilter';
 
