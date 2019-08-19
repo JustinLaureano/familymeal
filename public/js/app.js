@@ -60031,14 +60031,6 @@ function (_React$Component) {
       if (_this.state.filteredCategories.length == 0) {
         // reset the filter
         _this.props.setIngredientSubcategoryFilter([]);
-      } else {
-        var ingredient_subcategories = []; // only select ingredient_subcategories that belong to the selected categories
-        // this.state.filteredCategories.map((category_id) => {
-        //     const subcategories = this.props.ingredient_subcategories.filter(subcategory => subcategory.ingredient_category_id == category_id);
-        //     ingredient_subcategories = [ ...ingredient_subcategories, ...subcategories ];
-        // });
-        // const subcategories = ingredient_subcategories.map(subcategory => subcategory.id);
-        // this.props.setIngredientSubcategoryFilter(subcategories);
       }
     });
 
@@ -60066,7 +60058,7 @@ function (_React$Component) {
       }
 
       if (this.state.menuOpen) {
-        document.addEventListener('click', this.clickEvent); // this.getIngredientSubcategories();
+        document.addEventListener('click', this.clickEvent);
       } else {
         document.removeEventListener('click', this.clickEvent);
       }
@@ -60081,7 +60073,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "filter__btn",
         onClick: this.toggleCategoryFilterMenu
-      }, "Category", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '', " Category", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
       }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')

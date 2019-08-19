@@ -29,7 +29,6 @@ export class IngredientCategoryFilter extends React.Component {
         
         if (this.state.menuOpen) {
             document.addEventListener('click', this.clickEvent);
-            // this.getIngredientSubcategories();
         }
         else {
             document.removeEventListener('click', this.clickEvent);
@@ -61,26 +60,14 @@ export class IngredientCategoryFilter extends React.Component {
             // reset the filter
             this.props.setIngredientSubcategoryFilter([]);
         }
-        else {
-            let ingredient_subcategories = [];
-
-            // only select ingredient_subcategories that belong to the selected categories
-            // this.state.filteredCategories.map((category_id) => {
-            //     const subcategories = this.props.ingredient_subcategories.filter(subcategory => subcategory.ingredient_category_id == category_id);
-            //     ingredient_subcategories = [ ...ingredient_subcategories, ...subcategories ];
-            // });
-
-            // const subcategories = ingredient_subcategories.map(subcategory => subcategory.id);
-            // this.props.setIngredientSubcategoryFilter(subcategories);
-        }
     };
 
 	render() {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCategoryFilterMenu }>
-                Category
-                <i className="material-icons dropdown-icon">arrow_drop_down</i>
+                    { this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '' } Category
+                    <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>
                     {

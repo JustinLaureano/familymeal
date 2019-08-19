@@ -346,7 +346,7 @@ a:hover {
 
 .filter {
   position: relative;
-  width: 105px;
+  width: 125px;
   margin-left: calc(0.75 * 1em);
 }
 .filter:first-child {
