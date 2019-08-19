@@ -9,6 +9,7 @@
 }
 
 .filter__btn {
+    @include flex-row-center;
     @include pad($space-xxs);
     @include border();
     @include transition;

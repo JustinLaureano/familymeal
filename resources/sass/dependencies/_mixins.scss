@@ -90,6 +90,12 @@
     align-items: center;
 }
 
+@mixin flex-row-center {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @mixin background-img($image, $size: cover) {
 	background: {
 		image: $image;

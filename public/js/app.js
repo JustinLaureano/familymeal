@@ -60075,7 +60075,7 @@ function (_React$Component) {
         onClick: this.toggleCategoryFilterMenu
       }, this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '', " Category", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
-      }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')
       }, this.state.ingredient_categories.map(function (category) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -60234,7 +60234,7 @@ function (_React$Component) {
         onClick: this.toggleCategoryFilterMenu
       }, this.state.filteredSubcategory.length > 0 ? '(' + this.state.filteredSubcategory.length + ')' : '', " Subcategory", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
-      }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.menuOpen ? 'arrow_drop_up' : 'arrow_drop_down')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')
       }, this.state.ingredient_subcategories.map(function (category) {
         if (_this2.props.filteredCategory.length == 0 || _this2.props.filteredCategory.indexOf(category.ingredient_category_id) >= 0) {

@@ -354,6 +354,12 @@ a:hover {
 }
 
 .filter__btn {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
   padding: calc(0.375 * 1em);
   border: 1px solid #363636;
   border-radius: 3px;
@@ -861,7 +867,7 @@ a:hover {
 }
 
 .dropdown-icon {
-  font-size: 0.875em;
+  font-size: 1.5em;
 }
 
 .add-icon, .add-icon--textarea {
