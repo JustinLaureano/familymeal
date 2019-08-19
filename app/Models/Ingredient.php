@@ -30,6 +30,34 @@ class Ingredient extends Model
             ->get();
     }
 
+    
+    public static function getUserIngredients($params)
+    {
+        return DB::table('ingredient')
+            ->select(
+                'ingredient.id',
+                'ingredient.name',
+                'ingredient.ingredient_category_id',
+                'ingredient_category.name AS ingredient_category_name',
+                'ingredient.ingredient_subcategory_id',
+                'ingredient_subcategory.name AS ingredient_subcategory_name'
+            )
+            ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
+            ->leftJoin('ingredient_subcategory', 'ingredient.ingredient_subcategory_id', 'ingredient_subcategory.id')
+            ->whereIn('ingredient.created_user_id', [Null, $params['user_id']])
+            ->where('ingredient.deleted_at', Null)
+            ->when(isset($params['categories']) && count($params['categories']), function($query) use($params) {
+                return $query->whereIn('ingredient.ingredient_category_id', $params['categories']);
+            })
+            ->when(isset($params['subcategories']) && count($params['subcategories']), function($query) use($params) {
+                return $query->whereIn('ingredient.ingredient_subcategory_id', $params['subcategories']);
+            })
+            ->orderBy('ingredient.name', 'asc')
+            ->take($params['take'])
+            ->offset($params['offset'])
+            ->get();
+    }
+
     public static function getById($ingredient_id)
     {
         return DB::table('ingredient')

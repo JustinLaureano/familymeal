@@ -37,6 +37,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/recipes/{id}/delete', 'RecipeController@destroy');
 
     /* Ingredient Routes */
+    Route::get('/ingredients/{id}/', 'IngredientController@index');
     Route::get('/search/ingredients', 'IngredientController@search');
     Route::get('/ingredient/{id}', 'IngredientController@show');
     Route::get('/ingredients/count/categories/{user_id}', 'IngredientController@getCountByCategory');

@@ -47490,7 +47490,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58132,6 +58132,10 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
       case 'favorite-recipes':
         url = '/api/favorite-recipes/' + user_id + '/?page=' + pageNumber;
         break;
+
+      case 'ingredient':
+        url = '/api/ingredients/' + user_id + '/?page=' + pageNumber;
+        break;
     }
 
     if (recipeCategories.length > 0) {
@@ -58160,6 +58164,13 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
         case 'favorite-recipes':
           dispatch({
             type: 'SET_FAVORITE_RECIPES',
+            recipes: data.recipes
+          });
+          break;
+
+        case 'ingredients':
+          dispatch({
+            type: 'SET_INGREDIENTS',
             recipes: data.recipes
           });
           break;
@@ -67192,6 +67203,8 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      console.log(this.state, this.props);
+
       if (this.props.ingredients.length == 0 && !this.state.loading) {
         this.setState({
           loading: true

@@ -21,6 +21,9 @@ export const changeTablePage = (pageNumber, model) => {
 			case 'favorite-recipes':
 				url = '/api/favorite-recipes/'+ user_id +'/?page=' + pageNumber;
 				break;
+			case 'ingredient':
+				url = '/api/ingredients/'+ user_id +'/?page=' + pageNumber;
+				break;
 		}
 		
 		if (recipeCategories.length > 0) {
@@ -50,6 +53,12 @@ export const changeTablePage = (pageNumber, model) => {
 					case 'favorite-recipes':
                         dispatch({
                         	type: 'SET_FAVORITE_RECIPES',
+                        	recipes: data.recipes
+                        });
+						break;
+					case 'ingredients':
+                        dispatch({
+                        	type: 'SET_INGREDIENTS',
                         	recipes: data.recipes
                         });
                         break;

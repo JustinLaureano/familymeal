@@ -7,6 +7,37 @@ use Illuminate\Http\Request;
 
 class IngredientController extends Controller
 {
+
+    public function index(Request $request, $user_id)
+    {
+        $page = $request->page ? intval($request->page) : 1;
+        $categories = $request->categories ? explode(',', $request->categories) : null;
+        $subcategories = $request->subcategories ? explode(',', $request->subcategories): null;
+        $user = User::find($user_id);
+        $user_settings = UserSettings::where('user_id', $user_id)->first();
+        $offset = $page == 1 ? 0 : ($page - 1) * intval($user_settings->table_result_limit);
+
+        $ingredients = Ingredient::getUserIngredients([
+            'user_id' => $user_id,
+            'take' => $user_settings->table_result_limit,
+            'offset' => $offset,
+            'categories' => $categories,
+            'subcategories' => $subcategories
+        ]);
+
+        $ingredient_total = Ingredient::where('user_id', $user_id)
+            ->where('deleted_at', Null)
+            ->when($categories && count($categories), function($query) use($categories) {
+                return $query->whereIn('ingredient.ingredient_category_id', $categories);
+            })
+            ->when($subcategories && count($subcategories), function($query) use($subcategories) {
+                return $query->whereIn('ingredient.ingredient_subcategory_id', $subcategories);
+            })
+            ->count();
+
+        return response(['ingredients' => $ingredients, 'ingredient_total' => $ingredient_total], 200);
+    }
+
     public function store(Request $request)
     {
         $user_id = $request->post('user_id');

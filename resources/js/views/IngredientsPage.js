@@ -36,6 +36,7 @@ export class IngredientsPage extends React.Component {
 	}
 
 	componentDidUpdate() {
+		console.log(this.state, this.props);
 		if (this.props.ingredients.length == 0 && !this.state.loading) {
 			this.setState({ loading: true });
 		}
