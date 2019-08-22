@@ -16,6 +16,7 @@ class CreateShoppingListItemsTable extends Migration
         Schema::create('shopping_list_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('shopping_list_id');
+            $table->unsignedBigInteger('ingredient_id');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 

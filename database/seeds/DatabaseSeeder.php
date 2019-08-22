@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
             RecipeRatingsTableSeeder::class,
             RecipeSummaryTableSeeder::class,
             FavoriteRecipesTableSeeder::class,
+            ShoppingListTableSeeder::class,
+            ShoppingListItemsTableSeeder::class,
         ]);
     }
 }
