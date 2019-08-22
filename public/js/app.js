@@ -65492,64 +65492,65 @@ function (_React$Component) {
               id: "options_" + item.id,
               className: "table__options-modal"
             }, _this2.props.options.map(function (option) {
+              var onClick = function onClick() {
+                return true;
+              };
+
               switch (option.onClick) {
                 case 'favoriteRecipe':
+                  onClick = _this2.startFavoriteRecipe;
                   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
                     key: "option_" + option.label + "_" + item.id,
-                    onClick: _this2.startFavoriteRecipe,
+                    onClick: onClick,
                     className: "table__more-option"
                   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
                     className: "material-icons table__more-option-icon "
                   }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
                 case 'updateRecipe':
-                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                    key: "option_" + option.label + "_" + item.id,
-                    id: item.id,
-                    option: option,
-                    onClick: _this2.updateRecipe
-                  });
+                  onClick = _this2.updateRecipe;
+                  break;
 
                 case 'deleteRecipe':
-                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                    key: "option_" + option.label + "_" + item.id,
-                    id: item.id,
-                    option: option,
-                    onClick: _this2.startDeleteRecipe
-                  });
+                  onClick = _this2.startDeleteRecipe;
+                  break;
 
                 case 'updateShoppingList':
-                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
-                    key: "option_" + option.label + "_" + item.id,
-                    id: item.id,
-                    option: option,
-                    onClick: _this2.updateShoppingList
-                  });
+                  onClick = _this2.updateShoppingList;
+                  break;
 
                 case 'updateIngredient':
-                  if (item.created_user_id != null) {
+                  if (item.created_user_id) {
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
                       key: "option_" + option.label + "_" + item.id,
                       id: item.id,
                       option: option,
                       onClick: _this2.updateIngredient
                     });
+                  } else {
+                    return '';
                   }
 
-                  break;
-
                 case 'deleteIngredient':
-                  if (item.created_user_id != null) {
+                  if (item.created_user_id) {
                     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
                       key: "option_" + option.label + "_" + item.id,
                       id: item.id,
                       option: option,
                       onClick: _this2.startDeleteIngredient
                     });
+                  } else {
+                    return '';
                   }
 
-                  break;
               }
+
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                key: "option_" + option.label + "_" + item.id,
+                id: item.id,
+                option: option,
+                onClick: onClick
+              });
             })));
           } else {
             if (_this2.props.headers[index].type == 'link') {

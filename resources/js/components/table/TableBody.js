@@ -70,17 +70,17 @@ export class TableBody extends React.Component {
                                     return (
                                         <div key={index} className="table__more-options">
                                             <i className="material-icons table__more-icon">{ header.data }</i>
-                                            <div
-                                                id={ "options_" + item.id }
-                                                className="table__options-modal">
 
+                                            <div id={ "options_" + item.id } className="table__options-modal">
                                                 { this.props.options.map((option) => {
+                                                    let onClick = () => true;
                                                     switch(option.onClick) {
                                                         case 'favoriteRecipe':
+                                                            onClick = this.startFavoriteRecipe;
                                                             return (
                                                                 <div
                                                                     key={"option_" + option.label + "_" + item.id}
-                                                                    onClick={ this.startFavoriteRecipe }
+                                                                    onClick={ onClick }
                                                                     className="table__more-option">
                                                                     <i className="material-icons table__more-option-icon ">
                                                                         { option.icon }
@@ -93,31 +93,16 @@ export class TableBody extends React.Component {
                                                                 </div>
                                                             )
                                                         case 'updateRecipe':
-                                                            return (
-                                                                <TableOption
-                                                                    key={"option_" + option.label + "_" + item.id}
-                                                                    id={ item.id }
-                                                                    option={ option }
-                                                                    onClick={ this.updateRecipe } />
-                                                            )
+                                                            onClick = this.updateRecipe;
+                                                            break;
                                                         case 'deleteRecipe':
-                                                            return (
-                                                                <TableOption
-                                                                    key={"option_" + option.label + "_" + item.id}
-                                                                    id={ item.id }
-                                                                    option={ option }
-                                                                    onClick={ this.startDeleteRecipe } />
-                                                            )
+                                                            onClick = this.startDeleteRecipe;
+                                                            break;
                                                         case 'updateShoppingList':
-                                                            return (
-                                                                <TableOption
-                                                                    key={"option_" + option.label + "_" + item.id}
-                                                                    id={ item.id }
-                                                                    option={ option }
-                                                                    onClick={ this.updateShoppingList } />
-                                                            )
+                                                            onClick = this.updateShoppingList;
+                                                            break;
                                                         case 'updateIngredient':
-                                                            if (item.created_user_id != null) {
+                                                            if (item.created_user_id) {
                                                                 return (
                                                                     <TableOption
                                                                         key={"option_" + option.label + "_" + item.id}
@@ -126,9 +111,9 @@ export class TableBody extends React.Component {
                                                                         onClick={ this.updateIngredient } />
                                                                 )
                                                             }
-                                                            break;
+                                                            else {return '';}
                                                         case 'deleteIngredient':
-                                                            if (item.created_user_id != null) {
+                                                            if (item.created_user_id) {
                                                                 return (
                                                                     <TableOption
                                                                         key={"option_" + option.label + "_" + item.id}
@@ -137,8 +122,16 @@ export class TableBody extends React.Component {
                                                                         onClick={ this.startDeleteIngredient } />
                                                                 )
                                                             }
-                                                            break;
+                                                            else {return '';}
                                                     }
+                                                    return (
+                                                        <TableOption
+                                                            key={"option_" + option.label + "_" + item.id}
+                                                            id={ item.id }
+                                                            option={ option }
+                                                            onClick={ onClick } />
+                                                    )
+
                                                 })}
                                             </div>
                                         </div>
