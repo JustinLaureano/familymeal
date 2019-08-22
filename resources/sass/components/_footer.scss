@@ -4,6 +4,13 @@
     margin-top: $space-lg;
 }
 
+.footer--public {
+    @extend .footer;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0;
+}
+
 .footer__content {
     @include content-width;
     display: flex;

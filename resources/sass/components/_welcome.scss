@@ -1,0 +1,18 @@
+.welcome {
+    @include flex-center;
+    @include background-img(url("../images/bg-login.jpg"));
+    height: 100%;
+}
+
+.welcome__main-card {
+    @include modal-box;
+    @include pad(2em, 1em);
+    display: flex;
+    background-color: $white;
+}
+
+.welcome__caption {
+    @include flex-center;
+    @include pad(0, $space-md);
+    margin-right: $space-md;
+}
