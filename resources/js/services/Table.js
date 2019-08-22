@@ -11,14 +11,12 @@ export function getRecipeTableHeaders() {
             label: 'Category',
             column: 'recipe_category',
             type: 'text',
-            // route: 'category/',
             class: 'table__inactive',
         },
         {
             label: 'Cuisine',
             column: 'cuisine_type',
             type: 'text',
-            // route: 'cuisine-types/',
             class: 'table__inactive'
         },
         {
@@ -77,6 +75,11 @@ export function getIngredientTableHeaders() {
 
 export function getIngredientTableOptions() {
     return [
+        {
+            label: 'Shopping List',
+            icon: 'add',
+            onClick: 'updateShoppingList'
+        },
         {
             label: 'Update',
             icon: 'edit',

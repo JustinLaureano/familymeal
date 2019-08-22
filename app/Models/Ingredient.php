@@ -20,7 +20,8 @@ class Ingredient extends Model
                 'ingredient.ingredient_category_id',
                 'ingredient_category.name AS ingredient_category_name',
                 'ingredient.ingredient_subcategory_id',
-                'ingredient_subcategory.name AS ingredient_subcategory_name'
+                'ingredient_subcategory.name AS ingredient_subcategory_name',
+                'ingredient.created_user_id'
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
             ->leftJoin('ingredient_subcategory', 'ingredient.ingredient_subcategory_id', 'ingredient_subcategory.id')
@@ -40,7 +41,8 @@ class Ingredient extends Model
                 'ingredient.ingredient_category_id',
                 'ingredient_category.name AS ingredient_category_name',
                 'ingredient.ingredient_subcategory_id',
-                'ingredient_subcategory.name AS ingredient_subcategory_name'
+                'ingredient_subcategory.name AS ingredient_subcategory_name',
+                'ingredient.created_user_id'
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
             ->leftJoin('ingredient_subcategory', 'ingredient.ingredient_subcategory_id', 'ingredient_subcategory.id')
@@ -70,7 +72,8 @@ class Ingredient extends Model
                 'ingredient.ingredient_category_id',
                 'ingredient_category.name AS ingredient_category_name',
                 'ingredient.ingredient_subcategory_id',
-                'ingredient_subcategory.name AS ingredient_subcategory_name'
+                'ingredient_subcategory.name AS ingredient_subcategory_name',
+                'ingredient.created_user_id'
             )
             ->leftJoin('ingredient_category', 'ingredient.ingredient_category_id', 'ingredient_category.id')
             ->leftJoin('ingredient_subcategory', 'ingredient.ingredient_subcategory_id', 'ingredient_subcategory.id')

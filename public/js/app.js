@@ -65360,8 +65360,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
+/* harmony import */ var _TableCell__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableCell */ "./resources/js/components/table/TableCell.js");
+/* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65381,6 +65383,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -65458,6 +65462,11 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "updateShoppingList", function (e) {
+      var ingredient_id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+      console.log(ingredient_id);
+    });
+
     return _this;
   }
 
@@ -65483,66 +65492,63 @@ function (_React$Component) {
               id: "options_" + item.id,
               className: "table__options-modal"
             }, _this2.props.options.map(function (option) {
-              if (typeof option.route != 'undefined') {
-                return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
-                  key: "option_" + option.label + "_" + item.id,
-                  to: {
-                    pathname: option.route + item.id,
-                    state: {
-                      id: item.id
-                    }
-                  },
-                  className: "table__more-option"
-                }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                  className: "material-icons table__more-option-icon"
-                }, option.icon), option.label);
-              } else {
-                switch (option.onClick) {
-                  case 'favoriteRecipe':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                      key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.startFavoriteRecipe,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon "
-                    }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
+              switch (option.onClick) {
+                case 'favoriteRecipe':
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+                    key: "option_" + option.label + "_" + item.id,
+                    onClick: _this2.startFavoriteRecipe,
+                    className: "table__more-option"
+                  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+                    className: "material-icons table__more-option-icon "
+                  }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
-                  case 'updateRecipe':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                      key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.updateRecipe,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
+                case 'updateRecipe':
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    key: "option_" + option.label + "_" + item.id,
+                    id: item.id,
+                    option: option,
+                    onClick: _this2.updateRecipe
+                  });
 
-                  case 'deleteRecipe':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                      key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.startDeleteRecipe,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
+                case 'deleteRecipe':
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    key: "option_" + option.label + "_" + item.id,
+                    id: item.id,
+                    option: option,
+                    onClick: _this2.startDeleteRecipe
+                  });
 
-                  case 'updateIngredient':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-                      key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.updateIngredient,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
+                case 'updateShoppingList':
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    key: "option_" + option.label + "_" + item.id,
+                    id: item.id,
+                    option: option,
+                    onClick: _this2.updateShoppingList
+                  });
 
-                  case 'deleteIngredient':
-                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+                case 'updateIngredient':
+                  if (item.created_user_id != null) {
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
                       key: "option_" + option.label + "_" + item.id,
-                      onClick: _this2.startDeleteIngredient,
-                      className: "table__more-option"
-                    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-                      className: "material-icons table__more-option-icon"
-                    }, option.icon), option.label);
-                }
+                      id: item.id,
+                      option: option,
+                      onClick: _this2.updateIngredient
+                    });
+                  }
+
+                  break;
+
+                case 'deleteIngredient':
+                  if (item.created_user_id != null) {
+                    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                      key: "option_" + option.label + "_" + item.id,
+                      id: item.id,
+                      option: option,
+                      onClick: _this2.startDeleteIngredient
+                    });
+                  }
+
+                  break;
               }
             })));
           } else {
@@ -65559,16 +65565,13 @@ function (_React$Component) {
               }, item[header.column], item.favorite && item.favorite == 'true' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
                 className: "material-icons table-favorite-icon"
               }, "favorite"));
-            } else if (_this2.props.headers[index].type == 'date') {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-                key: index,
-                className: _this2.props.headers[index]["class"]
-              }, item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, ''));
             } else {
-              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+              var data = _this2.props.headers[index].type == 'date' ? item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, '') : item[header.column];
+              return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TableCell__WEBPACK_IMPORTED_MODULE_4__["default"], {
                 key: index,
-                className: _this2.props.headers[index]["class"]
-              }, item[header.column]);
+                "class": _this2.props.headers[index]["class"],
+                data: data
+              });
             }
           }
         }));
@@ -65582,18 +65585,76 @@ function (_React$Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     favoriteRecipe: function favoriteRecipe(id, favorite) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_6__["favoriteRecipe"])(id, favorite));
     },
     deleteRecipe: function deleteRecipe(id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["deleteRecipe"])(id));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_6__["deleteRecipe"])(id));
     },
     deleteIngredient: function deleteIngredient(id) {
-      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_5__["deleteIngredient"])(id));
+      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_7__["deleteIngredient"])(id));
     }
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(TableBody));
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableCell.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/table/TableCell.js ***!
+  \****************************************************/
+/*! exports provided: TableCell, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableCell", function() { return TableCell; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var TableCell =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TableCell, _React$Component);
+
+  function TableCell() {
+    _classCallCheck(this, TableCell);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TableCell).apply(this, arguments));
+  }
+
+  _createClass(TableCell, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        key: this.props.index,
+        className: this.props["class"]
+      }, this.props.data);
+    }
+  }]);
+
+  return TableCell;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (TableCell);
 
 /***/ }),
 
@@ -65920,6 +65981,69 @@ function (_React$Component) {
   return TableHeader;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 /* harmony default export */ __webpack_exports__["default"] = (TableHeader);
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableOption.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/table/TableOption.js ***!
+  \******************************************************/
+/*! exports provided: TableOption, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableOption", function() { return TableOption; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var TableOption =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TableOption, _React$Component);
+
+  function TableOption() {
+    _classCallCheck(this, TableOption);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(TableOption).apply(this, arguments));
+  }
+
+  _createClass(TableOption, [{
+    key: "render",
+    value: function render() {
+      var option = this.props.option;
+      var id = this.props.id;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: "option_" + option.label + "_" + id,
+        onClick: this.props.onClick,
+        className: "table__more-option"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons table__more-option-icon"
+      }, option.icon), option.conditional ? option.conditional : option.label);
+    }
+  }]);
+
+  return TableOption;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (TableOption);
 
 /***/ }),
 
@@ -67160,13 +67284,11 @@ function getRecipeTableHeaders() {
     label: 'Category',
     column: 'recipe_category',
     type: 'text',
-    // route: 'category/',
     "class": 'table__inactive'
   }, {
     label: 'Cuisine',
     column: 'cuisine_type',
     type: 'text',
-    // route: 'cuisine-types/',
     "class": 'table__inactive'
   }, {
     label: 'Created At',
@@ -67212,6 +67334,10 @@ function getIngredientTableHeaders() {
 }
 function getIngredientTableOptions() {
   return [{
+    label: 'Shopping List',
+    icon: 'add',
+    onClick: 'updateShoppingList'
+  }, {
     label: 'Update',
     icon: 'edit',
     onClick: 'updateIngredient'
@@ -68556,7 +68682,7 @@ function (_React$Component) {
       if (this.props.location.pathname === '/ingredients/create') {
         this.setState(function () {
           return {
-            newRecipe: true
+            newIngredient: true
           };
         });
       }

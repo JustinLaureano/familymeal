@@ -18,7 +18,7 @@ export class ViewIngredientPage extends React.Component {
 	};
 	componentWillMount() {
 		if (this.props.location.pathname === '/ingredients/create') {
-			this.setState(() => ({ newRecipe: true }));
+			this.setState(() => ({ newIngredient: true }));
 		}
 
 		this.setState(() => ({ loading: true }));

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { history } from '../../routers/AppRouter';
 import { Link } from 'react-router-dom';
+import TableCell from './TableCell';
+import TableOption from '../../components/table/TableOption';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
 import { deleteIngredient } from '../../actions/ingredients';
 
@@ -35,7 +37,7 @@ export class TableBody extends React.Component {
 
         history.push({
             pathname: '/recipes/' + id,
-            state: { id: id, editMode: true }
+            state: { id, editMode: true }
         });
     }
 
@@ -46,6 +48,11 @@ export class TableBody extends React.Component {
             pathname: '/ingredients/' + id,
             state: { id: id, editMode: true }
         });
+    }
+
+    updateShoppingList = (e) => {
+        const ingredient_id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+        console.log(ingredient_id);
     }
     
 	render() {
@@ -68,81 +75,69 @@ export class TableBody extends React.Component {
                                                 className="table__options-modal">
 
                                                 { this.props.options.map((option) => {
-                                                    if (typeof option.route != 'undefined') {
-                                                        return (
-                                                            <Link
-                                                                key={ "option_" + option.label + "_" + item.id }
-                                                                to={{
-                                                                    pathname: option.route + item.id,
-                                                                    state: {
-                                                                      id: item.id
+                                                    switch(option.onClick) {
+                                                        case 'favoriteRecipe':
+                                                            return (
+                                                                <div
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    onClick={ this.startFavoriteRecipe }
+                                                                    className="table__more-option">
+                                                                    <i className="material-icons table__more-option-icon ">
+                                                                        { option.icon }
+                                                                    </i>
+                                                                    { 
+                                                                        this.props.model == 'favorite-recipes' ||
+                                                                        item.favorite == 'true' ? 
+                                                                            'Remove Favorite' : 'Make Favorite'
                                                                     }
-                                                                }}
-                                                                className="table__more-option">
-                                                                <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                { option.label }
-                                                            </Link>
-                                                        )
-                                                    }
-                                                    else {
-                                                        switch(option.onClick) {
-                                                            case 'favoriteRecipe':
+                                                                </div>
+                                                            )
+                                                        case 'updateRecipe':
+                                                            return (
+                                                                <TableOption
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    id={ item.id }
+                                                                    option={ option }
+                                                                    onClick={ this.updateRecipe } />
+                                                            )
+                                                        case 'deleteRecipe':
+                                                            return (
+                                                                <TableOption
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    id={ item.id }
+                                                                    option={ option }
+                                                                    onClick={ this.startDeleteRecipe } />
+                                                            )
+                                                        case 'updateShoppingList':
+                                                            return (
+                                                                <TableOption
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    id={ item.id }
+                                                                    option={ option }
+                                                                    onClick={ this.updateShoppingList } />
+                                                            )
+                                                        case 'updateIngredient':
+                                                            if (item.created_user_id != null) {
                                                                 return (
-                                                                    <div
+                                                                    <TableOption
                                                                         key={"option_" + option.label + "_" + item.id}
-                                                                        onClick={ this.startFavoriteRecipe }
-                                                                        className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon ">
-                                                                            { option.icon }
-                                                                        </i>
-                                                                        { 
-                                                                            this.props.model == 'favorite-recipes' ||
-                                                                            item.favorite == 'true' ? 
-                                                                                'Remove Favorite' : 'Make Favorite'
-                                                                        }
-                                                                    </div>
+                                                                        id={ item.id }
+                                                                        option={ option }
+                                                                        onClick={ this.updateIngredient } />
                                                                 )
-                                                            case 'updateRecipe':
+                                                            }
+                                                            break;
+                                                        case 'deleteIngredient':
+                                                            if (item.created_user_id != null) {
                                                                 return (
-                                                                    <div
+                                                                    <TableOption
                                                                         key={"option_" + option.label + "_" + item.id}
-                                                                        onClick={ this.updateRecipe }
-                                                                        className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                        { option.label }
-                                                                    </div>
+                                                                        id={ item.id }
+                                                                        option={ option }
+                                                                        onClick={ this.startDeleteIngredient } />
                                                                 )
-                                                            case 'deleteRecipe':
-                                                                return (
-                                                                    <div
-                                                                        key={"option_" + option.label + "_" + item.id}
-                                                                        onClick={ this.startDeleteRecipe }
-                                                                        className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                        { option.label }
-                                                                    </div>
-                                                                )
-                                                            case 'updateIngredient':
-                                                                return (
-                                                                    <div
-                                                                        key={"option_" + option.label + "_" + item.id}
-                                                                        onClick={ this.updateIngredient }
-                                                                        className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                        { option.label }
-                                                                    </div>
-                                                                )
-                                                            case 'deleteIngredient':
-                                                                return (
-                                                                    <div
-                                                                        key={"option_" + option.label + "_" + item.id}
-                                                                        onClick={ this.startDeleteIngredient }
-                                                                        className="table__more-option">
-                                                                        <i className="material-icons table__more-option-icon">{ option.icon }</i>
-                                                                        { option.label }
-                                                                    </div>
-                                                                )
-                                                        }
+                                                            }
+                                                            break;
                                                     }
                                                 })}
                                             </div>
@@ -170,23 +165,17 @@ export class TableBody extends React.Component {
                                             </Link>
                                         );
                                     }
-                                    else if (this.props.headers[index].type == 'date') {
-                                        return (
-                                            <p
-                                                key={ index }
-                                                className={ this.props.headers[index].class }>
-                                                { item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, '') }
-                                            </p>
-                                        );
-                                    }
                                     else {
+                                        const data = this.props.headers[index].type == 'date' ?
+                                            item[header.column].replace(/\s?\d{2}:\d{2}:\d{2}/, '') :
+                                            item[header.column];
+
                                         return (
-                                            <p
-                                                key={ index }
-                                                className={ this.props.headers[index].class }>
-                                                { item[header.column] }
-                                            </p>
-                                        );
+                                            <TableCell 
+                                                key={ index } 
+                                                class={ this.props.headers[index].class }
+                                                data={ data } />
+                                        )
                                     }
                                 }
                             })
