@@ -31,8 +31,8 @@ class ShoppingList extends Model
                     'ingredient_id',
                     'ingredient.name AS ingredient_name'
                 )
-                ->leftJoin('ingredient', 'shopping_list_item.ingredient_id', 'ingredient.id')
-                ->where('shopping_list.user_id', $user_id)
+                ->leftJoin('ingredient', 'shopping_list_items.ingredient_id', 'ingredient.id')
+                ->where('shopping_list_items.shopping_list_id', $list->id)
                 ->get();
 
             $list->items = $items;
