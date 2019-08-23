@@ -21,13 +21,13 @@ class ShoppingListItemsTableSeeder extends Seeder
                 ->take(rand(2, 15))
                 ->get();
 
-            foreach ($ingredients as $ingredient) {
+            for ($i = 0; $i < count($ingredients); $i++) {
                 factory(ShoppingListItems::class)->create([
                     'shopping_list_id' => $shopping_list->id,
-                    'ingredient_id' => $ingredient->id
+                    'order' => $i + 1,
+                    'ingredient_id' => $ingredients[$i]->id
                 ]);
             }
         }
-
     }
 }

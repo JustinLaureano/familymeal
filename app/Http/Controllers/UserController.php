@@ -9,6 +9,7 @@ use App\Models\IngredientSubcategory;
 use App\Models\MeasurementUnits;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
+use App\Models\ShoppingList;
 use App\Models\User;
 use App\Models\UserSettings;
 use Illuminate\Http\Request;
@@ -47,6 +48,8 @@ class UserController extends Controller
             'take' => $user_settings->table_result_limit,
             'offset' => 0,
         ]);
+        
+        $shopping_lists = ShoppingList::getUserShoppingLists($id);
 
         $data = [
             'cuisine_types' => $cuisine_types,
@@ -58,6 +61,7 @@ class UserController extends Controller
             'recipes' => $recipes,
             'recipe_categories' => $recipe_categories,
             'recipe_total' => Recipe::where('user_id', $id)->where('deleted_at', Null)->count(),
+            'shopping_lists' => $shopping_lists,
             'user' => User::where('id', $id)->first(),
             'user_settings' => $user_settings,
         ];

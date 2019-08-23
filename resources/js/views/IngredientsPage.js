@@ -51,7 +51,8 @@ export class IngredientsPage extends React.Component {
 			className: 'table__row--ingredient',
 			model: 'ingredient',
 			options: this.state.options,
-			total: this.props.ingredientTotal
+			total: this.props.ingredientTotal,
+			
 		};
 		const pageHeaderProps = {
 			title: 'Ingredients',

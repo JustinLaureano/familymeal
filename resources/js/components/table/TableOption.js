@@ -11,6 +11,7 @@ export class TableOption extends React.Component {
                 className="table__more-option">
                 <i className="material-icons table__more-option-icon">{ option.icon }</i>
                 { option.conditional ? option.conditional : option.label }
+                <div></div>
             </div>
         )
 	}

@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(ShoppingListItems::class, function (Faker $faker) {
     return [
-        'shopping_list_id' => 1
+        'shopping_list_id' => 1,
+        'order' => 1
     ];
 });

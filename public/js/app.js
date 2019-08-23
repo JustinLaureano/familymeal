@@ -57994,6 +57994,10 @@ var init = function init(token, csrf_token, user_id) {
         type: 'SET_INGREDIENT_TOTAL',
         ingredientTotal: data.ingredient_total
       });
+      dispatch({
+        type: 'SET_SHOPPING_LISTS',
+        shopping_lists: data.shopping_lists
+      });
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -66038,7 +66042,7 @@ function (_React$Component) {
         className: "table__more-option"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons table__more-option-icon"
-      }, option.icon), option.conditional ? option.conditional : option.label);
+      }, option.icon), option.conditional ? option.conditional : option.label, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
     }
   }]);
 
@@ -66668,6 +66672,31 @@ var recipeReducerDefaultState = [];
       return state.filter(function (recipe) {
         return recipe.id != action.id;
       });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/reducers/shoppingList.js":
+/*!***********************************************!*\
+  !*** ./resources/js/reducers/shoppingList.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var shoppingListReducerDefaultState = [];
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : shoppingListReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_SHOPPING_LISTS':
+      return action.shopping_lists;
 
     default:
       return state;
@@ -67394,10 +67423,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_measurement_units__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../reducers/measurement_units */ "./resources/js/reducers/measurement_units.js");
 /* harmony import */ var _reducers_recipes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../reducers/recipes */ "./resources/js/reducers/recipes.js");
 /* harmony import */ var _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../reducers/recipe_categories */ "./resources/js/reducers/recipe_categories.js");
-/* harmony import */ var _reducers_toast__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/toast */ "./resources/js/reducers/toast.js");
-/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
-/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+/* harmony import */ var _reducers_shoppingList__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/shoppingList */ "./resources/js/reducers/shoppingList.js");
+/* harmony import */ var _reducers_toast__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../reducers/toast */ "./resources/js/reducers/toast.js");
+/* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
 
 
 
@@ -67427,10 +67458,11 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
     recipes: _reducers_recipes__WEBPACK_IMPORTED_MODULE_10__["default"],
     favorite_recipes: _reducers_favorite_recipes__WEBPACK_IMPORTED_MODULE_4__["default"],
     recipe_categories: _reducers_recipe_categories__WEBPACK_IMPORTED_MODULE_11__["default"],
-    toast: _reducers_toast__WEBPACK_IMPORTED_MODULE_12__["default"],
-    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_13__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_14__["default"],
-    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_15__["default"]
+    shopping_lists: _reducers_shoppingList__WEBPACK_IMPORTED_MODULE_12__["default"],
+    toast: _reducers_toast__WEBPACK_IMPORTED_MODULE_13__["default"],
+    totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_14__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_15__["default"],
+    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_16__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });

@@ -10,6 +10,7 @@ import ingredientSubcategoriesReducer from '../reducers/ingredient_subcategories
 import measurementUnitsReducer from '../reducers/measurement_units';
 import recipesReducer from '../reducers/recipes';
 import recipeCategoriesReducer from '../reducers/recipe_categories';
+import shoppingListReducer from '../reducers/shoppingList';
 import toastReducer from '../reducers/toast';
 import totalsReducer from '../reducers/totals';
 import userReducer from '../reducers/user';
@@ -30,6 +31,7 @@ export default () => {
 			recipes: recipesReducer,
 			favorite_recipes: favoriteRecipesReducer,
 			recipe_categories: recipeCategoriesReducer,
+			shopping_lists: shoppingListReducer,
 			toast: toastReducer,
 			totals: totalsReducer,
 			user: userReducer,
