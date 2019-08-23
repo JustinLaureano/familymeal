@@ -92,3 +92,10 @@ export function getIngredientTableOptions() {
         },
     ]
 }
+
+export function getShoppingListOptions(shopping_lists) {
+    return shopping_lists.reduce((array, list) => {
+        array.push({ id: list.id, label: list.name });
+        return array;
+    }, []);
+}

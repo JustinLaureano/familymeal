@@ -1405,7 +1405,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
           flex-direction: column;
 }
 
-.table__more-option {
+.table__more-option, .table__more-option--cascade {
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
@@ -1415,7 +1415,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   padding: 0.4em;
   width: 100%;
 }
-.table__more-option:hover {
+.table__more-option:hover, .table__more-option--cascade:hover {
   background-color: #5b677430;
   cursor: pointer;
 }
@@ -1423,6 +1423,49 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 .table__more-option-icon {
   font-size: 1em;
   margin-right: calc(0.5 * 1em);
+}
+
+.table__more-option--cascade {
+  padding: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+.table__more-option-icon-box {
+  padding: 0.4em 0;
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+  margin-left: 0.4em;
+  padding-left: 0.4em;
+}
+
+.table__more-option-dropdown {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  width: 100%;
+}
+
+.table__more-options-cascade-btn, .table__more-options-cascade-btn--open {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  padding-left: 0.4em;
+  width: 100%;
+}
+
+.table__more-options-cascade-btn--open {
+  border-bottom: 1px solid #363636;
+}
+
+.table__more-dropdown-option {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: baseline;
+          align-items: baseline;
 }
 
 .table__inactive {

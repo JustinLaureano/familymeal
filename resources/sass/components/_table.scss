@@ -126,6 +126,44 @@
     margin-right: $space-xs;
 }
 
+.table__more-option--cascade {
+    @extend .table__more-option;
+    @include pad(0);
+    flex-direction: column;
+}
+
+.table__more-option-icon-box {
+    padding: .4em 0;
+    border-left: 1px solid rgba(0, 0, 0, .15);
+    margin-left: 0.4em;
+    padding-left: .4em;
+}
+
+.table__more-option-dropdown {
+    @include flex-column;
+    width: 100%;
+}
+
+.table__more-options-cascade-btn {
+    @include flex-align-center;
+    padding-left: .4em;
+    width: 100%;
+}
+
+.table__more-options-cascade-label {
+    // padding: .4em 0;
+}
+
+.table__more-options-cascade-btn--open {
+    @extend .table__more-options-cascade-btn;
+    @include border-bottom;
+}
+
+.table__more-dropdown-option {
+    display: flex;
+    align-items: baseline;
+}
+
 .table__inactive {
     font-size: .9em;
 }

@@ -14,8 +14,9 @@ export class ShoppingListPage extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-};
+const mapStateToProps = (state) => ({
+	shopping_lists: state.shopping_lists
+});
   
 const mapDispatchToProps = (dispatch, props) => ({
 });

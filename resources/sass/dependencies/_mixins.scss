@@ -46,6 +46,10 @@
 	border-radius: $radius;
 }
 
+@mixin border-bottom($color: $gray-dark) {
+	border-bottom: 1px solid $color;
+}
+
 @mixin h1-font {
 	color: $black;
     font-family: 'Barlow Semi Condensed', Helvetica, Arial, sans-serif;

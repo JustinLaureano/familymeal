@@ -65366,8 +65366,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _TableCell__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableCell */ "./resources/js/components/table/TableCell.js");
 /* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
+/* harmony import */ var _components_table_TableCascadeOption__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/table/TableCascadeOption */ "./resources/js/components/table/TableCascadeOption.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
+/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../services/Table */ "./resources/js/services/Table.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65387,6 +65389,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -65521,6 +65525,13 @@ function (_React$Component) {
 
                 case 'updateShoppingList':
                   onClick = _this2.updateShoppingList;
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableCascadeOption__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                    key: "option_" + option.label + "_" + item.id,
+                    id: item.id,
+                    option: option,
+                    onClick: _this2.updateShoopingList,
+                    dropdownOptions: _this2.props.shopping_lists
+                  });
                   break;
 
                 case 'updateIngredient':
@@ -65587,21 +65598,124 @@ function (_React$Component) {
   return TableBody;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    shopping_lists: Object(_services_Table__WEBPACK_IMPORTED_MODULE_9__["getShoppingListOptions"])(state.shopping_lists)
+  };
+};
+
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     favoriteRecipe: function favoriteRecipe(id, favorite) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_6__["favoriteRecipe"])(id, favorite));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_7__["favoriteRecipe"])(id, favorite));
     },
     deleteRecipe: function deleteRecipe(id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_6__["deleteRecipe"])(id));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_7__["deleteRecipe"])(id));
     },
     deleteIngredient: function deleteIngredient(id) {
-      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_7__["deleteIngredient"])(id));
+      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_8__["deleteIngredient"])(id));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(TableBody));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(TableBody));
+
+/***/ }),
+
+/***/ "./resources/js/components/table/TableCascadeOption.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/table/TableCascadeOption.js ***!
+  \*************************************************************/
+/*! exports provided: TableCascadeOption, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TableCascadeOption", function() { return TableCascadeOption; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+var TableCascadeOption =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(TableCascadeOption, _React$Component);
+
+  function TableCascadeOption(props) {
+    var _this;
+
+    _classCallCheck(this, TableCascadeOption);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TableCascadeOption).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "toggleDropdown", function () {
+      _this.setState(function () {
+        return {
+          dropdownOpen: !_this.state.dropdownOpen
+        };
+      });
+    });
+
+    _this.state = {
+      dropdownOpen: false
+    };
+    return _this;
+  }
+
+  _createClass(TableCascadeOption, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var option = this.props.option;
+      var id = this.props.id;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        key: "option_" + option.label + "_" + id,
+        className: "table__more-option--cascade"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table__more-options-cascade-btn" + (this.state.dropdownOpen ? '--open' : '')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons table__more-option-icon"
+      }, option.icon), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, option.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table__more-option-icon-box",
+        onClick: this.toggleDropdown
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons table__more-option-icon"
+      }, this.state.dropdownOpen ? "arrow_drop_up" : "arrow_drop_down"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table__more-option-dropdown" + (this.state.dropdownOpen ? '' : ' display--none')
+      }, this.props.dropdownOptions.map(function (option) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: "dropdown-option_" + id + '_' + option.id,
+          id: "dropdown-option_" + option.id,
+          className: "table__more-dropdown-option",
+          onClick: _this2.props.onClick
+        }, option.label);
+      })));
+    }
+  }]);
+
+  return TableCascadeOption;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (TableCascadeOption);
 
 /***/ }),
 
@@ -66042,7 +66156,7 @@ function (_React$Component) {
         className: "table__more-option"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons table__more-option-icon"
-      }, option.icon), option.conditional ? option.conditional : option.label, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null));
+      }, option.icon), option.conditional ? option.conditional : option.label);
     }
   }]);
 
@@ -67294,7 +67408,7 @@ function getNewRecipe(currentRecipe) {
 /*!****************************************!*\
   !*** ./resources/js/services/Table.js ***!
   \****************************************/
-/*! exports provided: getRecipeTableHeaders, getRecipeTableOptions, getIngredientTableHeaders, getIngredientTableOptions */
+/*! exports provided: getRecipeTableHeaders, getRecipeTableOptions, getIngredientTableHeaders, getIngredientTableOptions, getShoppingListOptions */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -67303,6 +67417,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getRecipeTableOptions", function() { return getRecipeTableOptions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIngredientTableHeaders", function() { return getIngredientTableHeaders; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getIngredientTableOptions", function() { return getIngredientTableOptions; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getShoppingListOptions", function() { return getShoppingListOptions; });
 function getRecipeTableHeaders() {
   return [{
     label: 'Name',
@@ -67376,6 +67491,15 @@ function getIngredientTableOptions() {
     icon: 'delete',
     onClick: 'deleteIngredient'
   }];
+}
+function getShoppingListOptions(shopping_lists) {
+  return shopping_lists.reduce(function (array, list) {
+    array.push({
+      id: list.id,
+      label: list.name
+    });
+    return array;
+  }, []);
 }
 
 /***/ }),
@@ -68492,7 +68616,9 @@ function (_React$Component) {
   return RecipeBookPage;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
+var mapStateToProps = function mapStateToProps(state) {
+  return {};
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {};
@@ -68636,7 +68762,11 @@ function (_React$Component) {
   return ShoppingListPage;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-var mapStateToProps = function mapStateToProps(state) {};
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    shopping_lists: state.shopping_lists
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {};

@@ -4,8 +4,10 @@ import { history } from '../../routers/AppRouter';
 import { Link } from 'react-router-dom';
 import TableCell from './TableCell';
 import TableOption from '../../components/table/TableOption';
+import TableCascadeOption from '../../components/table/TableCascadeOption';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
 import { deleteIngredient } from '../../actions/ingredients';
+import { getShoppingListOptions } from '../../services/Table';
 
 export class TableBody extends React.Component {
     startDeleteRecipe = (e) => {
@@ -100,6 +102,14 @@ export class TableBody extends React.Component {
                                                             break;
                                                         case 'updateShoppingList':
                                                             onClick = this.updateShoppingList;
+                                                            return (
+                                                                <TableCascadeOption
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    id={ item.id }
+                                                                    option={ option }
+                                                                    onClick={ this.updateShoopingList }
+                                                                    dropdownOptions={ this.props.shopping_lists } />
+                                                            )
                                                             break;
                                                         case 'updateIngredient':
                                                             if (item.created_user_id) {
@@ -182,10 +192,14 @@ export class TableBody extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+	shopping_lists: getShoppingListOptions(state.shopping_lists)
+});
+
 const mapDispatchToProps = (dispatch, props) => ({
 	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
 	deleteRecipe: (id) => dispatch(deleteRecipe(id)),
 	deleteIngredient: (id) => dispatch(deleteIngredient(id))
 });
   
-export default connect(undefined, mapDispatchToProps)(TableBody);
+export default connect(mapStateToProps, mapDispatchToProps)(TableBody);
