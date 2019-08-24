@@ -602,9 +602,53 @@ a:hover {
 }
 
 .lists {
+  -webkit-box-align: baseline;
+          align-items: baseline;
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
+}
+
+.list__area {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  padding: calc(1.25 * 1em);
+  width: 33.333%;
+}
+@media (max-width: 599px) {
+  .list__area {
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  .list__area {
+    width: 25%;
+  }
+}
+
+.list {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+  width: 100%;
+}
+
+.list__header {
+  padding: calc(1.25 * 1em) calc(0.75 * 1em) calc(0.75 * 1em) calc(0.75 * 1em);
+}
+
+.list__body {
+  padding: calc(0.75 * 1em);
+}
+
+.list__footer {
+  padding: calc(0.75 * 1em);
 }
 
 .photo, .photo--circle {
@@ -759,7 +803,7 @@ a:hover {
   bottom: 2px;
 }
 
-.btn, .btn--minimal, .btn--table, .btn--table-active, .btn--primary, .btn--text {
+.btn, .btn--minimal, .btn--table, .btn--table-active, .btn--secondary, .btn--primary, .btn--text {
   padding: calc(0.375 * 1em);
   border: 1px solid #363636;
   border-radius: 3px;
@@ -768,7 +812,7 @@ a:hover {
   background-color: #fffeff;
   font-size: 1em;
 }
-.btn:hover, .btn--minimal:hover, .btn--table:hover, .btn--table-active:hover, .btn--primary:hover, .btn--text:hover {
+.btn:hover, .btn--minimal:hover, .btn--table:hover, .btn--table-active:hover, .btn--secondary:hover, .btn--primary:hover, .btn--text:hover {
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
 }
 
@@ -788,6 +832,8 @@ a:hover {
   display: flex;
   -webkit-box-align: center;
           align-items: center;
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   background-color: #385e83;
   border: none;
   border-radius: 3px;
@@ -797,6 +843,28 @@ a:hover {
   min-width: max-content;
 }
 .btn--primary:hover {
+  background-color: #fffeff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  color: #385e83;
+}
+
+.btn--secondary {
+  padding: calc(0.375 * 1em) calc(0.75 * 1em);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  background-color: #4f5d6a07;
+  border: none;
+  border-radius: 3px;
+  color: #424242;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+.btn--secondary:hover {
   background-color: #fffeff;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   color: #385e83;

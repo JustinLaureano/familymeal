@@ -19,8 +19,7 @@ class ShoppingListTableSeeder extends Seeder
         DB::statement('ALTER TABLE shopping_list AUTO_INCREMENT = 1');
 
         foreach ($users as $user) {
-            $num_of_lists = rand(1, 4);
-            for ($i = 0; $i < $num_of_lists; $i++) {
+            for ($i = 0; $i < 2; $i++) {
                 factory(ShoppingList::class)->create([
                     'user_id' => $user->id
                 ]);

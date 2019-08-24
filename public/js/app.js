@@ -59878,6 +59878,75 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 
 /***/ }),
 
+/***/ "./resources/js/components/card/AddShoppingListCard.js":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/card/AddShoppingListCard.js ***!
+  \*************************************************************/
+/*! exports provided: ShoppingListCard, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingListCard", function() { return ShoppingListCard; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+var ShoppingListCard =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ShoppingListCard, _React$Component);
+
+  function ShoppingListCard() {
+    _classCallCheck(this, ShoppingListCard);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).apply(this, arguments));
+  }
+
+  _createClass(ShoppingListCard, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "list__area"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "shopping-list_" + this.props.id,
+        className: "list"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__add-area"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "list__add-text"
+      }, "Create a new Shopping List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.props.onAddNewShoppingList,
+        className: "btn--secondary"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons"
+      }, "add"), "Create"))));
+    }
+  }]);
+
+  return ShoppingListCard;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+/* harmony default export */ __webpack_exports__["default"] = (ShoppingListCard);
+
+/***/ }),
+
 /***/ "./resources/js/components/card/CategoryCard.js":
 /*!******************************************************!*\
   !*** ./resources/js/components/card/CategoryCard.js ***!
@@ -59998,23 +60067,55 @@ var ShoppingListCard =
 function (_React$Component) {
   _inherits(ShoppingListCard, _React$Component);
 
-  function ShoppingListCard() {
+  function ShoppingListCard(props) {
+    var _this;
+
     _classCallCheck(this, ShoppingListCard);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(ShoppingListCard, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
+        this.setState({
+          loading: false
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
+        this.setState({
+          loading: false
+        });
+      }
+    }
+  }, {
     key: "componentWillMount",
-    value: function componentWillMount() {
-      console.log(this);
+    value: function componentWillMount() {// console.log(this);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this2 = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      return this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "list__area"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "shopping-list_" + this.props.id,
+        className: "list"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "loading__circle"
+      })))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "list__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "shopping-list_" + this.props.id,
@@ -60025,8 +60126,8 @@ function (_React$Component) {
         className: "list__body"
       }, this.props.items.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: "shopping_list_" + _this.props.id + "_item_" + item.id,
-          id: "shopping_list_" + _this.props.id + "_item_" + item.id
+          key: "shopping_list_" + _this2.props.id + "_item_" + item.id,
+          id: "shopping_list_" + _this2.props.id + "_item_" + item.id
         }, item.ingredient_name);
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
@@ -68901,7 +69002,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/PageHeader */ "./resources/js/components/PageHeader.js");
 /* harmony import */ var _components_PageLoad__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PageLoad */ "./resources/js/components/PageLoad.js");
-/* harmony import */ var _components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/card/ShoppingListCard.js */ "./resources/js/components/card/ShoppingListCard.js");
+/* harmony import */ var _components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/card/AddShoppingListCard.js */ "./resources/js/components/card/AddShoppingListCard.js");
+/* harmony import */ var _components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/card/ShoppingListCard.js */ "./resources/js/components/card/ShoppingListCard.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -68930,6 +69032,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var ShoppingListPage =
 /*#__PURE__*/
 function (_React$Component) {
@@ -68944,6 +69047,10 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onShoppingListChange", function (list) {
       console.log(list);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onAddShoppingList", function () {
+      console.log('add');
     });
 
     _this.state = {
@@ -68997,11 +69104,13 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "lists"
         }, this.state.lists.map(function (list, index) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({
             key: "shopping-list_" + index,
             index: index,
             onChange: _this2.onShoppingListChange
           }, list));
+        }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          onAddNewShoppingList: this.onAddShoppingList
         })));
       }
     }
@@ -69012,7 +69121,8 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    shopping_lists: state.shopping_lists
+    shopping_lists: state.shopping_lists,
+    shopping_list_limit: state.user_settings.shopping_list_limit
   };
 };
 

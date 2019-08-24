@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(UserSettings::class, function (Faker $faker) {
     return [
-        'user_id' => 1
+        'user_id' => 1,
+        'shopping_list_limit' => 3
     ];
 });

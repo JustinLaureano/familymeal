@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
+import AddShoppingListCard from '../components/card/AddShoppingListCard.js';
 import ShoppingListCard from '../components/card/ShoppingListCard.js';
 
 export class ShoppingListPage extends React.Component {
@@ -37,6 +38,10 @@ export class ShoppingListPage extends React.Component {
 		console.log(list);
 	}
 
+	onAddShoppingList = () => {
+		console.log('add');
+	}
+
 	render() {
 		const pageHeaderProps = {
 			title: 'Shopping List',
@@ -68,6 +73,10 @@ export class ShoppingListPage extends React.Component {
 							)
 						})
 					}
+					{
+						this.state.lists.length < this.props.shopping_list_limit &&
+						<AddShoppingListCard onAddNewShoppingList={ this.onAddShoppingList } />
+					}
 					</section>
 				</section>
 			)
@@ -76,7 +85,8 @@ export class ShoppingListPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	shopping_lists: state.shopping_lists
+	shopping_lists: state.shopping_lists,
+	shopping_list_limit: state.user_settings.shopping_list_limit
 });
   
 const mapDispatchToProps = (dispatch, props) => ({

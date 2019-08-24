@@ -1,4 +1,37 @@
 .lists {
+    align-items: baseline;
     display: flex;
     flex-wrap: wrap;
+}
+
+.list__area {
+    @include flex-center;
+    @include pad($space-md);
+
+    @include for-phone-only {
+        width: 100%;
+    }
+
+    @include for-desktop-up {
+        width: 25%;
+    }
+    width: 33.333%;
+}
+
+.list {
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+    border-radius: 3px;
+    width: 100%;
+}
+
+.list__header {
+    padding: $space-md $space-sm $space-sm $space-sm;
+}
+
+.list__body {
+    @include pad($space-sm);
+}
+
+.list__footer {
+    @include pad($space-sm);
 }

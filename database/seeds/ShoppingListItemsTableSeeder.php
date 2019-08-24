@@ -18,7 +18,7 @@ class ShoppingListItemsTableSeeder extends Seeder
 
         foreach ($shopping_lists as $shopping_list) {
             $ingredients = Ingredient::orderByRaw('RAND()')
-                ->take(rand(2, 15))
+                ->take(rand(3, 15))
                 ->get();
 
             for ($i = 0; $i < count($ingredients); $i++) {

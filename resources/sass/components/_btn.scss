@@ -24,10 +24,28 @@
     @extend .btn;
     @include pad($space-xxs, $space-sm);
     @include flex-align-center;
+    @include transition;
     background-color: $weathered-blue;
     border: none;
     border-radius: 3px;
     color: $white;
+    min-width: max-content;
+    &:hover {
+        background-color: $white;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+        color: $weathered-blue;
+    }
+}
+
+.btn--secondary {
+    @extend .btn;
+    @include pad($space-xxs, $space-sm);
+    @include flex-align-center;
+    @include transition;
+    background-color: $weathered-blue-light;
+    border: none;
+    border-radius: 3px;
+    color: $gray-medium;
     min-width: max-content;
     &:hover {
         background-color: $white;
