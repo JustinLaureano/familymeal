@@ -8,14 +8,28 @@ export class TableFooter extends React.Component {
         super(props);
         this.state = {
 			page: 1,
-            totalPages: 0
+            totalPages: 0,
+            currentTotal: 0
         };
     };
 
+    componentDidMount() {
+        this.setState(() => ({ currentTotal: this.props.total }));
+    }
+
     componentDidUpdate() {
-		if (this.state.totalPages == 0 && !isNaN(this.props.total)) {
-			this.setState(() => ({ totalPages: Math.ceil(this.props.total / this.props.settings.table_result_limit) }));
-		}
+        console.log(this);
+        if (
+            (this.state.currentTotal != this.props.total) ||
+            (this.state.totalPages == 0 && !isNaN(this.props.total))
+        ) {
+            const page = this.state.currentTotal != this.props.total ? 1 : this.state.page;
+            this.setState(() => ({
+                totalPages: Math.ceil(this.props.total / this.props.settings.table_result_limit),
+                currentTotal: this.props.total,
+                page
+            }));
+        }
 	}
 
     pageFilter = (e) => {
@@ -33,8 +47,12 @@ export class TableFooter extends React.Component {
 
         // Special results for last page
         if (lastResult / filterLimit == this.state.totalPages) {
-            firstResult = parseInt(this.props.total) - (this.props.total % filterLimit);
-            lastResult = this.props.total;
+            firstResult = parseInt(this.state.currentTotal) - (this.state.currentTotal % filterLimit);
+            lastResult = this.state.currentTotal;
+        }
+
+        if (firstResult == 0) {
+            firstResult = 1;
         }
 
         // If no results loaded yet
@@ -76,7 +94,7 @@ export class TableFooter extends React.Component {
             <section className="table__footer">
                 <section className="table__pagination">
                     <section className="table__current-results">
-                        {this.currentResults()}
+                        { this.currentResults() }
                     </section>
                     <section className="table__pagination-nav">
                         {

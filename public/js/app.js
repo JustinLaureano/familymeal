@@ -65983,8 +65983,12 @@ function (_React$Component) {
       var lastResult = filterLimit * _this.state.page; // Special results for last page
 
       if (lastResult / filterLimit == _this.state.totalPages) {
-        firstResult = parseInt(_this.props.total) - _this.props.total % filterLimit;
-        lastResult = _this.props.total;
+        firstResult = parseInt(_this.state.currentTotal) - _this.state.currentTotal % filterLimit;
+        lastResult = _this.state.currentTotal;
+      }
+
+      if (firstResult == 0) {
+        firstResult = 1;
       } // If no results loaded yet
 
 
@@ -65994,20 +65998,37 @@ function (_React$Component) {
 
     _this.state = {
       page: 1,
-      totalPages: 0
+      totalPages: 0,
+      currentTotal: 0
     };
     return _this;
   }
 
   _createClass(TableFooter, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
+    key: "componentDidMount",
+    value: function componentDidMount() {
       var _this2 = this;
 
-      if (this.state.totalPages == 0 && !isNaN(this.props.total)) {
+      this.setState(function () {
+        return {
+          currentTotal: _this2.props.total
+        };
+      });
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this3 = this;
+
+      console.log(this);
+
+      if (this.state.currentTotal != this.props.total || this.state.totalPages == 0 && !isNaN(this.props.total)) {
+        var page = this.state.currentTotal != this.props.total ? 1 : this.state.page;
         this.setState(function () {
           return {
-            totalPages: Math.ceil(_this2.props.total / _this2.props.settings.table_result_limit)
+            totalPages: Math.ceil(_this3.props.total / _this3.props.settings.table_result_limit),
+            currentTotal: _this3.props.total,
+            page: page
           };
         });
       }
@@ -66015,7 +66036,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this4 = this;
 
       var currentPage = parseInt(this.state.page);
       var pageCount = [];
@@ -66068,7 +66089,7 @@ function (_React$Component) {
           key: "page_" + page,
           id: "page_" + page,
           className: "btn--table" + (page == currentPage ? '-active' : ''),
-          onClick: _this3.pageFilter
+          onClick: _this4.pageFilter
         }, page);
       }), paginationPos == 'start' && totalPages > 5 || paginationPos == 'middle' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         id: "page_" + (currentPage + 1),
