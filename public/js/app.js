@@ -60043,6 +60043,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -60051,13 +60059,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -60073,9 +60083,96 @@ function (_React$Component) {
     _classCallCheck(this, ShoppingListCard);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
+      document.body.style.cursor = 'move';
+      var dropPos = e.clientY;
+      var shoppingList = document.querySelectorAll('.list__list-item-row');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < shoppingList.length; i++) {
+        var top = shoppingList[i].getBoundingClientRect().top;
+        var height = shoppingList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof shoppingList[i + 1] == 'undefined' ? bottom : shoppingList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+          break;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == shoppingList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        _toConsumableArray(shoppingList).map(function (item, index) {
+          if (index == newIndex) {
+            item.style.marginTop = shoppingList[newIndex].getBoundingClientRect().height * .15 + 'px';
+            item.style.borderTop = '2px solid #505d6a';
+          } else {
+            item.style.marginTop = 0;
+            item.style.borderTop = 'none';
+            item.style.borderBottom = 'none';
+          }
+        });
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragEnd", function (e) {
+      document.body.style.cursor = 'auto';
+      var shoppingList = document.querySelectorAll('.list__list-item-row');
+
+      _toConsumableArray(shoppingList).map(function (item) {
+        item.style.marginTop = 0;
+        item.style.borderTop = 'none';
+        item.style.borderBottom = 'none';
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragOver", function (e) {
+      e.preventDefault();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
+      e.dataTransfer.setData('id', id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "removeListItem", function (e) {
+      var id = e.target.id.replace(/\D/g, '');
+
+      var filteredListItems = _this.props.items.filter(function (item) {
+        return item.id != id;
+      }); // this.props.removeCurrentRecipeIngredient(filteredIngredients);
+
+
+      _this.setState(function () {
+        return {
+          edited: true
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleListItemRemoveConfirm", function (e) {
+      var removeContainer = document.getElementById('item-remove_' + e.target.id.replace(/\D/g, ''));
+
+      if (removeContainer.classList.contains('display--none')) {
+        removeContainer.classList.remove('display--none');
+      } else {
+        removeContainer.classList.add('display--none');
+      }
+    });
+
     _this.state = {
-      loading: true
+      loading: true,
+      edited: false
     };
+    _this.newIdFloor = 900000;
+    _this.newIdCeiling = 999999;
     return _this;
   }
 
@@ -60096,10 +60193,6 @@ function (_React$Component) {
           loading: false
         });
       }
-    }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {// console.log(this);
     }
   }, {
     key: "render",
@@ -60123,12 +60216,52 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list__body"
+        className: "list__body",
+        onDragOver: this.onDragOver
       }, this.props.items.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          key: "shopping_list_" + _this2.props.id + "_item_" + item.id,
-          id: "shopping_list_" + _this2.props.id + "_item_" + item.id
-        }, item.ingredient_name);
+          key: "shopping-list-item_" + item.id,
+          id: "shopping-list-item_" + item.id,
+          className: "list__list-item-row",
+          draggable: true,
+          onDragStart: function onDragStart(e) {
+            return _this2.onDragStart(e, item.id);
+          },
+          onDrag: function onDrag(e) {
+            return _this2.onDrag(e, item.id);
+          },
+          onDragEnd: _this2.onDragEnd,
+          onDrop: _this2.onDrop
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "material-icons drag-icon"
+        }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          to: {
+            pathname: "/ingredients/" + item.ingredient_id,
+            state: {
+              id: item.ingredient_id
+            }
+          },
+          className: "list__item-link"
+        }, item.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "list__item-remove"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          id: "remove_" + item.id,
+          className: "material-icons remove-icon",
+          onClick: _this2.toggleListItemRemoveConfirm
+        }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          id: "list-item-remove_" + iitem.id,
+          className: "list__item-confirmation confirmation display--none"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "confirmation__label"
+        }, "Remove Ingredient?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          id: "list-item-remove-btn_" + item.id,
+          className: "btn--confirmation-confirm",
+          onClick: _this2.removeListItem
+        }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          id: "confirmation-cancel-btn_" + item.id,
+          className: "btn--confirmation",
+          onClick: _this2.toggleListItemRemoveConfirm
+        }, "Cancel"))));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
       })));
