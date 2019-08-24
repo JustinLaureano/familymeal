@@ -89,12 +89,14 @@
     font-size: 18px;
     justify-self: center;
     opacity: $icon-opacity;
+
     &:hover + .table__options-modal {
         @include flex-column;
     }
 }
 
 .table__options-modal {
+    @include transition;
     background: #fffeff;
     border-radius: 3px;
     box-shadow: 1px 1px 2px rgba(0, 0, 0, .1);
@@ -105,13 +107,20 @@
     min-width: 100px;
     width: max-content;
     z-index: $table-options-z-index;
+
     &:hover {
         @include flex-column;
     }
 }
 
+.table__options-modal > .table__more-option--cascade,
+.table__options-modal > .table__more-option--cascade > .table__more-options-cascade-btn {
+    border-radius: 3px 3px 0 0;
+}
+
 .table__more-option {
     @include flex-align-center;
+    @include transition;
     justify-content: flex-start;
     padding: .4em;
     width: 100%;
@@ -130,13 +139,24 @@
     @extend .table__more-option;
     @include pad(0);
     flex-direction: column;
+
+    &:hover {
+        background-color: $white;
+        cursor: default;
+    }
 }
 
 .table__more-option-icon-box {
+    @include transition;
     padding: .4em 0;
     border-left: 1px solid rgba(0, 0, 0, .15);
     margin-left: 0.4em;
     padding-left: .4em;
+
+    &:hover {
+        background-color: $weathered-gray-hover;
+        cursor: pointer;
+    }
 }
 
 .table__more-option-dropdown {
@@ -150,18 +170,25 @@
     width: 100%;
 }
 
-.table__more-options-cascade-label {
-    // padding: .4em 0;
-}
 
 .table__more-options-cascade-btn--open {
     @extend .table__more-options-cascade-btn;
-    @include border-bottom;
+    @include border-bottom(rgba(0, 0, 0, .15));
 }
 
 .table__more-dropdown-option {
+    @include pad(.4em, $space-sm);
+    @include transition;
     display: flex;
     align-items: baseline;
+
+    &:nth-child(even) {
+        background-color: $weathered-blue-light;
+    }
+
+    &:hover {
+        background-color: $weathered-blue-hover;
+    }
 }
 
 .table__inactive {
@@ -177,9 +204,6 @@
     @include modal-footer;
     border-top: 1px solid rgba(0, 0, 0, .25);
     width: 100%;
-    &:hover {
-        background-color: $white;
-    }
 }
 
 .table__pagination {

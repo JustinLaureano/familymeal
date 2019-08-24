@@ -65470,9 +65470,8 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "updateShoppingList", function (e) {
-      var ingredient_id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-      console.log(ingredient_id);
+    _defineProperty(_assertThisInitialized(_this), "updateShoppingList", function (params) {
+      console.log('ingredient: ' + params.row_id + ', shopping_list: ' + params.option_id);
     });
 
     return _this;
@@ -65524,12 +65523,11 @@ function (_React$Component) {
                   break;
 
                 case 'updateShoppingList':
-                  onClick = _this2.updateShoppingList;
                   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableCascadeOption__WEBPACK_IMPORTED_MODULE_6__["default"], {
                     key: "option_" + option.label + "_" + item.id,
                     id: item.id,
                     option: option,
-                    onClick: _this2.updateShoopingList,
+                    onOptionSelect: _this2.updateShoppingList,
                     dropdownOptions: _this2.props.shopping_lists
                   });
                   break;
@@ -65675,6 +65673,16 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onOptionSelect", function (e) {
+      var option_id = e.currentTarget.id.replace(/\D/g, '');
+      var row_id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+
+      _this.props.onOptionSelect({
+        row_id: row_id,
+        option_id: option_id
+      });
+    });
+
     _this.state = {
       dropdownOpen: false
     };
@@ -65695,19 +65703,22 @@ function (_React$Component) {
         className: "table__more-options-cascade-btn" + (this.state.dropdownOpen ? '--open' : '')
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons table__more-option-icon"
-      }, option.icon), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, option.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, option.icon), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "table__more-options-cascade-label"
+      }, option.label), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "table__more-option-icon-box",
         onClick: this.toggleDropdown
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons table__more-option-icon"
       }, this.state.dropdownOpen ? "arrow_drop_up" : "arrow_drop_down"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "table__more-option-dropdown-ingredient_" + id,
         className: "table__more-option-dropdown" + (this.state.dropdownOpen ? '' : ' display--none')
       }, this.props.dropdownOptions.map(function (option) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: "dropdown-option_" + id + '_' + option.id,
           id: "dropdown-option_" + option.id,
           className: "table__more-dropdown-option",
-          onClick: _this2.props.onClick
+          onClick: _this2.onOptionSelect
         }, option.label);
       })));
     }

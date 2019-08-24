@@ -52,9 +52,8 @@ export class TableBody extends React.Component {
         });
     }
 
-    updateShoppingList = (e) => {
-        const ingredient_id = e.currentTarget.parentNode.id.replace(/\D/g, '');
-        console.log(ingredient_id);
+    updateShoppingList = (params) => {
+        console.log('ingredient: ' + params.row_id + ', shopping_list: ' + params.option_id);
     }
     
 	render() {
@@ -101,13 +100,12 @@ export class TableBody extends React.Component {
                                                             onClick = this.startDeleteRecipe;
                                                             break;
                                                         case 'updateShoppingList':
-                                                            onClick = this.updateShoppingList;
                                                             return (
                                                                 <TableCascadeOption
                                                                     key={"option_" + option.label + "_" + item.id}
                                                                     id={ item.id }
                                                                     option={ option }
-                                                                    onClick={ this.updateShoopingList }
+                                                                    onOptionSelect={ this.updateShoppingList }
                                                                     dropdownOptions={ this.props.shopping_lists } />
                                                             )
                                                             break;

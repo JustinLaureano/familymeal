@@ -1384,6 +1384,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .table__options-modal {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   background: #fffeff;
   border-radius: 3px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -1405,11 +1407,19 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
           flex-direction: column;
 }
 
+.table__options-modal > .table__more-option--cascade,
+.table__options-modal > .table__more-option--cascade > .table__more-options-cascade-btn,
+.table__options-modal > .table__more-option--cascade > .table__more-options-cascade-btn--open {
+  border-radius: 3px 3px 0 0;
+}
+
 .table__more-option, .table__more-option--cascade {
   display: -webkit-box;
   display: flex;
   -webkit-box-align: center;
           align-items: center;
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   -webkit-box-pack: start;
           justify-content: flex-start;
   padding: 0.4em;
@@ -1431,12 +1441,22 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   -webkit-box-direction: normal;
           flex-direction: column;
 }
+.table__more-option--cascade:hover {
+  background-color: #fffeff;
+  cursor: default;
+}
 
 .table__more-option-icon-box {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   padding: 0.4em 0;
   border-left: 1px solid rgba(0, 0, 0, 0.15);
   margin-left: 0.4em;
   padding-left: 0.4em;
+}
+.table__more-option-icon-box:hover {
+  background-color: #5b677430;
+  cursor: pointer;
 }
 
 .table__more-option-dropdown {
@@ -1458,14 +1478,23 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .table__more-options-cascade-btn--open {
-  border-bottom: 1px solid #363636;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .table__more-dropdown-option {
+  padding: 0.4em calc(0.75 * 1em);
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   display: -webkit-box;
   display: flex;
   -webkit-box-align: baseline;
           align-items: baseline;
+}
+.table__more-dropdown-option:nth-child(even) {
+  background-color: #4f5d6a07;
+}
+.table__more-dropdown-option:hover {
+  background-color: #2780d31c;
 }
 
 .table__inactive {
@@ -1484,9 +1513,6 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   border-radius: 0 0 3px 3px;
   border-top: 1px solid rgba(0, 0, 0, 0.25);
   width: 100%;
-}
-.table__footer:hover {
-  background-color: #fffeff;
 }
 
 .table__pagination {
