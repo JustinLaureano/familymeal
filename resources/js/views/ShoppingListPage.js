@@ -1,16 +1,77 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
+import PageHeader from '../components/PageHeader';
+import PageLoad from '../components/PageLoad';
+import ShoppingListCard from '../components/card/ShoppingListCard.js';
 
 export class ShoppingListPage extends React.Component {
+	constructor(props) {
+		super(props);
+        
+        this.state = {
+			loading: true,
+			lists: this.props.shopping_lists
+        };
+	};
+
+	componentDidMount() {
+		if (this.state.loading && this.props.shopping_lists.length > 0) {
+			this.setState({ loading: false });
+		}
+	}
+
+	componentDidUpdate() {
+		if (this.props.shopping_lists.length == 0 && !this.state.loading) {
+			this.setState({ loading: true });
+		}
+		else if (this.state.loading && this.props.shopping_lists.length > 0) {
+			this.setState({
+				lists: this.props.shopping_lists,
+				loading: false 
+			});
+		}
+	}
+
+	onShoppingListChange = (list) => {
+		console.log(list);
+	}
+
 	render() {
-		return (
-			<section className="content">
-				<Breadcrumbs />
-				<h1>Shopping List</h1>
-			</section>
-		)
+		const pageHeaderProps = {
+			title: 'Shopping List',
+			subtitle: {
+				className: 'page-header__record-count',
+				text: this.state.lists.length + ' Lists'
+			}
+		}
+		if (this.state.loading) {
+			return (
+				<PageLoad />
+			)
+		}
+		else {
+			return (
+				<section className="table-grid--simple">
+					<Breadcrumbs />
+					<PageHeader { ...pageHeaderProps } />
+
+					<section className="lists">
+					{
+						this.state.lists.map((list, index) => {
+							return (
+								<ShoppingListCard
+									key={ "shopping-list_" + index }
+									index={ index } 
+									onChange={ this.onShoppingListChange }
+									{ ...list }/>
+							)
+						})
+					}
+					</section>
+				</section>
+			)
+		}
 	}
 }
 

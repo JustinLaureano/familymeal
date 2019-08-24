@@ -601,6 +601,12 @@ a:hover {
   font-size: 0.875em;
 }
 
+.lists {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .photo, .photo--circle {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }

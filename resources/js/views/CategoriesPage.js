@@ -77,7 +77,6 @@ export class CategoriesPage extends React.Component {
 				</section>
 			)
 		}
-
 	}
 }
 
