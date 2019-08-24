@@ -23,18 +23,7 @@ class ShoppingList extends Model
             ->get();
 
         foreach ($shopping_lists as $list) {
-            $items = DB::table('shopping_list_items')
-                ->select(
-                    'shopping_list_items.id',
-                    'shopping_list_id',
-                    'order',
-                    'ingredient_id',
-                    'ingredient.name AS ingredient_name'
-                )
-                ->leftJoin('ingredient', 'shopping_list_items.ingredient_id', 'ingredient.id')
-                ->where('shopping_list_items.shopping_list_id', $list->id)
-                ->get();
-
+            $items = ShoppingListItems::getByShoppingListId($list->id);
             $list->items = $items;
         }
 

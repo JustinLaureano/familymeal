@@ -56,7 +56,6 @@ class RecipeController extends Controller
         return response(['recipes' => $recipes, 'recipe_total' => $recipe_total], 200);
     }
 
-
     public function store(Request $request)
     {
         $user_id = $request->post('user_id');
@@ -445,7 +444,7 @@ class RecipeController extends Controller
         }
 
         $recipe->save();
-        $data = ['recipe_id' => $recipe_id, 'updates' => $updates,];
+        $data = ['recipe_id' => $recipe_id, 'updates' => $updates];
 
         if ($response) 
             $data['response'] = $response;

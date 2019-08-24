@@ -6,6 +6,7 @@ import TableCell from './TableCell';
 import TableOption from '../../components/table/TableOption';
 import TableCascadeOption from '../../components/table/TableCascadeOption';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
+import { addNewShoppingListItem } from '../../actions/shoppingList';
 import { deleteIngredient } from '../../actions/ingredients';
 import { getShoppingListOptions } from '../../services/Table';
 
@@ -53,7 +54,7 @@ export class TableBody extends React.Component {
     }
 
     updateShoppingList = (params) => {
-        console.log('ingredient: ' + params.row_id + ', shopping_list: ' + params.option_id);
+        this.props.addNewShoppingListItem({ shopping_list_id: params.option_id, ingredient_id: params.row_id });
     }
     
 	render() {
@@ -197,7 +198,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, props) => ({
 	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
 	deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-	deleteIngredient: (id) => dispatch(deleteIngredient(id))
+	deleteIngredient: (id) => dispatch(deleteIngredient(id)),
+	addNewShoppingListItem: (params) => dispatch(addNewShoppingListItem(params))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(TableBody);

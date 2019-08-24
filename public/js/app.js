@@ -59207,6 +59207,51 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
 
 /***/ }),
 
+/***/ "./resources/js/actions/shoppingList.js":
+/*!**********************************************!*\
+  !*** ./resources/js/actions/shoppingList.js ***!
+  \**********************************************/
+/*! exports provided: addNewShoppingListItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewShoppingListItem", function() { return addNewShoppingListItem; });
+var addNewShoppingListItem = function addNewShoppingListItem(params) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var shopping_list_id = params.shopping_list_id;
+    var user_id = getState().user.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        add: params,
+        user_id: user_id
+      })
+    };
+    fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'ADD_SHOPPING_LIST_ITEM',
+        shopping_list_id: shopping_list_id,
+        item: data.response
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./resources/js/actions/toast.js":
 /*!***************************************!*\
   !*** ./resources/js/actions/toast.js ***!
@@ -65368,8 +65413,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
 /* harmony import */ var _components_table_TableCascadeOption__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/table/TableCascadeOption */ "./resources/js/components/table/TableCascadeOption.js");
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
-/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../services/Table */ "./resources/js/services/Table.js");
+/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
+/* harmony import */ var _actions_ingredients__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../actions/ingredients */ "./resources/js/actions/ingredients.js");
+/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../services/Table */ "./resources/js/services/Table.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -65389,6 +65435,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -65471,7 +65518,10 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateShoppingList", function (params) {
-      console.log('ingredient: ' + params.row_id + ', shopping_list: ' + params.option_id);
+      _this.props.addNewShoppingListItem({
+        shopping_list_id: params.option_id,
+        ingredient_id: params.row_id
+      });
     });
 
     return _this;
@@ -65598,7 +65648,7 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    shopping_lists: Object(_services_Table__WEBPACK_IMPORTED_MODULE_9__["getShoppingListOptions"])(state.shopping_lists)
+    shopping_lists: Object(_services_Table__WEBPACK_IMPORTED_MODULE_10__["getShoppingListOptions"])(state.shopping_lists)
   };
 };
 
@@ -65611,7 +65661,10 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_7__["deleteRecipe"])(id));
     },
     deleteIngredient: function deleteIngredient(id) {
-      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_8__["deleteIngredient"])(id));
+      return dispatch(Object(_actions_ingredients__WEBPACK_IMPORTED_MODULE_9__["deleteIngredient"])(id));
+    },
+    addNewShoppingListItem: function addNewShoppingListItem(params) {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_8__["addNewShoppingListItem"])(params));
     }
   };
 };
@@ -66814,6 +66867,18 @@ var recipeReducerDefaultState = [];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var shoppingListReducerDefaultState = [];
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : shoppingListReducerDefaultState;
@@ -66822,6 +66887,17 @@ var shoppingListReducerDefaultState = [];
   switch (action.type) {
     case 'SET_SHOPPING_LISTS':
       return action.shopping_lists;
+
+    case 'ADD_SHOPPING_LIST_ITEM':
+      return state.map(function (list) {
+        if (list.id == action.shopping_list_id) {
+          return _objectSpread({}, list, {
+            items: [].concat(_toConsumableArray(list.items), [action.item])
+          });
+        } else {
+          return list;
+        }
+      });
 
     default:
       return state;
