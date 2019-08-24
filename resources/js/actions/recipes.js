@@ -188,8 +188,6 @@ export const updateRecipeRating = (rating) => {
 					return r;
 				});
 
-				console.log(ratings, typeof ratings);
-
 				if (ratings.length == 0) {
 					ratings = [{
 						id: data.response.id,

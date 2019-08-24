@@ -58636,8 +58636,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 /* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -58818,7 +58816,6 @@ var updateRecipeRating = function updateRecipeRating(rating) {
 
         return r;
       });
-      console.log(ratings, _typeof(ratings));
 
       if (ratings.length == 0) {
         ratings = [{
@@ -66019,8 +66016,6 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var _this3 = this;
-
-      console.log(this);
 
       if (this.state.currentTotal != this.props.total || this.state.totalPages == 0 && !isNaN(this.props.total)) {
         var page = this.state.currentTotal != this.props.total ? 1 : this.state.page;

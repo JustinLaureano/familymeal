@@ -18,7 +18,6 @@ export class TableFooter extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this);
         if (
             (this.state.currentTotal != this.props.total) ||
             (this.state.totalPages == 0 && !isNaN(this.props.total))
