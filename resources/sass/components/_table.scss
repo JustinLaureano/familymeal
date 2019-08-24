@@ -161,6 +161,8 @@
 
 .table__more-option-dropdown {
     @include flex-column;
+    border-bottom: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.15) inset;
     width: 100%;
 }
 
@@ -179,6 +181,7 @@
 .table__more-dropdown-option {
     @include pad(.4em, $space-sm);
     @include transition;
+    color: $weathered-blue;
     display: flex;
     align-items: baseline;
 
@@ -188,6 +191,7 @@
 
     &:hover {
         background-color: $weathered-blue-hover;
+        cursor: pointer;
     }
 }
 
