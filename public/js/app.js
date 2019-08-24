@@ -67491,7 +67491,7 @@ function getIngredientTableHeaders() {
 function getIngredientTableOptions() {
   return [{
     label: 'Shopping List',
-    icon: 'add',
+    icon: 'shopping_basket',
     onClick: 'updateShoppingList'
   }, {
     label: 'Update',

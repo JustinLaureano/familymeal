@@ -77,7 +77,7 @@ export function getIngredientTableOptions() {
     return [
         {
             label: 'Shopping List',
-            icon: 'add',
+            icon: 'shopping_basket',
             onClick: 'updateShoppingList'
         },
         {
