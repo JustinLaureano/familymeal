@@ -60086,10 +60086,16 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "getShoppingListRows", function () {
+      return document.querySelector('#shopping-list-body_' + _this.props.id).querySelectorAll('.list__list-item-row');
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
       document.body.style.cursor = 'move';
       var dropPos = e.clientY;
-      var shoppingList = document.querySelectorAll('.list__list-item-row');
+
+      var shoppingList = _this.getShoppingListRows();
+
       var newIndex = null; // determine where to drop
 
       for (var i = 0; i < shoppingList.length; i++) {
@@ -60142,13 +60148,14 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
       e.dataTransfer.setData('id', id);
-      console.log(e.currentTarget.parentNode, id);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {
       var dropPos = e.clientY;
       var id = e.dataTransfer.getData('id');
-      var shoppingList = document.querySelectorAll('.list__list-item-row');
+
+      var shoppingList = _this.getShoppingListRows();
+
       var newIndex = null; // determine where to drop
 
       for (var i = 0; i < shoppingList.length; i++) {
@@ -60203,7 +60210,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleListItemRemoveConfirm", function (e) {
-      var removeContainer = document.getElementById('item-remove_' + e.target.id.replace(/\D/g, ''));
+      var removeContainer = document.getElementById('list-item-remove_' + e.target.id.replace(/\D/g, ''));
 
       if (removeContainer.classList.contains('display--none')) {
         removeContainer.classList.remove('display--none');
@@ -60238,6 +60245,11 @@ function (_React$Component) {
         this.setState({
           loading: false
         });
+      }
+
+      if (this.state.edited) {
+        console.log('edited');
+        console.log(this.state.items);
       }
     }
   }, {
@@ -60295,7 +60307,7 @@ function (_React$Component) {
           id: "remove_" + item.id,
           className: "material-icons remove-icon",
           onClick: _this2.toggleListItemRemoveConfirm
-        }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        }, "remove_circle")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           id: "list-item-remove_" + item.id,
           className: "list__item-confirmation confirmation display--none"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -60308,7 +60320,7 @@ function (_React$Component) {
           id: "confirmation-cancel-btn_" + item.id,
           className: "btn--confirmation",
           onClick: _this2.toggleListItemRemoveConfirm
-        }, "Cancel"))));
+        }, "Cancel")));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
       })));

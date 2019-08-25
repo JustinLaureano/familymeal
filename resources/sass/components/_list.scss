@@ -38,6 +38,7 @@
     display: flex;
     background-color: $white;
     margin: .1em;
+    position: relative;
     &:hover {
         background-color: $weathered-blue-light;
         border-radius: 3px;
@@ -59,6 +60,13 @@
 .list__item-link {
     flex-grow: 1;
     padding-left: $space-xxs;
+}
+
+.list__item-confirmation {
+    position: absolute;
+    right: 15px;
+    top: 27px;
+    z-index: $dialog-z-index;
 }
 
 .list__footer {

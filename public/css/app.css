@@ -671,6 +671,7 @@ a:hover {
   display: flex;
   background-color: #fffeff;
   margin: 0.1em;
+  position: relative;
 }
 .list__list-item-row:hover {
   background-color: #4f5d6a07;
@@ -691,6 +692,13 @@ a:hover {
   -webkit-box-flex: 1;
           flex-grow: 1;
   padding-left: calc(0.375 * 1em);
+}
+
+.list__item-confirmation {
+  position: absolute;
+  right: 15px;
+  top: 27px;
+  z-index: 600;
 }
 
 .list__footer {

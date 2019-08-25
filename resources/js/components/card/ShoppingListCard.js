@@ -10,7 +10,7 @@ export class ShoppingListCard extends React.Component {
         this.state = {
             items: this.props.items,
             loading: true,
-            edited: false
+            edited: false,
         };
 
         this.newIdFloor = 900000;
@@ -26,14 +26,26 @@ export class ShoppingListCard extends React.Component {
     componentDidUpdate() {
         if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
 			this.setState({ loading: false });
-		}
+        }
+        
+        if (this.state.edited) {
+            console.log('edited');
+            console.log(this.state.items);
+
+        }
+    }
+
+    getShoppingListRows = () => {
+        return document
+            .querySelector('#shopping-list-body_' + this.props.id)
+            .querySelectorAll('.list__list-item-row');
     }
 
     onDrag = (e, id) => {
         document.body.style.cursor = 'move';
 
         const dropPos = e.clientY;
-        const shoppingList = document.querySelectorAll('.list__list-item-row');
+        const shoppingList = this.getShoppingListRows();
         let newIndex = null;
 
         // determine where to drop
@@ -93,13 +105,12 @@ export class ShoppingListCard extends React.Component {
 
     onDragStart = (e, id) => {
         e.dataTransfer.setData('id', id);
-        console.log(e.currentTarget.parentNode, id);
     }
 
     onDrop = (e) => {
         const dropPos = e.clientY;
         const id = e.dataTransfer.getData('id');
-        const shoppingList = document.querySelectorAll('.list__list-item-row');
+        const shoppingList = this.getShoppingListRows();
         let newIndex = null;
 
         // determine where to drop
@@ -136,10 +147,9 @@ export class ShoppingListCard extends React.Component {
 
             this.setState(() => ({
                 items: arrayMove(this.state.items, currentIndex, newIndex),
-                edited: true 
+                edited: true
             }));
         }
-
     }
 
     removeListItem = (e) => {
@@ -150,7 +160,7 @@ export class ShoppingListCard extends React.Component {
     }
 
     toggleListItemRemoveConfirm = (e) => {
-        const removeContainer = document.getElementById('item-remove_' + e.target.id.replace(/\D/g, ''));
+        const removeContainer = document.getElementById('list-item-remove_' + e.target.id.replace(/\D/g, ''));
         if (removeContainer.classList.contains('display--none')) {
             removeContainer.classList.remove('display--none');
         }
@@ -210,24 +220,25 @@ export class ShoppingListCard extends React.Component {
                                             className="material-icons remove-icon"
                                             onClick={ this.toggleListItemRemoveConfirm }>remove_circle
                                         </i>
-                                        <section
-                                            id={ "list-item-remove_" + item.id }
-                                            className="list__item-confirmation confirmation display--none">
-                                            <p className="confirmation__label">Remove Item?</p>
-                                            <button
-                                                id={ "list-item-remove-btn_" + item.id }
-                                                className="btn--confirmation-confirm"
-                                                onClick={ this.removeListItem }>
-                                                Remove
-                                            </button>
-                                            <button
-                                                id={ "confirmation-cancel-btn_" + item.id }
-                                                className="btn--confirmation"
-                                                onClick={ this.toggleListItemRemoveConfirm }>
-                                                Cancel
-                                            </button>
-                                        </section>
                                     </div>
+
+                                    <section
+                                    id={ "list-item-remove_" + item.id }
+                                    className="list__item-confirmation confirmation display--none">
+                                        <p className="confirmation__label">Remove Item?</p>
+                                        <button
+                                            id={ "list-item-remove-btn_" + item.id }
+                                            className="btn--confirmation-confirm"
+                                            onClick={ this.removeListItem }>
+                                            Remove
+                                        </button>
+                                        <button
+                                            id={ "confirmation-cancel-btn_" + item.id }
+                                            className="btn--confirmation"
+                                            onClick={ this.toggleListItemRemoveConfirm }>
+                                            Cancel
+                                        </button>
+                                    </section>
 
                                 </div>
                             )
