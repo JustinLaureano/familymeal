@@ -1,3 +1,5 @@
+import { bindActionCreators } from "../../../../../Library/Caches/typescript/3.5/node_modules/redux";
+
 const shoppingListReducerDefaultState = [];
 
 export default (state = shoppingListReducerDefaultState, action) => {
@@ -17,6 +19,19 @@ export default (state = shoppingListReducerDefaultState, action) => {
                     return list;
                 }
             });
+
+        case 'UPDATE_SHOPPING_LIST_ITEMS':
+                return state.map(list => {
+                    if (list.id == action.shopping_list_id) {
+                        return {
+                            ...list,
+                            items: action.items
+                        };
+                    }
+                    else {
+                        return list;
+                    }
+                });
         default:
             return state;
     }

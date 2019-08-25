@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
+import { updateShoppingListItems } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
@@ -10,7 +11,7 @@ export class ShoppingListCard extends React.Component {
         this.state = {
             items: this.props.items,
             loading: true,
-            edited: false,
+            itemEdited: false,
             titleEdit: false
         };
 
@@ -29,10 +30,12 @@ export class ShoppingListCard extends React.Component {
 			this.setState({ loading: false });
         }
         
-        if (this.state.edited) {
+        if (this.state.itemEdited) {
             console.log('edited');
             console.log(this.state.items);
+            this.props.updateShoppingListItems(this.props.id, this.state.items);
 
+            this.setState({ itemEdited: false });
         }
     }
 
@@ -100,13 +103,9 @@ export class ShoppingListCard extends React.Component {
         });
     }
 
-    onDragOver = (e) => {
-        e.preventDefault();
-    }
+    onDragOver = (e) => e.preventDefault();
 
-    onDragStart = (e, id) => {
-        e.dataTransfer.setData('id', id);
-    }
+    onDragStart = (e, id) => e.dataTransfer.setData('id', id);
 
     onDrop = (e) => {
         const dropPos = e.clientY;
@@ -148,7 +147,7 @@ export class ShoppingListCard extends React.Component {
 
             this.setState(() => ({
                 items: arrayMove(this.state.items, currentIndex, newIndex),
-                edited: true
+                itemEdited: true
             }));
         }
     }
@@ -157,7 +156,7 @@ export class ShoppingListCard extends React.Component {
         const id = e.target.id.replace(/\D/g, '');
         const filteredListItems = this.state.items.filter(item => item.id != id);
         // this.props.removeCurrentRecipeIngredient(filteredIngredients);
-        this.setState(() => ({ edited: true }));
+        this.setState(() => ({ itemEdited: true }));
     }
 
     toggleListItemRemoveConfirm = (e) => {
@@ -253,4 +252,8 @@ export class ShoppingListCard extends React.Component {
 	}
 }
 
-export default ShoppingListCard;
+const mapDispatchToProps = (dispatch, props) => ({
+	updateShoppingListItems: (shopping_list_id, items) => dispatch(updateShoppingListItems(shopping_list_id, items)),
+});
+  
+export default connect(undefined, mapDispatchToProps)(ShoppingListCard);

@@ -22,6 +22,7 @@ class ShoppingListItems extends Model
             )
             ->leftJoin('ingredient', 'shopping_list_items.ingredient_id', 'ingredient.id')
             ->where('shopping_list_items.shopping_list_id', $shopping_list_id)
+            ->orderBy('shopping_list_items.order')
             ->get();
     }
 
