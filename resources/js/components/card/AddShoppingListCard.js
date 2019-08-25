@@ -1,6 +1,6 @@
 import React from 'react';
 
-export class ShoppingListCard extends React.Component {
+export class AddShoppingListCard extends React.Component {
 	render() {
         return (
             <section className="list__area">
@@ -20,4 +20,4 @@ export class ShoppingListCard extends React.Component {
 	}
 }
 
-export default ShoppingListCard;
+export default AddShoppingListCard;

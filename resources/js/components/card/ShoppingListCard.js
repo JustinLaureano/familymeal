@@ -11,6 +11,7 @@ export class ShoppingListCard extends React.Component {
             items: this.props.items,
             loading: true,
             edited: false,
+            titleEdit: false
         };
 
         this.newIdFloor = 900000;

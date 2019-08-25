@@ -59882,12 +59882,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*!*************************************************************!*\
   !*** ./resources/js/components/card/AddShoppingListCard.js ***!
   \*************************************************************/
-/*! exports provided: ShoppingListCard, default */
+/*! exports provided: AddShoppingListCard, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingListCard", function() { return ShoppingListCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddShoppingListCard", function() { return AddShoppingListCard; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -59909,18 +59909,18 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
-var ShoppingListCard =
+var AddShoppingListCard =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(ShoppingListCard, _React$Component);
+  _inherits(AddShoppingListCard, _React$Component);
 
-  function ShoppingListCard() {
-    _classCallCheck(this, ShoppingListCard);
+  function AddShoppingListCard() {
+    _classCallCheck(this, AddShoppingListCard);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(AddShoppingListCard).apply(this, arguments));
   }
 
-  _createClass(ShoppingListCard, [{
+  _createClass(AddShoppingListCard, [{
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -59941,9 +59941,9 @@ function (_React$Component) {
     }
   }]);
 
-  return ShoppingListCard;
+  return AddShoppingListCard;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-/* harmony default export */ __webpack_exports__["default"] = (ShoppingListCard);
+/* harmony default export */ __webpack_exports__["default"] = (AddShoppingListCard);
 
 /***/ }),
 
@@ -60222,7 +60222,8 @@ function (_React$Component) {
     _this.state = {
       items: _this.props.items,
       loading: true,
-      edited: false
+      edited: false,
+      titleEdit: false
     };
     _this.newIdFloor = 900000;
     _this.newIdCeiling = 999999;
