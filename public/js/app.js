@@ -60041,6 +60041,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -60068,6 +60069,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -60140,12 +60142,55 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
       e.dataTransfer.setData('id', id);
+      console.log(e.currentTarget.parentNode, id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {
+      var dropPos = e.clientY;
+      var id = e.dataTransfer.getData('id');
+      var shoppingList = document.querySelectorAll('.list__list-item-row');
+      var newIndex = null; // determine where to drop
+
+      for (var i = 0; i < shoppingList.length; i++) {
+        var top = shoppingList[i].getBoundingClientRect().top;
+        var height = shoppingList[i].getBoundingClientRect().height;
+        var bottom = top + height;
+        var nextBottom = typeof shoppingList[i + 1] == 'undefined' ? bottom : shoppingList[i + 1].getBoundingClientRect().bottom;
+
+        if (i === 0 && dropPos < top + height / 2) {
+          // first element
+          newIndex = i;
+        } else if (dropPos < top && dropPos < nextBottom) {
+          newIndex = i - 1;
+          break;
+        } else if (dropPos > top && i + 1 == shoppingList.length) {
+          // last element
+          newIndex = i;
+        }
+      }
+
+      if (newIndex != null) {
+        var currentIndex = null;
+
+        _this.state.items.map(function (item, index) {
+          if (item.id == id) {
+            currentIndex = index;
+          }
+        });
+
+        _this.setState(function () {
+          return {
+            items: Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_3__["arrayMove"])(_this.state.items, currentIndex, newIndex),
+            edited: true
+          };
+        });
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "removeListItem", function (e) {
       var id = e.target.id.replace(/\D/g, '');
 
-      var filteredListItems = _this.props.items.filter(function (item) {
+      var filteredListItems = _this.state.items.filter(function (item) {
         return item.id != id;
       }); // this.props.removeCurrentRecipeIngredient(filteredIngredients);
 
@@ -60168,6 +60213,7 @@ function (_React$Component) {
     });
 
     _this.state = {
+      items: _this.props.items,
       loading: true,
       edited: false
     };
@@ -60216,9 +60262,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "shopping-list-body_" + this.props.id,
         className: "list__body",
         onDragOver: this.onDragOver
-      }, this.props.items.map(function (item, index) {
+      }, this.state.items.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: "shopping-list-item_" + item.id,
           id: "shopping-list-item_" + item.id,
@@ -60249,11 +60296,11 @@ function (_React$Component) {
           className: "material-icons remove-icon",
           onClick: _this2.toggleListItemRemoveConfirm
         }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-          id: "list-item-remove_" + iitem.id,
+          id: "list-item-remove_" + item.id,
           className: "list__item-confirmation confirmation display--none"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "confirmation__label"
-        }, "Remove Ingredient?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        }, "Remove Item?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           id: "list-item-remove-btn_" + item.id,
           className: "btn--confirmation-confirm",
           onClick: _this2.removeListItem

@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { arrayMove } from '../../services/Recipe';
 
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
 		super(props);
         
         this.state = {
+            items: this.props.items,
             loading: true,
             edited: false
         };
@@ -91,11 +93,58 @@ export class ShoppingListCard extends React.Component {
 
     onDragStart = (e, id) => {
         e.dataTransfer.setData('id', id);
+        console.log(e.currentTarget.parentNode, id);
+    }
+
+    onDrop = (e) => {
+        const dropPos = e.clientY;
+        const id = e.dataTransfer.getData('id');
+        const shoppingList = document.querySelectorAll('.list__list-item-row');
+        let newIndex = null;
+
+        // determine where to drop
+        for (let i = 0; i < shoppingList.length; i++) {
+
+            const top = shoppingList[i].getBoundingClientRect().top;
+            const height = shoppingList[i].getBoundingClientRect().height;
+            const bottom = top + height;
+
+            let nextBottom = typeof shoppingList[i + 1] == 'undefined' ?
+                bottom : shoppingList[i + 1].getBoundingClientRect().bottom;
+
+            if (i === 0 && dropPos < (top + (height / 2))) {
+                // first element
+                newIndex = i;
+            }
+            else if (dropPos < top && dropPos < nextBottom) {
+                newIndex = i - 1;
+                break;
+            }
+            else if (dropPos > top && i + 1 == shoppingList.length) {
+                // last element
+                newIndex = i;
+            }
+        }
+
+        if (newIndex != null) {
+            let currentIndex = null;
+            this.state.items.map((item, index) => {
+                if (item.id == id) {
+                    currentIndex = index;
+                }
+            });
+
+            this.setState(() => ({
+                items: arrayMove(this.state.items, currentIndex, newIndex),
+                edited: true 
+            }));
+        }
+
     }
 
     removeListItem = (e) => {
         const id = e.target.id.replace(/\D/g, '');
-        const filteredListItems = this.props.items.filter(item => item.id != id);
+        const filteredListItems = this.state.items.filter(item => item.id != id);
         // this.props.removeCurrentRecipeIngredient(filteredIngredients);
         this.setState(() => ({ edited: true }));
     }
@@ -125,9 +174,12 @@ export class ShoppingListCard extends React.Component {
                     <div className="list__header">
                         <h4>{ this.props.name }</h4>
                     </div>
-                    <div className="list__body" onDragOver={ this.onDragOver }>
+                    <div 
+                        id={ "shopping-list-body_" + this.props.id }
+                        className="list__body"
+                        onDragOver={ this.onDragOver }>
                     {
-                        this.props.items.map((item, index) => {
+                        this.state.items.map((item, index) => {
                             return (
                                 <div 
                                     key={"shopping-list-item_" + item.id}
@@ -159,9 +211,9 @@ export class ShoppingListCard extends React.Component {
                                             onClick={ this.toggleListItemRemoveConfirm }>remove_circle
                                         </i>
                                         <section
-                                            id={ "list-item-remove_" + iitem.id }
+                                            id={ "list-item-remove_" + item.id }
                                             className="list__item-confirmation confirmation display--none">
-                                            <p className="confirmation__label">Remove Ingredient?</p>
+                                            <p className="confirmation__label">Remove Item?</p>
                                             <button
                                                 id={ "list-item-remove-btn_" + item.id }
                                                 className="btn--confirmation-confirm"

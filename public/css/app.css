@@ -277,6 +277,22 @@ a:hover {
             transform: translateY(0px);
   }
 }
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 @-webkit-keyframes fadeout {
   from {
     opacity: 1;
@@ -644,7 +660,37 @@ a:hover {
 }
 
 .list__body {
-  padding: calc(0.75 * 1em);
+  padding: calc(0.25 * 1em) calc(0.375 * 1em);
+}
+
+.list__list-item-row {
+  padding: calc(0.375 * 1em) calc(0.25 * 1em);
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  display: -webkit-box;
+  display: flex;
+  background-color: #fffeff;
+  margin: 0.1em;
+}
+.list__list-item-row:hover {
+  background-color: #4f5d6a07;
+  border-radius: 3px;
+}
+.list__list-item-row:hover i.drag-icon,
+.list__list-item-row:hover div.list__item-remove {
+  opacity: 0.54;
+}
+.list__list-item-row i.drag-icon,
+.list__list-item-row div.list__item-remove {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  opacity: 0;
+}
+
+.list__item-link {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  padding-left: calc(0.375 * 1em);
 }
 
 .list__footer {

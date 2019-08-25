@@ -29,7 +29,36 @@
 }
 
 .list__body {
-    @include pad($space-sm);
+    @include pad($space-xxxs, $space-xxs);
+}
+
+.list__list-item-row {
+    @include pad($space-xxs, $space-xxxs);
+    @include transition;
+    display: flex;
+    background-color: $white;
+    margin: .1em;
+    &:hover {
+        background-color: $weathered-blue-light;
+        border-radius: 3px;
+
+        i.drag-icon,
+        div.list__item-remove {
+            opacity: $icon-opacity;
+        }
+    }
+
+    i.drag-icon,
+    div.list__item-remove {
+        @include transition;
+        opacity: 0;
+    }
+    
+}
+
+.list__item-link {
+    flex-grow: 1;
+    padding-left: $space-xxs;
 }
 
 .list__footer {
