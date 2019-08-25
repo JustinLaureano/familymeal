@@ -31,6 +31,12 @@
 .list__name {
     border: none;
     background-color: $white;
+    color: $weathered-blue;
+    font-weight: 500;
+    font-size: $size-md;
+    &:hover {
+        border-bottom: 1px solid rgba(0, 0, 0, .2);
+    }
 }
 
 .list__name--edit {
@@ -69,6 +75,7 @@
 
 .list__item-link {
     flex-grow: 1;
+    font-size: $size-sm;
     padding-left: $space-xxs;
 }
 

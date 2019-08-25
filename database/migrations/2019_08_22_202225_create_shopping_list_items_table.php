@@ -18,6 +18,7 @@ class CreateShoppingListItemsTable extends Migration
             $table->unsignedBigInteger('shopping_list_id');
             $table->integer('order');
             $table->unsignedBigInteger('ingredient_id');
+            $table->tinyInteger('checked')->default(0);
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 

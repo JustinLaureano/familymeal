@@ -67,6 +67,13 @@ class ShoppingListController extends Controller
             $response = ShoppingListItems::getById($shopping_list_item->id);
         }
 
+        if ($request->post('name')) {
+            $shopping_list->name = $request->post('name');
+            $shopping_list->save();
+
+            $updates[] = 'name';
+        }
+
         if ($request->post('items')) {
             $items = $request->post('items');
 
@@ -96,6 +103,7 @@ class ShoppingListController extends Controller
 
                     $shopping_list_item->order = $order;
                     $shopping_list_item->ingredient_id = $item['ingredient_id'];
+                    $shopping_list_item->checked = $item['checked'];
                     $shopping_list_item->save();
                 }
                 else {

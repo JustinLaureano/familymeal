@@ -59927,13 +59927,14 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
 /*!**********************************************!*\
   !*** ./resources/js/actions/shoppingList.js ***!
   \**********************************************/
-/*! exports provided: addNewShoppingListItem, updateShoppingListItems */
+/*! exports provided: addNewShoppingListItem, updateShoppingListItems, updateShoppingListName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewShoppingListItem", function() { return addNewShoppingListItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -59970,7 +59971,6 @@ var updateShoppingListItems = function updateShoppingListItems(shopping_list_id,
   return function (dispatch, getState) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
-    var user_id = getState().user.id;
     var request = {
       method: 'POST',
       headers: {
@@ -59980,8 +59980,7 @@ var updateShoppingListItems = function updateShoppingListItems(shopping_list_id,
         'X-CSRF-TOKEN': csrf_token
       },
       body: JSON.stringify({
-        items: items,
-        user_id: user_id
+        items: items
       })
     };
     fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
@@ -59991,6 +59990,35 @@ var updateShoppingListItems = function updateShoppingListItems(shopping_list_id,
         type: 'UPDATE_SHOPPING_LIST_ITEMS',
         shopping_list_id: shopping_list_id,
         items: data.response
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var updateShoppingListName = function updateShoppingListName(shopping_list_id, name) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        name: name
+      })
+    };
+    fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'UPDATE_SHOPPING_LIST_NAME',
+        shopping_list_id: shopping_list_id,
+        name: data.response
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -60796,6 +60824,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
@@ -60972,6 +61002,33 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleCheckbox", function (e) {
+      var shoppingListItemId = e.target.id.replace(/\D/g, ''); // check hidden input box
+
+      var checkedStatus = document.querySelector('input[name="input-checked_' + shoppingListItemId + '"]').checked;
+      document.querySelector('input[name="input-checked_' + shoppingListItemId + '"]').checked = !checkedStatus;
+
+      var items = _this.state.items.map(function (item) {
+        if (item.id != shoppingListItemId) {
+          return item;
+        }
+
+        var newCheckedStatus = checkedStatus ? 0 : 1;
+        return _objectSpread({}, item, {
+          checked: newCheckedStatus
+        });
+      });
+
+      _this.setState(function () {
+        return {
+          items: items,
+          itemEdited: true
+        };
+      }); // update list item
+      // this.props.updateShoppingListItemCheckedStatus(this.props.id, shoppingListItemId, !checkedStatus);
+
+    });
+
     _defineProperty(_assertThisInitialized(_this), "toggleListItemRemoveConfirm", function (e) {
       var removeContainer = document.getElementById('list-item-remove_' + e.target.id.replace(/\D/g, ''));
 
@@ -60992,7 +61049,7 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "stopTitleEdit", function () {
       if (_this.state.name !== _this.props.name) {
-        console.log('save');
+        _this.props.updateShoppingListName(_this.props.id, _this.state.name);
       }
 
       _this.setState(function () {
@@ -61033,8 +61090,6 @@ function (_React$Component) {
       }
 
       if (this.state.itemEdited) {
-        console.log('edited');
-        console.log(this.state.items);
         this.props.updateShoppingListItems(this.props.id, this.state.items);
         this.setState({
           itemEdited: false
@@ -61090,7 +61145,19 @@ function (_React$Component) {
           onDrop: _this2.onDrop
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "material-icons drag-icon"
-        }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        }, "drag_indicator"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "input__checkbox"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          id: "list-item-checked_" + item.id,
+          className: "material-icons checked-icon",
+          onClick: _this2.toggleCheckbox
+        }, parseInt(item.checked) === 1 ? 'check_circle' : 'radio_button_unchecked'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "checkbox",
+          name: "input-checked_" + item.id,
+          value: item.checked,
+          defaultChecked: parseInt(item.checked) === 1 ? 'checked' : '',
+          className: "input__checkbox-input"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
           to: {
             pathname: "/ingredients/" + item.ingredient_id,
             state: {
@@ -61131,6 +61198,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     updateShoppingListItems: function updateShoppingListItems(shopping_list_id, items) {
       return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_4__["updateShoppingListItems"])(shopping_list_id, items));
+    },
+    updateShoppingListItemCheckedStatus: function updateShoppingListItemCheckedStatus(shopping_list_id, shopping_list_item_id, status) {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_4__["updateShoppingListItemCheckedStatus"])(shopping_list_id, shopping_list_item_id, status));
+    },
+    updateShoppingListName: function updateShoppingListName(shopping_list_id, name) {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_4__["updateShoppingListName"])(shopping_list_id, name));
     }
   };
 };
@@ -68101,6 +68174,17 @@ var shoppingListReducerDefaultState = [];
         if (list.id == action.shopping_list_id) {
           return _objectSpread({}, list, {
             items: action.items
+          });
+        } else {
+          return list;
+        }
+      });
+
+    case 'UPDATE_SHOPPING_LIST_NAME':
+      return state.map(function (list) {
+        if (list.id == action.shopping_list_id) {
+          return _objectSpread({}, list, {
+            name: action.name
           });
         } else {
           return list;

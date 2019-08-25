@@ -108,3 +108,9 @@
     position: relative;
     top: 1px;
 }
+
+.checked-icon {
+    font-size: $size-sm;
+    color: $weathered-gray;
+    opacity: $icon-opacity;
+}

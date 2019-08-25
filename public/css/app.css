@@ -662,6 +662,12 @@ a:hover {
 .list__name, .list__name--edit {
   border: none;
   background-color: #fffeff;
+  color: #385e83;
+  font-weight: 500;
+  font-size: 1em;
+}
+.list__name:hover, .list__name--edit:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .list__name--edit {
@@ -700,6 +706,7 @@ a:hover {
 .list__item-link {
   -webkit-box-flex: 1;
           flex-grow: 1;
+  font-size: 0.875em;
   padding-left: calc(0.375 * 1em);
 }
 
@@ -1083,6 +1090,12 @@ a:hover {
   top: 1px;
 }
 
+.checked-icon {
+  font-size: 0.875em;
+  color: #505d6a;
+  opacity: 0.54;
+}
+
 input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
   border: 1px solid #363636;
   border-radius: 0px;
@@ -1128,6 +1141,10 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   padding: 0;
   border: none;
   border-bottom: 1px solid #cfcfcf;
+}
+
+.input__checkbox-input {
+  display: none;
 }
 
 .textarea, .textarea--edit {

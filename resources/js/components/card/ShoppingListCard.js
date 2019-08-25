@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
-import { updateShoppingListItems } from '../../actions/shoppingList';
+import { updateShoppingListItems, updateShoppingListItemCheckedStatus, updateShoppingListName } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
@@ -32,10 +32,7 @@ export class ShoppingListCard extends React.Component {
         }
         
         if (this.state.itemEdited) {
-            console.log('edited');
-            console.log(this.state.items);
             this.props.updateShoppingListItems(this.props.id, this.state.items);
-
             this.setState({ itemEdited: false });
         }
     }
@@ -165,6 +162,26 @@ export class ShoppingListCard extends React.Component {
         this.setState(() => ({ itemEdited: true }));
     }
 
+    toggleCheckbox = (e) => {
+        const shoppingListItemId = e.target.id.replace(/\D/g, '');
+
+        // check hidden input box
+        const checkedStatus = document.querySelector('input[name="input-checked_' + shoppingListItemId + '"]').checked;
+        document.querySelector('input[name="input-checked_' + shoppingListItemId + '"]').checked = !checkedStatus;
+        const items = this.state.items.map(item => {
+            if (item.id != shoppingListItemId) {
+                return item;
+            }
+            const newCheckedStatus = checkedStatus ? 0 : 1;
+            return { ...item, checked: newCheckedStatus };
+        })
+
+        this.setState(() => ({ items, itemEdited: true }))
+
+        // update list item
+        // this.props.updateShoppingListItemCheckedStatus(this.props.id, shoppingListItemId, !checkedStatus);
+    }
+
     toggleListItemRemoveConfirm = (e) => {
         const removeContainer = document.getElementById('list-item-remove_' + e.target.id.replace(/\D/g, ''));
         if (removeContainer.classList.contains('display--none')) {
@@ -179,7 +196,7 @@ export class ShoppingListCard extends React.Component {
 
     stopTitleEdit = () => {
         if (this.state.name !== this.props.name) {
-            console.log('save');
+            this.props.updateShoppingListName(this.props.id, this.state.name);
         }
 
         this.setState(() => ({ titleEdit: false }));
@@ -225,6 +242,21 @@ export class ShoppingListCard extends React.Component {
                                     onDrop={ this.onDrop }>
 
                                     <i className="material-icons drag-icon">drag_indicator</i>
+
+                                    <div className="input__checkbox">
+                                        <i
+                                            id={ "list-item-checked_" + item.id }
+                                            className="material-icons checked-icon"
+                                            onClick={ this.toggleCheckbox }>
+                                            { parseInt(item.checked) === 1 ? 'check_circle' : 'radio_button_unchecked' }
+                                        </i>
+                                        <input
+                                            type="checkbox"
+                                            name={ "input-checked_" + item.id }
+                                            value={ item.checked }
+                                            defaultChecked={ parseInt(item.checked) === 1 ? 'checked' : '' }
+                                            className="input__checkbox-input"/>
+                                    </div>
 
                                     <Link
                                         to={{
@@ -277,6 +309,8 @@ export class ShoppingListCard extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => ({
 	updateShoppingListItems: (shopping_list_id, items) => dispatch(updateShoppingListItems(shopping_list_id, items)),
+	updateShoppingListItemCheckedStatus: (shopping_list_id, shopping_list_item_id, status) => dispatch(updateShoppingListItemCheckedStatus(shopping_list_id, shopping_list_item_id, status)),
+	updateShoppingListName: (shopping_list_id, name) => dispatch(updateShoppingListName(shopping_list_id, name))
 });
   
 export default connect(undefined, mapDispatchToProps)(ShoppingListCard);

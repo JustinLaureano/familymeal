@@ -38,6 +38,14 @@ input {
     border-bottom: 1px solid $gray-light;
 }
 
+.input__checkbox {
+
+}
+
+.input__checkbox-input {
+    display: none;
+}
+
 
 .textarea {
     @include border(4px);

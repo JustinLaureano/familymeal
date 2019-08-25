@@ -18,7 +18,8 @@ class ShoppingListItems extends Model
                 'shopping_list_id',
                 'order',
                 'ingredient_id',
-                'ingredient.name AS ingredient_name'
+                'ingredient.name AS ingredient_name',
+                'checked'
             )
             ->leftJoin('ingredient', 'shopping_list_items.ingredient_id', 'ingredient.id')
             ->where('shopping_list_items.shopping_list_id', $shopping_list_id)
@@ -33,7 +34,8 @@ class ShoppingListItems extends Model
                 'shopping_list_id',
                 'order',
                 'ingredient_id',
-                'ingredient.name AS ingredient_name'
+                'ingredient.name AS ingredient_name',
+                'checked'
             )
             ->leftJoin('ingredient', 'shopping_list_items.ingredient_id', 'ingredient.id')
             ->where('shopping_list_items.id', $shopping_list_item_id)

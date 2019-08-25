@@ -10,14 +10,13 @@ class ShoppingList extends Model
 {
     protected $table = 'shopping_list';
 
-    protected $hidden = ['updated_at'];
-
     public static function getUserShoppingLists($user_id)
     {
         $shopping_lists = DB::table('shopping_list')
             ->select('shopping_list.id',
                 'shopping_list.name',
-                'shopping_list.created_at'
+                'shopping_list.created_at',
+                'shopping_list.updated_at'
             )
             ->where('shopping_list.user_id', $user_id)
             ->get();
