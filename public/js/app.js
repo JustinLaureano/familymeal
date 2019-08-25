@@ -60947,6 +60947,16 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "onNameChange", function (e) {
+      var name = e.target.value;
+
+      _this.setState(function () {
+        return {
+          name: name
+        };
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "removeListItem", function (e) {
       var id = e.target.id.replace(/\D/g, '');
 
@@ -60972,7 +60982,28 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "setTitleEdit", function () {
+      return _this.setState(function () {
+        return {
+          titleEdit: true
+        };
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "stopTitleEdit", function () {
+      if (_this.state.name !== _this.props.name) {
+        console.log('save');
+      }
+
+      _this.setState(function () {
+        return {
+          titleEdit: false
+        };
+      });
+    });
+
     _this.state = {
+      name: _this.props.name,
       items: _this.props.items,
       loading: true,
       itemEdited: false,
@@ -61031,7 +61062,15 @@ function (_React$Component) {
         className: "list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        name: "list-name_" + this.props.id,
+        className: this.state.titleEdit ? "list__name--edit" : "list__name",
+        onFocus: this.setTitleEdit,
+        onBlur: this.stopTitleEdit,
+        onChange: this.onNameChange,
+        value: this.state.name
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "shopping-list-body_" + this.props.id,
         className: "list__body",
         onDragOver: this.onDragOver
@@ -64488,7 +64527,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipeIngredients).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onDragStart", function (e, id) {
-      e.dataTransfer.setData('id', id);
+      return e.dataTransfer.setData('id', id);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
@@ -64542,7 +64581,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDragOver", function (e) {
-      e.preventDefault();
+      return e.preventDefault();
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDrop", function (e) {

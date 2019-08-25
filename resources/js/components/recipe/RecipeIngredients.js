@@ -41,9 +41,7 @@ export class RecipeIngredients extends React.Component {
 
     }
 
-    onDragStart = (e, id) => {
-        e.dataTransfer.setData('id', id);
-    }
+    onDragStart = (e, id) => e.dataTransfer.setData('id', id);
 
     onDrag = (e, id) => {
         document.body.style.cursor = 'move';
@@ -103,9 +101,7 @@ export class RecipeIngredients extends React.Component {
         });
     }
 
-    onDragOver = (e) => {
-        e.preventDefault();
-    }
+    onDragOver = (e) => e.preventDefault();
 
     onDrop = (e) => {
         const dropPos = e.clientY;

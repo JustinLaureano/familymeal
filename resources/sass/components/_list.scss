@@ -28,6 +28,16 @@
     padding: $space-md $space-sm $space-sm $space-sm;
 }
 
+.list__name {
+    border: none;
+    background-color: $white;
+}
+
+.list__name--edit {
+    @extend .list__name;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
 .list__body {
     @include pad($space-xxxs, $space-xxs);
 }

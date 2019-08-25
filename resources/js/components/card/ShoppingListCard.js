@@ -9,6 +9,7 @@ export class ShoppingListCard extends React.Component {
 		super(props);
         
         this.state = {
+            name: this.props.name,
             items: this.props.items,
             loading: true,
             itemEdited: false,
@@ -152,6 +153,11 @@ export class ShoppingListCard extends React.Component {
         }
     }
 
+    onNameChange = (e) => {
+        const name = e.target.value;
+        this.setState(() => ({ name }));
+    }
+
     removeListItem = (e) => {
         const id = e.target.id.replace(/\D/g, '');
         const filteredListItems = this.state.items.filter(item => item.id != id);
@@ -169,6 +175,16 @@ export class ShoppingListCard extends React.Component {
         }
     }
 
+    setTitleEdit = () => this.setState(() => ({ titleEdit: true }));
+
+    stopTitleEdit = () => {
+        if (this.state.name !== this.props.name) {
+            console.log('save');
+        }
+
+        this.setState(() => ({ titleEdit: false }));
+    };
+
 	render() {
         return this.state.loading ? (
             <section className="list__area">
@@ -182,7 +198,14 @@ export class ShoppingListCard extends React.Component {
             <section className="list__area">
                 <div id={ "shopping-list_" + this.props.id } className="list">
                     <div className="list__header">
-                        <h4>{ this.props.name }</h4>
+                        <input 
+                            type="text"
+                            name={ "list-name_" + this.props.id }
+                            className={ this.state.titleEdit ? "list__name--edit" : "list__name" }
+                            onFocus={ this.setTitleEdit }
+                            onBlur={ this.stopTitleEdit }
+                            onChange={ this.onNameChange }
+                            value={ this.state.name } />
                     </div>
                     <div 
                         id={ "shopping-list-body_" + this.props.id }

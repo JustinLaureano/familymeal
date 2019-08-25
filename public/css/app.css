@@ -659,6 +659,15 @@ a:hover {
   padding: calc(1.25 * 1em) calc(0.75 * 1em) calc(0.75 * 1em) calc(0.75 * 1em);
 }
 
+.list__name, .list__name--edit {
+  border: none;
+  background-color: #fffeff;
+}
+
+.list__name--edit {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 .list__body {
   padding: calc(0.25 * 1em) calc(0.375 * 1em);
 }
