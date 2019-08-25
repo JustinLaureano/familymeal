@@ -44,6 +44,7 @@ export const updateShoppingListItems = (shopping_list_id, items) => {
 			body: JSON.stringify({ items })
 		};
 
+		console.log(items);
 		fetch('/api/shopping-list/' + shopping_list_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {

@@ -114,3 +114,8 @@
     color: $weathered-gray;
     opacity: $icon-opacity;
 }
+
+.checked-icon--checked {
+    @extend .checked-icon;
+    color: $green;
+}

@@ -1090,10 +1090,14 @@ a:hover {
   top: 1px;
 }
 
-.checked-icon {
+.checked-icon, .checked-icon--checked {
   font-size: 0.875em;
   color: #505d6a;
   opacity: 0.54;
+}
+
+.checked-icon--checked {
+  color: #4fa75d;
 }
 
 input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .input {
@@ -2277,4 +2281,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .bold {
   font-weight: 700;
+}
+
+.line-through {
+  text-decoration: line-through;
 }

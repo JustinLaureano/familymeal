@@ -59983,6 +59983,7 @@ var updateShoppingListItems = function updateShoppingListItems(shopping_list_id,
         items: items
       })
     };
+    console.log(items);
     fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
@@ -61090,6 +61091,7 @@ function (_React$Component) {
       }
 
       if (this.state.itemEdited) {
+        console.log(this.state);
         this.props.updateShoppingListItems(this.props.id, this.state.items);
         this.setState({
           itemEdited: false
@@ -61149,7 +61151,7 @@ function (_React$Component) {
           className: "input__checkbox"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           id: "list-item-checked_" + item.id,
-          className: "material-icons checked-icon",
+          className: "material-icons checked-icon" + (parseInt(item.checked) === 1 ? '--checked' : ''),
           onClick: _this2.toggleCheckbox
         }, parseInt(item.checked) === 1 ? 'check_circle' : 'radio_button_unchecked'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "checkbox",
@@ -61164,7 +61166,7 @@ function (_React$Component) {
               id: item.ingredient_id
             }
           },
-          className: "list__item-link"
+          className: "list__item-link" + (parseInt(item.checked) === 1 ? ' line-through' : '')
         }, item.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "list__item-remove"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {

@@ -103,13 +103,13 @@ class ShoppingListController extends Controller
 
                     $shopping_list_item->order = $order;
                     $shopping_list_item->ingredient_id = $item['ingredient_id'];
-                    $shopping_list_item->checked = $item['checked'];
                     $shopping_list_item->save();
                 }
                 else {
                     // Update Shopping List Item
                     $shopping_list_item = ShoppingListItems::find($item['id']);
                     $shopping_list_item->order = $order;
+                    $shopping_list_item->checked = $item['checked'];
                     $shopping_list_item->save();
                 }
                 $order++;

@@ -32,6 +32,7 @@ export class ShoppingListCard extends React.Component {
         }
         
         if (this.state.itemEdited) {
+            console.log(this.state);
             this.props.updateShoppingListItems(this.props.id, this.state.items);
             this.setState({ itemEdited: false });
         }
@@ -246,7 +247,7 @@ export class ShoppingListCard extends React.Component {
                                     <div className="input__checkbox">
                                         <i
                                             id={ "list-item-checked_" + item.id }
-                                            className="material-icons checked-icon"
+                                            className={ "material-icons checked-icon" + (parseInt(item.checked) === 1 ? '--checked' : '') }
                                             onClick={ this.toggleCheckbox }>
                                             { parseInt(item.checked) === 1 ? 'check_circle' : 'radio_button_unchecked' }
                                         </i>
@@ -265,7 +266,7 @@ export class ShoppingListCard extends React.Component {
                                             id: item.ingredient_id
                                             }
                                         }}
-                                        className="list__item-link">
+                                        className={ "list__item-link" + (parseInt(item.checked) === 1 ? ' line-through' : '') }>
                                         { item.ingredient_name }
                                     </Link>
 
