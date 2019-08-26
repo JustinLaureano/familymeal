@@ -327,8 +327,10 @@ export class ShoppingListCard extends React.Component {
                                 id={ "list-dropdown_" + this.props.id }
                                 className={ "list__more-options-dropdown"  + (this.state.dropdownOpen ? '' : ' display--none') }>
 
-                                <div className="list__dropdown-option">
-                                    <span>Delete Shopping List</span>
+                                <div className="list__dropdown-option" onClick={ this.toggleIngredientRemoveConfirm }>
+                                    <i className="material-icons remove-icon">remove_circle</i>
+                                    <span className="list__dropdown-option-label">Delete Shopping List</span>
+
                                     <div 
                                         id={ "list-remove_" + this.props.id }
                                         className="list__dropdown-option-confirmation display--none">
@@ -346,7 +348,7 @@ export class ShoppingListCard extends React.Component {
                                             onClick={ this.toggleListRemoveConfirm }>
                                             Cancel
                                         </button>
-                                        
+
                                     </div>
                                 </div>
                             </div>

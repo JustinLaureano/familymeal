@@ -41,6 +41,7 @@
     font-size: $size-xl;
     opacity: $icon-opacity;
     &:hover {
+        cursor: pointer;
         opacity: 1;
     }
 }

@@ -78173,8 +78173,13 @@ function (_React$Component) {
         id: "list-dropdown_" + this.props.id,
         className: "list__more-options-dropdown" + (this.state.dropdownOpen ? '' : ' display--none')
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list__dropdown-option"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Delete Shopping List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__dropdown-option",
+        onClick: this.toggleIngredientRemoveConfirm
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons remove-icon"
+      }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "list__dropdown-option-label"
+      }, "Delete Shopping List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "list-remove_" + this.props.id,
         className: "list__dropdown-option-confirmation display--none"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {

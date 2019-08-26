@@ -663,6 +663,8 @@ a:hover {
 }
 
 .list__header {
+  -webkit-box-align: end;
+          align-items: flex-end;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
@@ -817,7 +819,28 @@ a:hover {
 }
 
 .list__more-options-dropdown {
+  padding: calc(0.375 * 1em) calc(0.5 * 1em);
+  display: -webkit-box;
+  display: flex;
+  background-color: #fffeff;
   position: absolute;
+  z-index: 200;
+  padding: 0.375em 0.5em;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.list__dropdown-option {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.list__dropdown-option-label {
+  margin-left: calc(0.5 * 1em);
 }
 
 .photo, .photo--circle {
@@ -1120,6 +1143,7 @@ a:hover {
   opacity: 0.54;
 }
 .more-icon:hover {
+  cursor: pointer;
   opacity: 1;
 }
 
