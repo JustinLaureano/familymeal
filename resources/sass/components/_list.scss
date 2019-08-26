@@ -70,9 +70,27 @@
     }
 }
 
+.list__add-area {
+    @include flex-center;
+    flex-grow: 1;
+    width: 100%;
+}
+
+.list__add-text {
+    margin-bottom: $space-md;
+    text-align: center;
+    width: 90%;
+}
+
 .list__body {
     @include pad($space-xxxs, $space-xxs);
     width: 100%;
+}
+
+.list__body--center {
+    @extend .list__body;
+    @include flex-center;
+    flex-grow: 1;
 }
 
 .list__list-item-row {
@@ -97,7 +115,16 @@
         @include transition;
         opacity: 0;
     }
-    
+}
+
+.list__list-item-row--empty {
+    @include pad($space-xxs, $space-xxxs);
+    @include transition;
+    display: flex;
+    background-color: $white;
+    font-size: $size-sm;
+    padding-left: $space-lg;
+    margin: .1em;
 }
 
 .list__item-link {

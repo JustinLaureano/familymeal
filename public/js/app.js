@@ -76813,12 +76813,13 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
 /*!**********************************************!*\
   !*** ./resources/js/actions/shoppingList.js ***!
   \**********************************************/
-/*! exports provided: addNewShoppingListItem, updateShoppingListItems, updateShoppingListName */
+/*! exports provided: addNewShoppingListItem, createNewShoppingList, updateShoppingListItems, updateShoppingListName */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewShoppingListItem", function() { return addNewShoppingListItem; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewShoppingList", function() { return createNewShoppingList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
@@ -76848,6 +76849,44 @@ var addNewShoppingListItem = function addNewShoppingListItem(params) {
         shopping_list_id: shopping_list_id,
         item: data.response
       });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var createNewShoppingList = function createNewShoppingList() {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var csrf_token = getState().auth.csrf_token;
+    var user_id = getState().user.id;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token),
+        'X-CSRF-TOKEN': csrf_token
+      },
+      body: JSON.stringify({
+        user_id: user_id
+      })
+    };
+    fetch('/api/shopping-list/store', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      console.log(data);
+
+      if (data.error) {
+        dispatch({
+          type: 'ADD_TOAST_MESSAGE',
+          message: data.error
+        });
+      } else {
+        dispatch({
+          type: 'SET_SHOPPING_LISTS',
+          shopping_lists: data.shopping_lists
+        });
+      }
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -77591,7 +77630,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "list__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "shopping-list_" + this.props.id,
+        id: "shopping-list_add",
         className: "list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__add-area"
@@ -78034,7 +78073,7 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
-      if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
+      if (this.state.loading && this.props.hasOwnProperty('items')) {
         this.setState({
           loading: false
         });
@@ -78071,7 +78110,7 @@ function (_React$Component) {
         id: "shopping-list_" + this.props.id,
         className: "list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "list__body"
+        className: "list__body--center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "loading__circle"
       })))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -78098,7 +78137,7 @@ function (_React$Component) {
         id: "shopping-list-body_" + this.props.id,
         className: "list__body",
         onDragOver: this.onDragOver
-      }, this.state.items.map(function (item, index) {
+      }, this.state.items.length > 0 && this.state.items.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: "shopping-list-item_" + item.id,
           id: "shopping-list-item_" + item.id,
@@ -78154,7 +78193,9 @@ function (_React$Component) {
           className: "btn--confirmation",
           onClick: _this2.toggleListItemRemoveConfirm
         }, "Cancel")));
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), this.state.items.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__list-item-row--empty"
+      }, "No Items Added")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
       }, this.state.updated_at && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         id: "updated-at_" + this.props.id,
@@ -85357,6 +85398,14 @@ var shoppingListReducerDefaultState = [];
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -85369,6 +85418,11 @@ var toastReducerDefaultState = {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case 'ADD_TOAST_MESSAGE':
+      return _objectSpread({}, state, {
+        messages: [].concat(_toConsumableArray(messages), [action.message])
+      });
+
     case 'SET_TOAST_MESSAGES':
       return _objectSpread({}, state, {
         messages: action.messages
@@ -87269,8 +87323,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/PageHeader */ "./resources/js/components/PageHeader.js");
 /* harmony import */ var _components_PageLoad__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/PageLoad */ "./resources/js/components/PageLoad.js");
-/* harmony import */ var _components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/card/AddShoppingListCard.js */ "./resources/js/components/card/AddShoppingListCard.js");
-/* harmony import */ var _components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/card/ShoppingListCard.js */ "./resources/js/components/card/ShoppingListCard.js");
+/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
+/* harmony import */ var _components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/card/AddShoppingListCard.js */ "./resources/js/components/card/AddShoppingListCard.js");
+/* harmony import */ var _components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/card/ShoppingListCard.js */ "./resources/js/components/card/ShoppingListCard.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -87300,6 +87355,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var ShoppingListPage =
 /*#__PURE__*/
 function (_React$Component) {
@@ -87314,6 +87370,8 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onAddShoppingList", function () {
       console.log('add');
+
+      _this.props.createNewShoppingList();
     });
 
     _this.state = {
@@ -87349,15 +87407,24 @@ function (_React$Component) {
           loading: false
         });
       } else if (!this.state.loading && this.props.shopping_lists.length > 0) {
-        // check for new shopping list items
-        for (var i = 0; i < this.props.shopping_lists.length; i++) {
-          if (this.state.lists[i].items.length != this.props.shopping_lists[i].items.length) {
-            this.setState(function () {
-              return {
-                lists: _this2.props.shopping_lists
-              };
-            });
-            break;
+        if (this.state.lists.length !== this.props.shopping_lists.length) {
+          // new list added or deleted
+          this.setState(function () {
+            return {
+              lists: _this2.props.shopping_lists
+            };
+          });
+        } else {
+          // check for new shopping list items
+          for (var i = 0; i < this.props.shopping_lists.length; i++) {
+            if (this.state.lists[i].items.length != this.props.shopping_lists[i].items.length) {
+              this.setState(function () {
+                return {
+                  lists: _this2.props.shopping_lists
+                };
+              });
+              break;
+            }
           }
         }
       }
@@ -87377,11 +87444,11 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "lists"
       }, this.state.lists.map(function (list, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({
           key: "shopping-list_" + index,
           index: index
         }, list));
-      }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
         onAddNewShoppingList: this.onAddShoppingList
       })));
     }
@@ -87398,7 +87465,11 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
-  return {};
+  return {
+    createNewShoppingList: function createNewShoppingList() {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__["createNewShoppingList"])());
+    }
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(ShoppingListPage));

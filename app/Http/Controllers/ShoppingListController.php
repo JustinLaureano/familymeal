@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ShoppingList;
 use App\Models\ShoppingListItems;
+use App\Models\UserSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,17 +14,36 @@ class ShoppingListController extends Controller
 
     public function index()
     {
-        //
+        // return user shopping lists
+        return response([
+            'shopping_lists' => ShoppingList::getUserShoppingLists($user_id)
+        ], 200);
     }
 
     public function store(Request $request)
     {
-        //
+        $user_id = $request->post('user_id');
+
+        $list_count = ShoppingList::where('user_id', $user_id)->count();
+        $user_settings = UserSettings::where('user_id', $user_id)->first();
+
+        if ($user_settings->shopping_list_limit <= $list_count)
+            return response(['error' => 'User has reached list limit'], 200);
+
+        $shopping_list = new ShoppingList;
+        $shopping_list->user_id = $user_id;
+        $shopping_list->name = 'List ' . ($list_count + 1);
+        $shopping_list->save();
+
+        // return user shopping lists
+        return response([
+            'shopping_lists' => ShoppingList::getUserShoppingLists($user_id)
+        ], 200);
     }
 
     public function show($id)
     {
-        //
+
     }
 
     public function update(Request $request, $shopping_list_id)

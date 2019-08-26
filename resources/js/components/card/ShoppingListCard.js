@@ -44,7 +44,7 @@ export class ShoppingListCard extends React.Component {
     }
     
     componentDidUpdate() {
-        if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
+        if (this.state.loading && this.props.hasOwnProperty('items')) {
 			this.setState({ loading: false });
         }
 
@@ -267,7 +267,7 @@ export class ShoppingListCard extends React.Component {
         return this.state.loading ? (
             <section className="list__area">
                 <div id={ "shopping-list_" + this.props.id } className="list">
-                    <div className="list__body">
+                    <div className="list__body--center">
                         <div className="loading__circle"></div>
                     </div>
                 </div>
@@ -295,6 +295,7 @@ export class ShoppingListCard extends React.Component {
                         className="list__body"
                         onDragOver={ this.onDragOver }>
                     {
+                        this.state.items.length > 0 &&
                         this.state.items.map((item, index) => {
                             return (
                                 <div 
@@ -364,6 +365,10 @@ export class ShoppingListCard extends React.Component {
                                 </div>
                             )
                         })
+                    }
+                    {
+                        this.state.items.length === 0 &&
+                        <div className="list__list-item-row--empty">No Items Added</div>
                     }
                     </div>
                     <div className="list__footer">

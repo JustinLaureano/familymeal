@@ -2,6 +2,13 @@ const toastReducerDefaultState = { messages: [] };
 
 export default (state = toastReducerDefaultState, action) => {
     switch (action.type) {
+        case 'ADD_TOAST_MESSAGE':
+            return {
+                ...state,
+                messages: [
+                    ...messages, action.message
+                ]
+            };
         case 'SET_TOAST_MESSAGES':
             return {
                 ...state,

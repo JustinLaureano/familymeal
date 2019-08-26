@@ -29,6 +29,44 @@ export const addNewShoppingListItem = (params) => {
 	}
 }
 
+export const createNewShoppingList = () => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const csrf_token = getState().auth.csrf_token;
+		const user_id = getState().user.id;
+
+		const request = {
+			method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${token}`,
+				'X-CSRF-TOKEN': csrf_token
+			},
+			body: JSON.stringify({ user_id })
+		};
+
+		fetch('/api/shopping-list/store', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				console.log(data);
+				if (data.error) {
+					dispatch({
+						type: 'ADD_TOAST_MESSAGE',
+						message: data.error
+					});
+				}
+				else {
+					dispatch({
+						type: 'SET_SHOPPING_LISTS',
+						shopping_lists: data.shopping_lists
+					});
+				}
+			})
+			.catch(err => console.log(err))
+	}
+}
+
 export const updateShoppingListItems = (shopping_list_id, items) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
