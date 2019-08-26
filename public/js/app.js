@@ -77801,6 +77801,15 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "dropdownClickEvent", function (e) {
+      if (!e.target.id.includes('list-dropdown_' + _this.props.id) && _this.state.dropdownOpen) {
+        // mouse click was outside the category menu, so close the menu
+        _this.setState({
+          dropdownOpen: false
+        });
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "getShoppingListRows", function () {
       return document.querySelector('#shopping-list-body_' + _this.props.id).querySelectorAll('.list__list-item-row');
     });
@@ -78023,6 +78032,10 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "startRemoveShoppingList", function () {
+      console.log('remove');
+    });
+
     _defineProperty(_assertThisInitialized(_this), "stopTitleEdit", function () {
       if (_this.state.name !== _this.props.name) {
         _this.props.updateShoppingListName(_this.props.id, _this.state.name);
@@ -78036,11 +78049,28 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "toggleListRemoveConfirm", function (e) {
+      var removeContainer = document.getElementById('list-remove_' + _this.props.id);
+
+      if (removeContainer.classList.contains('display--none')) {
+        removeContainer.classList.remove('display--none');
+      } else {
+        removeContainer.classList.add('display--none');
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "toggleOptionDropdown", function () {
+      _this.setState({
+        dropdownOpen: !_this.state.dropdownOpen
+      });
+    });
+
     _this.state = {
       name: _this.props.name,
       items: _this.props.items,
       updated_at: _this.props.updated_at,
       loading: true,
+      dropdownOpen: false,
       itemAdded: false,
       itemEdited: false,
       titleEdit: false
@@ -78093,6 +78123,12 @@ function (_React$Component) {
           updated_at: moment__WEBPACK_IMPORTED_MODULE_1__().utc().format('YYYY-MM-DD HH:mm:ss')
         });
       }
+
+      if (this.state.dropdownOpen) {
+        document.addEventListener('click', this.dropdownClickEvent);
+      } else {
+        document.removeEventListener('click', this.dropdownClickEvent);
+      }
     }
   }, {
     key: "componentWillUnmount",
@@ -78128,7 +78164,30 @@ function (_React$Component) {
         onBlur: this.stopTitleEdit,
         onChange: this.onNameChange,
         value: this.state.name
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__more-options"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons more-icon",
+        onClick: this.toggleOptionDropdown
+      }, "more_vert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "list-dropdown_" + this.props.id,
+        className: "list__more-options-dropdown" + (this.state.dropdownOpen ? '' : ' display--none')
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__dropdown-option"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Delete Shopping List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "list-remove_" + this.props.id,
+        className: "list__dropdown-option-confirmation display--none"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "confirmation__label"
+      }, "Remove Shopping List?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "remove-btn_" + this.props.id,
+        className: "btn--confirmation-confirm",
+        onClick: this.startRemoveShoppingList
+      }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "confirmation-cancel-btn_" + this.props.id,
+        className: "btn--confirmation",
+        onClick: this.toggleListRemoveConfirm
+      }, "Cancel")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__search"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopping_list_ShoppingListSearch__WEBPACK_IMPORTED_MODULE_6__["default"], {
         shoppingListId: this.props.id,
@@ -87369,9 +87428,11 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListPage).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onAddShoppingList", function () {
-      console.log('add');
-
       _this.props.createNewShoppingList();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onStartDeleteShoppingList", function () {
+      console.log('delete');
     });
 
     _this.state = {
@@ -87432,6 +87493,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var pageHeaderProps = {
         title: 'Shopping List',
         subtitle: {
@@ -87446,7 +87509,8 @@ function (_React$Component) {
       }, this.state.lists.map(function (list, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({
           key: "shopping-list_" + index,
-          index: index
+          index: index,
+          onDeleteShoppingList: _this3.startDeleteShoppingList
         }, list));
       }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
         onAddNewShoppingList: this.onAddShoppingList

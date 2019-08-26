@@ -54,8 +54,11 @@ export class ShoppingListPage extends React.Component {
 	}
 
 	onAddShoppingList = () => {
-		console.log('add');
 		this.props.createNewShoppingList();
+	}
+
+	onStartDeleteShoppingList = () => {
+		console.log('delete');
 	}
 
 	render() {
@@ -79,7 +82,8 @@ export class ShoppingListPage extends React.Component {
 							return (
 								<ShoppingListCard
 									key={ "shopping-list_" + index }
-									index={ index } 
+									index={ index }
+									onDeleteShoppingList={ this.startDeleteShoppingList }
 									{ ...list }/>
 							)
 						})

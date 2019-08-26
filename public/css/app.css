@@ -812,6 +812,14 @@ a:hover {
   font-style: italic;
 }
 
+.list__more-options {
+  position: relative;
+}
+
+.list__more-options-dropdown {
+  position: absolute;
+}
+
 .photo, .photo--circle {
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
 }
@@ -1103,6 +1111,16 @@ a:hover {
 
 .dropdown-icon {
   font-size: 1.5em;
+}
+
+.more-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  font-size: 1.5em;
+  opacity: 0.54;
+}
+.more-icon:hover {
+  opacity: 1;
 }
 
 .add-icon, .add-icon--textarea {

@@ -20,6 +20,7 @@ export class ShoppingListCard extends React.Component {
             items: this.props.items,
             updated_at: this.props.updated_at,
             loading: true,
+            dropdownOpen: false,
             itemAdded: false,
             itemEdited: false,
             titleEdit: false
@@ -62,10 +63,24 @@ export class ShoppingListCard extends React.Component {
                 updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss')
             });
         }
+
+        if (this.state.dropdownOpen) {
+            document.addEventListener('click', this.dropdownClickEvent);
+        }
+        else {
+            document.removeEventListener('click', this.dropdownClickEvent);
+        }
     }
 
     componentWillUnmount() {
         clearInterval(this.timeout);
+    }
+
+    dropdownClickEvent = (e) => {
+        if (!e.target.id.includes('list-dropdown_' + this.props.id) && this.state.dropdownOpen) {
+            // mouse click was outside the category menu, so close the menu
+            this.setState({ dropdownOpen: false });
+        }
     }
 
     getShoppingListRows = () => {
@@ -255,6 +270,10 @@ export class ShoppingListCard extends React.Component {
         this.setState(() => ({ itemAdded: true }));
     }
 
+    startRemoveShoppingList = () => {
+        console.log('remove');        
+    }
+
     stopTitleEdit = () => {
         if (this.state.name !== this.props.name) {
             this.props.updateShoppingListName(this.props.id, this.state.name);
@@ -262,6 +281,20 @@ export class ShoppingListCard extends React.Component {
 
         this.setState(() => ({ updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'), titleEdit: false }));
     };
+
+    toggleListRemoveConfirm = (e) => {
+        const removeContainer = document.getElementById('list-remove_' + this.props.id);
+        if (removeContainer.classList.contains('display--none')) {
+            removeContainer.classList.remove('display--none');
+        }
+        else {
+            removeContainer.classList.add('display--none');
+        }
+    }
+
+    toggleOptionDropdown = () => {
+        this.setState({ dropdownOpen: !this.state.dropdownOpen });
+    }
 
 	render() {
         return this.state.loading ? (
@@ -284,6 +317,40 @@ export class ShoppingListCard extends React.Component {
                             onBlur={ this.stopTitleEdit }
                             onChange={ this.onNameChange }
                             value={ this.state.name } />
+                        <div className="list__more-options">
+                            <i
+                                className="material-icons more-icon"
+                                onClick={ this.toggleOptionDropdown }>
+                                more_vert
+                            </i>
+                            <div
+                                id={ "list-dropdown_" + this.props.id }
+                                className={ "list__more-options-dropdown"  + (this.state.dropdownOpen ? '' : ' display--none') }>
+
+                                <div className="list__dropdown-option">
+                                    <span>Delete Shopping List</span>
+                                    <div 
+                                        id={ "list-remove_" + this.props.id }
+                                        className="list__dropdown-option-confirmation display--none">
+
+                                        <p className="confirmation__label">Remove Shopping List?</p>
+                                        <button
+                                            id={ "remove-btn_" + this.props.id }
+                                            className="btn--confirmation-confirm"
+                                            onClick={ this.startRemoveShoppingList }>
+                                            Remove
+                                        </button>
+                                        <button
+                                            id={ "confirmation-cancel-btn_" + this.props.id }
+                                            className="btn--confirmation"
+                                            onClick={ this.toggleListRemoveConfirm }>
+                                            Cancel
+                                        </button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="list__search">
                         <ShoppingListSearch

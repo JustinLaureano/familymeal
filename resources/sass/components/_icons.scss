@@ -36,6 +36,15 @@
     font-size: $size-xl;
 }
 
+.more-icon {
+    @include transition;
+    font-size: $size-xl;
+    opacity: $icon-opacity;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .add-icon {
     @include transition;
     align-self: center;
