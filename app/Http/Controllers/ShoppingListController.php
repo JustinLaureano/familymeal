@@ -120,10 +120,12 @@ class ShoppingListController extends Controller
             $response = ShoppingListItems::getByShoppingListId($shopping_list_id);
         }
 
-        if (count($updates))
-            $shopping_list->save();
+        $shopping_list->save();
 
-        $data = ['shopping_list_id' => $shopping_list_id, 'updates' => $updates];
+        $data = [
+            'shopping_list_id' => $shopping_list_id,
+            'updates' => $updates
+        ];
 
         if ($response) 
             $data['response'] = $response;

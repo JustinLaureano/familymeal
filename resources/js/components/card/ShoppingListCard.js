@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
 import { timeFromNow } from '../../services/General';
+import * as moment from 'moment';
 import { updateShoppingListItems, updateShoppingListName } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
@@ -21,11 +22,29 @@ export class ShoppingListCard extends React.Component {
         this.newIdFloor = 900000;
         this.newIdCeiling = 999999;
     };
+
+    componentWillMount() {
+
+    }
     
     componentDidMount() {
 		if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
-			this.setState({ loading: false });
-		}
+			this.setState({ updated_at: this.props.updated_at, loading: false });
+        }
+        
+        // find most recent updated time from items
+        let recentUpdate = this.props.updated_at;
+        this.props.items.map(item => {
+            const recent = moment(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss')
+            const itemUpdate = moment(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss');
+            
+            // use the item update time if it is more recent than the shopping list update time
+            if (itemUpdate.unix() > recent.unix()) {
+                recentUpdate = item.updated_at;
+            }
+            
+        });
+        this.setState(() => ({ updated_at: recentUpdate }));
     }
     
     componentDidUpdate() {
@@ -35,7 +54,7 @@ export class ShoppingListCard extends React.Component {
         
         if (this.state.itemEdited) {
             this.props.updateShoppingListItems(this.props.id, this.state.items);
-            this.setState({ itemEdited: false });
+            this.setState({ updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'), itemEdited: false });
         }
     }
 
@@ -178,9 +197,6 @@ export class ShoppingListCard extends React.Component {
         })
 
         this.setState(() => ({ items, itemEdited: true }))
-
-        // update list item
-        // this.props.updateShoppingListItemCheckedStatus(this.props.id, shoppingListItemId, !checkedStatus);
     }
 
     toggleListItemRemoveConfirm = (e) => {
@@ -200,7 +216,7 @@ export class ShoppingListCard extends React.Component {
             this.props.updateShoppingListName(this.props.id, this.state.name);
         }
 
-        this.setState(() => ({ titleEdit: false }));
+        this.setState(() => ({ updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'), titleEdit: false }));
     };
 
 	render() {

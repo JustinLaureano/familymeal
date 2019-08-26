@@ -76821,6 +76821,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewShoppingListItem", function() { return addNewShoppingListItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -76869,7 +76872,6 @@ var updateShoppingListItems = function updateShoppingListItems(shopping_list_id,
         items: items
       })
     };
-    console.log(items);
     fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
@@ -77709,7 +77711,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
 /* harmony import */ var _services_General__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/General */ "./resources/js/services/General.js");
-/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -77739,6 +77743,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -77913,9 +77918,7 @@ function (_React$Component) {
           items: items,
           itemEdited: true
         };
-      }); // update list item
-      // this.props.updateShoppingListItemCheckedStatus(this.props.id, shoppingListItemId, !checkedStatus);
-
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleListItemRemoveConfirm", function (e) {
@@ -77943,6 +77946,7 @@ function (_React$Component) {
 
       _this.setState(function () {
         return {
+          updated_at: moment__WEBPACK_IMPORTED_MODULE_5__().utc().format('YYYY-MM-DD HH:mm:ss'),
           titleEdit: false
         };
       });
@@ -77962,13 +77966,33 @@ function (_React$Component) {
   }
 
   _createClass(ShoppingListCard, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {}
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
         this.setState({
+          updated_at: this.props.updated_at,
           loading: false
         });
-      }
+      } // find most recent updated time from items
+
+
+      var recentUpdate = this.props.updated_at;
+      this.props.items.map(function (item) {
+        var recent = moment__WEBPACK_IMPORTED_MODULE_5__(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss');
+        var itemUpdate = moment__WEBPACK_IMPORTED_MODULE_5__(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss'); // use the item update time if it is more recent than the shopping list update time
+
+        if (itemUpdate.unix() > recent.unix()) {
+          recentUpdate = item.updated_at;
+        }
+      });
+      this.setState(function () {
+        return {
+          updated_at: recentUpdate
+        };
+      });
     }
   }, {
     key: "componentDidUpdate",
@@ -77982,6 +78006,7 @@ function (_React$Component) {
       if (this.state.itemEdited) {
         this.props.updateShoppingListItems(this.props.id, this.state.items);
         this.setState({
+          updated_at: moment__WEBPACK_IMPORTED_MODULE_5__().utc().format('YYYY-MM-DD HH:mm:ss'),
           itemEdited: false
         });
       }
@@ -78089,10 +78114,10 @@ function (_React$Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     updateShoppingListItems: function updateShoppingListItems(shopping_list_id, items) {
-      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__["updateShoppingListItems"])(shopping_list_id, items));
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__["updateShoppingListItems"])(shopping_list_id, items));
     },
     updateShoppingListName: function updateShoppingListName(shopping_list_id, name) {
-      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__["updateShoppingListName"])(shopping_list_id, name));
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__["updateShoppingListName"])(shopping_list_id, name));
     }
   };
 };
@@ -85060,7 +85085,8 @@ var shoppingListReducerDefaultState = [];
       return state.map(function (list) {
         if (list.id == action.shopping_list_id) {
           return _objectSpread({}, list, {
-            items: action.items
+            items: action.items,
+            updated_at: action.updated_at
           });
         } else {
           return list;
@@ -85071,7 +85097,8 @@ var shoppingListReducerDefaultState = [];
       return state.map(function (list) {
         if (list.id == action.shopping_list_id) {
           return _objectSpread({}, list, {
-            name: action.name
+            name: action.name,
+            updated_at: action.updated_at
           });
         } else {
           return list;
@@ -85520,7 +85547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 
 function timeFromNow(timeString) {
-  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-DD-MM HH:mm:ss';
+  var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'YYYY-MM-DD HH:mm:ss';
   var date = new Date(timeString);
   var offset = moment__WEBPACK_IMPORTED_MODULE_0__(date, format).utcOffset();
   return moment__WEBPACK_IMPORTED_MODULE_0__(date, format).add(offset, 'minutes').fromNow();

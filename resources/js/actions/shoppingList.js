@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export const addNewShoppingListItem = (params) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -22,12 +24,13 @@ export const addNewShoppingListItem = (params) => {
 				dispatch({
 					type: 'ADD_SHOPPING_LIST_ITEM',
                     shopping_list_id,
-                    item: data.response
+					item: data.response
 				});
 			})
 			.catch(err => console.log(err))
 	}
 }
+
 export const updateShoppingListItems = (shopping_list_id, items) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -44,14 +47,13 @@ export const updateShoppingListItems = (shopping_list_id, items) => {
 			body: JSON.stringify({ items })
 		};
 
-		console.log(items);
 		fetch('/api/shopping-list/' + shopping_list_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
 				dispatch({
 					type: 'UPDATE_SHOPPING_LIST_ITEMS',
                     shopping_list_id,
-                    items: data.response
+					items: data.response
 				});
 			})
 			.catch(err => console.log(err))
@@ -80,7 +82,7 @@ export const updateShoppingListName = (shopping_list_id, name) => {
 				dispatch({
 					type: 'UPDATE_SHOPPING_LIST_NAME',
                     shopping_list_id,
-                    name: data.response
+					name: data.response
 				});
 			})
 			.catch(err => console.log(err))

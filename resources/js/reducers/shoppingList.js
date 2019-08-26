@@ -18,29 +18,31 @@ export default (state = shoppingListReducerDefaultState, action) => {
                 }
             });
         case 'UPDATE_SHOPPING_LIST_ITEMS':
-                return state.map(list => {
-                    if (list.id == action.shopping_list_id) {
-                        return {
-                            ...list,
-                            items: action.items
-                        };
-                    }
-                    else {
-                        return list;
-                    }
-                });
+            return state.map(list => {
+                if (list.id == action.shopping_list_id) {
+                    return {
+                        ...list,
+                        items: action.items,
+                        updated_at: action.updated_at
+                    };
+                }
+                else {
+                    return list;
+                }
+            });
         case 'UPDATE_SHOPPING_LIST_NAME':
-                return state.map(list => {
-                    if (list.id == action.shopping_list_id) {
-                        return {
-                            ...list,
-                            name: action.name
-                        };
-                    }
-                    else {
-                        return list;
-                    }
-                });
+            return state.map(list => {
+                if (list.id == action.shopping_list_id) {
+                    return {
+                        ...list,
+                        name: action.name,
+                        updated_at: action.updated_at
+                    };
+                }
+                else {
+                    return list;
+                }
+            });
         default:
             return state;
     }
