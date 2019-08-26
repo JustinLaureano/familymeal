@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
 import { timeFromNow } from '../../services/General';
 import ShoppingListSearch from '../shopping_list/ShoppingListSearch';
-import { updateShoppingListItems, updateShoppingListName } from '../../actions/shoppingList';
+import {
+    addNewShoppingListItem,
+    updateShoppingListItems,
+    updateShoppingListName 
+} from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
@@ -16,47 +20,60 @@ export class ShoppingListCard extends React.Component {
             items: this.props.items,
             updated_at: this.props.updated_at,
             loading: true,
+            itemAdded: false,
             itemEdited: false,
             titleEdit: false
         };
 
         this.newIdFloor = 900000;
         this.newIdCeiling = 999999;
+        this.timeout;
     };
 
-    componentWillMount() {
-
-    }
-    
     componentDidMount() {
 		if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
 			this.setState({ updated_at: this.props.updated_at, loading: false });
         }
-        
+
         // find most recent updated time from items
         let recentUpdate = this.props.updated_at;
         this.props.items.map(item => {
             const recent = moment(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss')
             const itemUpdate = moment(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss');
-            
+
             // use the item update time if it is more recent than the shopping list update time
             if (itemUpdate.unix() > recent.unix()) {
                 recentUpdate = item.updated_at;
             }
-            
         });
         this.setState(() => ({ updated_at: recentUpdate }));
+
+        this.setUpdateStatusRefresh();
     }
     
     componentDidUpdate() {
         if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
 			this.setState({ loading: false });
         }
-        
+
         if (this.state.itemEdited) {
             this.props.updateShoppingListItems(this.props.id, this.state.items);
-            this.setState({ updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'), itemEdited: false });
+            this.setState({
+                updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'),
+                itemEdited: false
+            });
         }
+
+        if (this.props.items.length != this.state.items.length) {
+            this.setState({
+                items: this.props.items,
+                updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss')
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timeout);
     }
 
     getShoppingListRows = () => {
@@ -212,6 +229,19 @@ export class ShoppingListCard extends React.Component {
 
     setTitleEdit = () => this.setState(() => ({ titleEdit: true }));
 
+    setUpdateStatusRefresh = () => {
+        this.timeout = setInterval(this.setUpdateStatus, 60000);
+    }
+
+    setUpdateStatus = () => {
+        document.getElementById('updated-at_' + this.props.id).innerHTML = 'Updated ' + timeFromNow(this.state.updated_at);
+    }
+
+    startAddNewItem = (params) => {
+        this.props.addNewShoppingListItem(params);
+        this.setState(() => ({ itemAdded: true }));
+    }
+
     stopTitleEdit = () => {
         if (this.state.name !== this.props.name) {
             this.props.updateShoppingListName(this.props.id, this.state.name);
@@ -243,7 +273,9 @@ export class ShoppingListCard extends React.Component {
                             value={ this.state.name } />
                     </div>
                     <div className="list__search">
-                        <ShoppingListSearch shoppingListId={ this.props.id } />
+                        <ShoppingListSearch
+                            shoppingListId={ this.props.id }
+                            onItemSelect={ this.startAddNewItem } />
                     </div>
                     <div 
                         id={ "shopping-list-body_" + this.props.id }
@@ -322,7 +354,11 @@ export class ShoppingListCard extends React.Component {
                     }
                     </div>
                     <div className="list__footer">
-                        <span className="list__updated-at"> Updated { timeFromNow(this.state.updated_at) }</span>
+                        <span
+                            id={ "updated-at_" + this.props.id }
+                            className="list__updated-at">
+                            Updated { timeFromNow(this.state.updated_at) }
+                        </span>
                     </div>
                 </div>
             </section>
@@ -331,6 +367,7 @@ export class ShoppingListCard extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
+    addNewShoppingListItem: (params) => dispatch(addNewShoppingListItem(params)),
 	updateShoppingListItems: (shopping_list_id, items) => dispatch(updateShoppingListItems(shopping_list_id, items)),
 	updateShoppingListName: (shopping_list_id, name) => dispatch(updateShoppingListName(shopping_list_id, name))
 });

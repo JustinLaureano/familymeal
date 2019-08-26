@@ -24,18 +24,25 @@ export class ShoppingListPage extends React.Component {
 
 	componentDidUpdate() {
 		if (this.props.shopping_lists.length == 0 && !this.state.loading) {
+			// nothing has loaded yet
 			this.setState({ loading: true });
 		}
 		else if (this.state.loading && this.props.shopping_lists.length > 0) {
+			// shopping lists have loaded, can now set loading to false
 			this.setState({
 				lists: this.props.shopping_lists,
 				loading: false 
 			});
 		}
-	}
-
-	onShoppingListChange = (list) => {
-		console.log(list);
+		else if (! this.state.loading && this.props.shopping_lists.length > 0) {
+			// check for new shopping list items
+			for(let i = 0; i < this.props.shopping_lists.length; i++) {
+				if (this.state.lists[i].items.length != this.props.shopping_lists[i].items.length) {
+					this.setState(() => ({ lists: this.props.shopping_lists }));
+					break;
+				}
+			}
+		}
 	}
 
 	onAddShoppingList = () => {
@@ -50,13 +57,9 @@ export class ShoppingListPage extends React.Component {
 				text: this.state.lists.length + ' Lists'
 			}
 		}
-		if (this.state.loading) {
-			return (
-				<PageLoad />
-			)
-		}
-		else {
-			return (
+		return this.state.loading ?
+			( <PageLoad /> ) :
+			(
 				<section className="table-grid--simple">
 					<Breadcrumbs />
 					<PageHeader { ...pageHeaderProps } />
@@ -68,7 +71,6 @@ export class ShoppingListPage extends React.Component {
 								<ShoppingListCard
 									key={ "shopping-list_" + index }
 									index={ index } 
-									onChange={ this.onShoppingListChange }
 									{ ...list }/>
 							)
 						})
@@ -80,7 +82,6 @@ export class ShoppingListPage extends React.Component {
 					</section>
 				</section>
 			)
-		}
 	}
 }
 

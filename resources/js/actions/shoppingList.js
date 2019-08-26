@@ -1,5 +1,3 @@
-import * as moment from 'moment';
-
 export const addNewShoppingListItem = (params) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;

@@ -65095,7 +65095,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76821,9 +76821,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addNewShoppingListItem", function() { return addNewShoppingListItem; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -77941,6 +77938,24 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "setUpdateStatusRefresh", function () {
+      _this.timeout = setInterval(_this.setUpdateStatus, 60000);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setUpdateStatus", function () {
+      document.getElementById('updated-at_' + _this.props.id).innerHTML = 'Updated ' + Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(_this.state.updated_at);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startAddNewItem", function (params) {
+      _this.props.addNewShoppingListItem(params);
+
+      _this.setState(function () {
+        return {
+          itemAdded: true
+        };
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "stopTitleEdit", function () {
       if (_this.state.name !== _this.props.name) {
         _this.props.updateShoppingListName(_this.props.id, _this.state.name);
@@ -77959,18 +77974,17 @@ function (_React$Component) {
       items: _this.props.items,
       updated_at: _this.props.updated_at,
       loading: true,
+      itemAdded: false,
       itemEdited: false,
       titleEdit: false
     };
     _this.newIdFloor = 900000;
     _this.newIdCeiling = 999999;
+    _this.timeout;
     return _this;
   }
 
   _createClass(ShoppingListCard, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {}
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (this.state.loading && this.props.hasOwnProperty('items') && this.props.items.length > 0) {
@@ -77995,6 +78009,7 @@ function (_React$Component) {
           updated_at: recentUpdate
         };
       });
+      this.setUpdateStatusRefresh();
     }
   }, {
     key: "componentDidUpdate",
@@ -78012,6 +78027,18 @@ function (_React$Component) {
           itemEdited: false
         });
       }
+
+      if (this.props.items.length != this.state.items.length) {
+        this.setState({
+          items: this.props.items,
+          updated_at: moment__WEBPACK_IMPORTED_MODULE_1__().utc().format('YYYY-MM-DD HH:mm:ss')
+        });
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.timeout);
     }
   }, {
     key: "render",
@@ -78045,7 +78072,8 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__search"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopping_list_ShoppingListSearch__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        shoppingListId: this.props.id
+        shoppingListId: this.props.id,
+        onItemSelect: this.startAddNewItem
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "shopping-list-body_" + this.props.id,
         className: "list__body",
@@ -78109,8 +78137,9 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        id: "updated-at_" + this.props.id,
         className: "list__updated-at"
-      }, " Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(this.state.updated_at)))));
+      }, "Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(this.state.updated_at)))));
     }
   }]);
 
@@ -78119,6 +78148,9 @@ function (_React$Component) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
+    addNewShoppingListItem: function addNewShoppingListItem(params) {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_7__["addNewShoppingListItem"])(params));
+    },
     updateShoppingListItems: function updateShoppingListItems(shopping_list_id, items) {
       return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_7__["updateShoppingListItems"])(shopping_list_id, items));
     },
@@ -83493,7 +83525,16 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onSuggestionSelected", function (event, _ref3) {
       var suggestion = _ref3.suggestion;
-      console.log(event, suggestion);
+
+      _this.props.onItemSelect({
+        shopping_list_id: _this.props.shoppingListId,
+        ingredient_id: suggestion.id
+      });
+
+      _this.setState({
+        value: '',
+        suggestions: []
+      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderInputComponent", function (inputProps) {
@@ -87247,10 +87288,6 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListPage).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "onShoppingListChange", function (list) {
-      console.log(list);
-    });
-
     _defineProperty(_assertThisInitialized(_this), "onAddShoppingList", function () {
       console.log('add');
     });
@@ -87274,22 +87311,36 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
+      var _this2 = this;
+
       if (this.props.shopping_lists.length == 0 && !this.state.loading) {
+        // nothing has loaded yet
         this.setState({
           loading: true
         });
       } else if (this.state.loading && this.props.shopping_lists.length > 0) {
+        // shopping lists have loaded, can now set loading to false
         this.setState({
           lists: this.props.shopping_lists,
           loading: false
         });
+      } else if (!this.state.loading && this.props.shopping_lists.length > 0) {
+        // check for new shopping list items
+        for (var i = 0; i < this.props.shopping_lists.length; i++) {
+          if (this.state.lists[i].items.length != this.props.shopping_lists[i].items.length) {
+            this.setState(function () {
+              return {
+                lists: _this2.props.shopping_lists
+              };
+            });
+            break;
+          }
+        }
       }
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       var pageHeaderProps = {
         title: 'Shopping List',
         subtitle: {
@@ -87297,24 +87348,18 @@ function (_React$Component) {
           text: this.state.lists.length + ' Lists'
         }
       };
-
-      if (this.state.loading) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null);
-      } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-          className: "table-grid--simple"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-          className: "lists"
-        }, this.state.lists.map(function (list, index) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({
-            key: "shopping-list_" + index,
-            index: index,
-            onChange: _this2.onShoppingListChange
-          }, list));
-        }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          onAddNewShoppingList: this.onAddShoppingList
-        })));
-      }
+      return this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "table-grid--simple"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "lists"
+      }, this.state.lists.map(function (list, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({
+          key: "shopping-list_" + index,
+          index: index
+        }, list));
+      }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        onAddNewShoppingList: this.onAddShoppingList
+      })));
     }
   }]);
 

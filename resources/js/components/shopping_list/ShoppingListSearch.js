@@ -32,7 +32,12 @@ export class ShoppingListSearch extends React.Component {
     onSuggestionsClearRequested = () => this.setState({ suggestions: [] });
 
     onSuggestionSelected = (event, { suggestion }) => {
-        console.log(event, suggestion);
+        this.props.onItemSelect({
+            shopping_list_id: this.props.shoppingListId,
+            ingredient_id: suggestion.id
+        });
+
+        this.setState({ value: '', suggestions: [] });
     }
 
     renderInputComponent = (inputProps) => (
