@@ -60274,11 +60274,11 @@ function (_React$Component) {
 
       var filteredListItems = _this.state.items.filter(function (item) {
         return item.id != id;
-      }); // this.props.removeCurrentRecipeIngredient(filteredIngredients);
-
+      });
 
       _this.setState(function () {
         return {
+          items: filteredListItems,
           itemEdited: true
         };
       });
@@ -60372,7 +60372,6 @@ function (_React$Component) {
       }
 
       if (this.state.itemEdited) {
-        console.log(this.state);
         this.props.updateShoppingListItems(this.props.id, this.state.items);
         this.setState({
           itemEdited: false

@@ -32,7 +32,6 @@ export class ShoppingListCard extends React.Component {
         }
         
         if (this.state.itemEdited) {
-            console.log(this.state);
             this.props.updateShoppingListItems(this.props.id, this.state.items);
             this.setState({ itemEdited: false });
         }
@@ -159,8 +158,7 @@ export class ShoppingListCard extends React.Component {
     removeListItem = (e) => {
         const id = e.target.id.replace(/\D/g, '');
         const filteredListItems = this.state.items.filter(item => item.id != id);
-        // this.props.removeCurrentRecipeIngredient(filteredIngredients);
-        this.setState(() => ({ itemEdited: true }));
+        this.setState(() => ({ items: filteredListItems, itemEdited: true }));
     }
 
     toggleCheckbox = (e) => {
