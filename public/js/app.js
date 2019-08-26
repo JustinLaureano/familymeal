@@ -77938,6 +77938,34 @@ function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "setUpdatedAt", function () {
+      // find most recent updated time from items
+      if (typeof _this.props.updated_at === 'string') {
+        var recentUpdate = _this.props.updated_at;
+
+        _this.props.items.map(function (item) {
+          var recent = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss');
+          var itemUpdate = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss'); // use the item update time if it is more recent than the shopping list update time
+
+          if (itemUpdate.unix() > recent.unix()) {
+            recentUpdate = item.updated_at;
+          }
+        });
+
+        _this.setState(function () {
+          return {
+            updated_at: recentUpdate
+          };
+        });
+      } else {
+        _this.setState(function () {
+          return {
+            updated_at: false
+          };
+        });
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "setUpdateStatusRefresh", function () {
       _this.timeout = setInterval(_this.setUpdateStatus, 60000);
     });
@@ -77992,23 +78020,15 @@ function (_React$Component) {
           updated_at: this.props.updated_at,
           loading: false
         });
-      } // find most recent updated time from items
+      }
 
+      if (!this.state.updated_at && typeof this.props.updated_at === 'string') {
+        this.setState({
+          updated_at: this.props.updated_at
+        });
+      }
 
-      var recentUpdate = this.props.updated_at;
-      this.props.items.map(function (item) {
-        var recent = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss');
-        var itemUpdate = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss'); // use the item update time if it is more recent than the shopping list update time
-
-        if (itemUpdate.unix() > recent.unix()) {
-          recentUpdate = item.updated_at;
-        }
-      });
-      this.setState(function () {
-        return {
-          updated_at: recentUpdate
-        };
-      });
+      this.setUpdatedAt();
       this.setUpdateStatusRefresh();
     }
   }, {
@@ -78136,7 +78156,7 @@ function (_React$Component) {
         }, "Cancel")));
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      }, this.state.updated_at && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         id: "updated-at_" + this.props.id,
         className: "list__updated-at"
       }, "Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(this.state.updated_at)))));
@@ -78145,6 +78165,12 @@ function (_React$Component) {
 
   return ShoppingListCard;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    shopping_lists: state.shopping_lists
+  };
+};
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
@@ -78160,7 +78186,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(undefined, mapDispatchToProps)(ShoppingListCard));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(ShoppingListCard));
 
 /***/ }),
 
@@ -85297,8 +85323,7 @@ var shoppingListReducerDefaultState = [];
       return state.map(function (list) {
         if (list.id == action.shopping_list_id) {
           return _objectSpread({}, list, {
-            items: action.items,
-            updated_at: action.updated_at
+            items: action.items
           });
         } else {
           return list;
@@ -85309,8 +85334,7 @@ var shoppingListReducerDefaultState = [];
       return state.map(function (list) {
         if (list.id == action.shopping_list_id) {
           return _objectSpread({}, list, {
-            name: action.name,
-            updated_at: action.updated_at
+            name: action.name
           });
         } else {
           return list;

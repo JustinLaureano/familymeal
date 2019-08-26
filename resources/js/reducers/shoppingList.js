@@ -22,8 +22,7 @@ export default (state = shoppingListReducerDefaultState, action) => {
                 if (list.id == action.shopping_list_id) {
                     return {
                         ...list,
-                        items: action.items,
-                        updated_at: action.updated_at
+                        items: action.items
                     };
                 }
                 else {
@@ -35,8 +34,7 @@ export default (state = shoppingListReducerDefaultState, action) => {
                 if (list.id == action.shopping_list_id) {
                     return {
                         ...list,
-                        name: action.name,
-                        updated_at: action.updated_at
+                        name: action.name
                     };
                 }
                 else {

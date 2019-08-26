@@ -35,19 +35,11 @@ export class ShoppingListCard extends React.Component {
 			this.setState({ updated_at: this.props.updated_at, loading: false });
         }
 
-        // find most recent updated time from items
-        let recentUpdate = this.props.updated_at;
-        this.props.items.map(item => {
-            const recent = moment(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss')
-            const itemUpdate = moment(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss');
+        if (!this.state.updated_at && typeof this.props.updated_at === 'string') {
+            this.setState({ updated_at: this.props.updated_at });
+        }
 
-            // use the item update time if it is more recent than the shopping list update time
-            if (itemUpdate.unix() > recent.unix()) {
-                recentUpdate = item.updated_at;
-            }
-        });
-        this.setState(() => ({ updated_at: recentUpdate }));
-
+        this.setUpdatedAt();
         this.setUpdateStatusRefresh();
     }
     
@@ -229,6 +221,27 @@ export class ShoppingListCard extends React.Component {
 
     setTitleEdit = () => this.setState(() => ({ titleEdit: true }));
 
+    setUpdatedAt = () => {
+        // find most recent updated time from items
+        if (typeof this.props.updated_at === 'string') {
+            let recentUpdate = this.props.updated_at;
+
+            this.props.items.map(item => {
+                const recent = moment(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss')
+                const itemUpdate = moment(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss');
+    
+                // use the item update time if it is more recent than the shopping list update time
+                if (itemUpdate.unix() > recent.unix()) {
+                    recentUpdate = item.updated_at;
+                }
+            });
+            this.setState(() => ({ updated_at: recentUpdate }));
+        }
+        else {
+            this.setState(() => ({ updated_at: false }));
+        }
+    }
+
     setUpdateStatusRefresh = () => {
         this.timeout = setInterval(this.setUpdateStatus, 60000);
     }
@@ -354,11 +367,14 @@ export class ShoppingListCard extends React.Component {
                     }
                     </div>
                     <div className="list__footer">
+                    {
+                        this.state.updated_at &&
                         <span
                             id={ "updated-at_" + this.props.id }
                             className="list__updated-at">
                             Updated { timeFromNow(this.state.updated_at) }
                         </span>
+                    }
                     </div>
                 </div>
             </section>
@@ -366,10 +382,14 @@ export class ShoppingListCard extends React.Component {
 	}
 }
 
+const mapStateToProps = (state) => ({
+    shopping_lists: state.shopping_lists
+});
+
 const mapDispatchToProps = (dispatch, props) => ({
     addNewShoppingListItem: (params) => dispatch(addNewShoppingListItem(params)),
 	updateShoppingListItems: (shopping_list_id, items) => dispatch(updateShoppingListItems(shopping_list_id, items)),
 	updateShoppingListName: (shopping_list_id, name) => dispatch(updateShoppingListName(shopping_list_id, name))
 });
   
-export default connect(undefined, mapDispatchToProps)(ShoppingListCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ShoppingListCard);
