@@ -14,8 +14,8 @@ import {
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
 		super(props);
-        
         this.state = {
+            id: this.props.id,
             name: this.props.name,
             items: this.props.items,
             updated_at: this.props.updated_at,
@@ -50,7 +50,7 @@ export class ShoppingListCard extends React.Component {
         }
 
         if (this.state.itemEdited) {
-            this.props.updateShoppingListItems(this.props.id, this.state.items);
+            this.props.updateShoppingListItems(this.state.id, this.state.items);
             this.setState({
                 updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'),
                 itemEdited: false
@@ -77,7 +77,11 @@ export class ShoppingListCard extends React.Component {
     }
 
     dropdownClickEvent = (e) => {
-        if (!e.target.id.includes('list-dropdown_' + this.props.id) && this.state.dropdownOpen) {
+        if (!e.target.id.includes('list-dropdown_' + this.state.id) &&
+            !e.target.id.includes('list-dropdown-option_' + this.state.id) &&
+            !e.target.id.includes('list-dropdown-option-label_' + this.state.id) &&
+            !e.target.id.includes('remove-icon_' + this.state.id) &&
+            this.state.dropdownOpen) {
             // mouse click was outside the category menu, so close the menu
             this.setState({ dropdownOpen: false });
         }
@@ -85,7 +89,7 @@ export class ShoppingListCard extends React.Component {
 
     getShoppingListRows = () => {
         return document
-            .querySelector('#shopping-list-body_' + this.props.id)
+            .querySelector('#shopping-list-body_' + this.state.id)
             .querySelectorAll('.list__list-item-row');
     }
 
@@ -262,7 +266,7 @@ export class ShoppingListCard extends React.Component {
     }
 
     setUpdateStatus = () => {
-        document.getElementById('updated-at_' + this.props.id).innerHTML = 'Updated ' + timeFromNow(this.state.updated_at);
+        document.getElementById('updated-at_' + this.state.id).innerHTML = 'Updated ' + timeFromNow(this.state.updated_at);
     }
 
     startAddNewItem = (params) => {
@@ -271,19 +275,19 @@ export class ShoppingListCard extends React.Component {
     }
 
     startRemoveShoppingList = () => {
-        console.log('remove');        
+        this.props.onRemoveShoppingList(this.state.id);
     }
 
     stopTitleEdit = () => {
         if (this.state.name !== this.props.name) {
-            this.props.updateShoppingListName(this.props.id, this.state.name);
+            this.props.updateShoppingListName(this.state.id, this.state.name);
         }
 
         this.setState(() => ({ updated_at: moment().utc().format('YYYY-MM-DD HH:mm:ss'), titleEdit: false }));
     };
 
     toggleListRemoveConfirm = (e) => {
-        const removeContainer = document.getElementById('list-remove_' + this.props.id);
+        const removeContainer = document.getElementById('list-remove_' + this.state.id);
         if (removeContainer.classList.contains('display--none')) {
             removeContainer.classList.remove('display--none');
         }
@@ -299,7 +303,7 @@ export class ShoppingListCard extends React.Component {
 	render() {
         return this.state.loading ? (
             <section className="list__area">
-                <div id={ "shopping-list_" + this.props.id } className="list">
+                <div id={ "shopping-list_" + this.state.id } className="list">
                     <div className="list__body--center">
                         <div className="loading__circle"></div>
                     </div>
@@ -307,60 +311,74 @@ export class ShoppingListCard extends React.Component {
             </section>
             ) : (
             <section className="list__area">
-                <div id={ "shopping-list_" + this.props.id } className="list">
+                <div id={ "shopping-list_" + this.state.id } className="list">
                     <div className="list__header">
                         <input 
                             type="text"
-                            name={ "list-name_" + this.props.id }
+                            name={ "list-name_" + this.state.id }
                             className={ this.state.titleEdit ? "list__name--edit" : "list__name" }
                             onFocus={ this.setTitleEdit }
                             onBlur={ this.stopTitleEdit }
                             onChange={ this.onNameChange }
                             value={ this.state.name } />
+
                         <div className="list__more-options">
                             <i
                                 className="material-icons more-icon"
                                 onClick={ this.toggleOptionDropdown }>
                                 more_vert
                             </i>
+                        </div>
+
+
+                        <div
+                            id={ "list-dropdown_" + this.state.id }
+                            className={ "list__more-options-dropdown"  + (this.state.dropdownOpen ? '' : ' display--none') }>
+
                             <div
-                                id={ "list-dropdown_" + this.props.id }
-                                className={ "list__more-options-dropdown"  + (this.state.dropdownOpen ? '' : ' display--none') }>
+                                id={ "list-dropdown-option_" + this.state.id }
+                                className="list__dropdown-option"
+                                onClick={ this.toggleListRemoveConfirm }>
 
-                                <div className="list__dropdown-option" onClick={ this.toggleIngredientRemoveConfirm }>
-                                    <i className="material-icons remove-icon">remove_circle</i>
-                                    <span className="list__dropdown-option-label">Delete Shopping List</span>
+                                <i id={ "remove-icon_" + this.state.id } className="material-icons remove-icon">remove_circle</i>
+                                <span
+                                    id={ "list-dropdown-option-label_" + this.state.id }
+                                    className="list__dropdown-option-label">
+                                    Delete Shopping List
+                                </span>
 
-                                    <div 
-                                        id={ "list-remove_" + this.props.id }
-                                        className="list__dropdown-option-confirmation display--none">
+                                <div 
+                                    id={ "list-remove_" + this.state.id }
+                                    className="list__dropdown-option-confirmation confirmation display--none">
 
-                                        <p className="confirmation__label">Remove Shopping List?</p>
-                                        <button
-                                            id={ "remove-btn_" + this.props.id }
-                                            className="btn--confirmation-confirm"
-                                            onClick={ this.startRemoveShoppingList }>
-                                            Remove
-                                        </button>
-                                        <button
-                                            id={ "confirmation-cancel-btn_" + this.props.id }
-                                            className="btn--confirmation"
-                                            onClick={ this.toggleListRemoveConfirm }>
-                                            Cancel
-                                        </button>
+                                    <p className="confirmation__label">Remove Shopping List?</p>
+                                    <button
+                                        id={ "remove-btn_" + this.state.id }
+                                        className="btn--confirmation-confirm"
+                                        onClick={ this.startRemoveShoppingList }>
+                                        Remove
+                                    </button>
+                                    <button
+                                        id={ "confirmation-cancel-btn_" + this.state.id }
+                                        className="btn--confirmation"
+                                        onClick={ this.toggleListRemoveConfirm }>
+                                        Cancel
+                                    </button>
 
-                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
                     <div className="list__search">
                         <ShoppingListSearch
-                            shoppingListId={ this.props.id }
+                            shoppingListId={ this.state.id }
                             onItemSelect={ this.startAddNewItem } />
                     </div>
                     <div 
-                        id={ "shopping-list-body_" + this.props.id }
+                        id={ "shopping-list-body_" + this.state.id }
                         className="list__body"
                         onDragOver={ this.onDragOver }>
                     {
@@ -444,7 +462,7 @@ export class ShoppingListCard extends React.Component {
                     {
                         this.state.updated_at &&
                         <span
-                            id={ "updated-at_" + this.props.id }
+                            id={ "updated-at_" + this.state.id }
                             className="list__updated-at">
                             Updated { timeFromNow(this.state.updated_at) }
                         </span>

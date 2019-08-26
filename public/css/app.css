@@ -663,13 +663,14 @@ a:hover {
 }
 
 .list__header {
-  -webkit-box-align: end;
-          align-items: flex-end;
+  -webkit-box-align: baseline;
+          align-items: baseline;
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: center;
           justify-content: center;
   padding: calc(1.25 * 1em) calc(0.75 * 1em) calc(0.75 * 1em) calc(0.75 * 1em);
+  position: relative;
   width: 100%;
 }
 
@@ -720,11 +721,15 @@ a:hover {
           align-items: center;
   -webkit-box-flex: 1;
           flex-grow: 1;
+  min-height: 180px;
   width: 100%;
 }
 
 .list__add-text {
-  margin-bottom: calc(1.25 * 1em);
+  color: #505d6a;
+  font-size: 0.9em;
+  font-style: italic;
+  margin-bottom: calc(2 * 1em);
   text-align: center;
   width: 90%;
 }
@@ -752,9 +757,9 @@ a:hover {
   padding: calc(0.375 * 1em) calc(0.25 * 1em);
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
+  background-color: #fffeff;
   display: -webkit-box;
   display: flex;
-  background-color: #fffeff;
   margin: 0.1em;
   position: relative;
 }
@@ -777,9 +782,9 @@ a:hover {
   padding: calc(0.375 * 1em) calc(0.25 * 1em);
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
+  background-color: #fffeff;
   display: -webkit-box;
   display: flex;
-  background-color: #fffeff;
   font-size: 0.875em;
   padding-left: calc(2 * 1em);
   margin: 0.1em;
@@ -800,7 +805,7 @@ a:hover {
 }
 
 .list__footer {
-  padding: calc(0.75 * 1em);
+  padding: calc(0.75 * 1em) calc(1.25 * 1em);
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: end;
@@ -820,27 +825,37 @@ a:hover {
 
 .list__more-options-dropdown {
   padding: calc(0.375 * 1em) calc(0.5 * 1em);
+  background-color: #fffeff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
   display: -webkit-box;
   display: flex;
-  background-color: #fffeff;
-  position: absolute;
-  z-index: 200;
   padding: 0.375em 0.5em;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  right: 25px;
+  top: 40px;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+  z-index: 200;
 }
 
 .list__dropdown-option {
-  display: -webkit-box;
-  display: flex;
   -webkit-box-align: center;
           align-items: center;
+  display: -webkit-box;
+  display: flex;
+  position: relative;
 }
 
 .list__dropdown-option-label {
+  cursor: default;
   margin-left: calc(0.5 * 1em);
+}
+
+.list__dropdown-option-confirmation {
+  position: absolute;
+  right: -9px;
+  top: 28px;
 }
 
 .photo, .photo--circle {
@@ -1051,6 +1066,7 @@ a:hover {
   background-color: #4f5d6a07;
   border: none;
   border-radius: 3px;
+  box-shadow: 1px 1px 2px rgba(88, 88, 88, 0.1);
   color: #424242;
   min-width: -webkit-max-content;
   min-width: -moz-max-content;
@@ -1059,7 +1075,7 @@ a:hover {
 .btn--secondary:hover {
   background-color: #385e83;
   color: #fffeff;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  box-shadow: 1px 1px 3px rgba(88, 88, 88, 0.35);
 }
 
 .btn--table, .btn--table-active {
@@ -1139,7 +1155,7 @@ a:hover {
 .more-icon {
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
-  font-size: 1.5em;
+  font-size: 18px;
   opacity: 0.54;
 }
 .more-icon:hover {
@@ -2394,6 +2410,10 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 .toast--hidden {
   -webkit-animation: fadeout 0.35s ease-in-out 0s forwards;
           animation: fadeout 0.35s ease-in-out 0s forwards;
+}
+
+.absolute {
+  position: absolute;
 }
 
 .display--initial {

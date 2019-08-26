@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
-import { createNewShoppingList } from '../actions/shoppingList';
+import { createNewShoppingList, removeShoppingList } from '../actions/shoppingList';
 import AddShoppingListCard from '../components/card/AddShoppingListCard.js';
 import ShoppingListCard from '../components/card/ShoppingListCard.js';
 
@@ -24,6 +24,9 @@ export class ShoppingListPage extends React.Component {
 	}
 
 	componentDidUpdate() {
+		if (this.state.removedList) {
+			this.setState({ lists: this.props.shopping_lists, removedList: false });
+		}
 		if (this.props.shopping_lists.length == 0 && !this.state.loading) {
 			// nothing has loaded yet
 			this.setState({ loading: true });
@@ -57,8 +60,9 @@ export class ShoppingListPage extends React.Component {
 		this.props.createNewShoppingList();
 	}
 
-	onStartDeleteShoppingList = () => {
-		console.log('delete');
+	startRemoveShoppingList = (shopping_list_id) => {
+		this.props.removeShoppingList(shopping_list_id);
+		this.setState({ removedList: true })
 	}
 
 	render() {
@@ -81,9 +85,9 @@ export class ShoppingListPage extends React.Component {
 						this.state.lists.map((list, index) => {
 							return (
 								<ShoppingListCard
-									key={ "shopping-list_" + index }
+									key={ "shopping-list_" + list.id }
 									index={ index }
-									onDeleteShoppingList={ this.startDeleteShoppingList }
+									onRemoveShoppingList={ this.startRemoveShoppingList }
 									{ ...list }/>
 							)
 						})
@@ -104,7 +108,8 @@ const mapStateToProps = (state) => ({
 });
   
 const mapDispatchToProps = (dispatch, props) => ({
-	createNewShoppingList: () => dispatch(createNewShoppingList())
+	createNewShoppingList: () => dispatch(createNewShoppingList()),
+	removeShoppingList: (shopping_list_id) => dispatch(removeShoppingList(shopping_list_id))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(ShoppingListPage);

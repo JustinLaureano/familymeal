@@ -124,3 +124,30 @@ export const updateShoppingListName = (shopping_list_id, name) => {
 			.catch(err => console.log(err))
 	}
 }
+
+export const removeShoppingList = (shopping_list_id) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const request = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: {
+                '_method': 'DELETE'
+            }
+		};
+
+		fetch('/api/shopping-list/' + shopping_list_id + '/delete', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				dispatch({
+					type: 'SET_SHOPPING_LISTS',
+					shopping_lists: data.shopping_lists
+				});
+			})
+			.catch(err => console.log(err))
+	}
+}

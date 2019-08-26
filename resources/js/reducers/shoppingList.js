@@ -41,6 +41,8 @@ export default (state = shoppingListReducerDefaultState, action) => {
                     return list;
                 }
             });
+        case 'REMOVE_SHOPPING_LIST':
+            return state.filter((list) => list.id != action.shopping_list_id);
         default:
             return state;
     }

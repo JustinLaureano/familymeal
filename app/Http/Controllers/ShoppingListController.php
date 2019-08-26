@@ -6,6 +6,7 @@ use App\Models\ShoppingList;
 use App\Models\ShoppingListItems;
 use App\Models\UserSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ShoppingListController extends Controller
@@ -155,7 +156,12 @@ class ShoppingListController extends Controller
 
     public function destroy($id)
     {
+        ShoppingListItems::where('shopping_list_id', $id)->delete();
         ShoppingList::find($id)->delete();
-        return response(['id' => $id], 200);
+        $user = Auth::user();
+        return response([
+            'id' => $id,
+            'shopping_lists' => ShoppingList::getUserShoppingLists($user->id)
+        ], 200);
     }
 }

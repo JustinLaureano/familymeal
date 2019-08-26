@@ -15056,10 +15056,10 @@ utils.intFromLE = intFromLE;
 /*!********************************************!*\
   !*** ./node_modules/elliptic/package.json ***!
   \********************************************/
-/*! exports provided: _args, _development, _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _spec, _where, author, bugs, dependencies, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, dependencies, deprecated, description, devDependencies, files, homepage, keywords, license, main, name, repository, scripts, version, default */
 /***/ (function(module) {
 
-module.exports = {"_args":[["elliptic@6.4.1","D:\\xampp\\htdocs\\recipe-confidential"]],"_development":true,"_from":"elliptic@6.4.1","_id":"elliptic@6.4.1","_inBundle":false,"_integrity":"sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"elliptic@6.4.1","name":"elliptic","escapedName":"elliptic","rawSpec":"6.4.1","saveSpec":null,"fetchSpec":"6.4.1"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.1.tgz","_spec":"6.4.1","_where":"D:\\xampp\\htdocs\\recipe-confidential","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.1"};
+module.exports = {"_from":"elliptic@^6.0.0","_id":"elliptic@6.4.1","_inBundle":false,"_integrity":"sha512-BsXLz5sqX8OHcsh7CqBMztyXARmGQ3LWPtGjJi6DiJHq5C/qvi9P3OqgswKSDftbu8+IoI/QDTAm2fFnQ9SZSQ==","_location":"/elliptic","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"elliptic@^6.0.0","name":"elliptic","escapedName":"elliptic","rawSpec":"^6.0.0","saveSpec":null,"fetchSpec":"^6.0.0"},"_requiredBy":["/browserify-sign","/create-ecdh"],"_resolved":"https://registry.npmjs.org/elliptic/-/elliptic-6.4.1.tgz","_shasum":"c2d0b7776911b86722c632c3c06c60f2f819939a","_spec":"elliptic@^6.0.0","_where":"/Users/justinlaureano/dev/recipe-confidential/node_modules/browserify-sign","author":{"name":"Fedor Indutny","email":"fedor@indutny.com"},"bugs":{"url":"https://github.com/indutny/elliptic/issues"},"bundleDependencies":false,"dependencies":{"bn.js":"^4.4.0","brorand":"^1.0.1","hash.js":"^1.0.0","hmac-drbg":"^1.0.0","inherits":"^2.0.1","minimalistic-assert":"^1.0.0","minimalistic-crypto-utils":"^1.0.0"},"deprecated":false,"description":"EC cryptography","devDependencies":{"brfs":"^1.4.3","coveralls":"^2.11.3","grunt":"^0.4.5","grunt-browserify":"^5.0.0","grunt-cli":"^1.2.0","grunt-contrib-connect":"^1.0.0","grunt-contrib-copy":"^1.0.0","grunt-contrib-uglify":"^1.0.1","grunt-mocha-istanbul":"^3.0.1","grunt-saucelabs":"^8.6.2","istanbul":"^0.4.2","jscs":"^2.9.0","jshint":"^2.6.0","mocha":"^2.1.0"},"files":["lib"],"homepage":"https://github.com/indutny/elliptic","keywords":["EC","Elliptic","curve","Cryptography"],"license":"MIT","main":"lib/elliptic.js","name":"elliptic","repository":{"type":"git","url":"git+ssh://git@github.com/indutny/elliptic.git"},"scripts":{"jscs":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","jshint":"jscs benchmarks/*.js lib/*.js lib/**/*.js lib/**/**/*.js test/index.js","lint":"npm run jscs && npm run jshint","test":"npm run lint && npm run unit","unit":"istanbul test _mocha --reporter=spec test/index.js","version":"grunt dist && git add dist/"},"version":"6.4.1"};
 
 /***/ }),
 
@@ -76813,7 +76813,7 @@ var favoriteRecipe = function favoriteRecipe(recipe_id, favorite) {
 /*!**********************************************!*\
   !*** ./resources/js/actions/shoppingList.js ***!
   \**********************************************/
-/*! exports provided: addNewShoppingListItem, createNewShoppingList, updateShoppingListItems, updateShoppingListName */
+/*! exports provided: addNewShoppingListItem, createNewShoppingList, updateShoppingListItems, updateShoppingListName, removeShoppingList */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76822,6 +76822,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNewShoppingList", function() { return createNewShoppingList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeShoppingList", function() { return removeShoppingList; });
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -76944,6 +76945,32 @@ var updateShoppingListName = function updateShoppingListName(shopping_list_id, n
         type: 'UPDATE_SHOPPING_LIST_NAME',
         shopping_list_id: shopping_list_id,
         name: data.response
+      });
+    })["catch"](function (err) {
+      return console.log(err);
+    });
+  };
+};
+var removeShoppingList = function removeShoppingList(shopping_list_id) {
+  return function (dispatch, getState) {
+    var token = getState().auth.token;
+    var request = {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: "Bearer ".concat(token)
+      },
+      body: {
+        '_method': 'DELETE'
+      }
+    };
+    fetch('/api/shopping-list/' + shopping_list_id + '/delete', request).then(function (resp) {
+      return resp.json();
+    }).then(function (data) {
+      dispatch({
+        type: 'SET_SHOPPING_LISTS',
+        shopping_lists: data.shopping_lists
       });
     })["catch"](function (err) {
       return console.log(err);
@@ -77802,7 +77829,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListCard).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "dropdownClickEvent", function (e) {
-      if (!e.target.id.includes('list-dropdown_' + _this.props.id) && _this.state.dropdownOpen) {
+      if (!e.target.id.includes('list-dropdown_' + _this.state.id) && !e.target.id.includes('list-dropdown-option_' + _this.state.id) && !e.target.id.includes('list-dropdown-option-label_' + _this.state.id) && !e.target.id.includes('remove-icon_' + _this.state.id) && _this.state.dropdownOpen) {
         // mouse click was outside the category menu, so close the menu
         _this.setState({
           dropdownOpen: false
@@ -77811,7 +77838,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "getShoppingListRows", function () {
-      return document.querySelector('#shopping-list-body_' + _this.props.id).querySelectorAll('.list__list-item-row');
+      return document.querySelector('#shopping-list-body_' + _this.state.id).querySelectorAll('.list__list-item-row');
     });
 
     _defineProperty(_assertThisInitialized(_this), "onDrag", function (e, id) {
@@ -78019,7 +78046,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "setUpdateStatus", function () {
-      document.getElementById('updated-at_' + _this.props.id).innerHTML = 'Updated ' + Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(_this.state.updated_at);
+      document.getElementById('updated-at_' + _this.state.id).innerHTML = 'Updated ' + Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(_this.state.updated_at);
     });
 
     _defineProperty(_assertThisInitialized(_this), "startAddNewItem", function (params) {
@@ -78033,12 +78060,12 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "startRemoveShoppingList", function () {
-      console.log('remove');
+      _this.props.onRemoveShoppingList(_this.state.id);
     });
 
     _defineProperty(_assertThisInitialized(_this), "stopTitleEdit", function () {
       if (_this.state.name !== _this.props.name) {
-        _this.props.updateShoppingListName(_this.props.id, _this.state.name);
+        _this.props.updateShoppingListName(_this.state.id, _this.state.name);
       }
 
       _this.setState(function () {
@@ -78050,7 +78077,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleListRemoveConfirm", function (e) {
-      var removeContainer = document.getElementById('list-remove_' + _this.props.id);
+      var removeContainer = document.getElementById('list-remove_' + _this.state.id);
 
       if (removeContainer.classList.contains('display--none')) {
         removeContainer.classList.remove('display--none');
@@ -78066,6 +78093,7 @@ function (_React$Component) {
     });
 
     _this.state = {
+      id: _this.props.id,
       name: _this.props.name,
       items: _this.props.items,
       updated_at: _this.props.updated_at,
@@ -78110,7 +78138,7 @@ function (_React$Component) {
       }
 
       if (this.state.itemEdited) {
-        this.props.updateShoppingListItems(this.props.id, this.state.items);
+        this.props.updateShoppingListItems(this.state.id, this.state.items);
         this.setState({
           updated_at: moment__WEBPACK_IMPORTED_MODULE_1__().utc().format('YYYY-MM-DD HH:mm:ss'),
           itemEdited: false
@@ -78143,7 +78171,7 @@ function (_React$Component) {
       return this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "list__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "shopping-list_" + this.props.id,
+        id: "shopping-list_" + this.state.id,
         className: "list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__body--center"
@@ -78152,13 +78180,13 @@ function (_React$Component) {
       })))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "list__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "shopping-list_" + this.props.id,
+        id: "shopping-list_" + this.state.id,
         className: "list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
-        name: "list-name_" + this.props.id,
+        name: "list-name_" + this.state.id,
         className: this.state.titleEdit ? "list__name--edit" : "list__name",
         onFocus: this.setTitleEdit,
         onBlur: this.stopTitleEdit,
@@ -78169,36 +78197,39 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons more-icon",
         onClick: this.toggleOptionDropdown
-      }, "more_vert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "list-dropdown_" + this.props.id,
+      }, "more_vert")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "list-dropdown_" + this.state.id,
         className: "list__more-options-dropdown" + (this.state.dropdownOpen ? '' : ' display--none')
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "list-dropdown-option_" + this.state.id,
         className: "list__dropdown-option",
-        onClick: this.toggleIngredientRemoveConfirm
+        onClick: this.toggleListRemoveConfirm
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        id: "remove-icon_" + this.state.id,
         className: "material-icons remove-icon"
       }, "remove_circle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        id: "list-dropdown-option-label_" + this.state.id,
         className: "list__dropdown-option-label"
       }, "Delete Shopping List"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "list-remove_" + this.props.id,
-        className: "list__dropdown-option-confirmation display--none"
+        id: "list-remove_" + this.state.id,
+        className: "list__dropdown-option-confirmation confirmation display--none"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "confirmation__label"
       }, "Remove Shopping List?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "remove-btn_" + this.props.id,
+        id: "remove-btn_" + this.state.id,
         className: "btn--confirmation-confirm",
         onClick: this.startRemoveShoppingList
       }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        id: "confirmation-cancel-btn_" + this.props.id,
+        id: "confirmation-cancel-btn_" + this.state.id,
         className: "btn--confirmation",
         onClick: this.toggleListRemoveConfirm
-      }, "Cancel")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Cancel"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__search"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopping_list_ShoppingListSearch__WEBPACK_IMPORTED_MODULE_6__["default"], {
-        shoppingListId: this.props.id,
+        shoppingListId: this.state.id,
         onItemSelect: this.startAddNewItem
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "shopping-list-body_" + this.props.id,
+        id: "shopping-list-body_" + this.state.id,
         className: "list__body",
         onDragOver: this.onDragOver
       }, this.state.items.length > 0 && this.state.items.map(function (item, index) {
@@ -78262,7 +78293,7 @@ function (_React$Component) {
       }, "No Items Added")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "list__footer"
       }, this.state.updated_at && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        id: "updated-at_" + this.props.id,
+        id: "updated-at_" + this.state.id,
         className: "list__updated-at"
       }, "Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(this.state.updated_at)))));
     }
@@ -85446,6 +85477,11 @@ var shoppingListReducerDefaultState = [];
         }
       });
 
+    case 'REMOVE_SHOPPING_LIST':
+      return state.filter(function (list) {
+        return list.id != action.shopping_list_id;
+      });
+
     default:
       return state;
   }
@@ -87436,8 +87472,12 @@ function (_React$Component) {
       _this.props.createNewShoppingList();
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onStartDeleteShoppingList", function () {
-      console.log('delete');
+    _defineProperty(_assertThisInitialized(_this), "startRemoveShoppingList", function (shopping_list_id) {
+      _this.props.removeShoppingList(shopping_list_id);
+
+      _this.setState({
+        removedList: true
+      });
     });
 
     _this.state = {
@@ -87460,6 +87500,13 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate() {
       var _this2 = this;
+
+      if (this.state.removedList) {
+        this.setState({
+          lists: this.props.shopping_lists,
+          removedList: false
+        });
+      }
 
       if (this.props.shopping_lists.length == 0 && !this.state.loading) {
         // nothing has loaded yet
@@ -87513,9 +87560,9 @@ function (_React$Component) {
         className: "lists"
       }, this.state.lists.map(function (list, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({
-          key: "shopping-list_" + index,
+          key: "shopping-list_" + list.id,
           index: index,
-          onDeleteShoppingList: _this3.startDeleteShoppingList
+          onRemoveShoppingList: _this3.startRemoveShoppingList
         }, list));
       }), this.state.lists.length < this.props.shopping_list_limit && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_AddShoppingListCard_js__WEBPACK_IMPORTED_MODULE_6__["default"], {
         onAddNewShoppingList: this.onAddShoppingList
@@ -87537,6 +87584,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     createNewShoppingList: function createNewShoppingList() {
       return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__["createNewShoppingList"])());
+    },
+    removeShoppingList: function removeShoppingList(shopping_list_id) {
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_5__["removeShoppingList"])(shopping_list_id));
     }
   };
 };
@@ -87896,8 +87946,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\xampp\htdocs\recipe-confidential\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/justinlaureano/dev/recipe-confidential/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ }),

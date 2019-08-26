@@ -38,7 +38,7 @@
 
 .more-icon {
     @include transition;
-    font-size: $size-xl;
+    font-size: 18px;
     opacity: $icon-opacity;
     &:hover {
         cursor: pointer;

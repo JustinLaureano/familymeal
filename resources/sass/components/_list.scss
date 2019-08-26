@@ -27,10 +27,11 @@
 }
 
 .list__header {
-    align-items: flex-end;
+    align-items: baseline;
     display: flex;
     justify-content: center;
     padding: $space-md $space-sm $space-sm $space-sm;
+    position: relative;
     width: 100%;
 }
 
@@ -74,11 +75,16 @@
 .list__add-area {
     @include flex-center;
     flex-grow: 1;
+    min-height: 180px;
     width: 100%;
 }
 
+
 .list__add-text {
-    margin-bottom: $space-md;
+    color: $weathered-gray;
+    font-size: .9em;
+    font-style: italic;
+    margin-bottom: $space-lg;
     text-align: center;
     width: 90%;
 }
@@ -97,8 +103,8 @@
 .list__list-item-row {
     @include pad($space-xxs, $space-xxxs);
     @include transition;
-    display: flex;
     background-color: $white;
+    display: flex;
     margin: .1em;
     position: relative;
     &:hover {
@@ -121,8 +127,8 @@
 .list__list-item-row--empty {
     @include pad($space-xxs, $space-xxxs);
     @include transition;
-    display: flex;
     background-color: $white;
+    display: flex;
     font-size: $size-sm;
     padding-left: $space-lg;
     margin: .1em;
@@ -142,7 +148,7 @@
 }
 
 .list__footer {
-    @include pad($space-sm);
+    @include pad($space-sm, $space-md);
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -160,20 +166,30 @@
 
 .list__more-options-dropdown {
     @include pad($space-xxs, $space-xs);
-    display: flex;
     background-color: $white;
-    position: absolute;
-    z-index: $dropdown-options-z-index;
-    padding: .375em .5em;
     box-shadow: 0px 1px 3px rgba(0, 0, 0, .15);
+    display: flex;
+    padding: .375em .5em;
+    position: absolute;
+    right: 25px;
+    top: 40px;
     width: max-content;
+    z-index: $dropdown-options-z-index;
 }
 
 .list__dropdown-option {
-    display: flex;
     align-items: center;
+    display: flex;
+    position: relative;
 }
 
 .list__dropdown-option-label {
+    cursor: default;
     margin-left: $space-xs;
+}
+
+.list__dropdown-option-confirmation {
+    position: absolute;
+    right: -9px;
+    top: 28px;
 }
