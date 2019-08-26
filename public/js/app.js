@@ -65095,7 +65095,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77707,13 +77707,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingListCard", function() { return ShoppingListCard; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
-/* harmony import */ var _services_General__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/General */ "./resources/js/services/General.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _services_Recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../services/Recipe */ "./resources/js/services/Recipe.js");
+/* harmony import */ var _services_General__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../services/General */ "./resources/js/services/General.js");
+/* harmony import */ var _shopping_list_ShoppingListSearch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../shopping_list/ShoppingListSearch */ "./resources/js/components/shopping_list/ShoppingListSearch.js");
+/* harmony import */ var _actions_shoppingList__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../actions/shoppingList */ "./resources/js/actions/shoppingList.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -77743,6 +77744,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -77864,7 +77866,7 @@ function (_React$Component) {
 
         _this.setState(function () {
           return {
-            items: Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_3__["arrayMove"])(_this.state.items, currentIndex, newIndex),
+            items: Object(_services_Recipe__WEBPACK_IMPORTED_MODULE_4__["arrayMove"])(_this.state.items, currentIndex, newIndex),
             itemEdited: true
           };
         });
@@ -77946,7 +77948,7 @@ function (_React$Component) {
 
       _this.setState(function () {
         return {
-          updated_at: moment__WEBPACK_IMPORTED_MODULE_5__().utc().format('YYYY-MM-DD HH:mm:ss'),
+          updated_at: moment__WEBPACK_IMPORTED_MODULE_1__().utc().format('YYYY-MM-DD HH:mm:ss'),
           titleEdit: false
         };
       });
@@ -77981,8 +77983,8 @@ function (_React$Component) {
 
       var recentUpdate = this.props.updated_at;
       this.props.items.map(function (item) {
-        var recent = moment__WEBPACK_IMPORTED_MODULE_5__(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss');
-        var itemUpdate = moment__WEBPACK_IMPORTED_MODULE_5__(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss'); // use the item update time if it is more recent than the shopping list update time
+        var recent = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(recentUpdate), 'YYYY-MM-DD HH:mm:ss');
+        var itemUpdate = moment__WEBPACK_IMPORTED_MODULE_1__(new Date(item.updated_at), 'YYYY-MM-DD HH:mm:ss'); // use the item update time if it is more recent than the shopping list update time
 
         if (itemUpdate.unix() > recent.unix()) {
           recentUpdate = item.updated_at;
@@ -78006,7 +78008,7 @@ function (_React$Component) {
       if (this.state.itemEdited) {
         this.props.updateShoppingListItems(this.props.id, this.state.items);
         this.setState({
-          updated_at: moment__WEBPACK_IMPORTED_MODULE_5__().utc().format('YYYY-MM-DD HH:mm:ss'),
+          updated_at: moment__WEBPACK_IMPORTED_MODULE_1__().utc().format('YYYY-MM-DD HH:mm:ss'),
           itemEdited: false
         });
       }
@@ -78041,6 +78043,10 @@ function (_React$Component) {
         onChange: this.onNameChange,
         value: this.state.name
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "list__search"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_shopping_list_ShoppingListSearch__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        shoppingListId: this.props.id
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "shopping-list-body_" + this.props.id,
         className: "list__body",
         onDragOver: this.onDragOver
@@ -78072,7 +78078,7 @@ function (_React$Component) {
           value: item.checked,
           defaultChecked: parseInt(item.checked) === 1 ? 'checked' : '',
           className: "input__checkbox-input"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
           to: {
             pathname: "/ingredients/" + item.ingredient_id,
             state: {
@@ -78104,7 +78110,7 @@ function (_React$Component) {
         className: "list__footer"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "list__updated-at"
-      }, " Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_4__["timeFromNow"])(this.state.updated_at)))));
+      }, " Updated ", Object(_services_General__WEBPACK_IMPORTED_MODULE_5__["timeFromNow"])(this.state.updated_at)))));
     }
   }]);
 
@@ -78114,15 +78120,15 @@ function (_React$Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
   return {
     updateShoppingListItems: function updateShoppingListItems(shopping_list_id, items) {
-      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__["updateShoppingListItems"])(shopping_list_id, items));
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_7__["updateShoppingListItems"])(shopping_list_id, items));
     },
     updateShoppingListName: function updateShoppingListName(shopping_list_id, name) {
-      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_6__["updateShoppingListName"])(shopping_list_id, name));
+      return dispatch(Object(_actions_shoppingList__WEBPACK_IMPORTED_MODULE_7__["updateShoppingListName"])(shopping_list_id, name));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(ShoppingListCard));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(undefined, mapDispatchToProps)(ShoppingListCard));
 
 /***/ }),
 
@@ -83399,6 +83405,171 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeSummary));
+
+/***/ }),
+
+/***/ "./resources/js/components/shopping_list/ShoppingListSearch.js":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/shopping_list/ShoppingListSearch.js ***!
+  \*********************************************************************/
+/*! exports provided: ShoppingListSearch, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ShoppingListSearch", function() { return ShoppingListSearch; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-autosuggest */ "./node_modules/react-autosuggest/dist/index.js");
+/* harmony import */ var react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_autosuggest__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var ShoppingListSearch =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ShoppingListSearch, _React$Component);
+
+  function ShoppingListSearch(props) {
+    var _this;
+
+    _classCallCheck(this, ShoppingListSearch);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ShoppingListSearch).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (suggestion) {
+      return suggestion.name;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (e, _ref) {
+      var newValue = _ref.newValue;
+      return _this.setState({
+        value: newValue
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionsFetchRequested", function (_ref2) {
+      var value = _ref2.value;
+
+      if (_this.timer) {
+        clearTimeout(_this.timer);
+      }
+
+      _this.timer = setTimeout(function () {
+        _this.startSuggestionFetch(value);
+      }, 400);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionsClearRequested", function () {
+      return _this.setState({
+        suggestions: []
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionSelected", function (event, _ref3) {
+      var suggestion = _ref3.suggestion;
+      console.log(event, suggestion);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderInputComponent", function (inputProps) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "react-autosuggest__input-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", inputProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons react-autosuggest__input-icon"
+      }, "search"));
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "option_" + suggestion.id,
+        className: "react-autosuggest__suggestion-option"
+      }, suggestion.name);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startSuggestionFetch", function (value) {
+      var searchParams = {
+        token: _this.props.token,
+        csrf_token: _this.props.csrf_token,
+        user_id: _this.props.user_id,
+        value: value
+      };
+      Object(_actions_filters__WEBPACK_IMPORTED_MODULE_4__["getIngredientSearchResults"])(searchParams).then(function (data) {
+        _this.setState({
+          suggestions: data.ingredients
+        });
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    });
+
+    _this.state = {
+      value: '',
+      suggestions: []
+    };
+    _this.timer;
+    return _this;
+  }
+
+  _createClass(ShoppingListSearch, [{
+    key: "render",
+    value: function render() {
+      var inputProps = {
+        placeholder: 'Search',
+        value: this.state.value,
+        onChange: this.onChange
+      };
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        id: "shopping-list_autosuggest_" + this.props.shoppingListId,
+        suggestions: this.state.suggestions,
+        onSuggestionsFetchRequested: this.onSuggestionsFetchRequested,
+        onSuggestionsClearRequested: this.onSuggestionsClearRequested,
+        getSuggestionValue: this.getSuggestionValue,
+        onSuggestionSelected: this.onSuggestionSelected,
+        renderInputComponent: this.renderInputComponent,
+        renderSuggestion: this.renderSuggestion,
+        inputProps: inputProps
+      });
+    }
+  }]);
+
+  return ShoppingListSearch;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    token: state.auth.token,
+    csrf_token: state.auth.csrf_token,
+    user_id: state.user.id
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(ShoppingListSearch));
 
 /***/ }),
 

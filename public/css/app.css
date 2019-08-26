@@ -618,8 +618,8 @@ a:hover {
 }
 
 .lists {
-  -webkit-box-align: baseline;
-          align-items: baseline;
+  -webkit-box-align: start;
+          align-items: flex-start;
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
@@ -650,13 +650,25 @@ a:hover {
 }
 
 .list {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
   border-radius: 3px;
   width: 100%;
 }
 
 .list__header {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
   padding: calc(1.25 * 1em) calc(0.75 * 1em) calc(0.75 * 1em) calc(0.75 * 1em);
+  width: 100%;
 }
 
 .list__name, .list__name--edit {
@@ -664,7 +676,9 @@ a:hover {
   background-color: #fffeff;
   color: #385e83;
   font-weight: 500;
-  font-size: 1em;
+  font-size: 1.125em;
+  padding-bottom: calc(0.25 * 1em);
+  width: 90%;
 }
 .list__name:hover, .list__name--edit:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -674,8 +688,27 @@ a:hover {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+.list__search {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+  width: 90%;
+}
+.list__search .react-autosuggest__container {
+  margin-bottom: calc(0.5 * 1em);
+  max-width: 200px;
+}
+.list__search .react-autosuggest__suggestions-container--open {
+  max-width: 200px;
+}
+.list__search .react-autosuggest__input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 .list__body {
   padding: calc(0.25 * 1em) calc(0.375 * 1em);
+  width: 100%;
 }
 
 .list__list-item-row {
@@ -723,6 +756,7 @@ a:hover {
   display: flex;
   -webkit-box-pack: end;
           justify-content: flex-end;
+  width: 100%;
 }
 
 .list__updated-at {

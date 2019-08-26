@@ -1,9 +1,10 @@
 import React from 'react';
+import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
 import { timeFromNow } from '../../services/General';
-import * as moment from 'moment';
+import ShoppingListSearch from '../shopping_list/ShoppingListSearch';
 import { updateShoppingListItems, updateShoppingListName } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
@@ -240,6 +241,9 @@ export class ShoppingListCard extends React.Component {
                             onBlur={ this.stopTitleEdit }
                             onChange={ this.onNameChange }
                             value={ this.state.name } />
+                    </div>
+                    <div className="list__search">
+                        <ShoppingListSearch shoppingListId={ this.props.id } />
                     </div>
                     <div 
                         id={ "shopping-list-body_" + this.props.id }

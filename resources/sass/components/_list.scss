@@ -1,5 +1,5 @@
 .lists {
-    align-items: baseline;
+    align-items: flex-start;
     display: flex;
     flex-wrap: wrap;
 }
@@ -19,13 +19,18 @@
 }
 
 .list {
+    @include flex-column;
+    align-items: center;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
     border-radius: 3px;
     width: 100%;
 }
 
 .list__header {
+    display: flex;
+    justify-content: center;
     padding: $space-md $space-sm $space-sm $space-sm;
+    width: 100%;
 }
 
 .list__name {
@@ -33,7 +38,9 @@
     background-color: $white;
     color: $weathered-blue;
     font-weight: 500;
-    font-size: $size-md;
+    font-size: $size-lg;
+    padding-bottom: $space-xxxs;
+    width: 90%;
     &:hover {
         border-bottom: 1px solid rgba(0, 0, 0, .2);
     }
@@ -44,8 +51,28 @@
     border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
+.list__search {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+
+    .react-autosuggest__container {
+        margin-bottom: $space-xs;
+        max-width: 200px;
+    }
+
+    .react-autosuggest__suggestions-container--open {
+        max-width: 200px;
+    }
+
+    .react-autosuggest__input {
+        border: 1px solid rgba(0, 0, 0, .2);
+    }
+}
+
 .list__body {
     @include pad($space-xxxs, $space-xxs);
+    width: 100%;
 }
 
 .list__list-item-row {
@@ -90,6 +117,7 @@
     @include pad($space-sm);
     display: flex;
     justify-content: flex-end;
+    width: 100%;
 }
 
 .list__updated-at {
