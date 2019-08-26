@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
-import { updateShoppingListItems, updateShoppingListItemCheckedStatus, updateShoppingListName } from '../../actions/shoppingList';
+import { updateShoppingListItems, updateShoppingListName } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
 	constructor(props) {
@@ -310,7 +310,6 @@ export class ShoppingListCard extends React.Component {
 
 const mapDispatchToProps = (dispatch, props) => ({
 	updateShoppingListItems: (shopping_list_id, items) => dispatch(updateShoppingListItems(shopping_list_id, items)),
-	updateShoppingListItemCheckedStatus: (shopping_list_id, shopping_list_item_id, status) => dispatch(updateShoppingListItemCheckedStatus(shopping_list_id, shopping_list_item_id, status)),
 	updateShoppingListName: (shopping_list_id, name) => dispatch(updateShoppingListName(shopping_list_id, name))
 });
   

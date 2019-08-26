@@ -1,5 +1,3 @@
-import { bindActionCreators } from "../../../../../Library/Caches/typescript/3.5/node_modules/redux";
-
 const shoppingListReducerDefaultState = [];
 
 export default (state = shoppingListReducerDefaultState, action) => {

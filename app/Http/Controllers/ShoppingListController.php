@@ -72,6 +72,7 @@ class ShoppingListController extends Controller
             $shopping_list->save();
 
             $updates[] = 'name';
+            $response = $shopping_list->name;
         }
 
         if ($request->post('items')) {
