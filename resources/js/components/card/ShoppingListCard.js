@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { arrayMove } from '../../services/Recipe';
+import { timeFromNow } from '../../services/General';
 import { updateShoppingListItems, updateShoppingListName } from '../../actions/shoppingList';
 
 export class ShoppingListCard extends React.Component {
@@ -11,6 +12,7 @@ export class ShoppingListCard extends React.Component {
         this.state = {
             name: this.props.name,
             items: this.props.items,
+            updated_at: this.props.updated_at,
             loading: true,
             itemEdited: false,
             titleEdit: false
@@ -299,7 +301,9 @@ export class ShoppingListCard extends React.Component {
                         })
                     }
                     </div>
-                    <div className="list__footer"></div>
+                    <div className="list__footer">
+                        <span className="list__updated-at"> Updated { timeFromNow(this.state.updated_at) }</span>
+                    </div>
                 </div>
             </section>
         )

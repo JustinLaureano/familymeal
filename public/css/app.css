@@ -719,6 +719,16 @@ a:hover {
 
 .list__footer {
   padding: calc(0.75 * 1em);
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+
+.list__updated-at {
+  color: #505d6a;
+  font-size: 0.8em;
+  font-style: italic;
 }
 
 .photo, .photo--circle {

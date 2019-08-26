@@ -88,4 +88,12 @@
 
 .list__footer {
     @include pad($space-sm);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.list__updated-at {
+    color: $weathered-gray;
+    font-size: $size-xs;
+    font-style: italic;
 }
