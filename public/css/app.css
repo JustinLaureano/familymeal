@@ -1659,7 +1659,6 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 .table__body {
   -webkit-box-flex: 1;
           flex-grow: 1;
-  overflow-x: scroll;
   scrollbar-width: none;
   -ms-overflow-style: none;
   width: 100%;
