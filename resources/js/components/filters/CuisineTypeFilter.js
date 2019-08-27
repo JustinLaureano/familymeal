@@ -54,7 +54,7 @@ export class CuisineTypeFilter extends React.Component {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCuisineFilterMenu }>
-                Cuisine
+                { this.state.filteredCuisines.length > 0 ? '(' + this.state.filteredCuisines.length + ')' : '' } Cuisine
                 <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>

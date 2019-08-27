@@ -77414,7 +77414,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "filter__btn",
         onClick: this.toggleCuisineFilterMenu
-      }, "Cuisine", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, this.state.filteredCuisines.length > 0 ? '(' + this.state.filteredCuisines.length + ')' : '', " Cuisine", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
       }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')
@@ -77895,7 +77895,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "filter__btn",
         onClick: this.toggleCategoryFilterMenu
-      }, "Category", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '', " Category", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons dropdown-icon"
       }, "arrow_drop_down")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none')

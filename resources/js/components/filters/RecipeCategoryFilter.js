@@ -54,7 +54,7 @@ export class RecipeCategoryFilter extends React.Component {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCategoryFilterMenu }>
-                Category
+                { this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '' } Category
                 <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>
