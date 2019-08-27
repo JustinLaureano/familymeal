@@ -1,42 +1,36 @@
-Add recipes to ingredient search
-    make search async
-    add (r) next to ingredients that are recipes
+Bug Fixes
+    Pagination bug where last page displays as 0
+    when new recipe is canceled, it should redirect to recipes table
 
-manage recipe name input responsize sizing
 
-add clone recipe button to more options dropdown
-    view recipe page
-    maybe the recipe table page
+Styles
+    General responsiveness to site
 
-Landing Page
-    design
-    layout html
-    style css
+    Landing Page
+        design
+        layout html
+        style css
 
-    add quick login to login button on header
 
-Responsive styles
+Features to Implement
 
-add view filter to recipe pages
-    favorites
-    my recipes
+    Add Recipes to Ingredient Search for Recipe Edit
+        add (r) next to ingredients that are recipes on dropdown
 
-    this view will show cards instead of table
-        make user setting to keep track of default
-            or use cookie to save last view on each table
 
-    max 5 wide on card display
-        3 wide on tablet
-        1 wide on mobile
-        keep consistent with results amounts (10, 25, 50)
+    add clone recipe button to more options dropdown
+        view recipe page
+        maybe the recipe table page
 
-user setting
-    length of toast notifications
-        short - 3 seconds
-        long - 5 seconds
+    add view type filter to recipe pages (table / card)
+        favorites
+        my recipes
 
-categories page
-    card view only
+        card view will show cards instead of table
+            make user setting to keep track of default
+                or use cookie to save last view on each table
 
-    future
-        add/edit/delete new category
+            max 5 wide on card display
+                3 wide on tablet
+                1 wide on mobile
+                keep consistent with results amounts (10, 25, 50)
