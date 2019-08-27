@@ -1,6 +1,6 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import CategoriesPage from '../views/CategoriesPage';
@@ -18,7 +18,7 @@ import ShoppingListPage from '../views/ShoppingListPage';
 import ViewIngredientPage from '../views/ViewIngredientPage';
 import ViewRecipePage from '../views/ViewRecipePage';
 
-export const history = createHistory();
+export const history = createBrowserHistory();
 
 const AppRouter = () => (
   <Router history={history}>
