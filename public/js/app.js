@@ -78154,7 +78154,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_toast__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/toast */ "./resources/js/actions/toast.js");
 /* harmony import */ var _services_ToastMessages__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../services/ToastMessages */ "./resources/js/services/ToastMessages.js");
 /* harmony import */ var _services_Ingredient__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../services/Ingredient */ "./resources/js/services/Ingredient.js");
-/* harmony import */ var _services_Ingredient__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_services_Ingredient__WEBPACK_IMPORTED_MODULE_7__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -84930,10 +84929,45 @@ function timeFromNow(timeString) {
 /*!*********************************************!*\
   !*** ./resources/js/services/Ingredient.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: validateIngredient, getNewIngredient */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateIngredient", function() { return validateIngredient; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNewIngredient", function() { return getNewIngredient; });
+function validateIngredient(ingredient) {
+  var errors = []; // ingredient name
+
+  if (ingredient.name == null || ingredient.name.trim() == '') {
+    errors.push('Ingredient Needs a Name');
+  } // ingredient category
 
 
+  if (ingredient.ingredient_category_id === '' || typeof ingredient.ingredient_category_id !== 'number') {
+    errors.push('Select a Ingredient Category');
+  } // ingredient category
+
+
+  if (ingredient.ingredient_subcategory_id === '' || typeof ingredient.ingredient_subcategory_id !== 'number') {
+    errors.push('Select a Ingredient Subcategory');
+  } // return validation
+
+
+  return errors.length === 0 ? {
+    valid: true
+  } : {
+    errors: errors
+  };
+}
+function getNewIngredient(currentIngredient) {
+  console.log(currentIngredient);
+  return {
+    name: document.querySelector('input[name="name"]').value,
+    ingredient_category_id: parseInt(document.querySelector('select[name="ingredient-category"]').value),
+    ingredient_subcategory_id: parseInt(document.querySelector('select[name="ingredient-subcategory"]').value)
+  };
+}
 
 /***/ }),
 

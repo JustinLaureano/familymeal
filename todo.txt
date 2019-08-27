@@ -1,10 +1,13 @@
 Bug Fixes
     Pagination bug where last page displays as 0
     image upload logic for new recipe photo
+    logic for ingredient subcategory filter on ingredient edit
+    new ingredient save needs finished
 
 
 Styles
     General responsiveness to site
+        mobile layout needed
 
     Landing Page
         design
