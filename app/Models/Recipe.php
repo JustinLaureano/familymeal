@@ -81,7 +81,7 @@ class Recipe extends Model
 
         $take = 25;
 
-        return DB::table('recipe')
+        $union_query = DB::table('recipe')
             ->select(
                 'recipe.name',
                 'recipe.id',
@@ -97,7 +97,25 @@ class Recipe extends Model
             ->when($params['favorites'], function($query) {
                 return $query->whereNotNull('favorite_recipes.id');
             })
-            ->orderBy('name', 'asc')
+            ->orderBy('name', 'asc');
+
+        return DB::table('recipe')
+            ->select(
+                'recipe.name',
+                'recipe.id',
+                DB::raw('IF(favorite_recipes.id IS NOT NULL, \'true\', \'false\') AS favorite')
+            )
+            ->leftJoin('favorite_recipes', function($leftJoin) {
+                $leftJoin->on('recipe.id', '=', 'favorite_recipes.recipe_id')
+                    ->on('recipe.user_id', '=', 'favorite_recipes.user_id');
+            })
+            ->where('recipe.user_id', $params['user_id'])
+            ->where('name', 'like', $params['value'] . '%')
+            ->where('recipe.deleted_at', Null)
+            ->when($params['favorites'], function($query) {
+                return $query->whereNotNull('favorite_recipes.id');
+            })
+            ->union($union_query)
             ->take($take)
             ->get();
     }

@@ -87,7 +87,7 @@ class Ingredient extends Model
 
         $take = 25;
 
-        return DB::table('ingredient')
+        $union_query = DB::table('ingredient')
             ->select(
                 'ingredient.name',
                 'ingredient.id'
@@ -98,7 +98,20 @@ class Ingredient extends Model
             })
             ->where('name', 'like', '%' . $params['value'] . '%')
             ->where('ingredient.deleted_at', Null)
-            ->orderBy('name', 'asc')
+            ->orderBy('name', 'asc');
+
+        return DB::table('ingredient')
+            ->select(
+                'ingredient.name',
+                'ingredient.id'
+            )
+            ->where(function ($query) use($params) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $params['user_id']);
+            })
+            ->where('name', 'like', $params['value'] . '%')
+            ->where('ingredient.deleted_at', Null)
+            ->union($union_query)
             ->take($take)
             ->get();
     }
