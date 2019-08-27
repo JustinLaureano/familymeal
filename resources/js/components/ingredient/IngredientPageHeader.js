@@ -17,10 +17,15 @@ export class IngredientPageHeader extends React.Component {
     };
 
     cancelChanges = () => {
-        this.setState(() => ({ ingredient: this.props.currentIngredient }));
-
-        this.props.setCancelChanges()
-            .then(() => this.toggleEditMode());
+        if (this.props.newIngredient) {
+            history.push('/home');
+        }
+        else {
+            this.setState(() => ({ ingredient: this.props.currentIngredient }));
+    
+            this.props.setCancelChanges()
+                .then(() => this.toggleEditMode());
+        }
     }
     
     toggleEditMode = () => {

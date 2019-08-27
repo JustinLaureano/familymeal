@@ -1,6 +1,6 @@
 Bug Fixes
     Pagination bug where last page displays as 0
-    when new recipe is canceled, it should redirect to recipes table
+    image upload logic for new recipe photo
 
 
 Styles

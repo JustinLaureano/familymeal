@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { history } from '../../routers/AppRouter';
 import { connect } from 'react-redux';
 import { setEditMode, setCancelChanges, resetCancelChanges } from '../../actions/filters';
@@ -18,10 +17,15 @@ export class RecipePageHeader extends React.Component {
     };
 
     cancelChanges = () => {
-        this.setState(() => ({ name: this.props.name }));
+        if (this.props.newRecipe) {
+            history.push('/home');
+        }
+        else {
+            this.setState(() => ({ name: this.props.name }));
 
-        this.props.setCancelChanges()
-            .then(() => this.toggleEditMode());
+            this.props.setCancelChanges()
+                .then(() => this.toggleEditMode());
+        }
     }
 
     componentDidUpdate() {

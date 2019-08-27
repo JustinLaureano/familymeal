@@ -58,10 +58,13 @@ export class ViewIngredientPage extends React.Component {
 			)
 		}
 		else {
+			const pageHeaderProps = {
+				newIngredient: this.state.newIngredient
+			}
 			return (
 				<section className="recipe-grid">
 					<Breadcrumbs />
-					<IngredientPageHeader />
+					<IngredientPageHeader { ...pageHeaderProps } />
 					<IngredientInfo />
 				</section>
 			)
