@@ -29,11 +29,12 @@ $weathered-gray-hover: #5b677430;
 $white: #fffeff;
 
 // Layout
-$header-height: 54px;
+$header-height: 25px;
 $navbar-width: 50px;
 $navbar-hover-width: 160px;
 
 // z-indexes
+$bg-z-index: -1000;
 $navbar-z-index: 100;
 $table-options-z-index: 150;
 $dropdown-options-z-index: 200;

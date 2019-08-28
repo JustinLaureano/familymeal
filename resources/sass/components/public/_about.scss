@@ -1,0 +1,10 @@
+.about {
+    @include pad($space-lg, $space-md);
+    @include flex-column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.about__title {
+    margin-bottom: $space-md;
+}

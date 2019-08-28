@@ -16,3 +16,14 @@
     @include pad(0, $space-md);
     margin-right: $space-md;
 }
+
+.welcome__bg {
+    background-image: url('../images/bg-vegetables.jpg');
+    height: 100vh;
+    left: 0;
+    opacity: .1;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: $bg-z-index;
+}

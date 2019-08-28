@@ -5,10 +5,12 @@
 }
 
 .footer--public {
-    @extend .footer;
+    align-items: center;
+    background-color: $black;
+    color: $white;
     display: flex;
-    justify-content: flex-end;
-    margin-top: 0;
+    justify-content: space-around;
+    padding: 2em 1em 1em 1em;
 }
 
 .footer__content {

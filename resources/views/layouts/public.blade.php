@@ -16,6 +16,8 @@
             @yield('content')
         </main>
         @include('public/components/footer')
+        @include('public/components/bg')
     </div>
+    <link href="{{ asset('js/public/app.js') }}" rel="stylesheet">
 </body>
 </html>

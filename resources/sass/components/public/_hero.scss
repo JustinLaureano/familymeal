@@ -1,0 +1,80 @@
+.hero {
+    align-items: center;
+    background-image: url('../images/hero/kitchen.jpg');
+    background-size: cover;
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    &:after {
+        background-color: #242424;
+        content: '';
+        height: 100%;
+        left: 0;
+        opacity: 0.4;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.hero__caption {
+    @include flex-center;
+    color: $white;
+    flex-grow: 1;
+    z-index: $overlay-z-index;
+}
+
+.hero__title {
+    color: $white;
+    font-size: $size-xxxl;
+}
+
+.hero__subtitle {
+    color: $white;
+    font-size: $size-lg;
+    font-weight: 300;
+}
+
+.hero__form {
+    @include pad($space-md, $space-lg);
+    background-color: rgba(255, 255, 255, .85);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    height: max-content;
+    justify-content: center;
+    margin-right: 10vw;
+    z-index: $overlay-z-index;
+}
+
+.hero__label {
+    font-size: $size-sm;
+    margin-bottom: .1em;
+}
+
+.hero__input {
+    @include pad($space-xxxs, .4em);
+    background: $white;
+    border-radius: 2px;
+    border: 1px solid rgba(88, 88, 88, .4);
+    font-size: $size-sm;;
+    margin-bottom: $space-sm;
+}
+
+.hero__btn {
+    @include pad($space-xs, $space-md);
+    @include transition;
+    align-self: flex-end;
+    border: none;
+    border-radius: 3px;
+    background-color: $white;
+    width: max-content;
+    &:hover {
+        color: $white;
+        background-color: $weathered-blue;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+    }
+}

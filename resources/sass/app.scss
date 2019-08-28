@@ -36,4 +36,9 @@
 @import 'components/recipe';
 @import 'components/toast';
 
+/* Public Components */
+@import 'components/public/about';
+@import 'components/public/features';
+@import 'components/public/hero';
+
 @import 'dependencies/general';
