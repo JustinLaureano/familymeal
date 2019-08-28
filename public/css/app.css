@@ -2526,13 +2526,14 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
+  justify-content: space-around;
   margin-bottom: 0;
   max-width: 1200px;
 }
 @media (min-width: 1200px) {
   .benefits {
+    -webkit-box-pack: justify;
+            justify-content: space-between;
     flex-wrap: nowrap;
   }
 }
@@ -2568,11 +2569,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .benefit__text {
   text-align: center;
-}
-@media (min-width: 1200px) {
-  .benefit__text {
-    width: 90%;
-  }
+  width: 90%;
 }
 
 .features {
@@ -2693,6 +2690,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   -webkit-box-pack: center;
           justify-content: center;
   margin-right: 10vw;
+  padding-top: 1em;
   z-index: 500;
 }
 

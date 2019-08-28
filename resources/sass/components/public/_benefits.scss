@@ -3,11 +3,12 @@
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 0;
     max-width: 1200px;
-
+    
     @include for-desktop-up {
+        justify-content: space-between;
         flex-wrap: nowrap;
     }
 }
@@ -36,8 +37,5 @@
 
 .benefit__text {
     text-align: center;
-
-    @include for-desktop-up {
-        width: 90%;
-    }
+    width: 90%;
 }
