@@ -1,4 +1,5 @@
 Terms of Use and End User License Agreement
+
 This Terms of Use and Software End User License Agreement (“Agreement”) is a binding agreement between you (“End User” or “you”) and Recipe Confidential (“Company” or “We”). This Agreement governs your use of www.recipe-confidential.com (the “Website”). The Software is licensed, not sold, to you.
 
 BY USING THE SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THIS AGREEMENT; (B) REPRESENT THAT YOU ARE OF LEGAL AGE TO ENTER INTO A BINDING AGREEMENT; AND (C) ACCEPT THIS AGREEMENT AND AGREE THAT YOU ARE LEGALLY BOUND BY ITS TERMS. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT USE THE SOFTWARE.
@@ -16,7 +17,9 @@ End User Shall not:
 • reverse engineer, disassemble, decompile, decode, or otherwise attempt to derive or gain access to the source code of the Software or any part thereof; 
 • remove, delete, alter, or obscure any trademarks or any copyright, trademark, patent, or other intellectual property or proprietary rights notices from the Software, including any copy thereof; 
 • rent, lease, lend, sell, sublicense, assign, distribute, publish, transfer, or otherwise make available the Software, or any features or functionality of the Software, to any third party for any reason, including by making the Software available on a network where it is capable of being accessed by more than one device at any time; or 
-• remove, disable, circumvent, or otherwise create or implement any workaround to any copy protection, rights management, or security features in or protecting the Software. 
+• remove, disable, circumvent, or otherwise create or implement any workaround to any copy protection, rights management, or security features in or protecting the Software.
+
+
 3. Prohibited Uses
 
 In addition to the restrictions set forth in Section 3, you may use the Software only for lawful purposes and in accordance with this Agreement. You agree not to use the Software:
@@ -36,6 +39,8 @@ Additionally, you agree not to:
 • Attempt to gain unauthorized access to, interfere with, damage, or disrupt any parts of the Software, the server on which the Software is stored, or any server, computer, or database connected to the Software. 
 • Attack the Software via a denial-of-service attack or a distributed denial-of-service attack. 
 • Otherwise attempt to interfere with the proper working of the Software. 
+
+
 4. Reservation of Rights
 
 You acknowledge and agree that the Software is provided under license, and not sold, to you. You do not acquire any ownership interest in the Software under this Agreement, or any other rights thereto other than to use the Software in accordance with the license granted, and subject to all terms, conditions, and restrictions, under this Agreement. Company reserves and shall retain its entire right, title, and interest in and to the Software, including all copyrights, trademarks, and other intellectual property rights therein or relating thereto, except as expressly granted to you in this Agreement.
@@ -47,7 +52,8 @@ We reserve the right to withdraw or amend the Software, and any service or mater
 You are responsible for both:
 
 • Making all arrangements necessary for you to have access to the Software. 
-• Ensuring that all persons who access the Software through your internet connection are aware of this Agreement and comply with it. 
+• Ensuring that all persons who access the Software through your internet connection are aware of this Agreement and comply with it.
+
 To access the Software or some of the resources it offers, you may be asked to provide certain registration details or other information. It is a condition of your use of the Software that all the information you provide on the Software is correct, current, and complete. You agree that all information you provide to register with this Software or otherwise, including, but not limited to, through the use of any interactive features on the Software, is governed by our Privacy Policy (www.recipe-confidential.com/privacy), and you consent to all actions we take with respect to your information consistent with our Privacy Policy.
 
 If you choose, or are provided with, a user name, password, or any other piece of information as part of our security procedures, you must treat such information as confidential, and you must not disclose it to any other person or entity. You also acknowledge that your account is personal to you and agree not to provide any other person with access to this Software or portions of it using your user name, password, or other security information. You agree to notify us immediately of any unauthorized access to or use of your user name or password or any other breach of security. You should use particular caution when accessing your account from a public or shared computer so that others are not able to view or record your password or other personal information.
@@ -83,6 +89,7 @@ We have the right to:
 • Disclose your identity or other information about you to any third party who claims that material posted by you violates their rights, including their intellectual property rights or their right to privacy. 
 • Take appropriate legal action, including without limitation, referral to law enforcement, for any illegal or unauthorized use of the Software. 
 • Terminate or suspend your access to all or part of the Software for any or no reason, including without limitation, any violation of this Agreement. 
+
 Without limiting the foregoing, we have the right to cooperate fully with any law enforcement authorities or court order requesting or directing us to disclose the identity or other information of anyone posting any materials on or through the Software.
 
 YOU WAIVE AND HOLD HARMLESS THE COMPANY FROM ANY CLAIMS RESULTING FROM ANY ACTION TAKEN BY ANY OF THE FOREGOING PARTIES DURING, OR TAKEN AS A CONSEQUENCE OF, INVESTIGATIONS BY EITHER THE COMPANY OR SUCH PARTIES OR LAW ENFORCEMENT AUTHORITIES.
@@ -97,7 +104,9 @@ These content standards apply to any and all User Content. User Content must in 
 • Promote sexually explicit or pornographic material, violence, or discrimination based on race, sex, religion, nationality, disability, sexual orientation, or age. 
 • Infringe any patent, trademark, trade secret, copyright, or other intellectual property or other rights of any other person. 
 • Violate the legal rights (including the rights of publicity and privacy) of others or contain any material that could give rise to any civil or criminal liability under applicable laws or regulations or that otherwise may be in conflict with this Agreement and our Privacy Policy (www.recipe-confidential.com/privacy). 
-• Promote any illegal activity, or advocate, promote, or assist any unlawful act. 
+• Promote any illegal activity, or advocate, promote, or assist any unlawful act.
+
+
 11. Third-Party Materials
 
 The Software may display, include, or make available third-party content (including data, information, applications, and other products, services, and/or materials) or provide links to third-party websites or services, including through third-party advertising (”Third-Party Materials”).
@@ -119,7 +128,8 @@ We take claims of copyright infringement seriously. We will respond to notices o
 • A statement that you have a good faith belief that use of the copyrighted material is not authorized by the copyright owner, its agent, or the law. 
 • A statement that the information in the written notice is accurate. 
 • A statement, under penalty of perjury, that you are authorized to act on behalf of the copyright owner. 
-Our designated copyright agent to receive DMCA Notices is:
+
+Our designated agent to receive DMCA Notices is:
 
 justinlaureano@justinlaureano.com
 
@@ -131,7 +141,8 @@ If you believe that material you posted on the Software was removed or access to
 • An identification of the material that has been removed or to which access has been disabled and the location at which the material appeared before it was removed or access disabled. 
 • Adequate information by which we can contact you (including your name, postal address, telephone number, and, if available, email address). 
 • A statement under penalty of perjury by you that you have a good faith belief that the material identified above was removed or disabled as a result of a mistake or misidentification of the material to be removed or disabled. 
-• A statement that you will consent to the jurisdiction of the Federal District Court for the judicial district in which your address is located (or if you reside outside the United States for any judicial district in which the Software may be found) and that you will accept service from the person (or an agent of that person) who provided the Software with the complaint at issue. 
+• A statement that you will consent to the jurisdiction of the Federal District Court for the judicial district in which your address is located (or if you reside outside the United States for any judicial district in which the Software may be found) and that you will accept service from the person (or an agent of that person) who provided the Software with the complaint at issue.
+
 The DMCA allows us to restore the removed content if the party filing the original DMCA Notice does not file a court action against you within ten business days of receiving the copy of your Counter Notice.
 
 Please be aware that if you knowingly materially misrepresent that material or activity on the Software was removed or disabled by mistake or misidentification, you may be held liable for damages (including costs and attorneys' fees) under Section 512(f) of the DMCA.
@@ -147,7 +158,8 @@ Company may terminate this Agreement at any time without notice if it ceases to 
 Upon termination:
 
 • all rights granted to you under this Agreement will also terminate; and 
-• you must cease all use of the Software. 
+• you must cease all use of the Software.
+
 Termination will not limit any of Company’s rights or remedies at law or in equity.
 
 14. Disclaimer of Warranties
@@ -162,6 +174,7 @@ TO THE FULLEST EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT WILL COMPANY OR I
 
 • PERSONAL INJURY, PROPERTY DAMAGE, LOST PROFITS, COST OF SUBSTITUTE GOODS OR SERVICES, LOSS OF DATA, LOSS OF GOODWILL, BUSINESS INTERRUPTION, COMPUTER FAILURE OR MALFUNCTION, OR ANY OTHER CONSEQUENTIAL, INCIDENTAL, INDIRECT, EXEMPLARY, SPECIAL, OR PUNITIVE DAMAGES. 
 • DIRECT DAMAGES IN AMOUNTS THAT IN THE AGGREGATE EXCEED THE AMOUNT ACTUALLY PAID BY YOU FOR THE SOFTWARE. 
+
 THE FOREGOING LIMITATIONS WILL APPLY WHETHER SUCH DAMAGES ARISE OUT OF BREACH OF CONTRACT, TORT (INCLUDING NEGLIGENCE), OR OTHERWISE AND REGARDLESS OF WHETHER SUCH DAMAGES WERE FORESEEABLE OR COMPANY WAS ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. SOME JURISDICTIONS DO NOT ALLOW CERTAIN LIMITATIONS OF LIABILITY SO SOME OR ALL OF THE ABOVE LIMITATIONS OF LIABILITY MAY NOT APPLY TO YOU.
 
 16. Indemnification
@@ -196,4 +209,5 @@ Your continued use of the Software following the posting of revised Agreement me
 
 23. Your Comments and Concerns
 
-This Software is developed by: Justin Laureano. All notices of copyright infringement claims, feedback, comments, requests for technical support, and other communications relating to the Software should be directed to: justinlaureano@justinlaureano.com.
+
+This Software is developed by: Justin Laureano. All notices of copyright infringement claims should be sent to the copyright agent designated in our Copyright and DMCA Policy in the manner and by the means set out therein. All other feedback, comments, requests for technical support, and other communications relating to the Software should be directed to: justinlaureano@justinlaureano.com.

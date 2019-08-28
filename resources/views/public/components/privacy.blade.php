@@ -310,8 +310,8 @@
             any government or regulatory request.
         </li>
         <li>
-            To enforce or apply our terms of use (www.recipe-confidential.com/terms) and 
-            other agreements, including for billing and collection purposes.
+            To enforce or apply our terms of use (<a href="/terms">www.recipe-confidential.com/terms</a>) 
+            and other agreements, including for billing and collection purposes.
         </li>
         <li>
             If we believe disclosure is necessary or appropriate to protect the rights, property, 

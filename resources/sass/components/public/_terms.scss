@@ -1,3 +1,49 @@
 .terms {
-    
+    @include margin(0, auto);
+    @include pad($space-lg, $space-md);
+    background-color: $white;
+    max-width: 1100px;
+
+    .upper {
+        font-weight: 500;
+    }
+}
+
+.terms__title {
+    font-size: $size-xxl;
+    margin-bottom: $space-md;
+}
+.terms__update {
+    margin-bottom: 2em;
+    margin-top: $space-xs;
+}
+
+.terms__subheader {
+    font-weight: 500;
+}
+
+.terms__header {
+    margin-top: 1.5em;
+    margin-bottom: $space-xs;
+}
+
+.terms__paragraph {
+    margin-bottom: $space-md;
+    line-height: 1.4;
+}
+
+.terms__paragraph--semibold {
+    @extend .terms__paragraph;
+    font-weight: 500;
+}
+
+.terms__ul {
+    list-style-type: circle;
+    padding-left: $space-xl;
+    margin-bottom: $space-md;
+    line-height: 1.5;
+}
+
+.terms__link {
+    color: $weathered-blue;
 }

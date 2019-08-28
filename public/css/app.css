@@ -2719,9 +2719,59 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
+.terms {
+  margin: 0 auto;
+  padding: calc(2 * 1em) calc(1.25 * 1em);
+  background-color: #fffeff;
+  max-width: 1100px;
+}
+.terms .upper {
+  font-weight: 500;
+}
+
+.terms__title {
+  font-size: 2em;
+  margin-bottom: calc(1.25 * 1em);
+}
+
+.terms__update {
+  margin-bottom: 2em;
+  margin-top: calc(0.5 * 1em);
+}
+
+.terms__subheader {
+  font-weight: 500;
+}
+
+.terms__header {
+  margin-top: 1.5em;
+  margin-bottom: calc(0.5 * 1em);
+}
+
+.terms__paragraph, .terms__paragraph--semibold {
+  margin-bottom: calc(1.25 * 1em);
+  line-height: 1.4;
+}
+
+.terms__paragraph--semibold {
+  font-weight: 500;
+}
+
+.terms__ul {
+  list-style-type: circle;
+  padding-left: calc(3.25 * 1em);
+  margin-bottom: calc(1.25 * 1em);
+  line-height: 1.5;
+}
+
+.terms__link {
+  color: #385e83;
+}
+
 .privacy {
-  margin: 2em auto;
-  padding: 0 calc(1.25 * 1em);
+  margin: 0 auto;
+  padding: calc(2 * 1em) calc(1.25 * 1em);
+  background-color: #fffeff;
   max-width: 1100px;
 }
 
@@ -2793,4 +2843,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .invalid-feedback {
   font-size: 0.875em;
+}
+
+.upper {
+  text-transform: uppercase;
 }
