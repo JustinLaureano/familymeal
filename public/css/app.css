@@ -1378,7 +1378,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .header {
-  padding: calc(0.375 * 1em) calc(0.75 * 1em);
+  padding: calc(0.25 * 1em) calc(0.75 * 1em);
   background-color: #fffeff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.35);
   display: -webkit-box;
@@ -1393,29 +1393,64 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .header__logo {
-  height: 36px;
+  height: 32px;
   width: auto;
 }
 
-.header__links {
-  align-self: center;
+.header__btn, .header__btn--secondary, .header__btn--primary {
+  margin-left: calc(0.75 * 1em);
+  font-size: 0.875em;
+}
+.header__btn:hover, .header__btn--secondary:hover, .header__btn--primary:hover {
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.header__link, .header__link--outline {
-  margin-right: calc(0.5 * 1em);
-}
-.header__link:last-child, .header__link--outline:last-child {
-  margin-right: 0;
-}
-
-.header__link--outline {
-  border: 1px solid #363636;
+.header__btn--primary {
+  padding: calc(0.25 * 1em) calc(0.5 * 1em);
+  background-color: #385e83;
   border-radius: 3px;
-  padding: calc(0.375 * 1em) calc(0.75 * 1em);
+  color: #fffeff;
+}
+
+.header__btn--secondary {
+  border: none;
 }
 
 .header__form {
   display: none;
+}
+
+.header__login-form {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+.header__login-form .input-container {
+  margin-bottom: 0;
+}
+.header__login-form .login-form__checkbox--remember {
+  align-self: center;
+  margin-left: calc(0.75 * 1em);
+}
+
+.header__input {
+  border: 1px solid rgba(88, 88, 88, 0.2);
+  border-radius: 3px;
+  background-color: white;
+  padding: 0.25em 0.5em 0.1em 1.5em;
+  font-size: 0.875em;
+  margin-left: 0.5em;
+  width: 150px;
+}
+
+.header__input-icon {
+  color: #385e83;
+  font-size: 20px;
+  left: 10px;
+  opacity: 0.54;
+  position: absolute;
+  top: 4px;
 }
 
 .navbar {
