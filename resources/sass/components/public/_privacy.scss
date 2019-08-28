@@ -1,0 +1,43 @@
+.privacy {
+    @include margin(2em, auto);
+    @include pad(0, $space-md);
+    max-width: 1100px;
+}
+
+.privacy__title {
+    font-size: $size-xxl;
+}
+.privacy__update {
+    margin-bottom: 2em;
+    margin-top: $space-xs;
+}
+
+.privacy__subheader {
+    font-weight: 500;
+}
+
+.privacy__header {
+    margin-top: $space-lg;
+    margin-bottom: $space-xs;
+}
+
+.privacy__paragraph {
+    margin-bottom: $space-md;
+    line-height: 1.4;
+}
+
+.privacy__paragraph--semibold {
+    @extend .privacy__paragraph;
+    font-weight: 500;
+}
+
+.privacy__ul {
+    list-style-type: circle;
+    padding-left: $space-xl;
+    margin-bottom: $space-md;
+    line-height: 1.5;
+}
+
+.privacy__link {
+    color: $weathered-blue;
+}

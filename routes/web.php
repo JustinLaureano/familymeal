@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/', 'PublicController@index');
-
+/* Auth Routes */
 Auth::routes();
 
+/* Public Routes */
+Route::get('/', 'PublicController@index');
+Route::get('/terms', 'PublicController@terms');
+Route::get('/privacy', 'PublicController@privacy');
+
+/* Private Routes */
 Route::get('/home/{page?}', 'HomeController@index')->name('home');
 Route::redirect('/categories', '/home/categories');
 Route::redirect('/cuisines', '/home/cuisines');
@@ -33,6 +38,8 @@ Route::get('recipe/photo/{image}', function($image = null)
         return Response::download($path);
     }
 });
+
+
 
 Route::fallback(function () {
     return redirect()->route('home');

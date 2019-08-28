@@ -14,4 +14,14 @@ class PublicController extends Controller
         else
             return view('public/welcome');
     }
+
+    public function terms()
+    {
+        return view('public/terms');
+    }
+
+    public function privacy()
+    {
+        return view('public/privacy');
+    }
 }

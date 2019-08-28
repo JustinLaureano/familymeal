@@ -322,7 +322,7 @@ a:hover {
 .main {
   -webkit-box-flex: 1;
           flex-grow: 1;
-  margin-top: 25px;
+  margin-top: 45px;
 }
 
 .content, .recipe-grid, .table-grid, .table-grid--simple {
@@ -1484,7 +1484,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   min-width: 50px;
   max-width: 50px;
   overflow-x: hidden;
-  padding-top: calc(25px + 1em);
+  padding-top: calc(45px + 1em);
   top: 0;
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
@@ -2717,6 +2717,50 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   color: #fffeff;
   background-color: #385e83;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.privacy {
+  margin: 2em auto;
+  padding: 0 calc(1.25 * 1em);
+  max-width: 1100px;
+}
+
+.privacy__title {
+  font-size: 2em;
+}
+
+.privacy__update {
+  margin-bottom: 2em;
+  margin-top: calc(0.5 * 1em);
+}
+
+.privacy__subheader {
+  font-weight: 500;
+}
+
+.privacy__header {
+  margin-top: calc(2 * 1em);
+  margin-bottom: calc(0.5 * 1em);
+}
+
+.privacy__paragraph, .privacy__paragraph--semibold {
+  margin-bottom: calc(1.25 * 1em);
+  line-height: 1.4;
+}
+
+.privacy__paragraph--semibold {
+  font-weight: 500;
+}
+
+.privacy__ul {
+  list-style-type: circle;
+  padding-left: calc(3.25 * 1em);
+  margin-bottom: calc(1.25 * 1em);
+  line-height: 1.5;
+}
+
+.privacy__link {
+  color: #385e83;
 }
 
 .absolute {
