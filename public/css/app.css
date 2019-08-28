@@ -2487,9 +2487,128 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   -webkit-box-pack: space-evenly;
           justify-content: space-evenly;
 }
+@media (max-width: 599px) {
+  .about {
+    text-align: center;
+  }
+}
 
 .about__title {
   margin-bottom: calc(1.25 * 1em);
+}
+
+.benefits {
+  -webkit-box-align: baseline;
+          align-items: baseline;
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
+  margin: 2em auto;
+  max-width: 1200px;
+}
+@media (min-width: 1200px) {
+  .benefits {
+    flex-wrap: nowrap;
+  }
+}
+
+.benefit {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  margin-bottom: 2em;
+  width: 70%;
+}
+@media (max-width: 599px) {
+  .benefit {
+    -webkit-box-align: center;
+            align-items: center;
+  }
+}
+@media (min-width: 600px) {
+  .benefit {
+    width: 40%;
+  }
+}
+@media (min-width: 1200px) {
+  .benefit {
+    margin-bottom: 0;
+    width: 20%;
+  }
+}
+
+.benefit__header {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+@media (max-width: 599px) {
+  .benefit__text {
+    text-align: center;
+  }
+}
+@media (min-width: 1200px) {
+  .benefit__text {
+    width: 90%;
+  }
+}
+
+.features {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  max-width: 1000px;
+  margin: 2em auto;
+}
+
+.feature {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.feature__details {
+  width: 50%;
+}
+
+.feature__description {
+  width: 90%;
+}
+
+.feature__image-container {
+  width: 50%;
+  padding: calc(1.25 * 1em);
+}
+
+.feature__image, .feature__image--shopping, .feature__image--organization, .feature__image--ingredient, .feature__image--recipe {
+  background-size: cover;
+}
+
+.feature__image--recipe {
+  background-image: url("../images/features/recipe.jpg");
+}
+
+.feature__image--ingredient {
+  background-image: url("../images/features/ingredient.jpg");
+}
+
+.feature__image--organization {
+  background-image: url("../images/features/organization.jpg");
+}
+
+.feature__image--shopping {
+  background-image: url("../images/features/shopping.jpg");
 }
 
 .hero {

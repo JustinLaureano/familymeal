@@ -1,0 +1,46 @@
+.benefits {
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin: 2em auto;
+    max-width: 1200px;
+
+    @include for-desktop-up {
+        flex-wrap: nowrap;
+    }
+}
+
+.benefit {
+    @include flex-column;
+    margin-bottom: 2em;
+    width: 70%;
+
+    @include for-phone-only {
+        align-items: center;
+    }
+
+    @include for-tablet-portrait-up {
+        width: 40%;
+    }
+
+    @include for-desktop-up {
+        margin-bottom: 0;
+        width: 20%;
+    }
+}
+
+.benefit__header {
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.benefit__text {
+    @include for-phone-only {
+        text-align: center;
+    }
+
+    @include for-desktop-up {
+        width: 90%;
+    }
+}

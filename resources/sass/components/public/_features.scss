@@ -1,3 +1,53 @@
 .features {
+    @include flex-align-center;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 2em auto;
+}
+
+.feature {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.feature__details {
+    width: 50%;
+}
+
+.feature__header {
     
+}
+
+.feature__description {
+    width: 90%;
+}
+
+.feature__image-container {
+    width: 50%;
+    padding: $space-md;
+}
+
+.feature__image {
+    background-size: cover;
+}
+
+.feature__image--recipe {
+    @extend .feature__image;
+    background-image: url('../images/features/recipe.jpg');
+}
+
+.feature__image--ingredient {
+    @extend .feature__image;
+    background-image: url('../images/features/ingredient.jpg');
+}
+
+.feature__image--organization {
+    @extend .feature__image;
+    background-image: url('../images/features/organization.jpg');
+}
+
+.feature__image--shopping {
+    @extend .feature__image;
+    background-image: url('../images/features/shopping.jpg');
 }

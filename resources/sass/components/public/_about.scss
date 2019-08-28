@@ -3,6 +3,10 @@
     @include flex-column;
     align-items: center;
     justify-content: space-evenly;
+
+    @include for-phone-only {
+        text-align: center;
+    }
 }
 
 .about__title {
