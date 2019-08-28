@@ -83,18 +83,55 @@ class RecipeController extends Controller
         }
 
         foreach($new_recipe['ingredients'] as $new_ingredient) {
-            $ingredient = new RecipeIngredients;
-            $ingredient->recipe_id = $recipe_id;
-            $ingredient->order = $new_ingredient['order'];
+            $recipe_ingredient = new RecipeIngredients;
+            $recipe_ingredient->recipe_id = $recipe_id;
+            $recipe_ingredient->order = $new_ingredient['order'];
             if ($new_ingredient['ingredient_id']) {
-                $ingredient->ingredient_id = $new_ingredient['ingredient_id'];
+                if ($new_ingredient['ingredient_id'] >= $this->new_id_floor) {
+
+                    $ingredient_match = Ingredient::where('name', $new_ingredient['ingredient_name'])->first();
+
+                    if ($ingredient_match) {
+                        // Use found ingredient
+                        $recipe_ingredient->ingredient_id = $ingredient_match->id;
+                    }
+                    else {
+                        // New Ingredient
+                        $ingredient = new Ingredient;
+                        $ingredient->name = $new_ingredient['ingredient_name'];
+                        // TODO: include way to save ingredient_category_id and ingredient_subcategory_id
+                        $ingredient->created_user_id = $user_id;
+                        $ingredient->save();
+
+                        $recipe_ingredient->ingredient_id = $ingredient->id;
+                    }
+                }
+                else {
+                    // check that ingredient exists
+                    $ingredient_match = Ingredient::find($new_ingredient['ingredient_id']);
+
+                    if ($ingredient_match) {
+                        // Use found ingredient
+                        $recipe_ingredient->ingredient_id = $ingredient_match->id;
+                    }
+                    else {
+                        // create new ingredient
+                        $ingredient = new Ingredient;
+                        $ingredient->name = $new_ingredient['ingredient_name'];
+                        // TODO: include way to save ingredient_category_id and ingredient_subcategory_id
+                        $ingredient->created_user_id = $user_id;
+                        $ingredient->save();
+
+                        $recipe_ingredient->ingredient_id = $ingredient->id;
+                    }
+                }
             }
             if ($new_ingredient['ingredient_recipe_id']) {
-                $ingredient->ingredient_recipe_id = $new_ingredient['ingredient_recipe_id'];
+                $recipe_ingredient->ingredient_recipe_id = $new_ingredient['ingredient_recipe_id'];
             }
-            $ingredient->ingredient_units = $new_ingredient['ingredient_units'];
-            $ingredient->measurement_unit_id = $new_ingredient['measurement_unit_id'];
-            $ingredient->save();
+            $recipe_ingredient->ingredient_units = $new_ingredient['ingredient_units'];
+            $recipe_ingredient->measurement_unit_id = $new_ingredient['measurement_unit_id'];
+            $recipe_ingredient->save();
         }
 
         foreach($new_recipe['notes'] as $new_note) {
