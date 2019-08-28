@@ -12,6 +12,17 @@
     display: flex;
     justify-content: flex-end;
 }
+.footer__link--public {
+    @include transition;
+    color: $white;
+    font-size: $size-sm;
+    margin-right: $space-md;
+    font-weight: 300;
+    &:hover {
+        color: $white;
+        font-weight: 400;
+    }
+}
 
 .footer__content {
     @include content-width;

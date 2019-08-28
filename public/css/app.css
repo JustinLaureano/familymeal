@@ -1935,6 +1935,19 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
           justify-content: flex-end;
 }
 
+.footer__link--public {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  color: #fffeff;
+  font-size: 0.875em;
+  margin-right: calc(1.25 * 1em);
+  font-weight: 300;
+}
+.footer__link--public:hover {
+  color: #fffeff;
+  font-weight: 400;
+}
+
 .footer__content {
   max-width: 1200px;
   width: 90%;
