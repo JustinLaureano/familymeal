@@ -1,22 +1,29 @@
 .features {
+    @include pad(0, $space-md);
     @include flex-align-center;
     flex-direction: column;
+    margin: 2em auto 1em auto;
     max-width: 1000px;
-    margin: 2em auto;
 }
 
 .feature {
+    align-items: center;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    margin: 2.5em 0;
 }
 
 .feature__details {
-    width: 50%;
+    width: 40%;
+}
+
+.feature__details--right {
+    @extend .feature__details;
 }
 
 .feature__header {
-    
+    font-size: $size-xl;
+    margin-bottom: $space-xxs;
 }
 
 .feature__description {
@@ -24,30 +31,18 @@
 }
 
 .feature__image-container {
-    width: 50%;
+    width: 60%;
     padding: $space-md;
 }
 
+.feature__image-container--left {
+    @extend .feature__image-container;
+    width: 56%;
+}
+
 .feature__image {
-    background-size: cover;
-}
-
-.feature__image--recipe {
-    @extend .feature__image;
-    background-image: url('../images/features/recipe.jpg');
-}
-
-.feature__image--ingredient {
-    @extend .feature__image;
-    background-image: url('../images/features/ingredient.jpg');
-}
-
-.feature__image--organization {
-    @extend .feature__image;
-    background-image: url('../images/features/organization.jpg');
-}
-
-.feature__image--shopping {
-    @extend .feature__image;
-    background-image: url('../images/features/shopping.jpg');
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+    height: auto;
+    width: 100%;
 }

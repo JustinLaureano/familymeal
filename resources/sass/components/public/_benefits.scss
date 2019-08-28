@@ -1,9 +1,10 @@
 .benefits {
+    @include margin(3em, auto);
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    margin: 2em auto;
+    margin-bottom: 0;
     max-width: 1200px;
 
     @include for-desktop-up {

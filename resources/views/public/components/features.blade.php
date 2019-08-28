@@ -1,4 +1,5 @@
 <section class="features">
+    
     <section class="feature">
         <section class="feature__details">
             <h2 class="feature__header">Recipe Management</h2>
@@ -10,16 +11,16 @@
         </section>
 
         <section class="feature__image-container">
-            <div class="feature__image--recipe"></div>
+            <img class="feature__image" src="/images/features/recipe-card.jpg" />
         </section>
     </section>
 
     <section class="feature">
-        <section class="feature__image-container">
-            <div class="feature__image--ingredient"></div>
+        <section class="feature__image-container--left">
+            <img class="feature__image" src="/images/features/ingredients.jpg" />
         </section>
 
-        <section class="feature__details">
+        <section class="feature__details--right">
             <h2 class="feature__header">Ingredient Library</h2>
             <p class="feature__description">
                 Choose from over 1000 pre-existing ingredients, or create new ones
@@ -39,16 +40,16 @@
         </section>
 
         <section class="feature__image-container">
-            <div class="feature__image--organization"></div>
+            <img class="feature__image" src="/images/features/category-cards.jpg" />
         </section>
     </section>
 
     <section class="feature">
-        <section class="feature__image-container">
-            <div class="feature__image--shopping"></div>
+        <section class="feature__image-container--left">
+            <img class="feature__image" src="/images/features/shopping-lists.jpg" />
         </section>
 
-        <section class="feature__details">
+        <section class="feature__details--right">
             <h2 class="feature__header">Shopping Lists</h2>
             <p class="feature__description">
                 Make you own personal shopping lists. Adding and checking off

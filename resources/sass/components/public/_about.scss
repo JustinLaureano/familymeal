@@ -1,5 +1,5 @@
 .about {
-    @include pad($space-lg, $space-md);
+    @include margin(3em, auto);
     @include flex-column;
     align-items: center;
     justify-content: space-evenly;
