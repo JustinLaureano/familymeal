@@ -1409,6 +1409,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   font-size: 0.875em;
 }
 .header__btn:hover, .header__btn--secondary:hover, .header__btn--primary:hover {
+  background-color: #fffeff;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
@@ -1467,11 +1468,11 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .header__input-icon {
   color: #385e83;
-  font-size: 20px;
+  font-size: 18px;
   left: 10px;
   opacity: 0.54;
   position: absolute;
-  top: 3px;
+  top: 4px;
 }
 
 .navbar {
@@ -2630,7 +2631,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   content: "";
   height: 100%;
   left: 0;
-  opacity: 0.4;
+  opacity: 0.45;
   position: absolute;
   top: 0;
   width: 100%;
