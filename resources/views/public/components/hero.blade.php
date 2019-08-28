@@ -6,6 +6,8 @@
     </section>
 
     <form method="POST" name="register-form" class="hero__form">
+        <h2 class="hero__form-header">Sign Up</h2>
+
         <label class="hero__label">Name</label>
         <input type="text" class="hero__input" name="name" value="" />
 

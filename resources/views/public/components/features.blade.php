@@ -1,5 +1,5 @@
 <section class="features">
-    
+
     <section class="feature">
         <section class="feature__details">
             <h2 class="feature__header">Recipe Management</h2>

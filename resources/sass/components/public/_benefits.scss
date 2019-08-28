@@ -3,7 +3,7 @@
     align-items: baseline;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     margin-bottom: 0;
     max-width: 1200px;
 
@@ -14,12 +14,9 @@
 
 .benefit {
     @include flex-column;
+    align-items: center;
     margin-bottom: 2em;
     width: 70%;
-
-    @include for-phone-only {
-        align-items: center;
-    }
 
     @include for-tablet-portrait-up {
         width: 40%;
@@ -34,12 +31,11 @@
 .benefit__header {
     font-size: 1.1em;
     font-weight: 600;
+    margin-bottom: $space-xxs;
 }
 
 .benefit__text {
-    @include for-phone-only {
-        text-align: center;
-    }
+    text-align: center;
 
     @include for-desktop-up {
         width: 90%;
