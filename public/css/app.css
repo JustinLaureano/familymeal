@@ -1924,14 +1924,15 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .footer--public {
+  padding: calc(1.25 * 1em);
   -webkit-box-align: center;
           align-items: center;
   background-color: #151515;
   color: #fffeff;
   display: -webkit-box;
   display: flex;
-  justify-content: space-around;
-  padding: 2em 1em 1em 1em;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
 }
 
 .footer__content {
