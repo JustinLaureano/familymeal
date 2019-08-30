@@ -74731,7 +74731,7 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
         break;
     }
 
-    if (recipeCategories.length > 0) {
+    if (typeof recipeCategories !== 'undefined' && recipeCategories !== null && recipeCategories.constructor === Array && recipeCategories.length > 0) {
       url += '&categories=' + recipeCategories.join(",");
     }
 
@@ -74939,7 +74939,7 @@ var removeCuisineTypeFilter = function removeCuisineTypeFilter(cuisine_type_id) 
 var setCuisineTypeFilter = function setCuisineTypeFilter(cuisine_type_id) {
   return function (dispatch) {
     dispatch({
-      type: 'SET_RECIPE_CATEGORY_FILTER',
+      type: 'SET_CUISINE_TYPE_FILTER',
       cuisine_type: [cuisine_type_id]
     });
   };
@@ -86525,13 +86525,16 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeTablePage: function changeTablePage(pageNumber, model) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["changeTablePage"])(pageNumber, model));
     },
     setRecipeCategoryFilter: function setRecipeCategoryFilter(recipe_category_id) {
       return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setRecipeCategoryFilter"])(recipe_category_id));
+    },
+    setCuisineTypeFilter: function setCuisineTypeFilter(cuisine_type_id) {
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["setCuisineTypeFilter"])(cuisine_type_id));
     }
   };
 };

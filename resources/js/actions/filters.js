@@ -28,7 +28,7 @@ export const changeTablePage = (pageNumber, model) => {
 				break;
 		}
 		
-		if (recipeCategories.length > 0) {
+		if (typeof recipeCategories !== 'undefined' && recipeCategories !== null && recipeCategories.constructor === Array && recipeCategories.length > 0) {
 			url += '&categories=' + recipeCategories.join(",");
 		}
 
@@ -254,7 +254,7 @@ export const removeCuisineTypeFilter = (cuisine_type_id) => {
 export const setCuisineTypeFilter = (cuisine_type_id) => {
 	return (dispatch) => {
 		dispatch({
-			type: 'SET_RECIPE_CATEGORY_FILTER',
+			type: 'SET_CUISINE_TYPE_FILTER',
 			cuisine_type: [cuisine_type_id]
 		});
 	}

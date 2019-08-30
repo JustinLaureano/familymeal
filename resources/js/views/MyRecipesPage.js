@@ -109,9 +109,10 @@ const mapStateToProps = (state) => ({
 	categoryFilter: state.filters.recipe_category
 });
   
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch) => ({
 	changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model)),
-	setRecipeCategoryFilter: (recipe_category_id) => dispatch(setRecipeCategoryFilter(recipe_category_id))
+	setRecipeCategoryFilter: (recipe_category_id) => dispatch(setRecipeCategoryFilter(recipe_category_id)),
+	setCuisineTypeFilter: (cuisine_type_id) => dispatch(setCuisineTypeFilter(cuisine_type_id))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(MyRecipesPage);
