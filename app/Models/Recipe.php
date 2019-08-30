@@ -136,4 +136,21 @@ class Recipe extends Model
             ->orderBy('recipe_category.name', 'asc')
             ->get();
     }
+
+    public static function getCountByCuisine($user_id = null)
+    {
+        if (!$user_id) return [];
+
+        return DB::table('cuisine_type')
+            ->select('cuisine_type.id',
+                'cuisine_type.name',
+                DB::raw('COUNT(cuisine_type.id) AS count')
+            )
+            ->leftJoin('recipe', 'cuisine_type.id', 'recipe.cuisine_type_id')
+            ->where('recipe.user_id', $user_id)
+            ->where('recipe.deleted_at', Null)
+            ->groupBy('cuisine_type.id', 'cuisine_type.name')
+            ->orderBy('cuisine_type.name', 'asc')
+            ->get();
+    }
 }

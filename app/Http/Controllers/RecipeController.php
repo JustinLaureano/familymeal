@@ -519,4 +519,11 @@ class RecipeController extends Controller
 
         return response(['totals' => $totals], 200);
     }
+
+    public function getCountByCuisine(Request $request, $user_id)
+    {
+        $totals = Recipe::getCountByCuisine($user_id);
+
+        return response(['totals' => $totals], 200);
+    }
 }

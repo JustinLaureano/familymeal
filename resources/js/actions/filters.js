@@ -251,6 +251,15 @@ export const removeCuisineTypeFilter = (cuisine_type_id) => {
 	}
 }
 
+export const setCuisineTypeFilter = (cuisine_type_id) => {
+	return (dispatch) => {
+		dispatch({
+			type: 'SET_RECIPE_CATEGORY_FILTER',
+			cuisine_type: [cuisine_type_id]
+		});
+	}
+}
+
 
 export const startNewIngredient = () => {
 	return (dispatch) => {

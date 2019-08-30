@@ -286,16 +286,19 @@ export default (state = filterReducerDefaultState, action) => {
                 ]
             };
         case 'REMOVE_CUISINE_TYPE_FILTER':
-                const cuisine_type = state
-                    .cuisine_type
-                    .filter(cuisine => cuisine != action.cuisine_type_id);
+            const cuisine_type = state
+                .cuisine_type
+                .filter(cuisine => cuisine != action.cuisine_type_id);
 
-                return {
-                    ...state,
-                    cuisine_type
-                };
-
-
+            return {
+                ...state,
+                cuisine_type
+            };
+        case 'SET_CUISINE_TYPE_FILTER':
+            return {
+                ...state,
+                cuisine_type: action.cuisine_type
+            };
         case 'SET_CURRENT_INGREDIENT':
             return {
                 ...state,

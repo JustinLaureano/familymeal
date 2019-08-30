@@ -41,6 +41,7 @@ Route::middleware('auth:api')->group(function() {
     Route::get('/search/ingredients', 'IngredientController@search');
     Route::get('/ingredient/{id}', 'IngredientController@show');
     Route::get('/ingredients/count/categories/{user_id}', 'IngredientController@getCountByCategory');
+    Route::get('/ingredients/count/cuisines/{user_id}', 'IngredientController@getCountByCuisines');
 
     Route::post('/ingredients/store', 'IngredientController@store');
     Route::post('/ingredients/{id}/update', 'IngredientController@update');
