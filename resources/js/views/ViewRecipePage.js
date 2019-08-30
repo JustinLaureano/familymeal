@@ -66,7 +66,7 @@ export class ViewRecipePage extends React.Component {
 			const breadcrumbProps = [
 				{slug: 'home', path: '/'},
 				{slug: 'recipes', path: '/recipes'},
-				{slug: this.props.recipe.info.name, path: '/recipes/' + this.props.recipe.info.id},
+				{slug: this.props.recipe.info.name},
 			];
 			const pageHeaderProps = {
 				title: this.props.recipe.info.name,

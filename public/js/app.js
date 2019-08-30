@@ -78628,21 +78628,34 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "breadcrumbs"
       }, this.state.breadcrumbs.map(function (breadcrumb, index) {
-        return breadcrumb.slug == 'home' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/home",
-          key: index,
-          className: "breadcrumb"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "material-icons breadcrumb__home"
-        }, "home")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: breadcrumb.path,
-          key: index,
-          className: "breadcrumb"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-          className: "material-icons breadcrumb__chain"
-        }, "more_horiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-          className: "breadcrumb__link"
-        }, breadcrumb.slug.replace('-', ' ')));
+        if (breadcrumb.slug == 'home') {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+            to: "/home",
+            key: index,
+            className: "breadcrumb"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons breadcrumb__home"
+          }, "home"));
+        } else if (breadcrumb.hasOwnProperty('path')) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+            to: breadcrumb.path,
+            key: index,
+            className: "breadcrumb"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons breadcrumb__chain"
+          }, "more_horiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "breadcrumb__link"
+          }, breadcrumb.slug.replace('-', ' ')));
+        } else {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            key: index,
+            className: "breadcrumb"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+            className: "material-icons breadcrumb__chain"
+          }, "more_horiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "breadcrumb__link"
+          }, breadcrumb.slug.replace('-', ' ')));
+        }
       }));
     }
   }]);
@@ -85526,9 +85539,18 @@ function (_React$Component) {
   _createClass(CuisinesPage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'cuisines',
+        path: '/cuisines'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Cuisines"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Cuisines"));
     }
   }]);
 
@@ -85842,9 +85864,18 @@ function (_React$Component) {
   _createClass(ImportExportPage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'import/export',
+        path: '/import-export'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Import / Export"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Import / Export"));
     }
   }]);
 
@@ -86102,7 +86133,9 @@ function (_React$Component) {
       }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Meal Planner"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Meal Planner"));
     }
   }]);
 
@@ -86381,7 +86414,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        Breadcrumbs: breadcrumbProps
+        breadcrumbs: breadcrumbProps
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Recipe Book"));
     }
   }]);
@@ -86641,7 +86674,7 @@ function (_React$Component) {
       return this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid--simple"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        Breadcrumbs: breadcrumbProps
+        breadcrumbs: breadcrumbProps
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "lists"
       }, this.state.lists.map(function (list, index) {
@@ -86810,8 +86843,7 @@ function (_React$Component) {
           slug: 'ingredients',
           path: '/ingredients'
         }, {
-          slug: this.props.ingredient.name,
-          path: '/ingredients/' + this.props.ingredient.id
+          slug: this.props.ingredient.name
         }];
         var pageHeaderProps = {
           newIngredient: this.state.newIngredient
@@ -86995,8 +87027,7 @@ function (_React$Component) {
           slug: 'recipes',
           path: '/recipes'
         }, {
-          slug: this.props.recipe.info.name,
-          path: '/recipes/' + this.props.recipe.info.id
+          slug: this.props.recipe.info.name
         }];
         var pageHeaderProps = {
           title: this.props.recipe.info.name,

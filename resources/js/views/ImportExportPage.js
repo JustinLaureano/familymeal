@@ -5,9 +5,13 @@ import Breadcrumbs from '../components/navigation/Breadcrumbs';
 
 export class ImportExportPage extends React.Component {
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'import/export', path: '/import-export'},
+		];
 		return (
 			<section className="content">
-				<Breadcrumbs />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<h1>Import / Export</h1>
 			</section>
 		)

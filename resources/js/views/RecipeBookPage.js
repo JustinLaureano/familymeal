@@ -11,7 +11,7 @@ export class RecipeBookPage extends React.Component {
 		];
 		return (
 			<section className="content">
-				<Breadcrumbs Breadcrumbs={ breadcrumbProps } />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<h1>Recipe Book</h1>
 			</section>
 		)

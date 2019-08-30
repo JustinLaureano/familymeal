@@ -81,7 +81,7 @@ export class ShoppingListPage extends React.Component {
 			( <PageLoad /> ) :
 			(
 				<section className="table-grid--simple">
-					<Breadcrumbs Breadcrumbs={ breadcrumbProps } />
+					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 					<PageHeader { ...pageHeaderProps } />
 
 					<section className="lists">

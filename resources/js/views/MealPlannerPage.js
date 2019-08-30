@@ -11,7 +11,7 @@ export class MealPlannerPage extends React.Component {
 		];
 		return (
 			<section className="content">
-				<Breadcrumbs />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<h1>Meal Planner</h1>
 			</section>
 		)

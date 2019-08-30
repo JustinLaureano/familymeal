@@ -996,6 +996,7 @@ a:hover {
 }
 
 .breadcrumb {
+  display: inline;
   margin-right: 5px;
 }
 
