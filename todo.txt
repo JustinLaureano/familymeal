@@ -9,13 +9,10 @@ Styles
     General responsiveness to site
         mobile layout needed
 
-    Landing Page
-        design
-        layout html
-        style css
-
-
 Features to Implement
+
+    Cuisines card page
+        like category page
 
     Add Recipes to Ingredient Search for Recipe Edit
         add (r) next to ingredients that are recipes on dropdown
