@@ -74735,7 +74735,7 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
       url += '&categories=' + recipeCategories.join(",");
     }
 
-    if (cuisine_types.length > 0) {
+    if (typeof cuisine_types !== 'undefined' && cuisine_types !== null && cuisine_types.constructor === Array && cuisine_types.length > 0) {
       url += '&cuisines=' + cuisine_types.join(",");
     }
 
@@ -78989,14 +78989,29 @@ function (_React$Component) {
       var reader = new FileReader();
 
       reader.onload = function (event) {
-        _this.setState(function () {
-          return {
-            photoPreview: {
-              file: file,
-              filename: event.target.result,
-              name: file.name
-            }
-          };
+        _this.setState({
+          photoPreview: {
+            file: file,
+            filename: event.target.result,
+            name: file.name
+          }
+        });
+      };
+
+      reader.readAsDataURL(file);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "handleFileUpload", function (e) {
+      var file = e.target.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function (event) {
+        _this.setState({
+          photoPreview: {
+            file: file,
+            filename: event.target.result,
+            name: file.name
+          }
         });
       };
 
@@ -79052,7 +79067,10 @@ function (_React$Component) {
         className: "material-icons image-icon"
       }, "image"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "photo-upload__instructions"
-      }, "Drag and drop recipe photo here.")))));
+      }, "Drag and drop recipe photo here."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "file",
+        onChange: this.handleFileUpload
+      })))));
     }
   }]);
 

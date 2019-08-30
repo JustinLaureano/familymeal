@@ -22,13 +22,28 @@ export class PhotoUploadDialog extends React.Component {
         const file = files[0];
         const reader = new FileReader();
         reader.onload = (event) => {
-            this.setState(() => ({
+            this.setState({
                 photoPreview: {
                     file,
                     filename: event.target.result,
                     name: file.name
                 }
-            }));
+            });
+        }
+        reader.readAsDataURL(file);
+    }
+
+    handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            this.setState({
+                photoPreview: {
+                    file,
+                    filename: event.target.result,
+                    name: file.name
+                }
+            });
         }
         reader.readAsDataURL(file);
     }
@@ -82,6 +97,7 @@ export class PhotoUploadDialog extends React.Component {
                                     <p className="photo-upload__instructions">
                                         Drag and drop recipe photo here.
                                     </p>
+                                    <input type="file" onChange={ this.handleFileUpload }/>
                                 </div>
                             )
                         }

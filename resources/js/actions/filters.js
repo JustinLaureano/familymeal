@@ -28,11 +28,19 @@ export const changeTablePage = (pageNumber, model) => {
 				break;
 		}
 		
-		if (typeof recipeCategories !== 'undefined' && recipeCategories !== null && recipeCategories.constructor === Array && recipeCategories.length > 0) {
+		if (typeof recipeCategories !== 'undefined' &&
+			recipeCategories !== null && 
+			recipeCategories.constructor === Array && 
+			recipeCategories.length > 0) 
+		{
 			url += '&categories=' + recipeCategories.join(",");
 		}
 
-		if (cuisine_types.length > 0) {
+		if (typeof cuisine_types !== 'undefined' &&
+			cuisine_types !== null && 
+			cuisine_types.constructor === Array && 
+			cuisine_types.length > 0) 
+		{
 			url += '&cuisines=' + cuisine_types.join(",");
 		}
 

@@ -1,18 +1,16 @@
 Bug Fixes
-    Pagination bug where last page displays as 0
     image upload logic for new recipe photo
     logic for ingredient subcategory filter on ingredient edit
-    new ingredient save needs finished
-
+    ingredient amount should auto generate list
+    new recipe name doesnt show on breadcrumbs
 
 Styles
     General responsiveness to site
         mobile layout needed
 
 Features to Implement
-
-    Cuisines card page
-        like category page
+    upload input for recipe photos
+    add confirmation to recipe delete on table
 
     Add Recipes to Ingredient Search for Recipe Edit
         add (r) next to ingredients that are recipes on dropdown
