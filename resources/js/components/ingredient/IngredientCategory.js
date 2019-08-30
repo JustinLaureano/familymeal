@@ -63,7 +63,7 @@ export class IngredientCategory extends React.Component {
 			return (
 				<section className="recipe-grid__info-block">
 					<h3>Category</h3>
-                	{ this.props.category.name }
+                	{ this.props.category.name == null ? 'n/a' : this.props.category.name }
 				</section>
 			);
 		}
