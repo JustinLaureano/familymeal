@@ -15,15 +15,33 @@ export class RecipePhoto extends React.Component {
     };
 
     componentDidUpdate() {
-        if (this.state.photo !== null && this.props.photo !== null && this.state.photo.filename !== this.props.photo.filename) {
+        if (this.state.photo && 
+            this.props.photo && 
+            this.state.photo.hasOwnProperty('filename') && 
+            this.state.photo.filename !== this.props.photo.filename) 
+        {
             this.setState(() => ({ photo: this.props.photo }));
         }
-
-        if (this.state.photo !== null) {
-            document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
+        
+        if (this.state.photo && this.state.photo.hasOwnProperty('filename')) {
+            document.getElementById('recipe_photo').src = this.getPhotoSource();
         }
-        else if (this.props.photo !== null) {
-            document.getElementById('recipe_photo').src = '/recipe/photo/' + this.props.photo.filename;
+        else if (this.props.photo) {
+            document.getElementById('recipe_photo').src = this.getPhotoSource();
+        }
+    }
+
+    getPhotoSource = () => {
+        if (this.state.photo) {
+            if (this.state.photo.filename.includes('data:image')) {
+                return this.state.photo.filename;
+            }
+            else {
+                return '/recipe/photo/' + this.state.photo.filename;
+            }
+        }
+        else {
+            return this.getRecipeCategoryPhoto();
         }
     }
 
@@ -47,6 +65,11 @@ export class RecipePhoto extends React.Component {
         this.props.updateRecipePhoto(photo);
         this.togglePhotoEditDialog();
     }
+
+    saveNewRecipePhoto = (photo) => {
+        this.setState({ photo });
+        this.togglePhotoEditDialog();
+    }
     
     togglePhotoEditDialog = () => {
         this.setState(() => ({
@@ -58,9 +81,7 @@ export class RecipePhoto extends React.Component {
         const photoProps = {
             id: 'recipe_photo',
             className: 'photo--circle photo--recipe' + ( this.props.editMode ? '-edit' : ''),
-            src: ( this.state.photo !== null && this.state.photo.filename ) ? 
-                '/recipe/photo/' + this.state.photo.filename :
-                this.getRecipeCategoryPhoto()
+            src: this.getPhotoSource()
         };
 
 		if (this.props.editMode) {
@@ -78,7 +99,8 @@ export class RecipePhoto extends React.Component {
                         this.state.photoEdit ? (
                             <PhotoUploadDialog
                                 closeDialog={ this.togglePhotoEditDialog }
-                                saveRecipePhoto={ this.saveRecipePhoto }/>
+                                saveRecipePhoto={ this.saveRecipePhoto }
+                                saveNewRecipePhoto={ this.saveNewRecipePhoto } />
                         ) : ''
                     }
                 </section>

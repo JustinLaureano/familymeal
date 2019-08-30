@@ -78984,7 +78984,7 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleDrop", function (files, event) {
+    _defineProperty(_assertThisInitialized(_this), "handleDrop", function (files) {
       var file = files[0];
       var reader = new FileReader();
 
@@ -79019,13 +79019,18 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "startSaveRecipePhoto", function () {
-      _this.props.saveRecipePhoto(_this.state.photoPreview.file);
+      if (_this.state.newRecipe) {
+        _this.props.saveNewRecipePhoto(_this.state.photoPreview);
+      } else {
+        _this.props.saveRecipePhoto(_this.state.photoPreview.file);
+      }
     });
 
     _this.state = {
       photo: _this.props.photo,
       photoEdit: false,
-      photoPreview: null
+      photoPreview: null,
+      newRecipe: _this.props.isNewRecipe
     };
     return _this;
   }
@@ -79080,7 +79085,8 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    photo: state.filters.currentRecipe.photo
+    photo: state.filters.currentRecipe.photo,
+    isNewRecipe: state.filters.currentRecipe.info.id === null ? true : false
   };
 };
 
@@ -82002,6 +82008,18 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(RecipePhoto).call(this, props));
 
+    _defineProperty(_assertThisInitialized(_this), "getPhotoSource", function () {
+      if (_this.state.photo) {
+        if (_this.state.photo.filename.includes('data:image')) {
+          return _this.state.photo.filename;
+        } else {
+          return '/recipe/photo/' + _this.state.photo.filename;
+        }
+      } else {
+        return _this.getRecipeCategoryPhoto();
+      }
+    });
+
     _defineProperty(_assertThisInitialized(_this), "getRecipeCategoryPhoto", function () {
       var currentRecipeCategory = _this.props.currentRecipe.info.recipe_category_name;
       var photo = 'All';
@@ -82031,6 +82049,14 @@ function (_React$Component) {
       _this.togglePhotoEditDialog();
     });
 
+    _defineProperty(_assertThisInitialized(_this), "saveNewRecipePhoto", function (photo) {
+      _this.setState({
+        photo: photo
+      });
+
+      _this.togglePhotoEditDialog();
+    });
+
     _defineProperty(_assertThisInitialized(_this), "togglePhotoEditDialog", function () {
       _this.setState(function () {
         return {
@@ -82051,7 +82077,7 @@ function (_React$Component) {
     value: function componentDidUpdate() {
       var _this2 = this;
 
-      if (this.state.photo !== null && this.props.photo !== null && this.state.photo.filename !== this.props.photo.filename) {
+      if (this.state.photo && this.props.photo && this.state.photo.hasOwnProperty('filename') && this.state.photo.filename !== this.props.photo.filename) {
         this.setState(function () {
           return {
             photo: _this2.props.photo
@@ -82059,10 +82085,10 @@ function (_React$Component) {
         });
       }
 
-      if (this.state.photo !== null) {
-        document.getElementById('recipe_photo').src = '/recipe/photo/' + this.state.photo.filename;
-      } else if (this.props.photo !== null) {
-        document.getElementById('recipe_photo').src = '/recipe/photo/' + this.props.photo.filename;
+      if (this.state.photo && this.state.photo.hasOwnProperty('filename')) {
+        document.getElementById('recipe_photo').src = this.getPhotoSource();
+      } else if (this.props.photo) {
+        document.getElementById('recipe_photo').src = this.getPhotoSource();
       }
     }
   }, {
@@ -82071,7 +82097,7 @@ function (_React$Component) {
       var photoProps = {
         id: 'recipe_photo',
         className: 'photo--circle photo--recipe' + (this.props.editMode ? '-edit' : ''),
-        src: this.state.photo !== null && this.state.photo.filename ? '/recipe/photo/' + this.state.photo.filename : this.getRecipeCategoryPhoto()
+        src: this.getPhotoSource()
       };
 
       if (this.props.editMode) {
@@ -82082,7 +82108,8 @@ function (_React$Component) {
           onClick: this.togglePhotoEditDialog
         }, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps), this.state.photoEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
           closeDialog: this.togglePhotoEditDialog,
-          saveRecipePhoto: this.saveRecipePhoto
+          saveRecipePhoto: this.saveRecipePhoto,
+          saveNewRecipePhoto: this.saveNewRecipePhoto
         }) : '');
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps);

@@ -10,7 +10,8 @@ export class PhotoUploadDialog extends React.Component {
         this.state = {
            photo: this.props.photo,
            photoEdit: false,
-           photoPreview: null
+           photoPreview: null,
+           newRecipe: this.props.isNewRecipe
         };
     };
 
@@ -18,7 +19,7 @@ export class PhotoUploadDialog extends React.Component {
         this.setState(() => ({ photoPreview: null }));
     }
 
-    handleDrop = (files, event) => {
+    handleDrop = (files) => {
         const file = files[0];
         const reader = new FileReader();
         reader.onload = (event) => {
@@ -49,7 +50,12 @@ export class PhotoUploadDialog extends React.Component {
     }
 
     startSaveRecipePhoto = () => {
-        this.props.saveRecipePhoto(this.state.photoPreview.file);
+        if (this.state.newRecipe) {
+            this.props.saveNewRecipePhoto(this.state.photoPreview);
+        }
+        else {
+            this.props.saveRecipePhoto(this.state.photoPreview.file);
+        }
     }
 	
     render() {
@@ -110,7 +116,8 @@ export class PhotoUploadDialog extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    photo: state.filters.currentRecipe.photo
+    photo: state.filters.currentRecipe.photo,
+    isNewRecipe: state.filters.currentRecipe.info.id === null ? true : false
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
