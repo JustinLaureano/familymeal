@@ -47,6 +47,10 @@ export class FavoritesPage extends React.Component {
 	}
 	
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'favorites', path: '/favorites'}
+		];
 		const tableProps = {
 			headers: this.state.headers,
 			data: this.props.recipes,
@@ -78,7 +82,7 @@ export class FavoritesPage extends React.Component {
 		}
 		return (
 			<section className="table-grid">
-				<Breadcrumbs />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<PageHeader {...pageHeaderProps} />
 				<Table {...tableProps}/>
 			</section>

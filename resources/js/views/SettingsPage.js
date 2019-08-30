@@ -5,9 +5,13 @@ import Breadcrumbs from '../components/navigation/Breadcrumbs';
 
 export class SettingsPage extends React.Component {
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'settings', path: '/settings'}
+		];
 		return (
 			<section className="content">
-				<Breadcrumbs />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<h1>Settings</h1>
 			</section>
 		)

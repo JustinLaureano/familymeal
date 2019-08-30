@@ -44,6 +44,10 @@ export class MyRecipesPage extends React.Component {
 	}
 	
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'recipes', path: '/recipes'}
+		];
 		const tableProps = {
 			headers: this.state.headers,
 			data: this.props.recipes,
@@ -83,7 +87,7 @@ export class MyRecipesPage extends React.Component {
 		else {
 			return (
 				<section className="table-grid">
-					<Breadcrumbs />
+					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 					<PageHeader { ...pageHeaderProps } />
 					<TableFilters { ...tableFilterProps } />
 					<Table { ...tableProps }/>

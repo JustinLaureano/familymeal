@@ -5,9 +5,12 @@ import Breadcrumbs from '../components/navigation/Breadcrumbs';
 
 export class EditRecipePage extends React.Component {
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'}
+		];
 		return (
 			<section className="">
-				<Breadcrumbs />
+				<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 				<h1>Edit Recipe</h1>
 			</section>
 		)

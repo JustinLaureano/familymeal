@@ -58,12 +58,17 @@ export class ViewIngredientPage extends React.Component {
 			)
 		}
 		else {
+			const breadcrumbProps = [
+				{slug: 'home', path: '/'},
+				{slug: 'ingredients', path: '/ingredients'},
+				{slug: this.props.ingredient.name, path: '/ingredients/' + this.props.ingredient.id},
+			];
 			const pageHeaderProps = {
 				newIngredient: this.state.newIngredient
 			}
 			return (
 				<section className="recipe-grid">
-					<Breadcrumbs />
+					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 					<IngredientPageHeader { ...pageHeaderProps } />
 					<IngredientInfo />
 				</section>

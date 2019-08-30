@@ -78617,41 +78617,32 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Breadcrumbs).call(this, props));
     _this.state = {
-      breadcrumbs: []
+      breadcrumbs: _this.props.breadcrumbs
     };
     return _this;
   }
 
   _createClass(Breadcrumbs, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.setState(function () {
-        return {
-          breadcrumbs: Object(_services_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["getBreadcrumbs"])()
-        };
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "breadcrumbs"
       }, this.state.breadcrumbs.map(function (breadcrumb, index) {
-        return breadcrumb == 'home' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        return breadcrumb.slug == 'home' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/home",
           key: index,
           className: "breadcrumb"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "material-icons breadcrumb__home"
         }, "home")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-          to: "/" + breadcrumb,
+          to: breadcrumb.path,
           key: index,
           className: "breadcrumb"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "material-icons breadcrumb__chain"
         }, "more_horiz"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
           className: "breadcrumb__link"
-        }, breadcrumb.replace('-', ' ')));
+        }, breadcrumb.slug.replace('-', ' ')));
       }));
     }
   }]);
@@ -84853,7 +84844,7 @@ var mapStateToProps = function mapStateToProps(state) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getBreadcrumbs", function() { return getBreadcrumbs; });
-function getBreadcrumbs() {
+function getBreadcrumbs(slug) {
   var paths = window.location.pathname.split('/');
   paths = paths.filter(function (pathStr) {
     return pathStr != '';
@@ -84861,6 +84852,10 @@ function getBreadcrumbs() {
 
   if (paths[0] !== 'home') {
     paths.unshift('home');
+  }
+
+  if (slug) {
+    paths[paths.length - 1] = slug;
   }
 
   return paths;
@@ -85431,6 +85426,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'categories',
+        path: '/categories'
+      }];
       var pageHeaderProps = {
         title: 'Categories',
         subtitle: {
@@ -85449,7 +85451,9 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "table-grid--simple"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          breadcrumbs: breadcrumbProps
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps));
       }
     }
   }]);
@@ -85592,9 +85596,15 @@ function (_React$Component) {
   _createClass(EditRecipePage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: ""
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Edit Recipe"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Edit Recipe"));
     }
   }]);
 
@@ -85713,6 +85723,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'favorites',
+        path: '/favorites'
+      }];
       var tableProps = {
         headers: this.state.headers,
         data: this.props.recipes,
@@ -85742,7 +85759,9 @@ function (_React$Component) {
       };
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableProps));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableProps));
     }
   }]);
 
@@ -85944,6 +85963,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'ingredients',
+        path: '/ingredients'
+      }];
       var tableProps = {
         headers: this.state.headers,
         data: this.props.ingredients,
@@ -85979,7 +86005,9 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "table-grid"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_5__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          breadcrumbs: breadcrumbProps
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_5__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
       }
     }
   }]);
@@ -86065,6 +86093,13 @@ function (_React$Component) {
   _createClass(MealPlannerPage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'meal planner',
+        path: '/meal-planner'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Meal Planner"));
@@ -86185,6 +86220,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'recipes',
+        path: '/recipes'
+      }];
       var tableProps = {
         headers: this.state.headers,
         data: this.props.recipes,
@@ -86220,7 +86262,9 @@ function (_React$Component) {
       } else {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "table-grid"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_5__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          breadcrumbs: breadcrumbProps
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_5__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
       }
     }
   }]);
@@ -86327,9 +86371,18 @@ function (_React$Component) {
   _createClass(RecipeBookPage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'recipe book',
+        path: '/recipe-book'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Recipe Book"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        Breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Recipe Book"));
     }
   }]);
 
@@ -86399,9 +86452,18 @@ function (_React$Component) {
   _createClass(SettingsPage, [{
     key: "render",
     value: function render() {
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'settings',
+        path: '/settings'
+      }];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Settings"));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Settings"));
     }
   }]);
 
@@ -86562,6 +86624,13 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var breadcrumbProps = [{
+        slug: 'home',
+        path: '/'
+      }, {
+        slug: 'shopping list',
+        path: '/shopping-list'
+      }];
       var pageHeaderProps = {
         title: 'Shopping List',
         subtitle: {
@@ -86571,7 +86640,9 @@ function (_React$Component) {
       };
       return this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table-grid--simple"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        Breadcrumbs: breadcrumbProps
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "lists"
       }, this.state.lists.map(function (list, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_card_ShoppingListCard_js__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({
@@ -86732,12 +86803,24 @@ function (_React$Component) {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_3__["default"], null);
       } else {
+        var breadcrumbProps = [{
+          slug: 'home',
+          path: '/'
+        }, {
+          slug: 'ingredients',
+          path: '/ingredients'
+        }, {
+          slug: this.props.ingredient.name,
+          path: '/ingredients/' + this.props.ingredient.id
+        }];
         var pageHeaderProps = {
           newIngredient: this.state.newIngredient
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientPageHeader__WEBPACK_IMPORTED_MODULE_4__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientInfo__WEBPACK_IMPORTED_MODULE_5__["default"], null));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          breadcrumbs: breadcrumbProps
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientPageHeader__WEBPACK_IMPORTED_MODULE_4__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientInfo__WEBPACK_IMPORTED_MODULE_5__["default"], null));
       }
     }
   }]);
@@ -86905,13 +86988,25 @@ function (_React$Component) {
       if (this.state.loading) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       } else {
+        var breadcrumbProps = [{
+          slug: 'home',
+          path: '/'
+        }, {
+          slug: 'recipes',
+          path: '/recipes'
+        }, {
+          slug: this.props.recipe.info.name,
+          path: '/recipes/' + this.props.recipe.info.id
+        }];
         var pageHeaderProps = {
           title: this.props.recipe.info.name,
           newRecipe: this.state.newRecipe
         };
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePhoto__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeAbout__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeInfo__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeIngredients__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeDirections__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeNotes__WEBPACK_IMPORTED_MODULE_9__["default"], null));
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          breadcrumbs: breadcrumbProps
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePhoto__WEBPACK_IMPORTED_MODULE_10__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipePageHeader__WEBPACK_IMPORTED_MODULE_3__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeAbout__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeInfo__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeIngredients__WEBPACK_IMPORTED_MODULE_7__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeDirections__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_recipe_RecipeNotes__WEBPACK_IMPORTED_MODULE_9__["default"], null));
       }
     }
   }]);

@@ -51,6 +51,10 @@ export class CategoriesPage extends React.Component {
 	}
 	
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'categories', path: '/categories'}
+		];
 		const pageHeaderProps = {
 			title: 'Categories',
 			subtitle: {
@@ -71,7 +75,7 @@ export class CategoriesPage extends React.Component {
 		else {
 			return (
 				<section className="table-grid--simple">
-					<Breadcrumbs />
+					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 					<PageHeader { ...pageHeaderProps } />
 					<CardView { ...cardViewProps }/>
 				</section>

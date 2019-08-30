@@ -18,6 +18,8 @@
         "confirm confirm"
         "create-btn create-btn";
     min-width: 310px;
+    opacity: .95;
+    z-index: $overlay-z-index;
 }
 
 .register-form__title {

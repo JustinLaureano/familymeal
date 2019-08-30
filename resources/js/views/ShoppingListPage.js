@@ -66,6 +66,10 @@ export class ShoppingListPage extends React.Component {
 	}
 
 	render() {
+		const breadcrumbProps = [
+			{slug: 'home', path: '/'},
+			{slug: 'shopping list', path: '/shopping-list'}
+		];
 		const pageHeaderProps = {
 			title: 'Shopping List',
 			subtitle: {
@@ -77,7 +81,7 @@ export class ShoppingListPage extends React.Component {
 			( <PageLoad /> ) :
 			(
 				<section className="table-grid--simple">
-					<Breadcrumbs />
+					<Breadcrumbs Breadcrumbs={ breadcrumbProps } />
 					<PageHeader { ...pageHeaderProps } />
 
 					<section className="lists">

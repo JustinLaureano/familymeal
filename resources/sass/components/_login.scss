@@ -2,6 +2,35 @@
     @include flex-center;
     @include background-img(url("../images/bg-login.jpg"));
     height: 100%;
+
+    &:after {
+        background-color: #242424;
+        content: '';
+        height: 100%;
+        left: 0;
+        opacity: 0.1;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.login__caption {
+    margin-bottom: $space-xl;
+    text-align: center;
+    z-index: $overlay-z-index;
+}
+
+.login__title {
+    font-size: 3em;
+    margin-bottom: $space-xxxs;
+    z-index: $overlay-z-index;
+}
+
+.login__subtitle {
+    color: white;
+    font-size: 1.1em;
+    z-index: $overlay-z-index;
 }
 
 .login-form {
@@ -17,6 +46,8 @@
         "login-btn login-btn"
         "remember forgot";
     min-width: 310px;
+    opacity: .95;
+    z-index: $overlay-z-index;
 }
 
 .login-form__title {
