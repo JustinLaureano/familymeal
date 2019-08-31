@@ -11,7 +11,7 @@ export class IngredientSelect extends React.Component {
             value: '',
             'ingredient_id': 0,
             suggestions: [],
-            mUnitSuggestions: [],
+            mUnitSuggestions: this.props.measurement_units,
             amount: '',
             measurement_unit: '',
             measurement_unit_id: 0
@@ -58,7 +58,7 @@ export class IngredientSelect extends React.Component {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
 
-        return inputLength === 0 ? [] : this.props.measurement_units.filter(mUnit => {
+        return inputLength === 0 ? this.props.measurement_units : this.props.measurement_units.filter(mUnit => {
             if (mUnit.name.toLowerCase().slice(0, inputLength) == inputValue) {
                 return true;
             }
@@ -99,7 +99,7 @@ export class IngredientSelect extends React.Component {
 
         let valid = false;
         // Try to find alias match for user input
-        this.props.measurement_units.map((mUnit, index) => {
+        this.props.measurement_units.map((mUnit) => {
             if (inputValue === mUnit.name.toLowerCase()) {
                 valid = true;
 
@@ -129,7 +129,8 @@ export class IngredientSelect extends React.Component {
             document.getElementById('measurement_unit_autosuggest').style.fontStyle = 'oblique';
         }
     }
-    onMUnitSuggestionsFetchRequested = ({ value }) => {
+    mUnitShouldRenderSuggestions = () => true;
+    onMUnitSuggestionsFetchRequested = ({ value, reason }) => {
         this.setState({
             mUnitSuggestions: this.getMUnitSuggestions(value)
         });
@@ -208,6 +209,7 @@ export class IngredientSelect extends React.Component {
                     <Autosuggest
                         id="measurement_unit_autosuggest"
                         suggestions={this.state.mUnitSuggestions}
+                        shouldRenderSuggestions={this.mUnitShouldRenderSuggestions }
                         onSuggestionsFetchRequested={this.onMUnitSuggestionsFetchRequested}
                         onSuggestionsClearRequested={this.onMUnitSuggestionsClearRequested}
                         onSuggestionSelected={this.onMUnitSuggestionSelected}

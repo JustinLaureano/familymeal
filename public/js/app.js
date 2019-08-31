@@ -79338,7 +79338,7 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "getMUnitSuggestions", function (value) {
       var inputValue = value.trim().toLowerCase();
       var inputLength = inputValue.length;
-      return inputLength === 0 ? [] : _this.props.measurement_units.filter(function (mUnit) {
+      return inputLength === 0 ? _this.props.measurement_units : _this.props.measurement_units.filter(function (mUnit) {
         if (mUnit.name.toLowerCase().slice(0, inputLength) == inputValue) {
           return true;
         } // check measurement aliases for match
@@ -79387,7 +79387,7 @@ function (_React$Component) {
 
       var valid = false; // Try to find alias match for user input
 
-      _this.props.measurement_units.map(function (mUnit, index) {
+      _this.props.measurement_units.map(function (mUnit) {
         if (inputValue === mUnit.name.toLowerCase()) {
           valid = true;
 
@@ -79417,8 +79417,13 @@ function (_React$Component) {
       }
     });
 
+    _defineProperty(_assertThisInitialized(_this), "mUnitShouldRenderSuggestions", function () {
+      return true;
+    });
+
     _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionsFetchRequested", function (_ref4) {
-      var value = _ref4.value;
+      var value = _ref4.value,
+          reason = _ref4.reason;
 
       _this.setState({
         mUnitSuggestions: _this.getMUnitSuggestions(value)
@@ -79478,7 +79483,7 @@ function (_React$Component) {
       value: '',
       'ingredient_id': 0,
       suggestions: [],
-      mUnitSuggestions: [],
+      mUnitSuggestions: _this.props.measurement_units,
       amount: '',
       measurement_unit: '',
       measurement_unit_id: 0
@@ -79524,6 +79529,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_autosuggest__WEBPACK_IMPORTED_MODULE_2___default.a, {
         id: "measurement_unit_autosuggest",
         suggestions: this.state.mUnitSuggestions,
+        shouldRenderSuggestions: this.mUnitShouldRenderSuggestions,
         onSuggestionsFetchRequested: this.onMUnitSuggestionsFetchRequested,
         onSuggestionsClearRequested: this.onMUnitSuggestionsClearRequested,
         onSuggestionSelected: this.onMUnitSuggestionSelected,
