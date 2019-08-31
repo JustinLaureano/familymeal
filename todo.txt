@@ -1,7 +1,5 @@
 Bug Fixes
-    image upload logic for new recipe photo
     logic for ingredient subcategory filter on ingredient edit
-    ingredient amount should auto generate list
     new recipe name doesnt show on breadcrumbs
     limit edit ingredient if ingrdient not user created
 
