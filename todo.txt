@@ -3,14 +3,18 @@ Bug Fixes
     logic for ingredient subcategory filter on ingredient edit
     ingredient amount should auto generate list
     new recipe name doesnt show on breadcrumbs
+    limit edit ingredient if ingrdient not user created
 
 Styles
     General responsiveness to site
         mobile layout needed
 
 Features to Implement
+    toast message when adding ingredient to shopping list
     upload input for recipe photos
     add confirmation to recipe delete on table
+
+    add table to ingredients page with recipes for that ingredient
 
     Add Recipes to Ingredient Search for Recipe Edit
         add (r) next to ingredients that are recipes on dropdown
