@@ -13,6 +13,7 @@ import recipeCategoriesReducer from '../reducers/recipe_categories';
 import shoppingListReducer from '../reducers/shoppingList';
 import toastReducer from '../reducers/toast';
 import totalsReducer from '../reducers/totals';
+import uploadsReducer from '../reducers/uploads';
 import userReducer from '../reducers/user';
 import userSettingsReducer from '../reducers/userSettings';
 
@@ -34,6 +35,7 @@ export default () => {
 			shopping_lists: shoppingListReducer,
 			toast: toastReducer,
 			totals: totalsReducer,
+			uploads: uploadsReducer,
 			user: userReducer,
 			user_settings: userSettingsReducer,
 		}),

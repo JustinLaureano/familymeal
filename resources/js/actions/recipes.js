@@ -1,4 +1,5 @@
 import { changeTablePage } from './filters';
+import { photoUploadProps } from '../services/PhotoUpload';
 
 export const getRecipe = (recipe_id) => {
 	return (dispatch, getState) => {
@@ -28,6 +29,7 @@ export const createNewRecipe = (recipe) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;
 		const user_id = getState().user.id;
+		const photo = getState().uploads.newRecipePhoto;
 
 		const request = {
 			method: 'POST',
@@ -43,7 +45,6 @@ export const createNewRecipe = (recipe) => {
 		fetch('/api/recipes/store', request)
 			.then(resp => resp.json())
 			.then((data) => {
-
 				dispatch({
 					type: 'SET_CURRENT_RECIPE',
 					recipe: data.recipe
@@ -61,6 +62,10 @@ export const createNewRecipe = (recipe) => {
 					type: 'SET_EDIT_MODE',
 					editMode: false
 				});
+
+				if (photo) {
+					dispatch(updateRecipePhoto(photo.file));
+				}
 			})
 			.catch(err => console.log(err))
 	}
@@ -131,6 +136,7 @@ export const updateRecipeName = (name) => {
 }
 
 export const updateRecipePhoto = (photo) => {
+	console.log(photo);
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
 		const csrf_token = getState().auth.csrf_token;

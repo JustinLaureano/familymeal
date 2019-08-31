@@ -75226,6 +75226,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 /* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _services_PhotoUpload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/PhotoUpload */ "./resources/js/services/PhotoUpload.js");
+
 
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -75254,6 +75256,7 @@ var createNewRecipe = function createNewRecipe(recipe) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
     var user_id = getState().user.id;
+    var photo = getState().uploads.newRecipePhoto;
     var request = {
       method: 'POST',
       headers: {
@@ -75284,6 +75287,10 @@ var createNewRecipe = function createNewRecipe(recipe) {
         type: 'SET_EDIT_MODE',
         editMode: false
       });
+
+      if (photo) {
+        dispatch(updateRecipePhoto(photo.file));
+      }
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -75351,6 +75358,7 @@ var updateRecipeName = function updateRecipeName(name) {
   };
 };
 var updateRecipePhoto = function updateRecipePhoto(photo) {
+  console.log(photo);
   return function (dispatch, getState) {
     var token = getState().auth.token;
     var csrf_token = getState().auth.csrf_token;
@@ -75988,6 +75996,27 @@ var clearToastMessages = function clearToastMessages() {
   return function (dispatch) {
     dispatch({
       type: 'CLEAR_TOAST_MESSAGES'
+    });
+  };
+};
+
+/***/ }),
+
+/***/ "./resources/js/actions/uploads.js":
+/*!*****************************************!*\
+  !*** ./resources/js/actions/uploads.js ***!
+  \*****************************************/
+/*! exports provided: newRecipePhoto */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newRecipePhoto", function() { return newRecipePhoto; });
+var newRecipePhoto = function newRecipePhoto(photo) {
+  return function (dispatch) {
+    dispatch({
+      type: 'ADD_RECIPE_PHOTO_UPLOAD',
+      photo: photo
     });
   };
 };
@@ -81969,8 +81998,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
-/* harmony import */ var _photo_Photo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../photo/Photo */ "./resources/js/components/photo/Photo.js");
-/* harmony import */ var _photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../photo/PhotoUploadDialog */ "./resources/js/components/photo/PhotoUploadDialog.js");
+/* harmony import */ var _actions_uploads__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/uploads */ "./resources/js/actions/uploads.js");
+/* harmony import */ var _photo_Photo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../photo/Photo */ "./resources/js/components/photo/Photo.js");
+/* harmony import */ var _photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../photo/PhotoUploadDialog */ "./resources/js/components/photo/PhotoUploadDialog.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -81990,6 +82020,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -82050,6 +82081,8 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "saveNewRecipePhoto", function (photo) {
+      _this.props.newRecipePhoto(photo);
+
       _this.setState({
         photo: photo
       });
@@ -82106,13 +82139,13 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "material-icons photo-edit-icon",
           onClick: this.togglePhotoEditDialog
-        }, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps), this.state.photoEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_4__["default"], photoProps), this.state.photoEdit ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_PhotoUploadDialog__WEBPACK_IMPORTED_MODULE_5__["default"], {
           closeDialog: this.togglePhotoEditDialog,
           saveRecipePhoto: this.saveRecipePhoto,
           saveNewRecipePhoto: this.saveNewRecipePhoto
         }) : '');
       } else {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_3__["default"], photoProps);
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_Photo__WEBPACK_IMPORTED_MODULE_4__["default"], photoProps);
       }
     }
   }]);
@@ -82130,10 +82163,13 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     updateRecipePhoto: function updateRecipePhoto(photo) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_2__["updateRecipePhoto"])(photo));
+    },
+    newRecipePhoto: function newRecipePhoto(photo) {
+      return dispatch(Object(_actions_uploads__WEBPACK_IMPORTED_MODULE_3__["newRecipePhoto"])(photo));
     }
   };
 };
@@ -84712,6 +84748,39 @@ var totalsReducerDefaultState = {};
 
 /***/ }),
 
+/***/ "./resources/js/reducers/uploads.js":
+/*!******************************************!*\
+  !*** ./resources/js/reducers/uploads.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var uploadsReducerDefaultState = {
+  newRecipePhoto: null
+};
+/* harmony default export */ __webpack_exports__["default"] = (function () {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : uploadsReducerDefaultState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'ADD_RECIPE_PHOTO_UPLOAD':
+      return _objectSpread({}, state, {
+        newRecipePhoto: action.photo
+      });
+
+    default:
+      return state;
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/reducers/user.js":
 /*!***************************************!*\
   !*** ./resources/js/reducers/user.js ***!
@@ -85447,8 +85516,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _reducers_shoppingList__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../reducers/shoppingList */ "./resources/js/reducers/shoppingList.js");
 /* harmony import */ var _reducers_toast__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../reducers/toast */ "./resources/js/reducers/toast.js");
 /* harmony import */ var _reducers_totals__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../reducers/totals */ "./resources/js/reducers/totals.js");
-/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
-/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+/* harmony import */ var _reducers_uploads__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../reducers/uploads */ "./resources/js/reducers/uploads.js");
+/* harmony import */ var _reducers_user__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../reducers/user */ "./resources/js/reducers/user.js");
+/* harmony import */ var _reducers_userSettings__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../reducers/userSettings */ "./resources/js/reducers/userSettings.js");
+
 
 
 
@@ -85482,8 +85553,9 @@ var composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || redux__WEB
     shopping_lists: _reducers_shoppingList__WEBPACK_IMPORTED_MODULE_12__["default"],
     toast: _reducers_toast__WEBPACK_IMPORTED_MODULE_13__["default"],
     totals: _reducers_totals__WEBPACK_IMPORTED_MODULE_14__["default"],
-    user: _reducers_user__WEBPACK_IMPORTED_MODULE_15__["default"],
-    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_16__["default"]
+    uploads: _reducers_uploads__WEBPACK_IMPORTED_MODULE_15__["default"],
+    user: _reducers_user__WEBPACK_IMPORTED_MODULE_16__["default"],
+    user_settings: _reducers_userSettings__WEBPACK_IMPORTED_MODULE_17__["default"]
   }), composeEnhancers(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"])));
   return store;
 });

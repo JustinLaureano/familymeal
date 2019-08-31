@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateRecipePhoto } from '../../actions/recipes';
+import { newRecipePhoto } from '../../actions/uploads';
 import Photo from '../photo/Photo';
 import PhotoUploadDialog from '../photo/PhotoUploadDialog';
 
@@ -67,6 +68,7 @@ export class RecipePhoto extends React.Component {
     }
 
     saveNewRecipePhoto = (photo) => {
+        this.props.newRecipePhoto(photo);
         this.setState({ photo });
         this.togglePhotoEditDialog();
     }
@@ -121,8 +123,9 @@ const mapStateToProps = (state) => ({
         recipeCategories: state.recipe_categories
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
-	updateRecipePhoto: (photo) => dispatch(updateRecipePhoto(photo))
+const mapDispatchToProps = (dispatch) => ({
+	updateRecipePhoto: (photo) => dispatch(updateRecipePhoto(photo)),
+	newRecipePhoto: (photo) => dispatch(newRecipePhoto(photo))
 });
   
 export default connect(mapStateToProps, mapDispatchToProps)(RecipePhoto);
