@@ -157,18 +157,21 @@ export class RecipeIngredients extends React.Component {
     }
     
     addIngredient = (ingredient) => {
+        console.log(ingredient);
         this.props.addCurrentRecipeIngredient({
             id: Math.floor(Math.random() * (this.newIdCeiling - this.newIdFloor) + this.newIdFloor),
             order: this.state.ingredients.length + 1,
-            ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
-            ingredient_name: ingredient.value,
-            ingredient_recipe_id: null,
-            ingredient_recipe_name: null,
+            ingredient_id: ingredient.ingredient_id > 0 ? ingredient.ingredient_id : ingredient.recipe_id > 0 ? null : this.newRandomID(),
+            ingredient_name: ingredient.ingredient_id > 0 ? ingredient.value : null,
+            ingredient_recipe_id: ingredient.recipe_id > 0 ? ingredient.recipe_id : null,
+            ingredient_recipe_name: ingredient.recipe_id > 0 ? ingredient.value : null,
             ingredient_units: ingredient.amount,
             measurement_unit_id: ingredient.measurement_unit_id
         });
         this.setState(() => ({ edited: true }));
     }
+
+    newRandomID = () => Math.floor(Math.random() * (999999 - 900000) + 900000);
 
     toggleIngredientRemoveConfirm = (e) => {
         const removeContainer = document.getElementById('ingredient-remove_' + e.target.id.replace(/\D/g, ''));

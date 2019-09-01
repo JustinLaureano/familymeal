@@ -10,6 +10,7 @@ export class IngredientSelect extends React.Component {
         this.state = {
             value: '',
             'ingredient_id': 0,
+            'recipe_id': 0,
             suggestions: [],
             mUnitSuggestions: this.props.measurement_units,
             amount: '',
@@ -37,8 +38,7 @@ export class IngredientSelect extends React.Component {
         )
     };
     onChange = (e, { newValue }) => {
-        const ingredient_id = e.target.id.replace(/\D/g, '');
-        this.setState({ value: newValue, ingredient_id });
+        this.setState({ value: newValue });
     };
     onSuggestionsFetchRequested = ({ value }) => {
         if (this.timer) {
@@ -51,6 +51,14 @@ export class IngredientSelect extends React.Component {
     onSuggestionsClearRequested = () => {
         this.setState({ suggestions: [] });
     };
+    onSuggestionSelected = (event, { suggestion, suggestionValue }) => {
+        if (suggestion.hasOwnProperty('recipe_id')) {
+            this.setState({ value: suggestionValue, recipe_id: suggestion.recipe_id });
+        }
+        else {
+            this.setState({ value: suggestionValue, ingredient_id: suggestion.id });
+        }
+    }
         
     getSuggestionValue = suggestion => suggestion.name;
 
@@ -159,7 +167,8 @@ export class IngredientSelect extends React.Component {
             token: this.props.token,
             csrf_token: this.props.csrf_token,
             user_id: this.props.user_id,
-            value
+            value,
+            include_recipes: true,
         }
 
         getIngredientSearchResults(searchParams)

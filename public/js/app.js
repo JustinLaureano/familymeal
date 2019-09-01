@@ -64071,7 +64071,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74966,6 +74966,11 @@ var getIngredientSearchResults = function getIngredientSearchResults(params) {
       }
     };
     var url = '/api/search/ingredients?user_id=' + user_id + '&value=' + value;
+
+    if (params.hasOwnProperty('include_recipes')) {
+      url += '&recipes=true';
+    }
+
     fetch(url, request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
@@ -79305,11 +79310,9 @@ function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (e, _ref) {
       var newValue = _ref.newValue;
-      var ingredient_id = e.target.id.replace(/\D/g, '');
 
       _this.setState({
-        value: newValue,
-        ingredient_id: ingredient_id
+        value: newValue
       });
     });
 
@@ -79329,6 +79332,23 @@ function (_React$Component) {
       _this.setState({
         suggestions: []
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onSuggestionSelected", function (event, _ref3) {
+      var suggestion = _ref3.suggestion,
+          suggestionValue = _ref3.suggestionValue;
+
+      if (suggestion.hasOwnProperty('recipe_id')) {
+        _this.setState({
+          value: suggestionValue,
+          recipe_id: suggestion.recipe_id
+        });
+      } else {
+        _this.setState({
+          value: suggestionValue,
+          ingredient_id: suggestion.id
+        });
+      }
     });
 
     _defineProperty(_assertThisInitialized(_this), "getSuggestionValue", function (suggestion) {
@@ -79361,8 +79381,8 @@ function (_React$Component) {
       }, suggestion.name);
     });
 
-    _defineProperty(_assertThisInitialized(_this), "mUnitOnChange", function (e, _ref3) {
-      var newValue = _ref3.newValue;
+    _defineProperty(_assertThisInitialized(_this), "mUnitOnChange", function (e, _ref4) {
+      var newValue = _ref4.newValue;
       var measurement_unit_id = e.target.id.replace(/\D/g, '');
 
       _this.setState({
@@ -79421,9 +79441,9 @@ function (_React$Component) {
       return true;
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionsFetchRequested", function (_ref4) {
-      var value = _ref4.value,
-          reason = _ref4.reason;
+    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionsFetchRequested", function (_ref5) {
+      var value = _ref5.value,
+          reason = _ref5.reason;
 
       _this.setState({
         mUnitSuggestions: _this.getMUnitSuggestions(value)
@@ -79436,9 +79456,9 @@ function (_React$Component) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionSelected", function (event, _ref5) {
-      var suggestion = _ref5.suggestion,
-          suggestionValue = _ref5.suggestionValue;
+    _defineProperty(_assertThisInitialized(_this), "onMUnitSuggestionSelected", function (event, _ref6) {
+      var suggestion = _ref6.suggestion,
+          suggestionValue = _ref6.suggestionValue;
       var measurement_unit_id = event.target.id.replace(/\D/g, '');
 
       _this.setState({
@@ -79464,7 +79484,8 @@ function (_React$Component) {
         token: _this.props.token,
         csrf_token: _this.props.csrf_token,
         user_id: _this.props.user_id,
-        value: value
+        value: value,
+        include_recipes: true
       };
       Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["getIngredientSearchResults"])(searchParams).then(function (data) {
         _this.setState({
@@ -79482,6 +79503,7 @@ function (_React$Component) {
     _this.state = {
       value: '',
       'ingredient_id': 0,
+      'recipe_id': 0,
       suggestions: [],
       mUnitSuggestions: _this.props.measurement_units,
       amount: '',
@@ -80953,13 +80975,15 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "addIngredient", function (ingredient) {
+      console.log(ingredient);
+
       _this.props.addCurrentRecipeIngredient({
         id: Math.floor(Math.random() * (_this.newIdCeiling - _this.newIdFloor) + _this.newIdFloor),
         order: _this.state.ingredients.length + 1,
-        ingredient_id: ingredient.ingredient_id ? ingredient.ingredient_id : Math.floor(Math.random() * (999999 - 900000) + 900000),
-        ingredient_name: ingredient.value,
-        ingredient_recipe_id: null,
-        ingredient_recipe_name: null,
+        ingredient_id: ingredient.ingredient_id > 0 ? ingredient.ingredient_id : ingredient.recipe_id > 0 ? null : _this.newRandomID(),
+        ingredient_name: ingredient.ingredient_id > 0 ? ingredient.value : null,
+        ingredient_recipe_id: ingredient.recipe_id > 0 ? ingredient.recipe_id : null,
+        ingredient_recipe_name: ingredient.recipe_id > 0 ? ingredient.value : null,
         ingredient_units: ingredient.amount,
         measurement_unit_id: ingredient.measurement_unit_id
       });
@@ -80969,6 +80993,10 @@ function (_React$Component) {
           edited: true
         };
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "newRandomID", function () {
+      return Math.floor(Math.random() * (999999 - 900000) + 900000);
     });
 
     _defineProperty(_assertThisInitialized(_this), "toggleIngredientRemoveConfirm", function (e) {

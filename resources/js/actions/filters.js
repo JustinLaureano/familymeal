@@ -295,13 +295,16 @@ export const getIngredientSearchResults = (params) => {
 
 		let url = '/api/search/ingredients?user_id=' + user_id + '&value=' + value;
 
+		if (params.hasOwnProperty('include_recipes')) {
+			url += '&recipes=true';
+		}
+
 		fetch(url, request)
 			.then(resp => resp.json())
 			.then((data) => {
 				resolve(data);
 			})
 			.catch(err => reject(err))
-
 	});
 }
 

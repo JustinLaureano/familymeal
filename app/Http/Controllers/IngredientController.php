@@ -101,13 +101,15 @@ class IngredientController extends Controller
     {
         $user_id = $request->user_id;
         $searchValue = $request->value;
+        $include_recipes = isset($request->recipes) && $request->recipes == 'true' ? true : false;
 
         if (!intval($user_id) && !$searchValue && !is_string($searchValue))
             return response([], 200);
 
         $ingredients = Ingredient::getSearchResults([
             'user_id' => $user_id, 
-            'value' => $searchValue
+            'value' => $searchValue,
+            'include_recipes' => $include_recipes
         ]);
 
         return response(['ingredients' => $ingredients], 200);

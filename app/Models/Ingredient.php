@@ -87,23 +87,11 @@ class Ingredient extends Model
 
         $take = 25;
 
-        $union_query = DB::table('ingredient')
+        // get direct matches to search value
+        $ingredient_match_results = DB::table('ingredient')
             ->select(
-                'ingredient.name',
-                'ingredient.id'
-            )
-            ->where(function ($query) use($params) {
-                $query->where('ingredient.created_user_id', Null)
-                    ->orWhere('ingredient.created_user_id', $params['user_id']);
-            })
-            ->where('name', 'like', '%' . $params['value'] . '%')
-            ->where('ingredient.deleted_at', Null)
-            ->orderBy('name', 'asc');
-
-        return DB::table('ingredient')
-            ->select(
-                'ingredient.name',
-                'ingredient.id'
+                'ingredient.id',
+                'ingredient.name'
             )
             ->where(function ($query) use($params) {
                 $query->where('ingredient.created_user_id', Null)
@@ -111,9 +99,64 @@ class Ingredient extends Model
             })
             ->where('name', 'like', $params['value'] . '%')
             ->where('ingredient.deleted_at', Null)
-            ->union($union_query)
-            ->take($take)
+            ->orderBy('name', 'asc')
             ->get();
+
+        $match_results = [];
+
+        foreach($ingredient_match_results as $result) {
+            $match_results[] = $result;
+        }
+
+        // include recipes into search results if needed
+        if ($params['include_recipes']) {
+            $recipe_results = DB::table('recipe')
+            ->select(
+                'recipe.id',
+                'recipe.name'
+            )
+            ->where(function ($query) use($params) {
+                $query->where('recipe.user_id', Null)
+                    ->orWhere('recipe.user_id', $params['user_id']);
+            })
+            ->where('recipe.name', 'like', $params['value'] . '%')
+            ->where('recipe.deleted_at', Null)
+            ->orderBy('recipe.name', 'asc')
+            ->get();
+
+            foreach($recipe_results as $result) {
+                $result->recipe_id = $result->id;
+                $match_results[] = $result;
+            }
+        }
+
+        // Sort match results
+        usort($match_results, function($first, $second) {
+            return strcmp($first->name, $second->name);
+        });
+
+        // get results for ingredients that partially match search value
+        $ingredient_like_results = DB::table('ingredient')
+            ->select(
+                'ingredient.id',
+                'ingredient.name'
+            )
+            ->where(function ($query) use($params) {
+                $query->where('ingredient.created_user_id', Null)
+                    ->orWhere('ingredient.created_user_id', $params['user_id']);
+            })
+            ->where('name', 'like', '%' . $params['value'] . '%')
+            ->where('ingredient.deleted_at', Null)
+            ->take($take)
+            ->orderBy('ingredient.name', 'asc')
+            ->get();
+
+        foreach($ingredient_like_results as $result) {
+            $match_results[] = $result;
+        }
+
+        // return the most relevant results
+        return array_slice($match_results, 0, $take);
     }
 
     public static function getCountByCategory($user_id = null)
