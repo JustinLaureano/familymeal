@@ -2,29 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 export class IngredientCategory extends React.Component {
-	constructor(props) {
-        super(props);
-        
-        this.state = {
-            category: this.props.category
-        };
-    };
-    
-    componentDidUpdate() {
-        if (this.props.cancelChanges && this.state.category !== this.props.category) {
-            this.setState(() => ({ category: this.props.category }));
-        }
-    }
-
-    setIngredientCategory = (e) => {
-        const category = {
-            id: e.target.value,
-            name: document.querySelector("option[value='"+ e.target.value +"']").innerHTML
-        };
-        this.setState(() => ({ category }));
-    }
-
-
 	render() {
 		if (this.props.editMode) {
 			return (
@@ -34,18 +11,19 @@ export class IngredientCategory extends React.Component {
                         <select
                             name="ingredient-category"
                             className="select"
-                            value={ this.state.category.id ? this.state.category.id : '' }
-                            onChange={ this.setIngredientCategory }>
+                            value={ this.props.category.id ? this.props.category.id : '' }
+                            onChange={ this.props.setIngredientCategory }>
                             <option
                                 key="ingredient-category"
                                 className="select__option"
                                 value="">
                             </option>
                             {
-                                this.props.ingredient_categories.map((category) => {
+                                this.props.ingredientCategories.map((category) => {
                                     return (
                                         <option
                                             key={ "category_" + category.id }
+                                            id={ "category_" + category.id }
                                             className="select__option"
                                             value={ category.id }>
                                             { category.name }
@@ -71,14 +49,7 @@ export class IngredientCategory extends React.Component {
 };
 
 const mapStateToProps = (state) => ({
-    editMode: state.filters.editMode,
-    cancelChanges: state.filters.cancelChanges,
-    category: {
-        id: state.filters.currentIngredient.ingredient_category_id,
-        name: state.filters.currentIngredient.ingredient_category_name
-    },
-    ingredient_categories: state.ingredient_categories
+    editMode: state.filters.editMode
 });
-
   
 export default connect(mapStateToProps)(IngredientCategory);

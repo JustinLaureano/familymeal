@@ -1,5 +1,4 @@
 import { changeTablePage } from './filters';
-import { photoUploadProps } from '../services/PhotoUpload';
 
 export const getRecipe = (recipe_id) => {
 	return (dispatch, getState) => {

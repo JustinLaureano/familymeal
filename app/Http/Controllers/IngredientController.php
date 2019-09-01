@@ -50,7 +50,7 @@ class IngredientController extends Controller
         $new_ingredient = $request->post('ingredient');
 
         $ingredient = new Ingredient;
-        $ingredient->name = $new_recipe['name'];
+        $ingredient->name = $new_ingredient['name'];
         $ingredient->ingredient_category_id = $new_ingredient['ingredient_category_id'];
         $ingredient->ingredient_subcategory_id = $new_ingredient['ingredient_subcategory_id'];
         $ingredient->created_user_id = $user_id;
@@ -61,9 +61,7 @@ class IngredientController extends Controller
         // return new recipe
         return response([
             'ingredient' => Ingredient::getById($ingredient_id),
-            'ingredient_total' => Ingredient::where('deleted_at', Null)
-                ->whereIn('created_user_id', [Null, $user_id])
-                ->count()
+            'ingredient_total' => Ingredient::getUserTotal($user_id)
         ], 200);
     }
 
@@ -93,8 +91,10 @@ class IngredientController extends Controller
 
     public function destroy($id)
     {
-        Ingredient::find($id)->delete();
-        return response(['id' => $id], 200);
+        $ingredient = Ingredient::find($id);
+        $name = $ingredient->name;
+        $ingredient->delete();
+        return response(['id' => $id, 'name' => $name], 200);
     }
 
     public function search(Request $request)

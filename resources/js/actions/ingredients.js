@@ -1,3 +1,6 @@
+import { changeTablePage } from './filters';
+import { setToastMessages } from './toast';
+
 export const getIngredient = (ingredient_id) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -93,7 +96,7 @@ export const updateIngredient = (ingredient) => {
 				let changed = false;
 				const ingredients = getState().ingredients.map((ingredient) => {
 					if (ingredient.id == ingredient_id) {
-						ingredient.name = name;
+						ingredient = data.ingredient;
 						changed = true;
 					}
 					return ingredient;
@@ -141,6 +144,8 @@ export const deleteIngredient = (id) => {
 					type: 'DELETE_INGREDIENT',
 					id
 				});
+
+				dispatch(setToastMessages([data.name + ' Deleted Successfully.']));
 			})
 			.catch(err => console.log(err))
 	}

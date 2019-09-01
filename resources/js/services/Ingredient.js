@@ -14,7 +14,7 @@ export function validateIngredient(ingredient) {
         errors.push('Select a Ingredient Category');
     }
 
-        // ingredient category
+        // ingredient subcategory
         if (ingredient.ingredient_subcategory_id === '' || 
         typeof ingredient.ingredient_subcategory_id !== 'number')
     {

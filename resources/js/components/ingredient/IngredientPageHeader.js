@@ -53,7 +53,7 @@ export class IngredientPageHeader extends React.Component {
             const ingredient = {
                 id: this.props.currentIngredient.id,
                 ingredient_category_id: parseInt(document.querySelector('select[name="ingredient-category"]').value),
-                ingredient_subcategory_id: this.props.currentIngredient.ingredient_subcategory_id,
+                ingredient_subcategory_id: parseInt(document.querySelector('select[name="ingredient-subcategory"]').value),
                 name: this.state.ingredient.name
             }
 

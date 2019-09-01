@@ -75057,9 +75057,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateIngredient", function() { return updateIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearCurrentIngredient", function() { return clearCurrentIngredient; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteIngredient", function() { return deleteIngredient; });
+/* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toast */ "./resources/js/actions/toast.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 var getIngredient = function getIngredient(ingredient_id) {
   return function (dispatch, getState) {
@@ -75109,7 +75113,7 @@ var createNewIngredient = function createNewIngredient(ingredient) {
         ingredient: data.ingredient
       }); // Update Recipe Table
 
-      changeTablePage(1, 'ingredient');
+      Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'ingredient');
       dispatch({
         type: 'SET_INGREDIENT_TOTAL',
         ingredientTotal: data.ingredient_total
@@ -75149,7 +75153,7 @@ var updateIngredient = function updateIngredient(ingredient) {
       var changed = false;
       var ingredients = getState().ingredients.map(function (ingredient) {
         if (ingredient.id == ingredient_id) {
-          ingredient.name = name;
+          ingredient = data.ingredient;
           changed = true;
         }
 
@@ -75195,6 +75199,7 @@ var deleteIngredient = function deleteIngredient(id) {
         type: 'DELETE_INGREDIENT',
         id: id
       });
+      dispatch(Object(_toast__WEBPACK_IMPORTED_MODULE_1__["setToastMessages"])([data.name + ' Deleted Successfully.']));
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -75231,8 +75236,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 /* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
-/* harmony import */ var _services_PhotoUpload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../services/PhotoUpload */ "./resources/js/services/PhotoUpload.js");
-
 
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -78079,15 +78082,13 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -78096,46 +78097,13 @@ var IngredientCategory =
 function (_React$Component) {
   _inherits(IngredientCategory, _React$Component);
 
-  function IngredientCategory(props) {
-    var _this;
-
+  function IngredientCategory() {
     _classCallCheck(this, IngredientCategory);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(IngredientCategory).call(this, props));
-
-    _defineProperty(_assertThisInitialized(_this), "setIngredientCategory", function (e) {
-      var category = {
-        id: e.target.value,
-        name: document.querySelector("option[value='" + e.target.value + "']").innerHTML
-      };
-
-      _this.setState(function () {
-        return {
-          category: category
-        };
-      });
-    });
-
-    _this.state = {
-      category: _this.props.category
-    };
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(IngredientCategory).apply(this, arguments));
   }
 
   _createClass(IngredientCategory, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      var _this2 = this;
-
-      if (this.props.cancelChanges && this.state.category !== this.props.category) {
-        this.setState(function () {
-          return {
-            category: _this2.props.category
-          };
-        });
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
       if (this.props.editMode) {
@@ -78146,15 +78114,16 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
           name: "ingredient-category",
           className: "select",
-          value: this.state.category.id ? this.state.category.id : '',
-          onChange: this.setIngredientCategory
+          value: this.props.category.id ? this.props.category.id : '',
+          onChange: this.props.setIngredientCategory
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: "ingredient-category",
           className: "select__option",
           value: ""
-        }), this.props.ingredient_categories.map(function (category) {
+        }), this.props.ingredientCategories.map(function (category) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
             key: "category_" + category.id,
+            id: "category_" + category.id,
             className: "select__option",
             value: category.id
           }, category.name);
@@ -78175,13 +78144,7 @@ function (_React$Component) {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    editMode: state.filters.editMode,
-    cancelChanges: state.filters.cancelChanges,
-    category: {
-      id: state.filters.currentIngredient.ingredient_category_id,
-      name: state.filters.currentIngredient.ingredient_category_name
-    },
-    ingredient_categories: state.ingredient_categories
+    editMode: state.filters.editMode
   };
 };
 
@@ -78201,9 +78164,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientInfo", function() { return IngredientInfo; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_ingredient_IngredientCategory__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/ingredient/IngredientCategory */ "./resources/js/components/ingredient/IngredientCategory.js");
-/* harmony import */ var _components_ingredient_IngredientSubcategory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/ingredient/IngredientSubcategory */ "./resources/js/components/ingredient/IngredientSubcategory.js");
-/* harmony import */ var _components_ingredient_IngredientSubcategory__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_ingredient_IngredientSubcategory__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _components_ingredient_IngredientCategory__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/ingredient/IngredientCategory */ "./resources/js/components/ingredient/IngredientCategory.js");
+/* harmony import */ var _components_ingredient_IngredientSubcategory__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/ingredient/IngredientSubcategory */ "./resources/js/components/ingredient/IngredientSubcategory.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78214,13 +78177,16 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -78230,25 +78196,108 @@ var IngredientInfo =
 function (_React$Component) {
   _inherits(IngredientInfo, _React$Component);
 
-  function IngredientInfo() {
+  function IngredientInfo(props) {
+    var _this;
+
     _classCallCheck(this, IngredientInfo);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(IngredientInfo).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(IngredientInfo).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "filteredSubcategories", function () {
+      return _this.props.ingredient_subcategories.filter(function (subcategory) {
+        return parseInt(subcategory.ingredient_category_id) === parseInt(_this.state.category.id);
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setIngredientCategory", function (e) {
+      var category = {
+        id: e.target.value,
+        name: document.querySelector("option[id='category_" + e.target.value + "']").innerHTML
+      };
+
+      _this.setState({
+        category: category,
+        subcategory: {
+          id: null,
+          name: null
+        }
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setIngredientSubcategory", function (e) {
+      console.log(e.target);
+      var subcategory = {
+        id: e.target.value,
+        name: document.querySelector("option[id='subcategory_" + e.target.value + "']").innerHTML
+      };
+
+      _this.setState(function () {
+        return {
+          subcategory: subcategory
+        };
+      });
+    });
+
+    _this.state = {
+      category: _this.props.category,
+      subcategory: _this.props.subcategory
+    };
+    return _this;
   }
 
   _createClass(IngredientInfo, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      if (this.props.cancelChanges && this.state.category !== this.props.category) {
+        this.setState(function () {
+          return {
+            category: _this2.props.category
+          };
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var subcategories = this.filteredSubcategories();
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "recipe-grid__info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientCategory__WEBPACK_IMPORTED_MODULE_1__["default"], null));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientCategory__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        setIngredientCategory: this.setIngredientCategory,
+        category: this.state.category,
+        ingredientCategories: this.props.ingredient_categories
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_ingredient_IngredientSubcategory__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        setIngredientSubcategory: this.setIngredientSubcategory,
+        subcategory: this.state.subcategory,
+        ingredientSubcategories: subcategories
+      }));
     }
   }]);
 
   return IngredientInfo;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 ;
-/* harmony default export */ __webpack_exports__["default"] = (IngredientInfo);
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    editMode: state.filters.editMode,
+    cancelChanges: state.filters.cancelChanges,
+    category: {
+      id: state.filters.currentIngredient.ingredient_category_id,
+      name: state.filters.currentIngredient.ingredient_category_name
+    },
+    subcategory: {
+      id: state.filters.currentIngredient.ingredient_subcategory_id,
+      name: state.filters.currentIngredient.ingredient_subcategory_name
+    },
+    ingredient_categories: state.ingredient_categories,
+    ingredient_subcategories: state.ingredient_subcategories
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(IngredientInfo));
 
 /***/ }),
 
@@ -78358,7 +78407,7 @@ function (_React$Component) {
         var ingredient = {
           id: _this.props.currentIngredient.id,
           ingredient_category_id: parseInt(document.querySelector('select[name="ingredient-category"]').value),
-          ingredient_subcategory_id: _this.props.currentIngredient.ingredient_subcategory_id,
+          ingredient_subcategory_id: parseInt(document.querySelector('select[name="ingredient-subcategory"]').value),
           name: _this.state.ingredient.name // TODO validate and make sure the ingredient needs updating
 
         };
@@ -78680,10 +78729,92 @@ var mapStateToProps = function mapStateToProps(state) {
 /*!*********************************************************************!*\
   !*** ./resources/js/components/ingredient/IngredientSubcategory.js ***!
   \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: IngredientSubcategory, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IngredientSubcategory", function() { return IngredientSubcategory; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
+
+var IngredientSubcategory =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(IngredientSubcategory, _React$Component);
+
+  function IngredientSubcategory() {
+    _classCallCheck(this, IngredientSubcategory);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(IngredientSubcategory).apply(this, arguments));
+  }
+
+  _createClass(IngredientSubcategory, [{
+    key: "render",
+    value: function render() {
+      if (this.props.editMode) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__info-block"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Subcategory"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "select__wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
+          name: "ingredient-subcategory",
+          className: "select",
+          value: this.props.subcategory.id ? this.props.subcategory.id : '',
+          onChange: this.props.setIngredientSubcategory
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+          key: "ingredient-subcategory",
+          className: "select__option",
+          value: ""
+        }), this.props.ingredientSubcategories.map(function (subcategory) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
+            key: "subcategory_" + subcategory.id,
+            id: "subcategory_" + subcategory.id,
+            className: "select__option",
+            value: subcategory.id
+          }, subcategory.name);
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "material-icons select-icon"
+        }, "unfold_more")));
+      } else {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "recipe-grid__info-block"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Subcategory"), this.props.subcategory.name == null ? 'n/a' : this.props.subcategory.name);
+      }
+    }
+  }]);
+
+  return IngredientSubcategory;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+;
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    editMode: state.filters.editMode
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps)(IngredientSubcategory));
 
 /***/ }),
 
@@ -84493,6 +84624,11 @@ var ingredientsReducerDefaultState = [];
     case 'SET_INGREDIENTS':
       return action.ingredients;
 
+    case 'DELETE_INGREDIENT':
+      return state.filter(function (ingredient) {
+        return ingredient.id != action.id;
+      });
+
     default:
       return state;
   }
@@ -85230,7 +85366,7 @@ function validateIngredient(ingredient) {
 
   if (ingredient.ingredient_category_id === '' || typeof ingredient.ingredient_category_id !== 'number') {
     errors.push('Select a Ingredient Category');
-  } // ingredient category
+  } // ingredient subcategory
 
 
   if (ingredient.ingredient_subcategory_id === '' || typeof ingredient.ingredient_subcategory_id !== 'number') {
