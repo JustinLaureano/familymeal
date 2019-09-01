@@ -78412,6 +78412,7 @@ function (_React$Component) {
   _createClass(IngredientPageHeader, [{
     key: "render",
     value: function render() {
+      console.log(this.props.currentIngredient);
       var name = this.state.ingredient && this.state.ingredient.name ? this.state.ingredient.name : '';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header"
@@ -78438,7 +78439,7 @@ function (_React$Component) {
         onClick: this.cancelChanges
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__save-icon"
-      }, "cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel")), !this.props.filters.editMode && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+      }, "cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cancel")), !this.props.filters.editMode && this.props.currentIngredient.created_user_id && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons page-header__more-icon"
       }, "more_vert"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "page-header__options-modal"
@@ -80984,7 +80985,7 @@ function (_React$Component) {
         id: Math.floor(Math.random() * (_this.newIdCeiling - _this.newIdFloor) + _this.newIdFloor),
         order: _this.state.ingredients.length + 1,
         ingredient_id: ingredient.ingredient_id > 0 ? ingredient.ingredient_id : ingredient.recipe_id > 0 ? null : _this.newRandomID(),
-        ingredient_name: ingredient.ingredient_id > 0 ? ingredient.value : null,
+        ingredient_name: ingredient.recipe_id > 0 ? null : ingredient.value,
         ingredient_recipe_id: ingredient.recipe_id > 0 ? ingredient.recipe_id : null,
         ingredient_recipe_name: ingredient.recipe_id > 0 ? ingredient.value : null,
         ingredient_units: ingredient.amount,

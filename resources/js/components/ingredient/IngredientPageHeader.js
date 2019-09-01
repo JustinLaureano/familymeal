@@ -97,6 +97,7 @@ export class IngredientPageHeader extends React.Component {
     }
 
 	render() {
+        console.log(this.props.currentIngredient);
         const name = this.state.ingredient && this.state.ingredient.name ? this.state.ingredient.name : '';
 		return (
             <section className="page-header">
@@ -138,7 +139,7 @@ export class IngredientPageHeader extends React.Component {
                         </div>
                     }
                     {
-                        !this.props.filters.editMode &&
+                        !this.props.filters.editMode && this.props.currentIngredient.created_user_id &&
                         <div>
                             <i className="material-icons page-header__more-icon">more_vert</i>
                             <div className="page-header__options-modal">

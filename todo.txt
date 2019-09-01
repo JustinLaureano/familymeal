@@ -1,7 +1,9 @@
 Bug Fixes
     logic for ingredient subcategory filter on ingredient edit
     new recipe name doesnt show on breadcrumbs
-    limit edit ingredient if ingrdient not user created
+    limit edit ingredient if ingredient not user created
+    recipe table needs to reload on load
+    error message for trying to add new ingredient that is invalid
 
 Styles
     General responsiveness to site
@@ -13,10 +15,6 @@ Features to Implement
     add confirmation to recipe delete on table
 
     add table to ingredients page with recipes for that ingredient
-
-    Add Recipes to Ingredient Search for Recipe Edit
-        add (r) next to ingredients that are recipes on dropdown
-
 
     add clone recipe button to more options dropdown
         view recipe page
