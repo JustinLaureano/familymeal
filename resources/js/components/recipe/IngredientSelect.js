@@ -31,7 +31,6 @@ export class IngredientSelect extends React.Component {
     }
 
     renderSuggestion = (suggestion) => {
-        console.log(suggestion);
         return (
             <div id={ "option_" + suggestion.id } className="react-autosuggest__suggestion-option">
                 { 

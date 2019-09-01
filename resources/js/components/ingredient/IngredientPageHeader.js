@@ -97,7 +97,6 @@ export class IngredientPageHeader extends React.Component {
     }
 
 	render() {
-        console.log(this.props.currentIngredient);
         const name = this.state.ingredient && this.state.ingredient.name ? this.state.ingredient.name : '';
 		return (
             <section className="page-header">

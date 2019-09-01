@@ -49,7 +49,6 @@ export const createNewShoppingList = () => {
 		fetch('/api/shopping-list/store', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				console.log(data);
 				if (data.error) {
 					dispatch({
 						type: 'ADD_TOAST_MESSAGE',

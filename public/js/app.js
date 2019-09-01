@@ -75873,8 +75873,6 @@ var createNewShoppingList = function createNewShoppingList() {
     fetch('/api/shopping-list/store', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      console.log(data);
-
       if (data.error) {
         dispatch({
           type: 'ADD_TOAST_MESSAGE',
@@ -78148,7 +78146,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("select", {
           name: "ingredient-category",
           className: "select",
-          value: this.state.category.id,
+          value: this.state.category.id ? this.state.category.id : '',
           onChange: this.setIngredientCategory
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
           key: "ingredient-category",
@@ -78412,7 +78410,6 @@ function (_React$Component) {
   _createClass(IngredientPageHeader, [{
     key: "render",
     value: function render() {
-      console.log(this.props.currentIngredient);
       var name = this.state.ingredient && this.state.ingredient.name ? this.state.ingredient.name : '';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "page-header"
@@ -79303,7 +79300,6 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
-      console.log(suggestion);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "option_" + suggestion.id,
         className: "react-autosuggest__suggestion-option"

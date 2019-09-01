@@ -34,7 +34,7 @@ export class IngredientCategory extends React.Component {
                         <select
                             name="ingredient-category"
                             className="select"
-                            value={ this.state.category.id }
+                            value={ this.state.category.id ? this.state.category.id : '' }
                             onChange={ this.setIngredientCategory }>
                             <option
                                 key="ingredient-category"
