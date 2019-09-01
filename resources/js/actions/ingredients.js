@@ -51,7 +51,7 @@ export const createNewIngredient = (ingredient) => {
 				});
 
 				// Update Recipe Table
-				changeTablePage(1, 'ingredient');
+				dispatch(changeTablePage(1, 'ingredient'));
 
 				dispatch({
 					type: 'SET_INGREDIENT_TOTAL',

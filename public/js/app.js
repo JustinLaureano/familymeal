@@ -75113,7 +75113,7 @@ var createNewIngredient = function createNewIngredient(ingredient) {
         ingredient: data.ingredient
       }); // Update Recipe Table
 
-      Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'ingredient');
+      dispatch(Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'ingredient'));
       dispatch({
         type: 'SET_INGREDIENT_TOTAL',
         ingredientTotal: data.ingredient_total
@@ -75236,6 +75236,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteRecipe", function() { return deleteRecipe; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "favoriteRecipe", function() { return favoriteRecipe; });
 /* harmony import */ var _filters__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toast */ "./resources/js/actions/toast.js");
+
 
 var getRecipe = function getRecipe(recipe_id) {
   return function (dispatch, getState) {
@@ -75286,7 +75288,7 @@ var createNewRecipe = function createNewRecipe(recipe) {
         recipe: data.recipe
       }); // Update Recipe Table
 
-      Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'recipe');
+      dispatch(Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'recipe'));
       dispatch({
         type: 'SET_RECIPE_TOTAL',
         recipeTotal: data.recipe_total
@@ -75758,7 +75760,10 @@ var deleteRecipe = function deleteRecipe(id) {
       dispatch({
         type: 'DELETE_RECIPE',
         id: id
-      });
+      }); // Update Recipe Table
+
+      dispatch(Object(_filters__WEBPACK_IMPORTED_MODULE_0__["changeTablePage"])(1, 'recipe'));
+      dispatch(Object(_toast__WEBPACK_IMPORTED_MODULE_1__["setToastMessages"])([data.name + ' Deleted Successfully.']));
     })["catch"](function (err) {
       return console.log(err);
     });
@@ -76560,9 +76565,7 @@ function (_React$Component) {
       }, 3000);
 
       if (_this.props.messages.length > 0) {
-        setTimeout(function () {
-          _this.props.clearToastMessages();
-        }, 3250);
+        setTimeout(_this.props.clearToastMessages, 3250);
       }
     });
 
@@ -86736,7 +86739,8 @@ function (_React$Component) {
     value: function componentDidMount() {
       if (this.state.loading && this.props.recipes.length > 0) {
         this.setState({
-          loading: false
+          loading: false,
+          recipes: this.props.recipes
         });
       }
     }
@@ -86749,7 +86753,8 @@ function (_React$Component) {
         });
       } else if (this.state.loading && this.props.recipes.length > 0) {
         this.setState({
-          loading: false
+          loading: false,
+          recipes: this.props.recipes
         });
       }
     }

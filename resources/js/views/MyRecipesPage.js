@@ -35,7 +35,7 @@ export class MyRecipesPage extends React.Component {
 
 	componentDidMount() {
 		if (this.state.loading && this.props.recipes.length > 0) {
-			this.setState({ loading: false });
+			this.setState({ loading: false, recipes: this.props.recipes });
 		}
 	}
 
@@ -44,7 +44,7 @@ export class MyRecipesPage extends React.Component {
 			this.setState({ loading: true });
 		}
 		else if (this.state.loading && this.props.recipes.length > 0) {
-			this.setState({ loading: false });
+			this.setState({ loading: false, recipes: this.props.recipes });
 		}
 	}
 	

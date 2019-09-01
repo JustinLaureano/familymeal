@@ -155,6 +155,8 @@ class RecipeController extends Controller
         $summary->summary = strval($new_recipe['summary']['summary']);
         $summary->save();
 
+        $user_settings = UserSettings::where('user_id', $user_id)->first();
+
         // return new recipe
         return response([
             'recipe' => [
@@ -166,6 +168,11 @@ class RecipeController extends Controller
                 'directions' => RecipeDirections::getByRecipeId($recipe_id),
                 'notes' => RecipeNotes::getByRecipeId($recipe_id),
             ],
+            'recipes' => Recipe::getUserRecipes([
+                'user_id' => $user_id,
+                'take' => $user_settings->table_result_limit,
+                'offset' => 0,
+            ]),
             'recipe_total' => Recipe::where('user_id', $user_id)->where('deleted_at', Null)->count()
         ], 200);
     }
@@ -491,8 +498,10 @@ class RecipeController extends Controller
 
     public function destroy($id)
     {
-        Recipe::find($id)->delete();
-        return response(['id' => $id], 200);
+        $recipe = Recipe::find($id);
+        $name = $recipe->name;
+        $recipe->delete();
+        return response(['id' => $id, 'name' => $name], 200);
     }
 
     public function search(Request $request)

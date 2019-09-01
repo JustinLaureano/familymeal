@@ -1,4 +1,5 @@
 import { changeTablePage } from './filters';
+import { setToastMessages } from './toast';
 
 export const getRecipe = (recipe_id) => {
 	return (dispatch, getState) => {
@@ -50,7 +51,7 @@ export const createNewRecipe = (recipe) => {
 				});
 
 				// Update Recipe Table
-				changeTablePage(1, 'recipe');
+				dispatch(changeTablePage(1, 'recipe'));
 
 				dispatch({
 					type: 'SET_RECIPE_TOTAL',
@@ -527,6 +528,11 @@ export const deleteRecipe = (id) => {
 					type: 'DELETE_RECIPE',
 					id
 				});
+
+				// Update Recipe Table
+				dispatch(changeTablePage(1, 'recipe'));
+
+				dispatch(setToastMessages([data.name + ' Deleted Successfully.']));
 			})
 			.catch(err => console.log(err))
 	}

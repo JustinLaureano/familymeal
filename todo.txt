@@ -1,8 +1,6 @@
 Bug Fixes
-    logic for ingredient subcategory filter on ingredient edit
     new recipe name doesnt show on breadcrumbs
-    limit edit ingredient if ingredient not user created
-    recipe table needs to reload on load
+    tables needs to reload on load
     error message for trying to add new ingredient that is invalid
 
 Styles

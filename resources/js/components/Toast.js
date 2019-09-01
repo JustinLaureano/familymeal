@@ -21,9 +21,7 @@ export class Toast extends React.Component {
         }, 3000);
 
         if (this.props.messages.length > 0) {
-            setTimeout(() => {
-                this.props.clearToastMessages();
-            }, 3250);
+            setTimeout(this.props.clearToastMessages, 3250);
         }
     }
 
