@@ -56,6 +56,14 @@
 }
 
 .react-autosuggest__suggestion-option {
-   display: block;
+   align-items: center;
+   display: flex;
    width: 100%; 
+}
+
+.react-autosuggest__suggestion-type {
+    font-size: $size-sm;
+    color: $weathered-blue;
+    opacity: $icon-opacity;
+    margin-right: $space-xxs;
 }

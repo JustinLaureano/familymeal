@@ -79302,10 +79302,13 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "renderSuggestion", function (suggestion) {
+      console.log(suggestion);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "option_" + suggestion.id,
         className: "react-autosuggest__suggestion-option"
-      }, suggestion.name);
+      }, suggestion.recipe_id && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        "class": "react-autosuggest__suggestion-type"
+      }, "(R) "), suggestion.name);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (e, _ref) {
@@ -81118,7 +81121,9 @@ function (_React$Component) {
               }
             },
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_recipe_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "recipe-grid__ingredient-item-type"
+          }, "(R) "), ingredient.ingredient_recipe_name) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
             className: "recipe-grid__ingredient-item"
           }, ingredient.ingredient_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             className: "recipe-grid__remove"
@@ -81169,7 +81174,9 @@ function (_React$Component) {
               }
             },
             className: "recipe-grid__ingredient-item"
-          }, ingredient.ingredient_recipe_name));
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+            className: "recipe-grid__ingredient-item-type"
+          }, "(R) "), ingredient.ingredient_recipe_name));
         }));
       }
     }

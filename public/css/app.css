@@ -495,8 +495,18 @@ a:hover {
 }
 
 .react-autosuggest__suggestion-option {
-  display: block;
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
   width: 100%;
+}
+
+.react-autosuggest__suggestion-type {
+  font-size: 0.875em;
+  color: #385e83;
+  opacity: 0.54;
+  margin-right: calc(0.375 * 1em);
 }
 
 .confirmation {
@@ -2383,8 +2393,15 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .recipe-grid__ingredient-item {
+  cursor: pointer;
   grid-area: ingredient;
   font-weight: 500;
+}
+.recipe-grid__ingredient-item-type {
+  font-size: 0.875em;
+  color: #385e83;
+  opacity: 0.54;
+  margin-right: calc(0.375 * 1em);
 }
 
 .recipe-grid__directions {
@@ -2875,6 +2892,10 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .gold {
   color: #fdc22d;
+}
+
+.primary-color {
+  color: #385e83;
 }
 
 .bold {

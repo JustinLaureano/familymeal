@@ -243,6 +243,7 @@ export class RecipeIngredients extends React.Component {
                                                     }
                                                 }}
                                                 className="recipe-grid__ingredient-item">
+                                                <span className="recipe-grid__ingredient-item-type">(R) </span>
                                                 { ingredient.ingredient_recipe_name }
                                             </Link>
                                         ) : (
@@ -322,6 +323,7 @@ export class RecipeIngredients extends React.Component {
                                                 }
                                             }}
                                             className="recipe-grid__ingredient-item">
+                                            <span className="recipe-grid__ingredient-item-type">(R) </span>
                                             { ingredient.ingredient_recipe_name }
                                         </Link>
                                     )

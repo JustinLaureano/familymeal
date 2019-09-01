@@ -74,6 +74,16 @@
 }
 
 .recipe-grid__ingredient-item {
+    cursor: pointer;
     grid-area: ingredient;
     font-weight: 500;
+    &:hover {
+    }
+}
+
+.recipe-grid__ingredient-item-type {
+    font-size: $size-sm;
+    color: $weathered-blue;
+    opacity: $icon-opacity;
+    margin-right: $space-xxs;
 }
