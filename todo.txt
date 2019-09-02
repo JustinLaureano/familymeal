@@ -7,7 +7,6 @@ Styles
     style upload input for recipe photos
 
 Features to Implement
-    add confirmation to recipe delete on table
     ui option to keep sidebar open, and close
     toast message when adding ingredient to shopping list
     user settings page
