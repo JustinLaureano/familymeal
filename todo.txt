@@ -1,16 +1,15 @@
 Bug Fixes
     new recipe name doesnt show on breadcrumbs
-    if no ingredients or directions, show row saying none
 
 Styles
     General responsiveness to site
         mobile layout needed
+    style upload input for recipe photos
 
 Features to Implement
+    add confirmation to recipe delete on table
     ui option to keep sidebar open, and close
     toast message when adding ingredient to shopping list
-    upload input for recipe photos
-    add confirmation to recipe delete on table
     user settings page
         username / email
         preferences

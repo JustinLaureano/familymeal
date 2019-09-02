@@ -11,6 +11,14 @@ export class Breadcrumbs extends React.Component {
         };
     };
 
+    componentDidUpdate() {
+        this.state.breadcrumbs.map((breadcrumb, index) => {
+            if (breadcrumb.slug != this.props.breadcrumbs[index].slug) {
+                this.setState({ breadcrumbs: this.props.breadcrumbs });
+            }
+        })
+    }
+
     render() {
 		return (
             <section className="breadcrumbs">

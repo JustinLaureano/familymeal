@@ -60,8 +60,8 @@ export class ViewRecipePage extends React.Component {
 		if (this.state.loading) {
 			return (
 				<PageLoad />
-			)
-		}
+				)
+			}
 		else {
 			const breadcrumbProps = [
 				{slug: 'home', path: '/'},
@@ -71,10 +71,10 @@ export class ViewRecipePage extends React.Component {
 			const pageHeaderProps = {
 				title: this.props.recipe.info.name,
 				newRecipe: this.state.newRecipe
-			}
+			};
 			return (
 				<section className="recipe-grid">
-					<Breadcrumbs breadcrumbs={ breadcrumbProps} />
+					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 					<RecipePhoto />
 					<RecipePageHeader {...pageHeaderProps}/>
 					<RecipeAbout />

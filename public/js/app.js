@@ -78874,6 +78874,19 @@ function (_React$Component) {
   }
 
   _createClass(Breadcrumbs, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      this.state.breadcrumbs.map(function (breadcrumb, index) {
+        if (breadcrumb.slug != _this2.props.breadcrumbs[index].slug) {
+          _this2.setState({
+            breadcrumbs: _this2.props.breadcrumbs
+          });
+        }
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
