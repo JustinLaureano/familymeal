@@ -201,6 +201,12 @@ export class RecipeIngredients extends React.Component {
                     <section
                         className="recipe-grid__ingredient-list"
                         onDragOver={ this.onDragOver }>
+                        { 
+                            this.state.ingredients.length === 0 &&
+                            <div className="recipe-grid__ingredient-row--empty">
+                                No ingredients
+                            </div>
+                        }
                         { this.state.ingredients.map((ingredient, index) => {
                             return (
                                 <div 

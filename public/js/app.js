@@ -81229,7 +81229,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__ingredient-list",
           onDragOver: this.onDragOver
-        }, this.state.ingredients.map(function (ingredient, index) {
+        }, this.state.ingredients.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "recipe-grid__ingredient-row--empty"
+        }, "No ingredients"), this.state.ingredients.map(function (ingredient, index) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "ingredient_" + ingredient.id,
             id: "ingredient_" + ingredient.id,
