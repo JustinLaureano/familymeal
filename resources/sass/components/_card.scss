@@ -46,6 +46,33 @@
     padding: $space-xs;
 }
 
+.card__footer-recipe {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.card__footer-dropdown {
+    display: none;
+    position: absolute;
+}
+
+.card__footer-dropdown--open {
+    @extend .card__footer-dropdown;
+    @include flex-column;
+    align-items: center;
+}
+
+.card__footer-more-icon {
+    @include transition;
+    font-size: 18px;
+    opacity: $icon-opacity;
+    &:hover {
+        opacity: 1;
+    }
+}
+
 .card__link {
     font-size: $size-sm;
 }

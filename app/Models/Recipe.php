@@ -46,17 +46,19 @@ class Recipe extends Model
     public static function getUserRecipes($params)
     {
         return DB::table('recipe')
-            ->select('recipe.name',
-                'recipe.id',
+            ->select('recipe.id',
+                'recipe.name',    
                 'recipe_category_id',
                 'recipe_category.name AS recipe_category',
                 'cuisine_type.name AS cuisine_type',
                 'recipe.created_at',
                 'recipe.updated_at',
-                DB::raw('IF(favorite_recipes.id IS NOT NULL, \'true\', \'false\') AS favorite')
+                DB::raw('IF(favorite_recipes.id IS NOT NULL, \'true\', \'false\') AS favorite'),
+                'recipe_photos.filename AS photo'
             )
             ->leftJoin('recipe_category', 'recipe.recipe_category_id', 'recipe_category.id')
             ->leftJoin('cuisine_type', 'recipe.cuisine_type_id', 'cuisine_type.id')
+            ->leftJoin('recipe_photos', 'recipe.id', 'recipe_photos.recipe_id')
             ->leftJoin('favorite_recipes', function($leftJoin) {
                 $leftJoin->on('recipe.id', '=', 'favorite_recipes.recipe_id')
                     ->on('recipe.user_id', '=', 'favorite_recipes.user_id');

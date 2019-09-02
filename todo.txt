@@ -1,5 +1,5 @@
 Bug Fixes
-
+    remove recipe photos on recipe delete
 
 Styles
     General responsiveness to site

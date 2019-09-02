@@ -627,6 +627,41 @@ a:hover {
   padding: calc(0.5 * 1em);
 }
 
+.card__footer-recipe {
+  -webkit-box-align: baseline;
+          align-items: baseline;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  position: relative;
+}
+
+.card__footer-dropdown, .card__footer-dropdown--open {
+  display: none;
+  position: absolute;
+}
+
+.card__footer-dropdown--open {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.card__footer-more-icon {
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  font-size: 18px;
+  opacity: 0.54;
+}
+.card__footer-more-icon:hover {
+  opacity: 1;
+}
+
 .card__link {
   font-size: 0.875em;
 }
@@ -1132,6 +1167,32 @@ a:hover {
 }
 .btn--confirmation-confirm:hover {
   color: #ce0e0e;
+}
+
+.btn__toggle-btn, .btn__toggle-btn--active {
+  padding: calc(0.25 * 1em);
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
+  font-size: 10px;
+}
+
+.btn__toggle-btn--active {
+  background-color: #385e83;
+  color: #fffeff;
+}
+
+.toggle-btns {
+  margin-left: calc(2 * 1em);
+}
+.toggle-btns .btn__toggle-btn, .toggle-btns .btn__toggle-btn--active {
+  border-radius: 0;
+}
+.toggle-btns .btn__toggle-btn:first-of-type, .toggle-btns .btn__toggle-btn--active:first-of-type {
+  border-radius: 3px 0 0 3px;
+  border-right: none;
+}
+.toggle-btns .btn__toggle-btn:last-of-type, .toggle-btns .btn__toggle-btn--active:last-of-type {
+  border-radius: 0 3px 3px 0;
 }
 
 .star-icon, .star-icon--edit {
@@ -1978,8 +2039,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 
 .table-filter {
-  -webkit-box-align: baseline;
-          align-items: baseline;
+  -webkit-box-align: center;
+          align-items: center;
   display: -webkit-box;
   display: flex;
   grid-area: filters;

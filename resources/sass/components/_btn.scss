@@ -99,3 +99,31 @@
         color: $red;
     }
 }
+
+.btn__toggle-btn {
+    @include pad($space-xxxs);
+    @include transition;
+    font-size: 10px;
+}
+
+.btn__toggle-btn--active {
+    @extend .btn__toggle-btn;
+    background-color: $weathered-blue;
+    color: $white;
+}
+
+.toggle-btns {
+    margin-left: $space-lg;
+
+    .btn__toggle-btn {
+        border-radius: 0;
+
+        &:first-of-type {
+            border-radius: 3px 0 0 3px;
+            border-right: none;
+        }
+        &:last-of-type {
+            border-radius: 0 3px 3px 0;
+        }
+    }
+}

@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { getRecipeTableHeaders, getRecipeTableOptions } from '../services/Table';
 import { changeTablePage, setRecipeCategoryFilter, setCuisineTypeFilter } from '../actions/filters';
 import Breadcrumbs from '../components/navigation/Breadcrumbs';
+import CardView from '../components/table/CardView';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
 import TableFilters from '../components/table/TableFilters.js';
 import Table from '../components/table/Table.js';
-
 export class MyRecipesPage extends React.Component {
 	constructor(props) {
         super(props);
@@ -16,7 +16,8 @@ export class MyRecipesPage extends React.Component {
 			loading: true,
 			headers: getRecipeTableHeaders(),
 			options: getRecipeTableOptions(),
-			categoryFilter: this.props.categoryFilter
+			categoryFilter: this.props.categoryFilter,
+			recipeView: this.props.recipeView
         };
 	};
 
@@ -46,6 +47,10 @@ export class MyRecipesPage extends React.Component {
 		else if (this.state.loading && this.props.recipes.length > 0) {
 			this.setState({ loading: false, recipes: this.props.recipes });
 		}
+
+		if (this.state.recipeView !== this.props.recipeView) {
+			this.setState({ recipeView: this.props.recipeView });
+		}
 	}
 	
 	render() {
@@ -53,14 +58,7 @@ export class MyRecipesPage extends React.Component {
 			{slug: 'home', path: '/'},
 			{slug: 'recipes', path: '/recipes'}
 		];
-		const tableProps = {
-			headers: this.state.headers,
-			data: this.props.recipes,
-			className: 'table__row--recipe',
-			model: 'recipe',
-			options: this.state.options,
-			total: this.props.recipeTotal
-		};
+		const tableFilterProps = { table: 'recipes' };
 		const pageHeaderProps = {
 			title: 'My Recipes',
 			subtitle: {
@@ -80,24 +78,54 @@ export class MyRecipesPage extends React.Component {
 					}
 				]
 			}
-		}
-		const tableFilterProps = {
-			table: 'recipes'
-		}
+		};
 		if (this.state.loading) {
 			return (
 				<PageLoad />
 			)
 		}
 		else {
-			return (
-				<section className="table-grid">
-					<Breadcrumbs breadcrumbs={ breadcrumbProps } />
-					<PageHeader { ...pageHeaderProps } />
-					<TableFilters { ...tableFilterProps } />
-					<Table { ...tableProps }/>
-				</section>
-			)
+			switch(this.state.recipeView) {
+				case 'table':
+					const tableProps = {
+						headers: this.state.headers,
+						data: this.props.recipes,
+						className: 'table__row--recipe',
+						model: 'recipe',
+						options: this.state.options,
+						total: this.props.recipeTotal
+					};
+					return (
+						<section className="table-grid">
+							<Breadcrumbs breadcrumbs={ breadcrumbProps } />
+							<PageHeader { ...pageHeaderProps } />
+							<TableFilters { ...tableFilterProps } />
+							<Table { ...tableProps }/>
+						</section>
+					)
+				case 'card':
+					const cardViewProps = {
+						type: 'recipe',
+						cards: this.props.recipes
+					};
+					return (
+						<section className="table-grid">
+							<Breadcrumbs breadcrumbs={ breadcrumbProps } />
+							<PageHeader { ...pageHeaderProps } />
+							<TableFilters { ...tableFilterProps } />
+							<CardView { ...cardViewProps }/>
+						</section>
+					)
+				default:
+					return (
+						<section className="table-grid">
+							<Breadcrumbs breadcrumbs={ breadcrumbProps } />
+							<PageHeader { ...pageHeaderProps } />
+							<TableFilters { ...tableFilterProps } />
+							<Table { ...tableProps }/>
+						</section>
+					)
+			}
 		}
 
 	}
@@ -106,7 +134,8 @@ export class MyRecipesPage extends React.Component {
 const mapStateToProps = (state) => ({
 	recipes: state.recipes,
 	recipeTotal: state.totals.recipe,
-	categoryFilter: state.filters.recipe_category
+	categoryFilter: state.filters.recipe_category,
+	recipeView: state.ui.recipeView
 });
   
 const mapDispatchToProps = (dispatch) => ({

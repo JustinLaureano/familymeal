@@ -8,9 +8,18 @@ import TableFooter from './TableFooter';
 export class Table extends React.Component {
 	componentWillMount() {
 		if (this.props.options) {
-			this.props.headers.push({
-				label: 'More', data: 'more_vert'
+			let hasMore = false;
+			this.props.headers.map(header => {
+				if (header.label == 'More') {
+					hasMore = true;
+				}
 			});
+
+			if (!hasMore) {
+				this.props.headers.push({
+					label: 'More', data: 'more_vert'
+				});
+			}
 		}
 	}
 
