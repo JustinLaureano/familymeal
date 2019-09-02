@@ -1494,7 +1494,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   background-color: #385e83;
   box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.2);
   color: #fffeff;
-  height: 100vh;
+  height: 100%;
   left: 0;
   position: fixed;
   min-width: 50px;
