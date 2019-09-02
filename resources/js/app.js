@@ -27,10 +27,8 @@ const renderApp = () => {
 			if (page && page !== '/home') {
 				const location = {
 					pathname: '/' + page,
-					state: {
-						user_id
-					}
-				}
+					state: { user_id }
+				};
 				history.push(location);
 			}
 		}

@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/navigation/Breadcrumbs';
 import CardView from '../components/table/CardView';
 import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
+import TableFooter from '../components/table/TableFooter';
 import TableFilters from '../components/table/TableFilters.js';
 import Table from '../components/table/Table.js';
 export class MyRecipesPage extends React.Component {
@@ -108,12 +109,18 @@ export class MyRecipesPage extends React.Component {
 						cards: this.props.recipes,
 						options: this.state.options
 					};
+					const tableFooterProps = {
+						model: 'recipe',
+						total: this.props.recipeTotal,
+						view: 'card'
+					};
 					return (
 						<section className="table-grid">
 							<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 							<PageHeader { ...pageHeaderProps } />
 							<TableFilters { ...tableFilterProps } />
 							<CardView { ...cardViewProps }/>
+							<TableFooter { ...tableFooterProps } />
 						</section>
 					)
 				default:

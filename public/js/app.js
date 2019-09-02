@@ -84158,8 +84158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -84179,7 +84178,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -84295,8 +84293,9 @@ function (_React$Component) {
         paginationPos = 'middle';
       }
 
+      var footerClass = this.props.hasOwnProperty('view') && this.props.view == 'card' ? 'table__footer--card' : 'table__footer';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "table__footer"
+        className: footerClass
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__pagination"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -84343,10 +84342,10 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeTablePage: function changeTablePage(pageNumber, model) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["changeTablePage"])(pageNumber, model));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["changeTablePage"])(pageNumber, model));
     }
   };
 };
@@ -86756,6 +86755,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_PageLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/PageLoad */ "./resources/js/components/PageLoad.js");
 /* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
 /* harmony import */ var _components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/table/TableFilters.js */ "./resources/js/components/table/TableFilters.js");
+/* harmony import */ var _components_table_TableFooter__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/table/TableFooter */ "./resources/js/components/table/TableFooter.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -86775,6 +86775,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -86830,6 +86831,7 @@ function (_React$Component) {
         this.setState({
           loading: true
         });
+        this.props.getFavoriteRecipes();
       } else if (this.state.loading && this.props.recipes.length > 0) {
         this.setState({
           loading: false,
@@ -86854,7 +86856,7 @@ function (_React$Component) {
       }
 
       if (this.props.recipes.length === 0) {
-        if (this.state.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
+        if (this.props.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
           this.props.getFavoriteRecipes(this.props.location.state.user_id);
         } else {
           this.props.getFavoriteRecipes();
@@ -86927,11 +86929,16 @@ function (_React$Component) {
               cards: this.props.recipes,
               options: this.state.options
             };
+            var tableFooterProps = {
+              model: 'recipe',
+              total: this.props.recipeTotal,
+              view: 'card'
+            };
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
               className: "table-grid"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
               breadcrumbs: breadcrumbProps
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps));
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFooter__WEBPACK_IMPORTED_MODULE_10__["default"], tableFooterProps));
 
           default:
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -87330,8 +87337,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_table_CardView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/table/CardView */ "./resources/js/components/table/CardView.js");
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PageHeader */ "./resources/js/components/PageHeader.js");
 /* harmony import */ var _components_PageLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/PageLoad */ "./resources/js/components/PageLoad.js");
-/* harmony import */ var _components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/table/TableFilters.js */ "./resources/js/components/table/TableFilters.js");
-/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
+/* harmony import */ var _components_table_TableFooter__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/table/TableFooter */ "./resources/js/components/table/TableFooter.js");
+/* harmony import */ var _components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/table/TableFilters.js */ "./resources/js/components/table/TableFilters.js");
+/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -87349,6 +87357,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -87473,7 +87482,7 @@ function (_React$Component) {
               className: "table-grid"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
               breadcrumbs: breadcrumbProps
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableProps));
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_10__["default"], tableProps));
 
           case 'card':
             var cardViewProps = {
@@ -87482,18 +87491,23 @@ function (_React$Component) {
               cards: this.props.recipes,
               options: this.state.options
             };
+            var tableFooterProps = {
+              model: 'recipe',
+              total: this.props.recipeTotal,
+              view: 'card'
+            };
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
               className: "table-grid"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
               breadcrumbs: breadcrumbProps
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps));
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFooter__WEBPACK_IMPORTED_MODULE_8__["default"], tableFooterProps));
 
           default:
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
               className: "table-grid"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
               breadcrumbs: breadcrumbProps
-            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableProps));
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_10__["default"], tableProps));
         }
       }
     }

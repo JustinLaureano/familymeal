@@ -8,6 +8,7 @@ import PageHeader from '../components/PageHeader';
 import PageLoad from '../components/PageLoad';
 import Table from '../components/table/Table.js';
 import TableFilters from '../components/table/TableFilters.js';
+import TableFooter from '../components/table/TableFooter';
 
 export class FavoritesPage extends React.Component {
 	constructor(props) {
@@ -25,6 +26,7 @@ export class FavoritesPage extends React.Component {
 	componentDidUpdate() {
 		if (this.props.recipes.length == 0 && !this.state.loading) {
 			this.setState({ loading: true });
+			this.props.getFavoriteRecipes();
 		}
 		else if (this.state.loading && this.props.recipes.length > 0) {
 			this.setState({ loading: false, recipes: this.props.recipes });
@@ -41,7 +43,7 @@ export class FavoritesPage extends React.Component {
 		}
 
 		if (this.props.recipes.length === 0) {
-			if (this.state.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
+			if (this.props.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
 				this.props.getFavoriteRecipes(this.props.location.state.user_id);
 			}
 			else {
@@ -124,12 +126,18 @@ export class FavoritesPage extends React.Component {
 						cards: this.props.recipes,
 						options: this.state.options
 					};
+					const tableFooterProps = {
+						model: 'recipe',
+						total: this.props.recipeTotal,
+						view: 'card'
+					};
 					return (
 						<section className="table-grid">
 							<Breadcrumbs breadcrumbs={ breadcrumbProps } />
 							<PageHeader { ...pageHeaderProps } />
 							<TableFilters { ...tableFilterProps } />
 							<CardView { ...cardViewProps }/>
+							<TableFooter { ...tableFooterProps } />
 						</section>
 					)
 				default:

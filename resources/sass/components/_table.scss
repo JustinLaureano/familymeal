@@ -222,6 +222,11 @@
     width: 100%;
 }
 
+.table__footer--card {
+    @extend .table__footer;
+    border-top: none;
+}
+
 .table__pagination {
     @include flex-align-center;
     @include pad($space-md);

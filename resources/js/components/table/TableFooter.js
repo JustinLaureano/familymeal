@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { changeTablePage } from '../../actions/filters';
 
 export class TableFooter extends React.Component {
@@ -89,8 +88,10 @@ export class TableFooter extends React.Component {
             pageCount = [p - 2, p - 1, p, p + 1, p + 2];
             paginationPos = 'middle';
         }
+        const footerClass = this.props.hasOwnProperty('view') && this.props.view == 'card' ? 
+            'table__footer--card' : 'table__footer';
 		return (
-            <section className="table__footer">
+            <section className={ footerClass }>
                 <section className="table__pagination">
                     <section className="table__current-results">
                         { this.currentResults() }
@@ -163,7 +164,7 @@ const mapStateToProps = (state) => ({
         settings: state.user_settings
 });
   
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch) => ({
 	changeTablePage: (pageNumber, model) => dispatch(changeTablePage(pageNumber, model))
 });
   
