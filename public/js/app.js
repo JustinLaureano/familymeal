@@ -83371,13 +83371,13 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TableBody)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
     _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function (e) {
-      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+      var id = e.currentTarget.id.replace(/\D/g, '');
 
       _this.props.deleteRecipe(id);
     });
 
     _defineProperty(_assertThisInitialized(_this), "startDeleteIngredient", function (e) {
-      var id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+      var id = e.currentTarget.id.replace(/\D/g, '');
 
       _this.props.deleteIngredient(id);
     });
@@ -83439,7 +83439,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "table__body"
-      }, this.props.data.map(function (item, index) {
+      }, this.props.data.map(function (item) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: item.id,
           className: _this2.props.className
@@ -83474,7 +83474,14 @@ function (_React$Component) {
                   break;
 
                 case 'deleteRecipe':
-                  onClick = _this2.startDeleteRecipe;
+                  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                    key: "option_" + option.label + "_" + item.id,
+                    id: item.id,
+                    option: option,
+                    confirmation: true,
+                    confirmationMessage: "Remove Recipe?",
+                    onClick: _this2.startDeleteRecipe
+                  });
                   break;
 
                 case 'updateShoppingList':
@@ -83505,6 +83512,8 @@ function (_React$Component) {
                       key: "option_" + option.label + "_" + item.id,
                       id: item.id,
                       option: option,
+                      confirmation: true,
+                      confirmationMessage: "Remove Ingredient?",
                       onClick: _this2.startDeleteIngredient
                     });
                   } else {
@@ -83557,7 +83566,7 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     favoriteRecipe: function favoriteRecipe(id, favorite) {
       return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_7__["favoriteRecipe"])(id, favorite));
@@ -84113,13 +84122,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 var TableOption =
@@ -84127,10 +84138,23 @@ var TableOption =
 function (_React$Component) {
   _inherits(TableOption, _React$Component);
 
-  function TableOption() {
+  function TableOption(props) {
+    var _this;
+
     _classCallCheck(this, TableOption);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TableOption).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TableOption).call(this, props));
+
+    _defineProperty(_assertThisInitialized(_this), "toggleConfirmation", function () {
+      return _this.setState({
+        confirmationOpen: !_this.state.confirmationOpen
+      });
+    });
+
+    _this.state = {
+      confirmationOpen: false
+    };
+    return _this;
   }
 
   _createClass(TableOption, [{
@@ -84138,13 +84162,26 @@ function (_React$Component) {
     value: function render() {
       var option = this.props.option;
       var id = this.props.id;
+      var confirmation = this.props.hasOwnProperty('confirmation') && this.props.confirmation;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         key: "option_" + option.label + "_" + id,
-        onClick: this.props.onClick,
+        onClick: confirmation ? this.toggleConfirmation : this.props.onClick,
         className: "table__more-option"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons table__more-option-icon"
-      }, option.icon), option.conditional ? option.conditional : option.label);
+      }, option.icon), option.conditional ? option.conditional : option.label, confirmation && this.state.confirmationOpen && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "table__more-option-confirmation confirmation"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "confirmation__label"
+      }, this.props.confirmationMessage), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "remove-btn_" + id,
+        className: "btn--confirmation-confirm",
+        onClick: this.props.onClick
+      }, "Remove"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        id: "confirmation-cancel-btn_" + id,
+        className: "btn--confirmation",
+        onClick: this.toggleConfirmation
+      }, "Cancel")));
     }
   }]);
 

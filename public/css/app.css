@@ -1797,6 +1797,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   -webkit-box-pack: start;
           justify-content: flex-start;
   padding: 0.4em;
+  position: relative;
   width: 100%;
 }
 .table__more-option:hover, .table__more-option--cascade:hover {
@@ -1818,6 +1819,12 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 .table__more-option--cascade:hover {
   background-color: #fffeff;
   cursor: default;
+}
+
+.table__more-option-confirmation {
+  position: absolute;
+  top: 32px;
+  right: 8px;
 }
 
 .table__more-option-icon-box {

@@ -12,12 +12,12 @@ import { getShoppingListOptions } from '../../services/Table';
 
 export class TableBody extends React.Component {
     startDeleteRecipe = (e) => {
-		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+		const id = e.currentTarget.id.replace(/\D/g, '');
 		this.props.deleteRecipe(id);
     }
 
     startDeleteIngredient = (e) => {
-		const id = e.currentTarget.parentNode.id.replace(/\D/g, '');
+		const id = e.currentTarget.id.replace(/\D/g, '');
 		this.props.deleteIngredient(id);
     }
 
@@ -61,7 +61,7 @@ export class TableBody extends React.Component {
 		return (
             <section className="table__body">
             {
-                this.props.data.map((item, index) => {
+                this.props.data.map((item) => {
                     return (
                         <div
                             key={item.id}
@@ -98,7 +98,15 @@ export class TableBody extends React.Component {
                                                             onClick = this.updateRecipe;
                                                             break;
                                                         case 'deleteRecipe':
-                                                            onClick = this.startDeleteRecipe;
+                                                            return (
+                                                                <TableOption
+                                                                    key={"option_" + option.label + "_" + item.id}
+                                                                    id={ item.id }
+                                                                    option={ option }
+                                                                    confirmation={ true }
+                                                                    confirmationMessage={ "Remove Recipe?" }
+                                                                    onClick={ this.startDeleteRecipe } />
+                                                            )
                                                             break;
                                                         case 'updateShoppingList':
                                                             return (
@@ -128,6 +136,8 @@ export class TableBody extends React.Component {
                                                                         key={"option_" + option.label + "_" + item.id}
                                                                         id={ item.id }
                                                                         option={ option }
+                                                                        confirmation={ true }
+                                                                        confirmationMessage={ "Remove Ingredient?" }
                                                                         onClick={ this.startDeleteIngredient } />
                                                                 )
                                                             }
@@ -195,7 +205,7 @@ const mapStateToProps = (state) => ({
 	shopping_lists: getShoppingListOptions(state.shopping_lists)
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = (dispatch) => ({
 	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
 	deleteRecipe: (id) => dispatch(deleteRecipe(id)),
 	deleteIngredient: (id) => dispatch(deleteIngredient(id)),

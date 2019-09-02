@@ -122,6 +122,7 @@
     @include transition;
     justify-content: flex-start;
     padding: .4em;
+    position: relative;
     width: 100%;
     &:hover {
         background-color: $weathered-gray-hover;
@@ -143,6 +144,12 @@
         background-color: $white;
         cursor: default;
     }
+}
+
+.table__more-option-confirmation {
+    position: absolute;
+    top: 32px;
+    right: 8px;
 }
 
 .table__more-option-icon-box {

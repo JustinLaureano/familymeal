@@ -1,5 +1,5 @@
 Bug Fixes
-    new recipe name doesnt show on breadcrumbs
+
 
 Styles
     General responsiveness to site
