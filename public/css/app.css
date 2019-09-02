@@ -621,6 +621,13 @@ a:hover {
   padding: calc(0.5 * 1em);
 }
 
+.card__header-link {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: baseline;
+          align-items: baseline;
+}
+
 .card__footer {
   display: -webkit-box;
   display: flex;

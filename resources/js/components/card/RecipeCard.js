@@ -50,8 +50,11 @@ export class RecipeCard extends React.Component {
                                 state: {
                                     id: this.props.id
                                 }
-                            }}>
+                            }}
+                            className="card__header-link">
                             <h4>{ this.props.name }</h4>
+                            { this.props.favorite == 'true' &&
+                            <i className="material-icons table-favorite-icon">favorite</i> }
                         </Link>
                     </div>
                     <div>

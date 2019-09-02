@@ -77055,8 +77055,11 @@ function (_React$Component) {
           state: {
             id: this.props.id
           }
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        },
+        className: "card__header-link"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name), this.props.favorite == 'true' && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "material-icons table-favorite-icon"
+      }, "favorite"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: imgSrc,
         className: "card__photo",
         alt: this.props.name

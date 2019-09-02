@@ -41,6 +41,11 @@
     padding: $space-xs;
 }
 
+.card__header-link {
+    display: flex;
+    align-items: baseline;
+}
+
 .card__footer {
     display: flex;
     justify-content: center;
