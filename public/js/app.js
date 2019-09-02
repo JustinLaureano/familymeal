@@ -81637,7 +81637,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__note-list",
           onDragOver: this.onDragOver
-        }, this.state.notes.map(function (note, index) {
+        }, this.state.notes.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "recipe-grid__note-row--empty"
+        }, "No Notes"), this.state.notes.map(function (note, index) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "note_" + note.id,
             id: "note_" + note.id,

@@ -2505,6 +2505,15 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   grid-template-areas: "order note";
 }
 
+.recipe-grid__note-row--empty {
+  padding: calc(0.375 * 1em) 0;
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
+  font-style: italic;
+}
+
 .recipe-grid__note-row--edit {
   margin: 0.1em 0;
   padding: calc(0.5 * 1em) calc(0.375 * 1em);

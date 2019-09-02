@@ -193,6 +193,12 @@ export class RecipeNotes extends React.Component {
                     <section
                         className="recipe-grid__note-list"
                         onDragOver={ this.onDragOver } >
+                        { 
+                            this.state.notes.length === 0 &&
+                            <div className="recipe-grid__note-row--empty">
+                                No Notes
+                            </div>
+                        }
                         {this.state.notes.map((note, index) => {
                             return (
                                 <div 

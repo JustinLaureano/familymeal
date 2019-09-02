@@ -16,6 +16,13 @@
         "order note";
 }
 
+.recipe-grid__note-row--empty {
+    @include pad($space-xxs, 0);
+    align-items: center;
+    display: flex;
+    font-style: italic;
+}
+
 .recipe-grid__note-row--edit {
     @include margin(.1em, 0);
     @include pad($space-xs, $space-xxs);
