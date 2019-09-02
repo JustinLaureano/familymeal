@@ -7,7 +7,6 @@ Styles
     style upload input for recipe photos
 
 Features to Implement
-    ui option to keep sidebar open, and close
     ingredient shopping list shows if in list already or not
     error handling for fetch calls
     user settings page

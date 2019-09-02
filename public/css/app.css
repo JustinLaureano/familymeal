@@ -1492,6 +1492,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 
 .navbar, .navbar--open {
   background-color: #385e83;
+  box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.2);
   color: #fffeff;
   height: 100vh;
   left: 0;
