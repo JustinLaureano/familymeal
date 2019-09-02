@@ -19,3 +19,7 @@
 .sidebar {
     margin-left: $navbar-width;
 }
+
+.sidebar--open {
+    margin-left: $navbar-hover-width;
+}

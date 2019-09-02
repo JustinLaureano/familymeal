@@ -337,6 +337,10 @@ a:hover {
   margin-left: 50px;
 }
 
+.sidebar--open {
+  margin-left: 160px;
+}
+
 .overlay, .overlay--transparent {
   display: -webkit-box;
   display: flex;
@@ -1486,8 +1490,8 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   top: 4px;
 }
 
-.navbar {
-  background-color: #505d6a;
+.navbar, .navbar--open {
+  background-color: #385e83;
   color: #fffeff;
   height: 100vh;
   left: 0;
@@ -1501,9 +1505,14 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   transition: all 0.125s ease-in-out;
   z-index: 100;
 }
-.navbar:hover {
+.navbar:hover, .navbar--open:hover {
   max-width: 160px;
   min-width: 160px;
+}
+
+.navbar--open {
+  min-width: 160px;
+  max-width: 160px;
 }
 
 .navbar__link {
@@ -1516,6 +1525,9 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 .navbar__link:hover {
   color: #fffeff;
+}
+.navbar__link:first-of-type {
+  margin-top: 30px;
 }
 
 .navbar__icon {
@@ -1535,6 +1547,29 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 .navbar__label:hover {
   color: #fffeff;
+}
+
+.navbar__toggle {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  background-color: #fffeff;
+  border-radius: 50% 0 0 50%;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  width: 20px;
+}
+
+.navbar__toggle-icon {
+  color: #385e83;
+  font-size: 20px;
 }
 
 .page-header {

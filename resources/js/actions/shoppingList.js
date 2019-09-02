@@ -32,7 +32,6 @@ export const addNewShoppingListItem = (params) => {
 						shopping_list_id,
 						item: data.response
 					});
-					console.log(data);
 	
 					const shoppingLists = getState().shopping_lists;
 					let listName = null;

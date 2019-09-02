@@ -8,7 +8,8 @@ Styles
 
 Features to Implement
     ui option to keep sidebar open, and close
-    toast message when adding ingredient to shopping list
+    ingredient shopping list shows if in list already or not
+    error handling for fetch calls
     user settings page
         username / email
         preferences
