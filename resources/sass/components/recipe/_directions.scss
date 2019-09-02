@@ -16,6 +16,13 @@
         "order direction";
 }
 
+.recipe-grid__direction-row--empty {
+    @include pad($space-xxs, 0);
+    align-items: center;
+    display: flex;
+    font-style: italic;
+}
+
 .recipe-grid__direction-row--edit {
     @include margin(.1em, 0);
     @include pad($space-xs, $space-xxs);
@@ -40,6 +47,7 @@
     grid-template-areas:
         "direction add-btn";
     margin-bottom: $space-md;
+    position: relative;
 }
 
 .recipe-grid__direction-order {

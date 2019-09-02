@@ -80772,7 +80772,9 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           className: "recipe-grid__direction-list",
           onDragOver: this.onDragOver
-        }, this.state.directions.map(function (direction, index) {
+        }, this.state.directions.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "recipe-grid__direction-row--empty"
+        }, "No directions"), this.state.directions.map(function (direction, index) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "direction_" + direction.id,
             id: "direction_" + direction.id,
@@ -80818,7 +80820,9 @@ function (_React$Component) {
           className: "recipe-grid__directions"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
           className: "recipe-grid__section-title"
-        }, "Directions"), this.props.directions.map(function (direction, index) {
+        }, "Directions"), this.props.directions.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "recipe-grid__direction-row--empty"
+        }, "No directions"), this.props.directions.map(function (direction, index) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "direction_" + direction.id,
             className: "recipe-grid__direction-row"
@@ -81295,7 +81299,9 @@ function (_React$Component) {
           className: "recipe-grid__ingredients"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
           className: "recipe-grid__section-title"
-        }, "Ingredients"), this.props.ingredients.map(function (ingredient, index) {
+        }, "Ingredients"), this.props.ingredients.length === 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "recipe-grid__ingredient-row--empty"
+        }, "No ingredients"), this.props.ingredients.map(function (ingredient) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             key: "ingredient_" + ingredient.id,
             id: "ingredient_" + ingredient.id,

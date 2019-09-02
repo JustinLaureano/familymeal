@@ -294,8 +294,15 @@ export class RecipeIngredients extends React.Component {
             return (
                 <section className="recipe-grid__ingredients">
                     <h2 className="recipe-grid__section-title">Ingredients</h2>
-    
-                    {this.props.ingredients.map((ingredient, index) => {
+
+                    { 
+                        this.props.ingredients.length === 0 &&
+                        <div className="recipe-grid__ingredient-row--empty">
+                            No ingredients
+                        </div>
+                    }
+
+                    {this.props.ingredients.map((ingredient) => {
                         return (
                             <div 
                                 key={"ingredient_" + ingredient.id} 

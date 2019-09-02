@@ -2445,6 +2445,15 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   grid-template-areas: "order direction";
 }
 
+.recipe-grid__direction-row--empty {
+  padding: calc(0.375 * 1em) 0;
+  -webkit-box-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: flex;
+  font-style: italic;
+}
+
 .recipe-grid__direction-row--edit {
   margin: 0.1em 0;
   padding: calc(0.5 * 1em) calc(0.375 * 1em);
@@ -2467,6 +2476,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   grid-template-rows: auto;
   grid-template-areas: "direction add-btn";
   margin-bottom: calc(1.25 * 1em);
+  position: relative;
 }
 
 .recipe-grid__direction-order {

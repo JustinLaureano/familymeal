@@ -194,6 +194,12 @@ export class RecipeDirections extends React.Component {
                     <section
                         className="recipe-grid__direction-list"
                         onDragOver={ this.onDragOver } >
+                        { 
+                            this.state.directions.length === 0 &&
+                            <div className="recipe-grid__direction-row--empty">
+                                No directions
+                            </div>
+                        }
                         {this.state.directions.map((direction, index) => {
                             return (
                                 <div 
@@ -251,6 +257,13 @@ export class RecipeDirections extends React.Component {
             return (
                 <section className="recipe-grid__directions">
                     <h2 className="recipe-grid__section-title">Directions</h2>
+
+                    { 
+                        this.props.directions.length === 0 &&
+                        <div className="recipe-grid__direction-row--empty">
+                            No directions
+                        </div>
+                    }
                     
                     {this.props.directions.map((direction, index) => {
                         return (
