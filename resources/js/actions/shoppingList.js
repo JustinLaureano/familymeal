@@ -172,3 +172,40 @@ export const removeShoppingList = (shopping_list_id) => {
 			.catch(err => console.log(err))
 	}
 }
+
+export const removeShoppingListItem = (shopping_list_item_id) => {
+	return (dispatch, getState) => {
+		const token = getState().auth.token;
+		const request = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+				'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: {
+				'_method': 'DELETE',
+            }
+		};
+
+		fetch('/api/shopping-list-item/' + shopping_list_item_id + '/delete', request)
+			.then(resp => resp.json())
+			.then((data) => {
+				if (data.error) {
+					if (data.error == 'item not in list') {
+						dispatch(setToastMessages([data.error]));
+					}
+				}
+				else {
+					dispatch({
+						type: 'SET_SHOPPING_LISTS',
+						shopping_lists: data.shopping_lists
+					});
+					dispatch(setToastMessages([
+						data.name + ' removed from ' + data.shopping_list_name + '.'
+					]));
+				}
+			})
+			.catch(err => console.log(err))
+	}
+}

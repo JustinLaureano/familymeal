@@ -1910,11 +1910,12 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   padding: 0.4em calc(0.75 * 1em);
   -webkit-transition: all 0.125s ease-in-out;
   transition: all 0.125s ease-in-out;
+  -webkit-box-align: center;
+          align-items: center;
   color: #385e83;
   display: -webkit-box;
   display: flex;
-  -webkit-box-align: baseline;
-          align-items: baseline;
+  font-size: 0.875em;
 }
 .table__more-dropdown-option:nth-child(even) {
   background-color: #4f5d6a07;
@@ -1922,6 +1923,12 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 .table__more-dropdown-option:hover {
   background-color: #2780d31c;
   cursor: pointer;
+}
+
+.table__more-options-cascade-label {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  text-align: left;
 }
 
 .table__inactive {

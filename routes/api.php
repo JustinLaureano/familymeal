@@ -51,6 +51,7 @@ Route::middleware('auth:api')->group(function() {
     Route::post('/shopping-list/store', 'ShoppingListController@store');
     Route::post('/shopping-list/{id}/update', 'ShoppingListController@update');
     Route::post('/shopping-list/{id}/delete', 'ShoppingListController@destroy');
+    Route::post('/shopping-list-item/{id}/delete', 'ShoppingListController@removeListItem');
     
     Route::post('/logout', 'HomeController@logout');
 });

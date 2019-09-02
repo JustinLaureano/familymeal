@@ -2,7 +2,6 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import PrivateRoute from './PrivateRoute';
-import PublicRoute from './PublicRoute';
 import CategoriesPage from '../views/CategoriesPage';
 import CuisinesPage from '../views/CuisinesPage';
 import EditRecipePage from '../views/EditRecipePage';

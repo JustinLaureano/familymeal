@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\ShoppingList;
 use App\Models\ShoppingListItems;
 use App\Models\UserSettings;
@@ -162,6 +163,39 @@ class ShoppingListController extends Controller
         return response([
             'id' => $id,
             'shopping_lists' => ShoppingList::getUserShoppingLists($user->id)
+        ], 200);
+    }
+
+    public function removeListItem($shopping_list_item_id) {
+        $shopping_list_item = ShoppingListItems::find($shopping_list_item_id);
+        if (!$shopping_list_item) {
+            return response([
+                'error' => 'item not in list.'
+            ], 200);
+        }
+
+        $ingredient = Ingredient::find($shopping_list_item->ingredient_id);
+        $item_name = $ingredient->name;
+        $shopping_list_id = $shopping_list_item->shopping_list_id;
+        $shopping_list_item->delete();
+
+        $shopping_list_items = ShoppingListItems::getByShoppingListId($shopping_list_id);
+
+        $order = 1;
+        foreach ($shopping_list_items as $item) {
+            $shopping_list_item = ShoppingListItems::find($item->id);
+            $shopping_list_item->order = $order;
+            $shopping_list_item->save();
+            $order++;
+        }
+
+        $shopping_list = ShoppingList::find($shopping_list_id);
+
+        return response([
+            'id' => $shopping_list_item_id,
+            'name' => $item_name,
+            'shopping_list_name' => $shopping_list->name,
+            'shopping_lists' => ShoppingList::getUserShoppingLists(Auth::user()->id)
         ], 200);
     }
 }

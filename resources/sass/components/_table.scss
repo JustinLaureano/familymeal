@@ -187,9 +187,10 @@
 .table__more-dropdown-option {
     @include pad(.4em, $space-sm);
     @include transition;
+    align-items: center;
     color: $weathered-blue;
     display: flex;
-    align-items: baseline;
+    font-size: $size-sm;
 
     &:nth-child(even) {
         background-color: $weathered-blue-light;
@@ -199,6 +200,11 @@
         background-color: $weathered-blue-hover;
         cursor: pointer;
     }
+}
+
+.table__more-options-cascade-label {
+    flex-grow: 1;
+    text-align: left;
 }
 
 .table__inactive {
