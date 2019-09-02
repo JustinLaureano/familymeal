@@ -79471,16 +79471,19 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "onSuggestionSelected", function (event, _ref3) {
       var suggestion = _ref3.suggestion,
           suggestionValue = _ref3.suggestionValue;
+      console.log(event);
 
       if (suggestion.hasOwnProperty('recipe_id')) {
         _this.setState({
           value: suggestionValue,
-          recipe_id: suggestion.recipe_id
+          recipe_id: suggestion.recipe_id,
+          invalidEntry: false
         });
       } else {
         _this.setState({
           value: suggestionValue,
-          ingredient_id: suggestion.id
+          ingredient_id: suggestion.id,
+          invalidEntry: false
         });
       }
     });
@@ -79609,7 +79612,12 @@ function (_React$Component) {
           return _this.baseState;
         });
       } else {
-        console.log('not valid'); // TODO: message notifying of invalid entry
+        console.log('not valid');
+
+        _this.setState({
+          invalidEntry: true
+        }); // TODO: message notifying of invalid entry
+
       }
     });
 
@@ -79642,7 +79650,8 @@ function (_React$Component) {
       mUnitSuggestions: _this.props.measurement_units,
       amount: '',
       measurement_unit: '',
-      measurement_unit_id: 0
+      measurement_unit_id: 0,
+      invalidEntry: false
     };
     _this.baseState = _this.state;
     _this.timer;
@@ -79704,7 +79713,9 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons add-icon",
         onClick: this.startAddIngredient
-      }, "add_circle"));
+      }, "add_circle"), this.state.invalidEntry && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "recipe-grid__ingredient-add-error"
+      }, "Please enter proper values"));
     }
   }]);
 

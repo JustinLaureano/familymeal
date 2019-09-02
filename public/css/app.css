@@ -2363,6 +2363,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   grid-template-rows: auto;
   grid-template-areas: "amount amount m-u m-u  ingredient ingredient ingredient ingredient add-btn";
   margin-bottom: calc(1.25 * 1em);
+  position: relative;
 }
 .recipe-grid__ingredient-add .react-autosuggest__container {
   border: none;
@@ -2372,6 +2373,21 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
 }
 .recipe-grid__ingredient-add .react-autosuggest__input {
   border: none;
+}
+
+.recipe-grid__ingredient-add-error {
+  padding: calc(0.25 * 1em) calc(0.5 * 1em);
+  background-color: #363636;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rbga(88, 88, 88, 0.2);
+  color: #fffeff;
+  font-size: 0.875em;
+  position: absolute;
+  right: 0;
+  top: 32px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
 }
 
 .recipe-grid__ingredient-input, .recipe-grid__ingredient-input--amount {

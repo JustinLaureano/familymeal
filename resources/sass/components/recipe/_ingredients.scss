@@ -41,6 +41,7 @@
     grid-template-areas:
         "amount amount m-u m-u  ingredient ingredient ingredient ingredient add-btn";
     margin-bottom: $space-md;
+    position: relative;
 
     .react-autosuggest__container {
         border: none;
@@ -52,6 +53,19 @@
     .react-autosuggest__input {
         border: none;
     }
+}
+
+.recipe-grid__ingredient-add-error {
+    @include pad($space-xxxs, $space-xs);
+    background-color: $gray-dark;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px rbga(88, 88, 88, .2);
+    color: $white;
+    font-size: $size-sm;
+    position: absolute;
+    right: 0;
+    top: 32px;
+    width: max-content;
 }
 
 .recipe-grid__ingredient-input {

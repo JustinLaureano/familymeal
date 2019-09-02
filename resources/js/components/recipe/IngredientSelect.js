@@ -15,7 +15,8 @@ export class IngredientSelect extends React.Component {
             mUnitSuggestions: this.props.measurement_units,
             amount: '',
             measurement_unit: '',
-            measurement_unit_id: 0
+            measurement_unit_id: 0,
+            invalidEntry: false
         };
         this.baseState = this.state;
 
@@ -56,11 +57,20 @@ export class IngredientSelect extends React.Component {
         this.setState({ suggestions: [] });
     };
     onSuggestionSelected = (event, { suggestion, suggestionValue }) => {
+        console.log(event);
         if (suggestion.hasOwnProperty('recipe_id')) {
-            this.setState({ value: suggestionValue, recipe_id: suggestion.recipe_id });
+            this.setState({
+                value: suggestionValue,
+                recipe_id: suggestion.recipe_id,
+                invalidEntry: false
+            });
         }
         else {
-            this.setState({ value: suggestionValue, ingredient_id: suggestion.id });
+            this.setState({
+                value: suggestionValue,
+                ingredient_id: suggestion.id,
+                invalidEntry: false
+            });
         }
     }
         
@@ -162,6 +172,7 @@ export class IngredientSelect extends React.Component {
         }
         else {
             console.log('not valid');
+            this.setState({ invalidEntry: true });
             // TODO: message notifying of invalid entry
         }
     }
@@ -243,6 +254,12 @@ export class IngredientSelect extends React.Component {
                 <i
                     className="material-icons add-icon"
                     onClick={ this.startAddIngredient }>add_circle</i>
+                {
+                    this.state.invalidEntry &&
+                    <section className="recipe-grid__ingredient-add-error">
+                        Please enter proper values
+                    </section>
+                }
             </section>
 		);
 	};
