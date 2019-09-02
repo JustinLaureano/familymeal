@@ -38,6 +38,7 @@ export class CardView extends React.Component {
                             <RecipeCard 
                                 key={ "recipe-card_" + index } 
                                 index={ index }
+                                options={ this.props.options }
                                 { ...recipe } />
                         )) }
                         </section>

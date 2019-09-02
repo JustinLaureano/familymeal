@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { history } from '../../routers/AppRouter';
+import TableOption from '../../components/table/TableOption';
+import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
 
 export class RecipeCard extends React.Component {
     constructor(props) {
@@ -11,6 +14,25 @@ export class RecipeCard extends React.Component {
     }
 
     toggleMoreFooterOptions = () => this.setState({ footerOptionsOpen: !this.state.footerOptionsOpen });
+
+    startDeleteRecipe = (e) => this.props.deleteRecipe(this.props.id);
+
+    startFavoriteRecipe = (e) => {
+        if (this.props.model == 'favorite-recipes') {
+            this.props.favoriteRecipe(this.props.id, 'true');
+            this.props.refreshFavorites();
+        }
+        else {
+            this.props.favoriteRecipe(this.props.id, this.props.favorite);
+        }
+    }
+
+    updateRecipe = (e) => {
+        history.push({
+            pathname: '/recipes/' + this.props.id,
+            state: { id: this.props.id, editMode: true }
+        });
+    }
 
 	render() {
         const imgSrc = this.props.photo ? 
@@ -48,18 +70,36 @@ export class RecipeCard extends React.Component {
                                 case 'favoriteRecipe':
                                     return (
                                         <div
-                                            key={"option_" + option.label + "_" + item.id}
-                                            onClick={ onClick }
+                                            key={"option_" + option.label + "_" + this.props.id}
+                                            onClick={ this.startFavoriteRecipe }
                                             className="table__more-option">
                                             <i className="material-icons table__more-option-icon ">
                                                 { option.icon }
                                             </i>
                                             { 
                                                 this.props.model == 'favorite-recipes' ||
-                                                item.favorite == 'true' ? 
+                                                this.props.favorite == 'true' ? 
                                                     'Remove Favorite' : 'Make Favorite'
                                             }
                                         </div>
+                                    )
+                                case 'updateRecipe':
+                                    return (
+                                        <TableOption
+                                            key={"option_" + option.label + "_" + this.props.id}
+                                            id={ this.props.id }
+                                            option={ option }
+                                            onClick={ this.updateRecipe } />
+                                    )
+                                case 'deleteRecipe':
+                                    return (
+                                        <TableOption
+                                            key={"option_" + option.label + "_" + this.props.id}
+                                            id={ this.props.id }
+                                            option={ option }
+                                            confirmation={ true }
+                                            confirmationMessage={ "Remove Recipe?" }
+                                            onClick={ this.startDeleteRecipe } />
                                     )
                             }
                         }) }
@@ -71,4 +111,9 @@ export class RecipeCard extends React.Component {
 	}
 }
 
-export default RecipeCard;
+const mapDispatchToProps = (dispatch) => ({
+	favoriteRecipe: (id, favorite) => dispatch(favoriteRecipe(id, favorite)),
+	deleteRecipe: (id) => dispatch(deleteRecipe(id))
+});
+  
+export default connect(undefined, mapDispatchToProps)(RecipeCard);

@@ -76957,7 +76957,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeCard", function() { return RecipeCard; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76980,6 +76983,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
 var RecipeCard =
 /*#__PURE__*/
 function (_React$Component) {
@@ -76995,6 +77001,30 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "toggleMoreFooterOptions", function () {
       return _this.setState({
         footerOptionsOpen: !_this.state.footerOptionsOpen
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startDeleteRecipe", function (e) {
+      return _this.props.deleteRecipe(_this.props.id);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "startFavoriteRecipe", function (e) {
+      if (_this.props.model == 'favorite-recipes') {
+        _this.props.favoriteRecipe(_this.props.id, 'true');
+
+        _this.props.refreshFavorites();
+      } else {
+        _this.props.favoriteRecipe(_this.props.id, _this.props.favorite);
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateRecipe", function (e) {
+      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__["history"].push({
+        pathname: '/recipes/' + _this.props.id,
+        state: {
+          id: _this.props.id,
+          editMode: true
+        }
       });
     });
 
@@ -77035,12 +77065,30 @@ function (_React$Component) {
         switch (option.onClick) {
           case 'favoriteRecipe':
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-              key: "option_" + option.label + "_" + item.id,
-              onClick: onClick,
+              key: "option_" + option.label + "_" + _this2.props.id,
+              onClick: _this2.startFavoriteRecipe,
               className: "table__more-option"
             }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
               className: "material-icons table__more-option-icon "
-            }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
+            }, option.icon), _this2.props.model == 'favorite-recipes' || _this2.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
+
+          case 'updateRecipe':
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              key: "option_" + option.label + "_" + _this2.props.id,
+              id: _this2.props.id,
+              option: option,
+              onClick: _this2.updateRecipe
+            });
+
+          case 'deleteRecipe':
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              key: "option_" + option.label + "_" + _this2.props.id,
+              id: _this2.props.id,
+              option: option,
+              confirmation: true,
+              confirmationMessage: "Remove Recipe?",
+              onClick: _this2.startDeleteRecipe
+            });
         }
       })))));
     }
@@ -77048,7 +77096,19 @@ function (_React$Component) {
 
   return RecipeCard;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-/* harmony default export */ __webpack_exports__["default"] = (RecipeCard);
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    favoriteRecipe: function favoriteRecipe(id, favorite) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
+    },
+    deleteRecipe: function deleteRecipe(id) {
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["deleteRecipe"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(undefined, mapDispatchToProps)(RecipeCard));
 
 /***/ }),
 
@@ -83543,7 +83603,8 @@ function (_React$Component) {
             }, this.props.cards.map(function (recipe, index) {
               return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_card_RecipeCard__WEBPACK_IMPORTED_MODULE_3__["default"], _extends({
                 key: "recipe-card_" + index,
-                index: index
+                index: index,
+                options: _this.props.options
               }, recipe));
             }));
         }
