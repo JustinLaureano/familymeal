@@ -77007,6 +77007,9 @@ function (_React$Component) {
   _createClass(RecipeCard, [{
     key: "render",
     value: function render() {
+      var _this2 = this;
+
+      var imgSrc = this.props.photo ? '/recipe/photo/' + this.props.photo : '/images/recipe-categories/' + this.props.recipe_category + '.jpg';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "card__area"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -77015,18 +77018,31 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card__header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: '/recipe/photo/' + this.props.photo,
+        src: imgSrc,
         className: "card__photo",
         alt: this.props.name
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card__footer--recipe"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Category"), " ", this.props.recipe_category), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cuisine"), " ", this.props.cuisine_type)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "card__footer-details"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Category"), " ", this.props.recipe_category), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Cuisine"), " ", this.props.cuisine_type)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         onClick: this.toggleMoreFooterOptions
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons card__footer-more-icon"
       }, "more_vert")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "card__footer-dropdown" + (this.state.footerOptionsOpen ? '--open' : '')
-      }, "dropdown"))));
+      }, this.props.options.map(function (option) {
+        switch (option.onClick) {
+          case 'favoriteRecipe':
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+              key: "option_" + option.label + "_" + item.id,
+              onClick: onClick,
+              className: "table__more-option"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+              className: "material-icons table__more-option-icon "
+            }, option.icon), _this2.props.model == 'favorite-recipes' || item.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
+        }
+      })))));
     }
   }]);
 
@@ -87322,7 +87338,9 @@ function (_React$Component) {
           case 'card':
             var cardViewProps = {
               type: 'recipe',
-              cards: this.props.recipes
+              model: 'recipe',
+              cards: this.props.recipes,
+              options: this.state.options
             };
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
               className: "table-grid"

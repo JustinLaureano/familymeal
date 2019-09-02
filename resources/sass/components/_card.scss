@@ -46,7 +46,7 @@
     padding: $space-xs;
 }
 
-.card__footer-recipe {
+.card__footer--recipe {
     align-items: baseline;
     display: flex;
     justify-content: space-between;
@@ -58,10 +58,19 @@
     position: absolute;
 }
 
+.card__footer-details {
+    font-size: $size-sm;
+}
+
 .card__footer-dropdown--open {
     @extend .card__footer-dropdown;
     @include flex-column;
     align-items: center;
+    right: 5px;
+    top: 8px;
+    background-color: $white;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, .15);
+    border-radius: 3px;
 }
 
 .card__footer-more-icon {

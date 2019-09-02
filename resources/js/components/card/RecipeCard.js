@@ -13,6 +13,10 @@ export class RecipeCard extends React.Component {
     toggleMoreFooterOptions = () => this.setState({ footerOptionsOpen: !this.state.footerOptionsOpen });
 
 	render() {
+        const imgSrc = this.props.photo ? 
+            '/recipe/photo/' + this.props.photo : 
+            '/images/recipe-categories/' + this.props.recipe_category + '.jpg'
+
         return (
             <section className="card__area">
                 <div id={ "recipe_" + this.props.id } className="card">
@@ -21,12 +25,12 @@ export class RecipeCard extends React.Component {
                     </div>
                     <div>
                         <img
-                            src={ '/recipe/photo/' + this.props.photo } 
+                            src={ imgSrc } 
                             className="card__photo"
                             alt={ this.props.name } />
                     </div>
                     <div className="card__footer--recipe">
-                        <section>
+                        <section className="card__footer-details">
                             <p>
                                 <span>Category</span> { this.props.recipe_category }
                             </p>
@@ -39,7 +43,26 @@ export class RecipeCard extends React.Component {
                         </section>
 
                         <section className={ "card__footer-dropdown" + (this.state.footerOptionsOpen ? '--open' : '') }>
-                            dropdown
+                        { this.props.options.map(option => {
+                            switch(option.onClick) {
+                                case 'favoriteRecipe':
+                                    return (
+                                        <div
+                                            key={"option_" + option.label + "_" + item.id}
+                                            onClick={ onClick }
+                                            className="table__more-option">
+                                            <i className="material-icons table__more-option-icon ">
+                                                { option.icon }
+                                            </i>
+                                            { 
+                                                this.props.model == 'favorite-recipes' ||
+                                                item.favorite == 'true' ? 
+                                                    'Remove Favorite' : 'Make Favorite'
+                                            }
+                                        </div>
+                                    )
+                            }
+                        }) }
                         </section>
                     </div>
                 </div>

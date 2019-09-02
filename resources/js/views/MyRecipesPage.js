@@ -106,7 +106,9 @@ export class MyRecipesPage extends React.Component {
 				case 'card':
 					const cardViewProps = {
 						type: 'recipe',
-						cards: this.props.recipes
+						model: 'recipe',
+						cards: this.props.recipes,
+						options: this.state.options
 					};
 					return (
 						<section className="table-grid">

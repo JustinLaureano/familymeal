@@ -627,7 +627,7 @@ a:hover {
   padding: calc(0.5 * 1em);
 }
 
-.card__footer-recipe {
+.card__footer--recipe {
   -webkit-box-align: baseline;
           align-items: baseline;
   display: -webkit-box;
@@ -642,6 +642,10 @@ a:hover {
   position: absolute;
 }
 
+.card__footer-details {
+  font-size: 0.875em;
+}
+
 .card__footer-dropdown--open {
   display: -webkit-box;
   display: flex;
@@ -650,6 +654,11 @@ a:hover {
           flex-direction: column;
   -webkit-box-align: center;
           align-items: center;
+  right: 5px;
+  top: 8px;
+  background-color: #fffeff;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
 }
 
 .card__footer-more-icon {
