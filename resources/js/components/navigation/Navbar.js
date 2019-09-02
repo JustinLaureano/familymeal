@@ -20,26 +20,25 @@ export class Navbar extends React.Component {
             {label: 'Settings', icon: 'settings', route: '/settings'},
         ];
 		return (
-            <aside className={ this.props.sidebarOpen ? "navbar--open" : "navbar" }>
+			<aside className={ this.props.sidebarOpen ? "navbar--open" : "navbar" }>
                 <div
                     className={ "navbar__toggle" + (this.props.sidebarOpen ? "--open" : "") }
                     onClick={ this.toggleSidebarOpen }>
-                    <i className="material-icons navbar__toggle-icon">
+                    <i className={ "material-icons navbar__toggle-icon" + (this.props.sidebarOpen ? "--open" : "") }>
                         { this.props.sidebarOpen ? 'arrow_left' : 'arrow_right' }
                     </i>
                 </div>
-                { sidebarItems.map((item, index) => {
-                    return (
-                        <Link 
-                            key={index}
-                            to={item.route} 
-                            className="navbar__link">
-                            
-                            <i className="material-icons navbar__icon">{item.icon}</i>
-                            <h3 className="navbar__label">{item.label}</h3>
+                { sidebarItems.map((item, index) => (
+					<Link 
+						key={index}
+						to={item.route} 
+						className="navbar__link">
+						
+						<i className="material-icons navbar__icon">{item.icon}</i>
+						<h3 className="navbar__label">{item.label}</h3>
 
-                        </Link>
-                )}) }
+					</Link>
+                )) }
             </aside>
 		);
 	};

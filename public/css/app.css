@@ -1574,9 +1574,13 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   background-color: #4fa75d;
 }
 
-.navbar__toggle-icon {
+.navbar__toggle-icon, .navbar__toggle-icon--open {
   color: #385e83;
   font-size: 20px;
+}
+
+.navbar__toggle-icon--open {
+  color: #fffeff;
 }
 
 .page-header {

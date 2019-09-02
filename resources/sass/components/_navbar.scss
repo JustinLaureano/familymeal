@@ -79,3 +79,8 @@
     color: $weathered-blue;
     font-size: 20px;
 }
+
+.navbar__toggle-icon--open {
+    @extend .navbar__toggle-icon;
+    color: $white;
+}

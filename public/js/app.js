@@ -79117,7 +79117,7 @@ function (_React$Component) {
         className: "navbar__toggle" + (this.props.sidebarOpen ? "--open" : ""),
         onClick: this.toggleSidebarOpen
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "material-icons navbar__toggle-icon"
+        className: "material-icons navbar__toggle-icon" + (this.props.sidebarOpen ? "--open" : "")
       }, this.props.sidebarOpen ? 'arrow_left' : 'arrow_right')), sidebarItems.map(function (item, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           key: index,
