@@ -563,6 +563,8 @@ a:hover {
   }
 }
 .cards {
+  -webkit-box-align: baseline;
+          align-items: baseline;
   display: -webkit-box;
   display: flex;
   flex-wrap: wrap;
@@ -634,7 +636,11 @@ a:hover {
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
+  padding-bottom: 1em;
   position: relative;
+}
+.card__footer--recipe .table__more-option, .card__footer--recipe .table__more-option--cascade {
+  font-size: 0.875em;
 }
 
 .card__footer-dropdown, .card__footer-dropdown--open {
@@ -644,6 +650,7 @@ a:hover {
 
 .card__footer-details {
   font-size: 0.875em;
+  padding-left: 0.8em;
 }
 
 .card__footer-dropdown--open {

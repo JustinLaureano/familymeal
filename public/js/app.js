@@ -76958,9 +76958,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
-/* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
-/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routers/AppRouter */ "./resources/js/routers/AppRouter.js");
+/* harmony import */ var _components_table_TableOption__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/table/TableOption */ "./resources/js/components/table/TableOption.js");
+/* harmony import */ var _actions_recipes__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/recipes */ "./resources/js/actions/recipes.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76980,6 +76981,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -77019,7 +77021,7 @@ function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateRecipe", function (e) {
-      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_2__["history"].push({
+      _routers_AppRouter__WEBPACK_IMPORTED_MODULE_3__["history"].push({
         pathname: '/recipes/' + _this.props.id,
         state: {
           id: _this.props.id,
@@ -77047,7 +77049,14 @@ function (_React$Component) {
         className: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card__header"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: {
+          pathname: '/recipes/' + this.props.id,
+          state: {
+            id: this.props.id
+          }
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, this.props.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: imgSrc,
         className: "card__photo",
         alt: this.props.name
@@ -77073,7 +77082,7 @@ function (_React$Component) {
             }, option.icon), _this2.props.model == 'favorite-recipes' || _this2.props.favorite == 'true' ? 'Remove Favorite' : 'Make Favorite');
 
           case 'updateRecipe':
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_4__["default"], {
               key: "option_" + option.label + "_" + _this2.props.id,
               id: _this2.props.id,
               option: option,
@@ -77081,7 +77090,7 @@ function (_React$Component) {
             });
 
           case 'deleteRecipe':
-            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableOption__WEBPACK_IMPORTED_MODULE_4__["default"], {
               key: "option_" + option.label + "_" + _this2.props.id,
               id: _this2.props.id,
               option: option,
@@ -77100,10 +77109,10 @@ function (_React$Component) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     favoriteRecipe: function favoriteRecipe(id, favorite) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["favoriteRecipe"])(id, favorite));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["favoriteRecipe"])(id, favorite));
     },
     deleteRecipe: function deleteRecipe(id) {
-      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_4__["deleteRecipe"])(id));
+      return dispatch(Object(_actions_recipes__WEBPACK_IMPORTED_MODULE_5__["deleteRecipe"])(id));
     }
   };
 };

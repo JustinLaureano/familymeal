@@ -1,4 +1,5 @@
 .cards {
+    align-items: baseline;
     display: flex;
     flex-wrap: wrap;
 }
@@ -50,7 +51,12 @@
     align-items: baseline;
     display: flex;
     justify-content: space-between;
+    padding-bottom: $size-md;
     position: relative;
+
+    .table__more-option {
+        font-size: $size-sm;
+    }
 }
 
 .card__footer-dropdown {
@@ -60,6 +66,7 @@
 
 .card__footer-details {
     font-size: $size-sm;
+    padding-left: $size-xs;
 }
 
 .card__footer-dropdown--open {

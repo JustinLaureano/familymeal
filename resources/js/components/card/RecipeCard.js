@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { history } from '../../routers/AppRouter';
 import TableOption from '../../components/table/TableOption';
 import { deleteRecipe, favoriteRecipe } from '../../actions/recipes';
@@ -43,7 +44,15 @@ export class RecipeCard extends React.Component {
             <section className="card__area">
                 <div id={ "recipe_" + this.props.id } className="card">
                     <div className="card__header">
-                        <h4>{ this.props.name }</h4>
+                        <Link
+                            to={{
+                                pathname: '/recipes/' + this.props.id,
+                                state: {
+                                    id: this.props.id
+                                }
+                            }}>
+                            <h4>{ this.props.name }</h4>
+                        </Link>
                     </div>
                     <div>
                         <img
