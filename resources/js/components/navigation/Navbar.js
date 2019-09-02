@@ -21,7 +21,9 @@ export class Navbar extends React.Component {
         ];
 		return (
             <aside className={ this.props.sidebarOpen ? "navbar--open" : "navbar" }>
-                <div className="navbar__toggle" onClick={ this.toggleSidebarOpen }>
+                <div
+                    className={ "navbar__toggle" + (this.props.sidebarOpen ? "--open" : "") }
+                    onClick={ this.toggleSidebarOpen }>
                     <i className="material-icons navbar__toggle-icon">
                         { this.props.sidebarOpen ? 'arrow_left' : 'arrow_right' }
                     </i>

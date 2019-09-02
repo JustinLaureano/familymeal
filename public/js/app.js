@@ -79080,7 +79080,7 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("aside", {
         className: this.props.sidebarOpen ? "navbar--open" : "navbar"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "navbar__toggle",
+        className: "navbar__toggle" + (this.props.sidebarOpen ? "--open" : ""),
         onClick: this.toggleSidebarOpen
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "material-icons navbar__toggle-icon"

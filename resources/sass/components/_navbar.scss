@@ -61,12 +61,18 @@
 
 .navbar__toggle {
     @include flex-center;
+    @include transition;
     background-color: $white;
     border-radius: 50% 0 0 50%;
     height: 20px;
     position: absolute;
     right: 0;
     width: 20px;
+}
+
+.navbar__toggle--open {
+    @extend .navbar__toggle;
+    background-color: $green;
 }
 
 .navbar__toggle-icon {

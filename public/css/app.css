@@ -1550,7 +1550,7 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
   color: #fffeff;
 }
 
-.navbar__toggle {
+.navbar__toggle, .navbar__toggle--open {
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: vertical;
@@ -1560,12 +1560,18 @@ input, .input--edit, .recipe-grid__info-input, .page-header__title--input, .inpu
           justify-content: center;
   -webkit-box-align: center;
           align-items: center;
+  -webkit-transition: all 0.125s ease-in-out;
+  transition: all 0.125s ease-in-out;
   background-color: #fffeff;
   border-radius: 50% 0 0 50%;
   height: 20px;
   position: absolute;
   right: 0;
   width: 20px;
+}
+
+.navbar__toggle--open {
+  background-color: #4fa75d;
 }
 
 .navbar__toggle-icon {
