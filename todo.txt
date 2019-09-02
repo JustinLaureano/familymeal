@@ -23,7 +23,7 @@ Features to Implement
         view recipe page
         maybe the recipe table page
 
-    add view type filter to recipe pages (table / card)
+    add view type filter to recipe / favorite recipes pages (table / card)
         favorites
         my recipes
 

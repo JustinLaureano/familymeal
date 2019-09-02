@@ -86748,12 +86748,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../services/Table */ "./resources/js/services/Table.js");
-/* harmony import */ var _actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/favoriteRecipes */ "./resources/js/actions/favoriteRecipes.js");
-/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _services_Table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../services/Table */ "./resources/js/services/Table.js");
+/* harmony import */ var _actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/favoriteRecipes */ "./resources/js/actions/favoriteRecipes.js");
+/* harmony import */ var _components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/navigation/Breadcrumbs */ "./resources/js/components/navigation/Breadcrumbs.js");
+/* harmony import */ var _components_table_CardView__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/table/CardView */ "./resources/js/components/table/CardView.js");
 /* harmony import */ var _components_PageHeader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/PageHeader */ "./resources/js/components/PageHeader.js");
-/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
+/* harmony import */ var _components_PageLoad__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/PageLoad */ "./resources/js/components/PageLoad.js");
+/* harmony import */ var _components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/table/Table.js */ "./resources/js/components/table/Table.js");
+/* harmony import */ var _components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/table/TableFilters.js */ "./resources/js/components/table/TableFilters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -86773,6 +86775,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
 
 
 
@@ -86810,15 +86814,45 @@ function (_React$Component) {
     });
 
     _this.state = {
-      headers: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableHeaders"])(),
-      options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_3__["getRecipeTableOptions"])()
+      loading: true,
+      headers: Object(_services_Table__WEBPACK_IMPORTED_MODULE_2__["getRecipeTableHeaders"])(),
+      options: Object(_services_Table__WEBPACK_IMPORTED_MODULE_2__["getRecipeTableOptions"])(),
+      categoryFilter: _this.props.categoryFilter,
+      recipeView: _this.props.recipeView
     };
     return _this;
   }
 
   _createClass(FavoritesPage, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      if (this.props.recipes.length == 0 && !this.state.loading) {
+        this.setState({
+          loading: true
+        });
+      } else if (this.state.loading && this.props.recipes.length > 0) {
+        this.setState({
+          loading: false,
+          recipes: this.props.recipes
+        });
+      }
+
+      if (this.state.recipeView !== this.props.recipeView) {
+        this.setState({
+          recipeView: this.props.recipeView
+        });
+      }
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      if (this.state.loading && this.props.recipes.length > 0) {
+        this.setState({
+          loading: false,
+          recipes: this.props.recipes
+        });
+      }
+
       if (this.props.recipes.length === 0) {
         if (this.state.user_id == 'undefined' || this.props.location.state && this.props.location.state.user_id) {
           this.props.getFavoriteRecipes(this.props.location.state.user_id);
@@ -86844,14 +86878,8 @@ function (_React$Component) {
         slug: 'favorites',
         path: '/favorites'
       }];
-      var tableProps = {
-        headers: this.state.headers,
-        data: this.props.recipes,
-        className: 'table__row--recipe',
-        model: 'favorite-recipes',
-        options: this.state.options,
-        total: this.props.recipeTotal,
-        refreshFavorites: this.refreshFavorites
+      var tableFilterProps = {
+        table: 'recipes'
       };
       var pageHeaderProps = {
         title: 'My Favorite Recipes',
@@ -86871,11 +86899,48 @@ function (_React$Component) {
           }]
         }
       };
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: "table-grid"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        breadcrumbs: breadcrumbProps
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_7__["default"], tableProps));
+
+      if (this.state.loading) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageLoad__WEBPACK_IMPORTED_MODULE_7__["default"], null);
+      } else {
+        switch (this.state.recipeView) {
+          case 'table':
+            var tableProps = {
+              headers: this.state.headers,
+              data: this.props.recipes,
+              className: 'table__row--recipe',
+              model: 'favorite-recipes',
+              options: this.state.options,
+              total: this.props.recipeTotal,
+              refreshFavorites: this.refreshFavorites
+            };
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+              className: "table-grid"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              breadcrumbs: breadcrumbProps
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
+
+          case 'card':
+            var cardViewProps = {
+              type: 'recipe',
+              model: 'recipe',
+              cards: this.props.recipes,
+              options: this.state.options
+            };
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+              className: "table-grid"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              breadcrumbs: breadcrumbProps
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_CardView__WEBPACK_IMPORTED_MODULE_5__["default"], cardViewProps));
+
+          default:
+            return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+              className: "table-grid"
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_navigation_Breadcrumbs__WEBPACK_IMPORTED_MODULE_4__["default"], {
+              breadcrumbs: breadcrumbProps
+            }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_PageHeader__WEBPACK_IMPORTED_MODULE_6__["default"], pageHeaderProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_TableFilters_js__WEBPACK_IMPORTED_MODULE_9__["default"], tableFilterProps), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_table_Table_js__WEBPACK_IMPORTED_MODULE_8__["default"], tableProps));
+        }
+      }
     }
   }]);
 
@@ -86886,17 +86951,19 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     recipes: state.favorite_recipes,
     recipeTotal: state.totals.favorite_recipe,
-    user_id: state.user.id
+    user_id: state.user.id,
+    categoryFilter: state.filters.recipe_category,
+    recipeView: state.ui.recipeView
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, props) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getFavoriteRecipes: function getFavoriteRecipes(user_id, page) {
-      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["getFavoriteRecipes"])(user_id, page));
+      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_3__["getFavoriteRecipes"])(user_id, page));
     },
     clearFavoriteRecipes: function clearFavoriteRecipes() {
-      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_4__["clearFavoriteRecipes"])());
+      return dispatch(Object(_actions_favoriteRecipes__WEBPACK_IMPORTED_MODULE_3__["clearFavoriteRecipes"])());
     }
   };
 };
@@ -87315,19 +87382,6 @@ function (_React$Component) {
   }
 
   _createClass(MyRecipesPage, [{
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      if (this.props.location && this.props.location.state && this.props.location.state.recipe_category_id) {
-        var recipe_category_id = this.props.location.state.recipe_category_id;
-        this.props.setRecipeCategoryFilter(parseInt(recipe_category_id));
-        this.props.changeTablePage(1, 'recipe');
-      } else if (this.props.location && this.props.location.state && this.props.location.state.cuisine_type_id) {
-        var cuisine_type_id = this.props.location.state.cuisine_type_id;
-        this.props.setCuisineTypeFilter(parseInt(cuisine_type_id));
-        this.props.changeTablePage(1, 'recipe');
-      }
-    }
-  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       if (this.state.loading && this.props.recipes.length > 0) {
@@ -87355,6 +87409,19 @@ function (_React$Component) {
         this.setState({
           recipeView: this.props.recipeView
         });
+      }
+    }
+  }, {
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (this.props.location && this.props.location.state && this.props.location.state.recipe_category_id) {
+        var recipe_category_id = this.props.location.state.recipe_category_id;
+        this.props.setRecipeCategoryFilter(parseInt(recipe_category_id));
+        this.props.changeTablePage(1, 'recipe');
+      } else if (this.props.location && this.props.location.state && this.props.location.state.cuisine_type_id) {
+        var cuisine_type_id = this.props.location.state.cuisine_type_id;
+        this.props.setCuisineTypeFilter(parseInt(cuisine_type_id));
+        this.props.changeTablePage(1, 'recipe');
       }
     }
   }, {

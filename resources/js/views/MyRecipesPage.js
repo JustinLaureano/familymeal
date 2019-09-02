@@ -21,19 +21,6 @@ export class MyRecipesPage extends React.Component {
         };
 	};
 
-	componentWillMount() {
-		if (this.props.location && this.props.location.state && this.props.location.state.recipe_category_id) {
-			const recipe_category_id = this.props.location.state.recipe_category_id;
-			this.props.setRecipeCategoryFilter(parseInt(recipe_category_id));
-			this.props.changeTablePage(1, 'recipe');
-		}
-		else if (this.props.location && this.props.location.state && this.props.location.state.cuisine_type_id) {
-			const cuisine_type_id = this.props.location.state.cuisine_type_id;
-			this.props.setCuisineTypeFilter(parseInt(cuisine_type_id));
-			this.props.changeTablePage(1, 'recipe');
-		}
-	}
-
 	componentDidMount() {
 		if (this.state.loading && this.props.recipes.length > 0) {
 			this.setState({ loading: false, recipes: this.props.recipes });
@@ -50,6 +37,19 @@ export class MyRecipesPage extends React.Component {
 
 		if (this.state.recipeView !== this.props.recipeView) {
 			this.setState({ recipeView: this.props.recipeView });
+		}
+	}
+
+	componentWillMount() {
+		if (this.props.location && this.props.location.state && this.props.location.state.recipe_category_id) {
+			const recipe_category_id = this.props.location.state.recipe_category_id;
+			this.props.setRecipeCategoryFilter(parseInt(recipe_category_id));
+			this.props.changeTablePage(1, 'recipe');
+		}
+		else if (this.props.location && this.props.location.state && this.props.location.state.cuisine_type_id) {
+			const cuisine_type_id = this.props.location.state.cuisine_type_id;
+			this.props.setCuisineTypeFilter(parseInt(cuisine_type_id));
+			this.props.changeTablePage(1, 'recipe');
 		}
 	}
 	
@@ -80,9 +80,7 @@ export class MyRecipesPage extends React.Component {
 			}
 		};
 		if (this.state.loading) {
-			return (
-				<PageLoad />
-			)
+			return ( <PageLoad /> )
 		}
 		else {
 			switch(this.state.recipeView) {
