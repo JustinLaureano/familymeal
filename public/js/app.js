@@ -75829,6 +75829,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListItems", function() { return updateShoppingListItems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateShoppingListName", function() { return updateShoppingListName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeShoppingList", function() { return removeShoppingList; });
+/* harmony import */ var _toast__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./toast */ "./resources/js/actions/toast.js");
+
 var addNewShoppingListItem = function addNewShoppingListItem(params) {
   return function (dispatch, getState) {
     var token = getState().auth.token;
@@ -75851,11 +75853,27 @@ var addNewShoppingListItem = function addNewShoppingListItem(params) {
     fetch('/api/shopping-list/' + shopping_list_id + '/update', request).then(function (resp) {
       return resp.json();
     }).then(function (data) {
-      dispatch({
-        type: 'ADD_SHOPPING_LIST_ITEM',
-        shopping_list_id: shopping_list_id,
-        item: data.response
-      });
+      if (data.error) {
+        if (data.error == 'ingredient already exists') {
+          dispatch(Object(_toast__WEBPACK_IMPORTED_MODULE_0__["setToastMessages"])([data.error]));
+        }
+      } else {
+        dispatch({
+          type: 'ADD_SHOPPING_LIST_ITEM',
+          shopping_list_id: shopping_list_id,
+          item: data.response
+        });
+        console.log(data);
+        var shoppingLists = getState().shopping_lists;
+        var listName = null;
+        shoppingLists.map(function (shoppingList) {
+          if (shoppingList.id == shopping_list_id) {
+            listName = shoppingList.name;
+          }
+        });
+        var toastMessage = listName ? data.response.ingredient_name + ' added to ' + listName + '.' : data.response.ingredient_name + ' added to shopping list.';
+        dispatch(Object(_toast__WEBPACK_IMPORTED_MODULE_0__["setToastMessages"])([toastMessage]));
+      }
     })["catch"](function (err) {
       return console.log(err);
     });

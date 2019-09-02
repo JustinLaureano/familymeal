@@ -1,3 +1,5 @@
+import { setToastMessages } from './toast';
+
 export const addNewShoppingListItem = (params) => {
 	return (dispatch, getState) => {
 		const token = getState().auth.token;
@@ -19,11 +21,32 @@ export const addNewShoppingListItem = (params) => {
 		fetch('/api/shopping-list/' + shopping_list_id + '/update', request)
 			.then(resp => resp.json())
 			.then((data) => {
-				dispatch({
-					type: 'ADD_SHOPPING_LIST_ITEM',
-                    shopping_list_id,
-					item: data.response
-				});
+				if (data.error) {
+					if (data.error == 'ingredient already exists') {
+						dispatch(setToastMessages([data.error]));
+					}
+				}
+				else {
+					dispatch({
+						type: 'ADD_SHOPPING_LIST_ITEM',
+						shopping_list_id,
+						item: data.response
+					});
+					console.log(data);
+	
+					const shoppingLists = getState().shopping_lists;
+					let listName = null;
+	
+					shoppingLists.map(shoppingList => {
+						if (shoppingList.id == shopping_list_id) {
+							listName = shoppingList.name;
+						}
+					});
+					const toastMessage = listName ? 
+						data.response.ingredient_name + ' added to ' + listName + '.': 
+						data.response.ingredient_name + ' added to shopping list.';
+					dispatch(setToastMessages([toastMessage]));
+				}
 			})
 			.catch(err => console.log(err))
 	}
