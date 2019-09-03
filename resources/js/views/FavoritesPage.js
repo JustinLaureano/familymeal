@@ -75,7 +75,7 @@ export class FavoritesPage extends React.Component {
 			{slug: 'home', path: '/'},
 			{slug: 'favorites', path: '/favorites'}
 		];
-		const tableFilterProps = { table: 'recipes' };
+		const tableFilterProps = { table: 'favorite-recipes' };
 		const pageHeaderProps = {
 			title: 'My Favorite Recipes',
 			subtitle: {

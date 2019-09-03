@@ -74767,6 +74767,10 @@ var changeTablePage = function changeTablePage(pageNumber, model) {
             type: 'SET_FAVORITE_RECIPES',
             recipes: data.recipes
           });
+          dispatch({
+            type: 'SET_FAVORITE_RECIPE_TOTAL',
+            recipeTotal: data.recipe_total
+          });
           break;
 
         case 'ingredient':
@@ -77761,8 +77765,9 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "toggleCuisineOption", function (e) {
       var cuisine_type_id = e.target.id.replace(/\D/g, '');
       e.target.className.includes('filter__suggestion--selected') ? _this.props.removeCuisineTypeFilter(parseInt(cuisine_type_id)) : _this.props.addCuisineTypeFilter(parseInt(cuisine_type_id));
+      var model = _this.props.hasOwnProperty('model') ? _this.props.model : 'recipe';
 
-      _this.props.changeTablePage(1, 'recipe');
+      _this.props.changeTablePage(1, model);
     });
 
     _this.state = {
@@ -78185,9 +78190,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RecipeCategoryFilter", function() { return RecipeCategoryFilter; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_filters__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/filters */ "./resources/js/actions/filters.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -78207,7 +78211,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 
@@ -78242,8 +78245,9 @@ function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "toggleCategoryOption", function (e) {
       var recipeCategoryId = e.target.id.replace(/\D/g, '');
       e.target.className.includes('filter__suggestion--selected') ? _this.props.removeRecipeCategoryFilter(parseInt(recipeCategoryId)) : _this.props.addRecipeCategoryFilter(parseInt(recipeCategoryId));
+      var model = _this.props.hasOwnProperty('model') ? _this.props.model : 'recipe';
 
-      _this.props.changeTablePage(1, 'recipe');
+      _this.props.changeTablePage(1, model);
     });
 
     _this.state = {
@@ -78314,18 +78318,18 @@ var mapStateToProps = function mapStateToProps(state) {
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     changeTablePage: function changeTablePage(pageNumber, model) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["changeTablePage"])(pageNumber, model));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["changeTablePage"])(pageNumber, model));
     },
     addRecipeCategoryFilter: function addRecipeCategoryFilter(recipeCategoryId) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["addRecipeCategoryFilter"])(recipeCategoryId));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["addRecipeCategoryFilter"])(recipeCategoryId));
     },
     removeRecipeCategoryFilter: function removeRecipeCategoryFilter(recipeCategoryId) {
-      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_3__["removeRecipeCategoryFilter"])(recipeCategoryId));
+      return dispatch(Object(_actions_filters__WEBPACK_IMPORTED_MODULE_2__["removeRecipeCategoryFilter"])(recipeCategoryId));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeCategoryFilter));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(RecipeCategoryFilter));
 
 /***/ }),
 
@@ -84131,6 +84135,15 @@ function (_React$Component) {
             className: "table-filter"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_RecipeCategoryFilter__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_CuisineTypeFilter__WEBPACK_IMPORTED_MODULE_2__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_RecipeViewStyle__WEBPACK_IMPORTED_MODULE_3__["default"], null));
 
+        case 'favorite-recipes':
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+            className: "table-filter"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_RecipeCategoryFilter__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            model: "favorite-recipes"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_CuisineTypeFilter__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            model: "favorite-recipes"
+          }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_filters_RecipeViewStyle__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+
         case 'ingredients':
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
             className: "table-filter"
@@ -86881,7 +86894,7 @@ function (_React$Component) {
         path: '/favorites'
       }];
       var tableFilterProps = {
-        table: 'recipes'
+        table: 'favorite-recipes'
       };
       var pageHeaderProps = {
         title: 'My Favorite Recipes',

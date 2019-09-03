@@ -16,6 +16,14 @@ export class TableFilters extends React.Component {
                         <RecipeViewStyle />
                     </section>
                 )
+            case 'favorite-recipes':
+                return (
+                    <section className="table-filter">
+                        <RecipeCategoryFilter model='favorite-recipes'/>
+                        <CuisineTypeFilter  model='favorite-recipes'/>
+                        <RecipeViewStyle />
+                    </section>
+                )
             case 'ingredients':
                 return (
                     <section className="table-filter">

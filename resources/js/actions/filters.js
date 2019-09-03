@@ -73,6 +73,10 @@ export const changeTablePage = (pageNumber, model) => {
                         	type: 'SET_FAVORITE_RECIPES',
                         	recipes: data.recipes
                         });
+						dispatch({
+							type: 'SET_FAVORITE_RECIPE_TOTAL',
+							recipeTotal: data.recipe_total
+						});
 						break;
 
 					case 'ingredient':

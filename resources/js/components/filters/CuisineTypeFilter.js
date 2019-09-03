@@ -47,30 +47,27 @@ export class CuisineTypeFilter extends React.Component {
             this.props.removeCuisineTypeFilter( parseInt(cuisine_type_id) ) :
             this.props.addCuisineTypeFilter( parseInt(cuisine_type_id) );
 
-        this.props.changeTablePage(1, 'recipe');
+        const model = this.props.hasOwnProperty('model') ? this.props.model : 'recipe';
+        this.props.changeTablePage(1, model);
     }
 
 	render() {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCuisineFilterMenu }>
-                { this.state.filteredCuisines.length > 0 ? '(' + this.state.filteredCuisines.length + ')' : '' } Cuisine
-                <i className="material-icons dropdown-icon">arrow_drop_down</i>
+                    { this.state.filteredCuisines.length > 0 ? '(' + this.state.filteredCuisines.length + ')' : '' } Cuisine
+                    <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>
-                    {
-                        this.state.cuisine_types.map((cuisine) => {
-                            return (
-                                <div
-                                    key={ "cuisine_" + cuisine.id }
-                                    id={ "cuisine_" + cuisine.id }
-                                    onClick={ this.toggleCuisineOption }
-                                    className={ this.state.filteredCuisines.includes(cuisine.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
-                                    { cuisine.name }
-                                </div>
-                            )
-                        })
-                    }
+                { this.state.cuisine_types.map((cuisine) => (
+                    <div
+                        key={ "cuisine_" + cuisine.id }
+                        id={ "cuisine_" + cuisine.id }
+                        onClick={ this.toggleCuisineOption }
+                        className={ this.state.filteredCuisines.includes(cuisine.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
+                        { cuisine.name }
+                    </div>
+                )) }
                 </div>
             </div>
 		);

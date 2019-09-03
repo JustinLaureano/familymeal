@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeTablePage, addRecipeCategoryFilter, removeRecipeCategoryFilter } from '../../actions/filters';
 
@@ -47,30 +46,27 @@ export class RecipeCategoryFilter extends React.Component {
             this.props.removeRecipeCategoryFilter( parseInt(recipeCategoryId) ) :
             this.props.addRecipeCategoryFilter( parseInt(recipeCategoryId) );
 
-        this.props.changeTablePage(1, 'recipe');
+        const model = this.props.hasOwnProperty('model') ? this.props.model : 'recipe';
+        this.props.changeTablePage(1, model);
     }
 
 	render() {
 		return (
             <div className="filter">
                 <button className="filter__btn" onClick={ this.toggleCategoryFilterMenu }>
-                { this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '' } Category
-                <i className="material-icons dropdown-icon">arrow_drop_down</i>
+                    { this.state.filteredCategories.length > 0 ? '(' + this.state.filteredCategories.length + ')' : '' } Category
+                    <i className="material-icons dropdown-icon">arrow_drop_down</i>
                 </button>
                 <div className={ "filter__suggestions" + (this.state.menuOpen ? '' : ' display--none') }>
-                    {
-                        this.state.recipe_categories.map((category) => {
-                            return (
-                                <div
-                                    key={ "category_" + category.id }
-                                    id={ "category_" + category.id }
-                                    onClick={ this.toggleCategoryOption }
-                                    className={ this.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
-                                    { category.name }
-                                </div>
-                            )
-                        })
-                    }
+                    { this.state.recipe_categories.map((category) => (
+                        <div
+                            key={ "category_" + category.id }
+                            id={ "category_" + category.id }
+                            onClick={ this.toggleCategoryOption }
+                            className={ this.state.filteredCategories.includes(category.id) ? ' filter__suggestion--selected' : 'filter__suggestion' }>
+                            { category.name }
+                        </div>
+                    )) }
                 </div>
             </div>
 		);
