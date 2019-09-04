@@ -1,6 +1,6 @@
 Terms of Use and End User License Agreement
 
-This Terms of Use and Software End User License Agreement (“Agreement”) is a binding agreement between you (“End User” or “you”) and Recipe Confidential (“Company” or “We”). This Agreement governs your use of www.recipe-confidential.com (the “Website”). The Software is licensed, not sold, to you.
+This Terms of Use and Software End User License Agreement (“Agreement”) is a binding agreement between you (“End User” or “you”) and FamilyMeal (“Company” or “We”). This Agreement governs your use of www.familymeal.com (the “Website”). The Software is licensed, not sold, to you.
 
 BY USING THE SOFTWARE, YOU (A) ACKNOWLEDGE THAT YOU HAVE READ AND UNDERSTAND THIS AGREEMENT; (B) REPRESENT THAT YOU ARE OF LEGAL AGE TO ENTER INTO A BINDING AGREEMENT; AND (C) ACCEPT THIS AGREEMENT AND AGREE THAT YOU ARE LEGALLY BOUND BY ITS TERMS. IF YOU DO NOT AGREE TO THESE TERMS, DO NOT USE THE SOFTWARE.
 
@@ -54,7 +54,7 @@ You are responsible for both:
 • Making all arrangements necessary for you to have access to the Software. 
 • Ensuring that all persons who access the Software through your internet connection are aware of this Agreement and comply with it.
 
-To access the Software or some of the resources it offers, you may be asked to provide certain registration details or other information. It is a condition of your use of the Software that all the information you provide on the Software is correct, current, and complete. You agree that all information you provide to register with this Software or otherwise, including, but not limited to, through the use of any interactive features on the Software, is governed by our Privacy Policy (www.recipe-confidential.com/privacy), and you consent to all actions we take with respect to your information consistent with our Privacy Policy.
+To access the Software or some of the resources it offers, you may be asked to provide certain registration details or other information. It is a condition of your use of the Software that all the information you provide on the Software is correct, current, and complete. You agree that all information you provide to register with this Software or otherwise, including, but not limited to, through the use of any interactive features on the Software, is governed by our Privacy Policy (www.familymeal.com/privacy), and you consent to all actions we take with respect to your information consistent with our Privacy Policy.
 
 If you choose, or are provided with, a user name, password, or any other piece of information as part of our security procedures, you must treat such information as confidential, and you must not disclose it to any other person or entity. You also acknowledge that your account is personal to you and agree not to provide any other person with access to this Software or portions of it using your user name, password, or other security information. You agree to notify us immediately of any unauthorized access to or use of your user name or password or any other breach of security. You should use particular caution when accessing your account from a public or shared computer so that others are not able to view or record your password or other personal information.
 
@@ -62,7 +62,7 @@ We have the right to disable any user name, password, or other identifier, wheth
 
 6. Collection and Use of Your Information
 
-You acknowledge that when you use the Software, Company may use automatic means (including, for example, cookies and web beacons) to collect information about your Devices and about your use of the Software. You also may be required to provide certain information about yourself as a condition to using the Software or certain of its features or functionality, and the Software may provide you with opportunities to share information about yourself with others. All information we collect through or in connection with this Software is subject to our Privacy Policy (www.recipe-confidential.com/privacy). By using and providing information to or through this Software, you consent to all actions taken by us with respect to your information in compliance with the Privacy Policy.
+You acknowledge that when you use the Software, Company may use automatic means (including, for example, cookies and web beacons) to collect information about your Devices and about your use of the Software. You also may be required to provide certain information about yourself as a condition to using the Software or certain of its features or functionality, and the Software may provide you with opportunities to share information about yourself with others. All information we collect through or in connection with this Software is subject to our Privacy Policy (www.familymeal.com/privacy). By using and providing information to or through this Software, you consent to all actions taken by us with respect to your information in compliance with the Privacy Policy.
 
 7. Updates
 
@@ -103,7 +103,7 @@ These content standards apply to any and all User Content. User Content must in 
 • Contain any material that is defamatory, obscene, indecent, abusive, offensive, harassing, violent, hateful, inflammatory, or otherwise objectionable. 
 • Promote sexually explicit or pornographic material, violence, or discrimination based on race, sex, religion, nationality, disability, sexual orientation, or age. 
 • Infringe any patent, trademark, trade secret, copyright, or other intellectual property or other rights of any other person. 
-• Violate the legal rights (including the rights of publicity and privacy) of others or contain any material that could give rise to any civil or criminal liability under applicable laws or regulations or that otherwise may be in conflict with this Agreement and our Privacy Policy (www.recipe-confidential.com/privacy). 
+• Violate the legal rights (including the rights of publicity and privacy) of others or contain any material that could give rise to any civil or criminal liability under applicable laws or regulations or that otherwise may be in conflict with this Agreement and our Privacy Policy (www.familymeal.com/privacy). 
 • Promote any illegal activity, or advocate, promote, or assist any unlawful act.
 
 

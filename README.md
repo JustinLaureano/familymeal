@@ -1,4 +1,4 @@
-# recipe-confidential
+# familymeal
 Web-app for storing and sharing personal recipes (WIP)
 
 ## Tech Stack

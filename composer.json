@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "familymeal",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Recipe Management Application",
     "keywords": [
         "framework",
         "laravel"

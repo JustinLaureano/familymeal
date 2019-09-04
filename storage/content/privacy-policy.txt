@@ -3,9 +3,9 @@ Last Modified: August 28, 2019
 
 Introduction
 
-Recipe Confidential (”Company” or “We”) respect your privacy and are committed to protecting it through our compliance with this policy.
+FamilyMeal (”Company” or “We”) respect your privacy and are committed to protecting it through our compliance with this policy.
 
-This policy describes the types of information we may collect from you or that you may provide when you visit the website www.recipe-confidential.com (our “Website”) and our practices for collecting, using, maintaining, protecting, and disclosing that information.
+This policy describes the types of information we may collect from you or that you may provide when you visit the website www.familymeal.com (our “Website”) and our practices for collecting, using, maintaining, protecting, and disclosing that information.
 
 This policy applies to information we collect:
 
@@ -100,7 +100,7 @@ We may disclose aggregated information about our users, and information that doe
 
 To our subsidiaries and affiliates.
 To contractors, service providers, and other third parties we use to support our business and who are bound by contractual obligations to keep personal information confidential and use it only for the purposes for which we disclose it to them.
-To a buyer or other successor in the event of a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Recipe Confidentials’s assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which personal information held by Recipe Confidential about our Software users is among the assets transferred.
+To a buyer or other successor in the event of a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of FamilyMeals’s assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which personal information held by FamilyMeal about our Software users is among the assets transferred.
 To fulfill the purpose for which you provide it. For example, if you give us an email address to use the “email a friend” feature of our Software, we will transmit the contents of that email and your email address to the recipients.
 For any other purpose disclosed by us when you provide the information.
 With your consent.
@@ -108,8 +108,8 @@ With your consent.
 We may also disclose your personal information:
 
 To comply with any court order, law, or legal process, including to respond to any government or regulatory request.
-To enforce or apply our terms of use (www.recipe-confidential.com/terms) and other agreements, including for billing and collection purposes.
-If we believe disclosure is necessary or appropriate to protect the rights, property, or safety of Recipe Confidential, our customers, or others.
+To enforce or apply our terms of use (www.familymeal.com/terms) and other agreements, including for billing and collection purposes.
+If we believe disclosure is necessary or appropriate to protect the rights, property, or safety of FamilyMeal, our customers, or others.
 
 
 Choices About How We Use and Disclose Your Information
@@ -121,7 +121,7 @@ We do not control third parties’ collection or use of your information to serv
 
 Accessing and Correcting Your Information
 
-You can review and change your personal information by logging into the Software and visiting your account profile page. You may also send us an email at justinlaureano@justinlaureano.com to request access to, correct or delete any personal information that you have provided to us. We cannot delete your personal information except by also deleting your user account. We may not accommodate a request to change information if we believe the change would violate any law or legal requirement or cause the information to be incorrect. Proper access and use of information provided on the Software, including User Contributions, is governed by our terms of use (www.recipe-confidential.com/terms).
+You can review and change your personal information by logging into the Software and visiting your account profile page. You may also send us an email at justinlaureano@justinlaureano.com to request access to, correct or delete any personal information that you have provided to us. We cannot delete your personal information except by also deleting your user account. We may not accommodate a request to change information if we believe the change would violate any law or legal requirement or cause the information to be incorrect. Proper access and use of information provided on the Software, including User Contributions, is governed by our terms of use (www.familymeal.com/terms).
 
 Data Security
 

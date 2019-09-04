@@ -1,7 +1,7 @@
 <section class="hero">
 
     <section class="hero__caption">
-        <h1 class="hero__title">Recipe Confidential</h1>
+        <h1 class="hero__title">FamilyMeal</h1>
         <p class="hero__subtitle">Keep all your recipes safe in one place.</p>
     </section>
 

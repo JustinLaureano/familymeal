@@ -1,8 +1,8 @@
 <header class="header">
     <a href="/">
         <img 
-            src="logos/rp_logo_color_400x100.png" 
-            alt="Recipe Confidential"
+            src="logos/logo_color_400x90.png" 
+            alt="FamilyMeal"
             class="header__logo" />
     </a>
 

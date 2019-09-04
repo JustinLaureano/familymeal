@@ -10,13 +10,13 @@
     <h2 class="privacy__header">Introduction</h2>
 
     <p class="privacy__paragraph">
-        Recipe Confidential (”Company” or “We”) respect your privacy and are committed to protecting
+        FamilyMeal (”Company” or “We”) respect your privacy and are committed to protecting
          it through our compliance with this policy.
     </p>
 
     <p class="privacy__paragraph">
         This policy describes the types of information we may collect from you or that you may provide
-        when you visit the website www.recipe-confidential.com (our “Website”) and our practices for 
+        when you visit the website www.familymeal.com (our “Website”) and our practices for 
         collecting, using, maintaining, protecting, and disclosing that information.
     </p>
 
@@ -286,9 +286,9 @@
         </li>
         <li>
             To a buyer or other successor in the event of a merger, divestiture, restructuring, 
-            reorganization, dissolution, or other sale or transfer of some or all of Recipe Confidentials’s 
+            reorganization, dissolution, or other sale or transfer of some or all of FamilyMeals’s 
             assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, 
-            in which personal information held by Recipe Confidential about our Software users is among 
+            in which personal information held by FamilyMeal about our Software users is among 
             the assets transferred.
         </li>
         <li>
@@ -310,12 +310,12 @@
             any government or regulatory request.
         </li>
         <li>
-            To enforce or apply our terms of use (<a href="/terms">www.recipe-confidential.com/terms</a>) 
+            To enforce or apply our terms of use (<a href="/terms">www.familymeal.com/terms</a>) 
             and other agreements, including for billing and collection purposes.
         </li>
         <li>
             If we believe disclosure is necessary or appropriate to protect the rights, property, 
-            or safety of Recipe Confidential, our customers, or others.
+            or safety of FamilyMeal, our customers, or others.
         </li>
     </ul>
 
@@ -360,7 +360,7 @@
         not accommodate a request to change information if we believe the change would violate any law 
         or legal requirement or cause the information to be incorrect. Proper access and use of 
         information provided on the Software, including User Contributions, is governed by our terms 
-        of use (www.recipe-confidential.com/terms).
+        of use (www.familymeal.com/terms).
     </p>
 
     <h2 class="privacy__header">Data Security</h2>

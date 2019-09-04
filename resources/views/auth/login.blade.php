@@ -3,7 +3,7 @@
 @section('content')
 <section class="login">
     <section class="login__caption">
-        <h1 class="login__title">Recipe Confidential</h1>
+        <h1 class="login__title">FamilyMeal</h1>
         <p class="login__subtitle">Keep all your recipes safe in one place.</p>
     </section>
 

@@ -5,8 +5,8 @@
     <p class="terms__paragraph">
         This Terms of Use and Software End User License Agreement (“<span class="bold">Agreement</span>”) 
         is a binding agreement between you (“<span class="bold">End User</span>” or “<span class="bold">you</span>”) 
-        and Recipe Confidential (“<span class="bold">Company</span>” or “<span class="bold">We</span>”). 
-        This Agreement governs your use of www.recipe-confidential.com (the “<span class="bold">Website</span>”) 
+        and FamilyMeal (“<span class="bold">Company</span>” or “<span class="bold">We</span>”). 
+        This Agreement governs your use of www.familymeal.com (the “<span class="bold">Website</span>”) 
         (collectively the Website and applications, including all related documentation, are the 
         “<span class="bold">Software</span>”). The Software is licensed, not sold, to you.
     </p>
@@ -162,7 +162,7 @@
         complete. You agree that all information you provide to register with this Software or 
         otherwise, including, but not limited to, through the use of any interactive features on 
         the Software, is governed by our Privacy Policy 
-        (<a class="terms__link" href="/privacy">www.recipe-confidential.com/privacy</a>), 
+        (<a class="terms__link" href="/privacy">www.familymeal.com/privacy</a>), 
         and you consent to all actions we take with respect to your information consistent with 
         our Privacy Policy.
     </p>
@@ -194,7 +194,7 @@
         yourself as a condition to using the Software or certain of its features or functionality, 
         and the Software may provide you with opportunities to share information about yourself with 
         others. All information we collect through or in connection with this Software is subject to 
-        our Privacy Policy (<a class="terms__link" href="/privacy">www.recipe-confidential.com/privacy</a>). 
+        our Privacy Policy (<a class="terms__link" href="/privacy">www.familymeal.com/privacy</a>). 
         By using and providing information to or through this Software, you consent to all actions 
         taken by us with respect to your information in compliance with the Privacy Policy.
     </p>
@@ -323,7 +323,7 @@
             or contain any material that could give rise to any civil or criminal liability 
             under applicable laws or regulations or that otherwise may be in conflict with 
             this Agreement and our Privacy Policy 
-            (<a class="terms__link" href="/privacy">www.recipe-confidential.com/privacy</a>).
+            (<a class="terms__link" href="/privacy">www.familymeal.com/privacy</a>).
         </li>
         <li>
             Promote any illegal activity, or advocate, promote, or assist any unlawful act.
